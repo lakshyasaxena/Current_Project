@@ -7,6 +7,7 @@
 
 
 #define message_box msb
+#define message_box_2 msb2
 #define message mm
 #define object_of_main_menu1 omm1
 #define object_type_one_menu otom
@@ -38,7 +39,9 @@ public:
     void header();
     void menu();
     void message_box();
+    void message_box_2();
     void undo();
+    void repos();
     void jump_to_main();
     void message(short);
     friend void function_of_object_one();
@@ -66,6 +69,7 @@ public:
     void object_display(short,string&,ll&);  //  function overloading
     void object_display(short,string&,ll&,vector <string>&);      //  function overloading
     void object_display(short,string&,ll&,vector <string>&,short&,vector <pair<short,string>>&);      //  function overloading
+    void object_display(vector <tuple<bool,short,short,string>>&,short&);        // function overloading
     void otom_phase00();          // for phase zero state zero
     void otom_phase01(string&);    // for phase zero state one
     void otom_phase02(string&);    // for phase zero state two
@@ -75,6 +79,7 @@ public:
     void otom_phase14_3(vector <string>&); // for phase one state four part3
     void otom_phase15_1(string&,ll&,vector <string>&);  // for phase one state five part 1
     void otom_phase16_1(string &str,ll &t,vector <string> &v1,short&,vector <pair<short,string>>&);      // for phase one state six part 1
+    void otom_phase27(vector <tuple<bool,short,short,string>>&,short&);                  // for phase two state seven
 };
 
 
@@ -105,7 +110,8 @@ public:
     string type_of_container16(short);            // for phase one state six
     short count_nth_container16(string&);          //for phase one state six
     void get_correct_print_container16(pair<short,string>&);    //for phase one state six
-    void delete_all_containers();            // for phase one state six
+    void  build_set_of_all_attributes207();              // for phase two and state zero_seven
+    void delete_all_containers();            // phase and state yet to be decided ..........................................
     void name_the_object00();                  // for phase zero state zero
     void main_controller();
     object_one()  // constructor
@@ -247,11 +253,32 @@ void main_menu::msb()
 
 
 
+
+void main_menu::msb2()
+{
+    gxy(0,25);sbc(dr);printf("MESSAGE BOX");sbc(bb);
+}
+
+
+
+
 void main_menu::undo()
 {
     gxy(54,1);
     printf("Type ");sfc(lr);printf("und");sfc(ww);printf(" and ");sbc(dr);printf("ENTER");sbc(bb);printf(" to ");sbc(lgg);printf("UNDO");sbc(bb);
 }
+
+
+
+ void main_menu::repos()
+ {
+    gxy(0,4);sfc(lc);printf("\n     COMMANDS\n");sfc(ww);
+    printf(" Type the corresponding key and ");sbc(dr);printf("ENTER");sbc(bb);printf(" to ");sfc(lc);printf("add ATTRIBUTE into your object\n\n");sfc(ww);
+    printf(" Type ");sfc(lr);printf("rep");sfc(ww);printf(" and ");sbc(dr);printf("ENTER");sbc(bb);printf(" to ");sfc(lc);printf("Reposition the ATTRIBUTES");sfc(ww);printf("\n\n");
+    printf(" Type ");sfc(lr);printf("nex");sfc(ww);printf(" and ");sbc(dr);printf("ENTER");sbc(bb);printf(" to ");sfc(lc);printf("Move in next Line");sfc(ww);printf("\n");
+ }
+
+
 
 
 
@@ -270,6 +297,11 @@ void main_menu::mm(short ch)
 {
     switch (ch)
     {
+    case 0:
+        {
+            gxy(5,26);printf("ENTER YOUR CHOICE ->   ");
+            break;
+        }
     case 1:
         {
             gxy(5,22);printf("ENTER YOUR CHOICE ->   ");
@@ -558,6 +590,31 @@ void otom::object_display(short ch,string &str,ll &t,vector <string> &v1,short &
 
 
 
+void otom::object_display(vector <tuple<bool,short,short,string>> &v1,short& n)
+{
+    gxy(7,13);sfc(ly);printf("INITIALIZERS");sfc(ww); if(n==0) { gxy(4,14);printf("(no initializers)"); }
+    short set_x_axis=1;
+    short set_y_axis=14;
+    for(short i=0;i<n;i++)
+    {
+        if(get<0>(v1[i])==true) continue;
+        gxy(set_x_axis,++set_y_axis);printf("Press ");sfc(lr);cout<<get<2>(v1[i]);sfc(ww);printf(" and ");sbc(dr);printf("ENTER");sbc(bb);printf(" to add ");sfc(ly);cout<<get<3>(v1[i])<<"\n";sfc(ww);
+    }
+    set_x_axis=38;
+    set_y_axis=14;
+    gxy(48,13);sfc(lg);printf("CONTAINERS");sfc(ww);
+    for(short i=n;i<v1.size();i++)
+    {
+        if(get<0>(v1[i])==true) continue;
+        gxy(set_x_axis,++set_y_axis);printf("Press ");sfc(lr);cout<<get<2>(v1[i]);sfc(ww);printf(" and ");sbc(dr);printf("ENTER");sbc(bb);printf(" to add ");sfc(lg);cout<<get<3>(v1[i])<<"\n";sfc(ww);
+    }
+}
+
+
+
+
+
+
 
 
 void otom::otom_phase00()
@@ -657,6 +714,16 @@ void otom::otom_phase16_1(string &str,ll &t,vector <string> &v1,short &n,vector 
     gxy(2,3);sbc(dy);printf("PHASE ONE");sbc(bb);printf("-> Adding ATTRIBUTES in Object");mm(17);mm(18);
 }
 
+
+
+
+
+
+void otom::otom_phase27(vector<tuple<bool,short,short,string>> &v1,short &n)
+{
+    header();jump_to_main();repos();object_display(v1,n);
+    gxy(2,3);sbc(dy);printf("PHASE THREE");sbc(bb);printf("-> Positioning of ATTRIBUTES in Object");msb2();
+}
 
 
 
@@ -832,9 +899,28 @@ void object_one::get_correct_print_container16(pair<short,string> &p1)
 
 
 
+void object_one::build_set_of_all_attributes207()
+{
+    incrementer=0;
+    short incrementer2=0;
+    for(short i=0;i<sofi.size();i++)
+    {
+        sofaa.push_back(make_tuple(false,--incrementer2,++incrementer,sofi[i].second));
+    }
+    for(short i=0;i<containers.size();i++)
+    {
+        sofaa.push_back(make_tuple(false,containers[i].first,++incrementer,print_containers[i].second));
+    }
+}
+
+
+
+
+
 
 void object_one::delete_all_containers()     ////phase and state yet to be decided.................................................................................
 {
+    for(short i=0;i<containers.size();i++) { sofaa.pop_back(); }
     containers.clear();
     print_containers.clear();
     sofc.clear();
@@ -995,7 +1081,7 @@ void object_one::main_controller()    // main controller function
                 else if(choice1=="und")
                 {
                     if(i==1) break;
-                    else { unoi.pop_back();i-=2;continue; }
+                    else { unoi.pop_back();sofi.pop_back();++incrementer;i-=2;continue; }
                 }
                 else
                 {
@@ -1010,9 +1096,7 @@ void object_one::main_controller()    // main controller function
                         mm(14);getch();--i;continue;
                     }
                     unoi.push_back(choice1);
-                    pair <short,string> p1;
-                    p1=make_pair(--incrementer,choice1);
-                    sofi.push_back(p1);
+                    sofi.push_back(make_pair(--incrementer,choice1));
                 }
             }
 
@@ -1116,11 +1200,9 @@ void object_one::main_controller()    // main controller function
                             string name_of_container=type_of_container16(int_checker);
                             sofc.push_back(name_of_container);
                             short nth_number_of_container=count_nth_container16(name_of_container);
+                            containers.push_back(make_pair(int_checker,name_of_container));
                             pair <short,string> p1;
                             p1=make_pair(nth_number_of_container,name_of_container);
-                            //p1.first=nth_number_of_container;
-                            //p1.second=name_of_container;
-                            containers.push_back(p1);
                             get_correct_print_container16(p1);
                             print_containers.push_back(p1);
                         }
@@ -1145,6 +1227,7 @@ void object_one::main_controller()    // main controller function
             system("cls");
             mm(19);
             getch();
+            build_set_of_all_attributes207();
             state="state7";
         }
 
@@ -1153,28 +1236,18 @@ void object_one::main_controller()    // main controller function
         // phase 3 state 7
         if(state=="state7")
         {
-            cout<<"Reached successfully\n";
+
+        for(short i=0;i<sofaa.size();i++)
+        {
+            system("cls");
+            otom_phase27(sofaa,no_of_initializers);
+            mm(0);
+            cin>>choice1;
+
+        }
 
 
-            //vector <tuple<bool,short,short,string>> set_of_all_attributes;  // short_name -> sofaa
-            incrementer=0;
-            short incrementer2=0;
-            for(short i=0;i<sofi.size();i++)
-            {
-                cout<<sofi[i].first<<"  "<<sofi[i].second<<"\n";
-            }
-            for(short i=0;i<sofi.size();i++)
-            {
-                cout<<sofi[i].first<<"  "<<sofi[i].second<<"\n";
-                sofaa.push_back(make_tuple(false,--incrementer2,++incrementer,sofi[i].second));
-            }
-            cout<<"\n\n\n";
-            for(short i=0;i<containers.size();i++)
-            {
-                cout<<containers[i].first<<"  "<<containers[i].second<<"\n";
-                sofaa.push_back(make_tuple(false,containers[i].first,++incrementer,print_containers[i].second));
-            }
-            cout<<"\n\n";
+
             for(short i=0;i<sofaa.size();i++)
             {
                 cout<<get<0>(sofaa[i])<<"  "<<get<1>(sofaa[i])<<"  "<<get<2>(sofaa[i])<<"  "<<get<3>(sofaa[i])<<"  \n";
@@ -1183,6 +1256,7 @@ void object_one::main_controller()    // main controller function
         }
 
     }
+
 }
 
 
