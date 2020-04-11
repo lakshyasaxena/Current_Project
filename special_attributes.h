@@ -4,7 +4,7 @@
 #include <conio.h>
 #define  black bb
 #define dark_blue db
-#define dark_green sg
+#define dark_green dg
 #define dark_cyan dc
 #define dark_red dr
 #define dark_magenta dm
