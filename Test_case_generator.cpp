@@ -1,11 +1,10 @@
-//////////////////////////////////////////////////////////////////////////////////////
-//88888888888888888888888888888888888888
 #include <bits/stdc++.h>
 #include "special_attributes.h"
 #include "special_functions.h"
 
 
 
+#define three_D_cube _3dc
 #define message_box msb
 #define message_box_2 msb2
 #define message mm
@@ -69,7 +68,8 @@ public:
     void object_display(short,string&,ll&);  //  function overloading
     void object_display(short,string&,ll&,vector <string>&);      //  function overloading
     void object_display(short,string&,ll&,vector <string>&,short&,vector <pair<short,string>>&);      //  function overloading
-    void object_display(vector <tuple<bool,short,short,string>>&,short&);        // function overloading
+    void object_display(vector<tuple<bool,short,short,string>>&,short&);        // function overloading
+    void object_display(class object_one&); //////////////////////////////////////////////////////////////////////////////////////
     void otom_phase00();          // for phase zero state zero
     void otom_phase01(string&);    // for phase zero state one
     void otom_phase02(string&);    // for phase zero state two
@@ -79,7 +79,7 @@ public:
     void otom_phase14_3(vector <string>&); // for phase one state four part3
     void otom_phase15_1(string&,ll&,vector <string>&);  // for phase one state five part 1
     void otom_phase16_1(string &str,ll &t,vector <string> &v1,short&,vector <pair<short,string>>&);      // for phase one state six part 1
-    void otom_phase27(vector <tuple<bool,short,short,string>>&,short&);                  // for phase two state seven
+    void otom_phase27_1(vector <tuple<bool,short,short,string>>&,short&);                  // for phase two state seven part one
 };
 
 
@@ -90,7 +90,7 @@ class object_one:public otom // child class of object_type_one_menu and grand ch
 private:
     string name_of_object="";
     string state="state0";
-    ll test_cases=1;   //default set to one
+    ll test_cases=0;   //default set to zero
     short no_of_initializers=0;
     short no_of_containers=1;
     vector <pair <short,string>> set_of_initializers;    // short_name -> sofi
@@ -99,6 +99,7 @@ private:
     vector <pair <short,string>> containers;
     vector <pair<short,string>> print_containers;
     vector <tuple<bool,short,short,string>> set_of_all_attributes;  // short_name -> sofaa
+    vector <vector <pair <short,string>>> three_D_cube;             // short_name -> _3dc
 public:
     short incrementer=0;
     string choice1="";
@@ -110,14 +111,19 @@ public:
     string type_of_container16(short);            // for phase one state six
     short count_nth_container16(string&);          //for phase one state six
     void get_correct_print_container16(pair<short,string>&);    //for phase one state six
-    void  build_set_of_all_attributes207();              // for phase two and state zero_seven
+    void  build_set_of_all_attributes207();              // for phase two state zero_seven (message and build)
+    bool check_the_attribute_choice_range27(string&);          // for phase two state seven
+    bool check_availability_of_attribute27(short&);           // for phase two state seven
+    void object_display_in_phase_two27();                   // for phase two state seven
+    void object_display_in_phase_two38();                   // for phase two state eight
+    void reset_three_dimensional_object27();                  // for phase two state seven
     void delete_all_containers();            // phase and state yet to be decided ..........................................
     void name_the_object00();                  // for phase zero state zero
     void main_controller();
     object_one()  // constructor
     {
         name_of_object="";
-        test_cases=1;
+        test_cases=0;
         state="state0";
         choice1="";
         no_of_initializers=0;
@@ -443,6 +449,24 @@ void main_menu::mm(short ch)
             printf("\n");printf("Press ");sbc(dr);printf("ENTER");sbc(bb);printf(" to continue...");
             break;
         }
+    case 21:
+        {
+            gxy(5,27);printf("Please enter a valid choice, now  press ");sbc(dr);printf("ENTER");sbc(bb);printf(" key");
+            getch();
+            break;
+        }
+    case 22:
+        {
+            gxy(0,27);printf("This ATTRIBUTE is already inserted, now press ");sbc(dr);printf("ENTER");sbc(bb);printf(" key");
+            getch();
+            break;
+        }
+     case 23:
+        {
+            gxy(0,27);printf("You must add at least one ATTRIBUTE to move into next line, now press ");sbc(dr);printf("ENTER");sbc(bb);printf(" key");
+            getch();
+            break;
+        }
     }
 }
 
@@ -616,7 +640,6 @@ void otom::object_display(vector <tuple<bool,short,short,string>> &v1,short& n)
 
 
 
-
 void otom::otom_phase00()
 {
     header();msb();mm(3);undo();jump_to_main();object_display(0);
@@ -719,7 +742,7 @@ void otom::otom_phase16_1(string &str,ll &t,vector <string> &v1,short &n,vector 
 
 
 
-void otom::otom_phase27(vector<tuple<bool,short,short,string>> &v1,short &n)
+void otom::otom_phase27_1(vector<tuple<bool,short,short,string>> &v1,short &n)
 {
     header();jump_to_main();repos();object_display(v1,n);
     gxy(2,3);sbc(dy);printf("PHASE THREE");sbc(bb);printf("-> Positioning of ATTRIBUTES in Object");msb2();
@@ -918,6 +941,104 @@ void object_one::build_set_of_all_attributes207()
 
 
 
+bool object_one::check_the_attribute_choice_range27(string &temp)
+{
+     if(temp.size()>3)
+        return false;
+    bool check=all_integers(temp);
+    return check;
+}
+
+
+
+
+
+
+bool object_one::check_availability_of_attribute27(short& temp)
+{
+    if(get<0>(sofaa[temp-1])==true) return false;
+    return true;
+}
+
+
+
+
+
+
+void object_one::reset_three_dimensional_object27()
+{
+    _3dc.clear();
+    for(short i=0;i<sofaa.size();i++)
+    {
+        get<0>(sofaa[i])=false;
+    }
+}
+
+
+
+
+
+void object_one::object_display_in_phase_two27()
+{
+    gxy(0,28);
+    sfc(lc);cout<<name_of_object;sfc(ww);
+    if(test_cases==0){ cout<<" (no copies) \n"; }
+    else { printf(" (T=");cout<<test_cases<<")\n"; }
+    if(test_cases!=0) {printf("T\n");}
+    for(short i=0;i<_3dc.size();i++)
+    {
+        for(short j=0;j<_3dc[i].size();j++)
+        {
+            if(_3dc[i][j].first<0) sfc(ly);
+            else if(_3dc[i][j].first>0) sfc(lg);
+            cout<<_3dc[i][j].second<<" ";sfc(ww);
+        }
+        if(i==(_3dc.size()-1)) break;
+        cout<<"\n";
+    }
+    string s1="Acurrent_pointer";s1[0]-=38;
+    sfc(lr);cout<<s1;sfc(ww);
+}
+
+
+
+
+
+
+void object_one::object_display_in_phase_two38()
+{
+    gxy(0,5);
+    printf("This is the structure of your object\n");
+    sfc(lc);cout<<name_of_object;sfc(ww);
+    if(test_cases==0){ cout<<" (no copies) \n"; }
+    else { printf(" (T=");cout<<test_cases<<" copies)\n"; }
+    if(test_cases!=0) {printf("T\n");}
+    for(short i=0;i<_3dc.size();i++)
+    {
+        for(short j=0;j<_3dc[i].size();j++)
+        {
+            if(_3dc[i][j].first<0) sfc(ly);
+            else if(_3dc[i][j].first>0) sfc(lg);
+            cout<<_3dc[i][j].second<<" ";sfc(ww);
+        }
+        printf("\n");
+    }sbc(dr);
+    printf("\n\nMESSAGE BOX\n");sbc(bb);
+    printf("You have successfully completed the three phases\n");
+    printf("Now you are just one final phase away to generate your test cases\n");
+    printf("\n\n  Type ");sfc(lr);printf("rep");sfc(ww);
+    printf(" and ");sbc(dr);printf("ENTER");sbc(bb);printf(" to reposition your object");
+    printf("\n\n  Type ");sfc(lg);printf("con");sfc(ww);
+    printf(" and ");sbc(dr);printf("ENTER");sbc(bb);printf(" to continue...");
+    printf("\n\nEnter your choice ->  ");
+}
+
+
+
+
+
+
+
 void object_one::delete_all_containers()     ////phase and state yet to be decided.................................................................................
 {
     for(short i=0;i<containers.size();i++) { sofaa.pop_back(); }
@@ -1015,7 +1136,7 @@ void object_one::main_controller()    // main controller function
         }
 
 
-
+        // state 03_message
         if(state=="state03_message")
         {
             system("cls");
@@ -1034,7 +1155,7 @@ void object_one::main_controller()    // main controller function
             else if(choice1=="und")
             {
                 state="state1";
-                test_cases=1;
+                test_cases=0;
                 continue;
             }
             else if(choice1=="exe") { break; }
@@ -1155,7 +1276,7 @@ void object_one::main_controller()    // main controller function
         }
 
 
-        // state 6
+        // state 6                   type of containers
         if(state=="state6")
         {
 
@@ -1221,7 +1342,7 @@ void object_one::main_controller()    // main controller function
         }
 
 
-
+        // state 07 message and build
         if(state=="state07")
         {
             system("cls");
@@ -1233,25 +1354,91 @@ void object_one::main_controller()    // main controller function
 
 
 
-        // phase 3 state 7
+        // phase 2 state 7                positioning of attributes
         if(state=="state7")
         {
+            short elements=sofaa.size();
+            vector <pair<short,string>> null_object;
+            null_object.push_back(make_pair(0,""));
+            _3dc.push_back(null_object);
+            while(true)
+            {
+                vector <pair<short,string>> dummy_3dc;
+                while(true)
+                {
+                    if(elements==0) break;
+                    system("cls");
+                    otom_phase27_1(sofaa,no_of_initializers);
+                    object_display_in_phase_two27();mm(0);
+                    cin>>choice1;
+                    if(choice1=="min") break;
+                    else if(choice1=="exe") break;
+                    else if(choice1=="rep") break;
+                    else if(choice1=="nex")
+                    {
+                        if(dummy_3dc.size()==0) { mm(23);continue; }
+                        else
+                        {
+                            _3dc.push_back(null_object);
+                            break;
+                         }
+                    }
+                    else
+                    {
+                        bool check=check_the_attribute_choice_range27(choice1);
+                        if(check==false) { mm(21);continue; }
+                        short int_checker=string_to_integer_converter(choice1);
+                        if(int_checker<=0||int_checker>sofaa.size())
+                            { mm(21);continue; }
+                        check=check_availability_of_attribute27(int_checker);
+                        if(check==false) { mm(22);continue; }
+                        dummy_3dc.push_back(make_pair(get<1>(sofaa[int_checker-1]),get<3>(sofaa[int_checker-1])));
+                        get<0>(sofaa[int_checker-1])=true;
+                        --elements;
+                        _3dc.pop_back();
+                        _3dc.push_back(dummy_3dc);
+                    }
 
-        for(short i=0;i<sofaa.size();i++)
-        {
-            system("cls");
-            otom_phase27(sofaa,no_of_initializers);
-            mm(0);
-            cin>>choice1;
-
+                }
+                if(elements==0) {state="state08";break; }
+                if(choice1=="min") break;
+                else if(choice1=="exe") break;
+                else if(choice1=="rep") { reset_three_dimensional_object27();break; }
+            }
+            if(choice1=="min") break;
+            else if(choice1=="exe") break;
         }
 
 
 
-            for(short i=0;i<sofaa.size();i++)
+
+
+
+        // phase 3 state 08                 giving values to object
+        if(state=="state08")
+        {
+            system("cls");
+            header();jump_to_main();
+            object_display_in_phase_two38();
+            cin>>choice1;
+            if(choice1=="min" || choice1=="exe") break;
+            if(choice1=="con") { state="state8";continue; }
+            if(choice1=="rep") { state="state7"; reset_three_dimensional_object27(); }
+            else
             {
-                cout<<get<0>(sofaa[i])<<"  "<<get<1>(sofaa[i])<<"  "<<get<2>(sofaa[i])<<"  "<<get<3>(sofaa[i])<<"  \n";
+                printf("\nEnter a valid choice, now press ");sbc(dr);printf("ENTER");sbc(bb);printf(" to continue");getch();
             }
+        }
+
+
+
+
+
+        // state 8
+        if(state=="state8")
+        {
+            system("cls");
+            printf("Reached final phase successfully");
             getch();
         }
 
