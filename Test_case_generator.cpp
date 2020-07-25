@@ -15,6 +15,12 @@
 #define set_of_containers sofc
 #define set_of_initializers sofi
 #define set_of_all_attributes sofaa
+#define status_of_three_D_cube s_3dc
+#define status_two_of_three_D_cube s2_3dc
+#define original_three_D_cube o3dc
+#define custom_data_type cdt
+#define stored_initializer si
+#define free_integer fi
 
 
 
@@ -90,9 +96,12 @@ class object_one:public otom // child class of object_type_one_menu and grand ch
 private:
     string name_of_object="";
     string state="state0";
-    ll test_cases=0;   //default set to zero
+    ll test_cases=1;   //default set to one
     short no_of_initializers=0;
     short no_of_containers=1;
+    short no_of_attribute_for_custom=1;
+    short index_of_custom_data_type=-1;
+    string custom_structure="";
     vector <pair <short,string>> set_of_initializers;    // short_name -> sofi
     vector <string> unique_names_of_identifiers;         // short_name -> unoi
     vector <string> set_of_containers;                   // short_name -> sofc
@@ -100,6 +109,15 @@ private:
     vector <pair<short,string>> print_containers;
     vector <tuple<bool,short,short,string>> set_of_all_attributes;  // short_name -> sofaa
     vector <vector <pair <short,string>>> three_D_cube;             // short_name -> _3dc
+    vector <vector <bool>> status_of_three_D_cube;                  // short_name -> s_3dc
+    vector <vector <string>> status_two_of_three_D_cube;            // short name -> s2_3dc;
+    vector <vector <pair<ll,string>>> original_three_D_cube;        // short name -> o3dc;
+    vector <pair<ll,string>> dummy_o3dc;
+    vector <vector <pair<ll,string>>> dummy2_o3dc;
+    vector <vector <pair<ll,string>>> custom_data_type;             // short name -> cdt
+    vector <tuple<short,int,int,string>> stored_initializer;        // short name -> si
+    ll free_integer=0;                                              // short name -> fi
+
 public:
     short incrementer=0;
     string choice1="";
@@ -112,23 +130,27 @@ public:
     short count_nth_container16(string&);          //for phase one state six
     void get_correct_print_container16(pair<short,string>&);    //for phase one state six
     void  build_set_of_all_attributes207();              // for phase two state zero_seven (message and build)
-    bool check_the_attribute_choice_range27(string&);          // for phase two state seven
-    bool check_availability_of_attribute27(short&);           // for phase two state seven
-    void object_display_in_phase_two27();                   // for phase two state seven
-    void object_display_in_phase_two38();                   // for phase two state eight
-    void reset_three_dimensional_object27();                  // for phase two state seven
+    bool check_the_attribute_choice_range27(string&);        // for phase two state seven
+    bool check_availability_of_attribute27(short&);          // for phase two state seven
+    void object_display_in_phase_two27();                    // for phase two state seven
+    void object_display_in_phase_three308();                 // for phase three state eight
+    void object_display_in_phase_three38();                  // for phase three state eight
+    void reset_three_dimensional_object27();                 // for phase two state seven
     void delete_all_containers();            // phase and state yet to be decided ..........................................
     void name_the_object00();                  // for phase zero state zero
     void main_controller();
     object_one()  // constructor
     {
         name_of_object="";
-        test_cases=0;
+        test_cases=1;
         state="state0";
         choice1="";
         no_of_initializers=0;
         no_of_containers=1;
         incrementer=0;
+        no_of_attribute_for_custom=1;
+        custom_structure="";
+        index_of_custom_data_type=-1;
     }
 };
 
@@ -1005,7 +1027,7 @@ void object_one::object_display_in_phase_two27()
 
 
 
-void object_one::object_display_in_phase_two38()
+void object_one::object_display_in_phase_three308()
 {
     gxy(0,5);
     printf("This is the structure of your object\n");
@@ -1031,6 +1053,31 @@ void object_one::object_display_in_phase_two38()
     printf("\n\n  Type ");sfc(lg);printf("con");sfc(ww);
     printf(" and ");sbc(dr);printf("ENTER");sbc(bb);printf(" to continue...");
     printf("\n\nEnter your choice ->  ");
+}
+
+
+
+
+
+
+void object_one::object_display_in_phase_three38()
+{
+    gxy(2,3);sbc(dy);printf("PHASE FOUR");sbc(bb);printf("-> Giving Values to ATTRIBUTES");
+    gxy(0,5);printf("This is the structure of your object\n");
+    sfc(lc);cout<<name_of_object;sfc(ww);
+    if(test_cases==0){ cout<<" (no copies) \n"; }
+    else { printf(" (T=");cout<<test_cases<<" copies)\n"; }
+    if(test_cases!=0) {printf("T\n");}
+    for(short i=0;i<_3dc.size();i++)
+    {
+        for(short j=0;j<_3dc[i].size();j++)
+        {
+            if(_3dc[i][j].first<0) sfc(ly);
+            else if(_3dc[i][j].first>0) sfc(lg);
+            cout<<_3dc[i][j].second<<" ";sfc(ww);
+        }
+        printf("\n");
+    }
 }
 
 
@@ -1412,33 +1459,4929 @@ void object_one::main_controller()    // main controller function
 
 
 
-
-
         // phase 3 state 08                 giving values to object
         if(state=="state08")
         {
             system("cls");
             header();jump_to_main();
-            object_display_in_phase_two38();
+            object_display_in_phase_three308();
             cin>>choice1;
             if(choice1=="min" || choice1=="exe") break;
-            if(choice1=="con") { state="state8";continue; }
-            if(choice1=="rep") { state="state7"; reset_three_dimensional_object27(); }
-            else
+            if(choice1=="con")
             {
-                printf("\nEnter a valid choice, now press ");sbc(dr);printf("ENTER");sbc(bb);printf(" to continue");getch();
+                 state="state8";
+                for(short i=0;i<_3dc.size();i++)
+                {
+                    vector <bool> vv;
+                    for(short j=0;j<_3dc[i].size();j++)
+                    {
+                        vector <string> vv2; vv.push_back(false);
+                        short ch=_3dc[i][j].first;
+                        switch(ch)
+                        {
+                            case 1:  // INTEGER
+                                {
+                                    vv2.push_back("~");vv2.push_back("~");vv2.push_back("~"); break;
+                                }
+                            case 2:  // REAL
+                                {
+                                     vv2.push_back("~");vv2.push_back("~");vv2.push_back("~"); break;
+                                }
+                            case 3:  //  ARRAY
+                                {
+                                     vv2.push_back("~");vv2.push_back("~");vv2.push_back("~");
+                                     vv2.push_back("~");vv2.push_back("~");vv2.push_back("~");vv2.push_back("~"); break;
+                                }
+                            case 4:  //  STRING
+                                {
+                                    vv2.push_back("~");vv2.push_back("~");vv2.push_back("~");vv2.push_back("~");vv2.push_back("~"); break;
+                                }
+                            case 5:  //  MATRIX
+                                {
+                                    vv2.push_back("~");vv2.push_back("~");vv2.push_back("~");vv2.push_back("~");vv2.push_back("~");
+                                    vv2.push_back("~");vv2.push_back("~");vv2.push_back("~"); break;
+                                }
+                            case 6:  //  TREE
+                                {
+                                    vv2.push_back("~"); break;
+                                }
+                            case 7:  //  GRAPH
+                                {
+                                    vv2.push_back("~"); break;
+                                }
+                            case 8:  // CUSTOM DATA TYPE
+                                {
+                                    vv2.push_back("~");vv2.push_back("~"); break;
+                                }
+                            default:  //  INITIALIZERS
+                                {
+                                    vv2.push_back("~");vv2.push_back("~");
+                                }
+                            }
+                            s2_3dc.push_back(vv2);
+                        }
+                        s_3dc.push_back(vv);
+                    }
+                    continue;
             }
+            if(choice1=="rep") { state="state7"; reset_three_dimensional_object27(); }
+            else  {  printf("\nEnter a valid choice, now press ");sbc(dr);printf("ENTER");sbc(bb);printf(" to continue");getch();  }
         }
 
 
 
-
-
         // state 8
-        if(state=="state8")
+        if(state=="state8")             //  DEFINE FOLLOWING VALUES OF ATTRIBUTES
         {
             system("cls");
-            printf("Reached final phase successfully");
+            header();jump_to_main();
+            object_display_in_phase_three38();
+            printf("\n\nDEFINE FOLLOWING VALUES OF ATTRIBUTES\n\n");
+            short start=0;
+            for(short i=0;i<_3dc.size();i++)
+            {   int tr=0;
+                for(short j=0;j<_3dc[i].size();j++)
+                {
+                    if(s_3dc[i][j]==true)
+                    {
+                        cout<<(++start)<<". ";printf(" Attribute values saved for ");
+                        if(_3dc[i][j].first<0) { sfc(ly);cout<<_3dc[i][j].second<<" \n";sfc(ww); }
+                        else { sfc(lg);cout<<_3dc[i][j].second<<" \n";sfc(ww); }
+                        if((i==_3dc.size()-1)&&(j==_3dc[i].size()-1)) { state="state9"; break; }
+                        continue;
+                    }
+                    short ch=_3dc[i][j].first;printf("\n\n\n");
+                    switch(ch)
+                    {
+                    case 1:    // INTEGER CLASS
+                        {
+                            cout<<"  "<<(++start)<<". ";
+                            sfc(lg);cout<<_3dc[i][j].second;sfc(lc);cout<<" [CLASS INTEGER]";sfc(ww);
+                            string integer_choice;
+                            if(s2_3dc[start-1][0]=="~")
+                            {
+                                printf("\n  What type of integer would you like to create ?\n");
+                                printf("\n  ");sfc(lr);printf("press 1");sfc(ww);printf(" and ");sbc(dr);sfc(lr);printf(" ENTER ");sbc(bb);sfc(ww);printf(" to create -> RANDOM NUMBER");
+                                printf("\n  ");sfc(lr);printf("press 2");sfc(ww);printf(" and ");sbc(dr);sfc(lr);printf(" ENTER ");sbc(bb);sfc(ww);printf(" to create -> ODD NUMBER");
+                                printf("\n  ");sfc(lr);printf("press 3");sfc(ww);printf(" and ");sbc(dr);sfc(lr);printf(" ENTER ");sbc(bb);sfc(ww);printf(" to create -> EVEN NUMBER");
+                                printf("\n  ");sfc(lr);printf("press 4");sfc(ww);printf(" and ");sbc(dr);sfc(lr);printf(" ENTER ");sbc(bb);sfc(ww);printf(" to create -> PRIME NUMBER");
+                                printf("\n  ");sfc(lr);printf("press 5");sfc(ww);printf(" and ");sbc(dr);sfc(lr);printf(" ENTER ");sbc(bb);sfc(ww);printf(" to create -> NON PRIME NUMBER");
+                                printf("\n  ");sfc(lr);printf("press 6");sfc(ww);printf(" and ");sbc(dr);sfc(lr);printf(" ENTER ");sbc(bb);sfc(ww);printf(" to create -> INCREMENTED NUMBER");
+                                printf("\n  ");sfc(lr);printf("press 7");sfc(ww);printf(" and ");sbc(dr);sfc(lr);printf(" ENTER ");sbc(bb);sfc(ww);printf(" to create -> Nth FIBONACCI NUMBER");
+                                printf("\n  ");sfc(lr);printf("press 8");sfc(ww);printf(" and ");sbc(dr);sfc(lr);printf(" ENTER ");sbc(bb);sfc(ww);printf(" to create -> GET_ALL_UNIQUE_RANDOM NUMBERS");
+                                printf("\n\n  Type your choice  -> "); cin>>choice1;
+                                if(choice1=="min") break;
+                                else if(choice1=="exe") break;
+                                if(choice1=="1" || choice1=="2" || choice1=="3" || choice1=="4" || choice1=="5" || choice1=="6" || choice1=="7" || choice1=="8")
+                                {
+                                    integer_choice=choice1;
+                                    s2_3dc[start-1][0]=integer_choice;
+                                    short store=string_to_integer_converter(choice1);
+                                    dummy_o3dc.push_back(make_pair(1,"int"));
+                                    dummy_o3dc.push_back(make_pair(store,integer_choice));
+                                    break;
+                                }
+                                printf("\n\n    Enter the valid choice");
+                                printf("\n\n    Now press ");sbc(dr);sfc(lr);printf(" ENTER ");sbc(bb);sfc(ww);printf(" to continue"); getch(); break;
+                            }
+                            else { integer_choice=s2_3dc[start-1][0]; }
+                            if(integer_choice=="1")
+                            {
+                                printf("\n\n  Enter following details for");sfc(lm);printf("  [RANDOM NUMBER] ");sfc(ww);
+                                if(s2_3dc[start-1][1]=="~")
+                                {
+                                    printf("\n\n   Enter the ");sfc(ly);printf("Minimum");sfc(ww);printf(" value and then ");sbc(dr);printf(" ENTER ");sbc(bb);
+                                    printf("\n ");sfc(lr);printf(" Note: ");sfc(ww);printf("Range -> (-10 to the power 18) to (10 to the power 18)");
+                                    printf("\n\n  Minimum value ->  "); string min_value; cin>>choice1;
+                                    if(choice1=="min") break;
+                                    else if(choice1=="exe") break;
+                                    bool check=valid_pos_neg_integer(choice1);
+                                    if(check==false)
+                                    {
+                                        printf("\n\n   Please check the range and enter a valid Integer");
+                                        printf("\n\n   Now press ");sbc(dr);sfc(lr);printf(" ENTER ");sbc(bb);sfc(ww);printf(" to continue"); getch();break;
+                                    }
+                                    ll store=string_to_integer_converter(choice1); min_value=choice1;
+                                    s2_3dc[start-1][1]=min_value;
+                                    dummy_o3dc.push_back(make_pair(store,min_value)); break;
+                                }
+                                if(s2_3dc[start-1][2]=="~")
+                                {
+                                    printf("\n\n   Enter the ");sfc(ly);printf("Maximum");sfc(ww);printf(" value and then ");sbc(dr);printf(" ENTER ");sbc(bb);
+                                    printf("\n ");sfc(lr);printf(" Note: ");sfc(ww);printf("Range -> (-10 to the power 18) to (10 to the power 18)");
+                                    printf("\n\n  Maximum value ->  "); string max_value; cin>>choice1;
+                                    if(choice1=="min") break;
+                                    else if(choice1=="exe") break;
+                                    bool check=valid_pos_neg_integer(choice1);
+                                    if(check==false)
+                                    {
+                                        printf("\n\n   Please check the range and enter a valid Integer");
+                                        printf("\n\n   Now press ");sbc(dr);sfc(lr);printf(" ENTER ");sbc(bb);sfc(ww);printf(" to continue"); getch();break;
+                                    }
+                                    ll store1=string_to_integer_converter(choice1);
+                                    ll store2=string_to_integer_converter(s2_3dc[start-1][1]);
+                                    if(store1<store2)
+                                    {
+                                        printf("\n\n   Maximum value must be greater then Minimum value");
+                                        printf("\n\n   press ");sbc(dr);sfc(lr);printf(" ENTER ");sbc(bb);sfc(ww);printf(" to change"); getch();break;
+                                    }
+                                    max_value=choice1; s2_3dc[start-1][2]=max_value;
+                                    dummy_o3dc.push_back(make_pair(store1,max_value));
+                                    dummy2_o3dc.push_back(dummy_o3dc);
+                                    dummy_o3dc.clear(); s_3dc[i][j]=true; break;
+                                }
+                            }
+                            else if(integer_choice=="2")
+                            {
+                                printf("\n\n  Enter following details for");sfc(lm);printf("  [ODD NUMBER] ");sfc(ww);
+                                if(s2_3dc[start-1][1]=="~")
+                                {
+                                    printf("\n\n   Enter the ");sfc(ly);printf("Minimum");sfc(ww);printf(" value and then ");sbc(dr);printf(" ENTER ");sbc(bb);
+                                    printf("\n ");sfc(lr);printf(" Note: ");sfc(ww);printf("Range -> (-10 to the power 18) to (10 to the power 18)");
+                                    printf("\n\n  Minimum value ->  "); string min_value; cin>>choice1;
+                                    if(choice1=="min") break;
+                                    else if(choice1=="exe") break;
+                                    bool check=valid_pos_neg_integer(choice1);
+                                    if(check==false)
+                                    {
+                                        printf("\n\n   Please check the range and enter a valid Integer");
+                                        printf("\n\n   Now press ");sbc(dr);sfc(lr);printf(" ENTER ");sbc(bb);sfc(ww);printf(" to continue"); getch();break;
+                                    }
+                                    ll store=string_to_integer_converter(choice1);
+                                    min_value=choice1; s2_3dc[start-1][1]=min_value;
+                                    dummy_o3dc.push_back(make_pair(store,min_value));  break;
+                                }
+                                if(s2_3dc[start-1][2]=="~")
+                                {
+                                    printf("\n\n   Enter the ");sfc(ly);printf("Maximum");sfc(ww);printf(" value and then ");sbc(dr);printf(" ENTER ");sbc(bb);
+                                    printf("\n ");sfc(lr);printf(" Note: ");sfc(ww);printf("Range -> (-10 to the power 18) to (10 to the power 18)");
+                                    printf("\n\n  Maximum value ->  "); string max_value; cin>>choice1;
+                                    if(choice1=="min") break;
+                                    else if(choice1=="exe") break;
+                                    bool check=valid_pos_neg_integer(choice1);
+                                    if(check==false)
+                                    {
+                                        printf("\n\n   Please check the range and enter a valid Integer");
+                                        printf("\n\n   Now press ");sbc(dr);sfc(lr);printf(" ENTER ");sbc(bb);sfc(ww);printf(" to continue"); getch();break;
+                                    }
+                                    ll store1=string_to_integer_converter(choice1);
+                                    ll store2=string_to_integer_converter(s2_3dc[start-1][1]);
+                                    if(store1<store2)
+                                    {
+                                        printf("\n\n   Maximum value must be greater then Minimum value");
+                                        printf("\n\n   press ");sbc(dr);sfc(lr);printf(" ENTER ");sbc(bb);sfc(ww);printf(" to change"); getch();break;
+                                    }
+                                    check=check_odd_exist(store2,store1);
+                                    if(check==false)
+                                    {
+                                        printf("\n\n  No odd Integer exist in the given range");
+                                        printf("\n\n To change Maximum value, press ");sbc(dr);sfc(lr);printf(" ENTER ");sbc(bb);sfc(ww); getch();break;
+                                    }
+                                    max_value=choice1; s2_3dc[start-1][2]=max_value;
+                                    dummy_o3dc.push_back(make_pair(store1,max_value));
+                                    dummy2_o3dc.push_back(dummy_o3dc);
+                                    dummy_o3dc.clear(); s_3dc[i][j]=true; break;
+                                }
+                            }
+                             else if(integer_choice=="3")
+                            {
+                                printf("\n\n  Enter following details for");sfc(lm);printf("  [EVEN NUMBER] ");sfc(ww);
+                                if(s2_3dc[start-1][1]=="~")
+                                {
+                                    printf("\n\n   Enter the ");sfc(ly);printf("Minimum");sfc(ww);printf(" value and then ");sbc(dr);printf(" ENTER ");sbc(bb);
+                                    printf("\n ");sfc(lr);printf(" Note: ");sfc(ww);printf("Range -> (-10 to the power 18) to (10 to the power 18)");
+                                    printf("\n\n  Minimum value ->  ");
+                                    string min_value; cin>>choice1;
+                                    if(choice1=="min") break;
+                                    else if(choice1=="exe") break;
+                                    bool check=valid_pos_neg_integer(choice1);
+                                    if(check==false)
+                                    {
+                                        printf("\n\n   Please check the range and enter a valid Integer");
+                                        printf("\n\n   Now press ");sbc(dr);sfc(lr);printf(" ENTER ");sbc(bb);sfc(ww);printf(" to continue"); getch();break;
+                                    }
+                                    ll store=string_to_integer_converter(choice1);
+                                    min_value=choice1; s2_3dc[start-1][1]=min_value;
+                                    dummy_o3dc.push_back(make_pair(store,min_value));  break;
+                                }
+                                if(s2_3dc[start-1][2]=="~")
+                                {
+                                    printf("\n\n   Enter the ");sfc(ly);printf("Maximum");sfc(ww);printf(" value and then ");sbc(dr);printf(" ENTER ");sbc(bb);
+                                    printf("\n ");sfc(lr);printf(" Note: ");sfc(ww);printf("Range -> (-10 to the power 18) to (10 to the power 18)");
+                                    printf("\n\n  Maximum value ->  "); string max_value; cin>>choice1;
+                                    if(choice1=="min") break;
+                                    else if(choice1=="exe") break;
+                                    bool check=valid_pos_neg_integer(choice1);
+                                    if(check==false)
+                                    {
+                                        printf("\n\n   Please check the range and enter a valid Integer");
+                                        printf("\n\n   Now press ");sbc(dr);sfc(lr);printf(" ENTER ");sbc(bb);sfc(ww);printf(" to continue"); getch();break;
+                                    }
+                                    ll store1=string_to_integer_converter(choice1);
+                                    ll store2=string_to_integer_converter(s2_3dc[start-1][1]);
+                                    if(store1<store2)
+                                    {
+                                        printf("\n\n   Maximum value must be greater then Minimum value");
+                                        printf("\n\n   press ");sbc(dr);sfc(lr);printf(" ENTER ");sbc(bb);sfc(ww);printf(" to change"); getch();break;
+                                    }
+                                    check=check_even_exist(store2,store1);
+                                    if(check==false)
+                                    {
+                                        printf("\n\n  No even Integer exist in the given range");
+                                        printf("\n\n To change Maximum value, press ");sbc(dr);sfc(lr);printf(" ENTER ");sbc(bb);sfc(ww); getch();break;
+                                    }
+                                    max_value=choice1; s2_3dc[start-1][2]=max_value;
+                                    dummy_o3dc.push_back(make_pair(store1,max_value));
+                                    dummy2_o3dc.push_back(dummy_o3dc);
+                                    dummy_o3dc.clear(); s_3dc[i][j]=true; break;
+                                }
+                            }
+                             else if(integer_choice=="4")
+                            {
+                                printf("\n\n  Enter following details for");sfc(lm);printf("  [PRIME NUMBER] ");sfc(ww);
+                                if(s2_3dc[start-1][1]=="~")
+                                {
+                                    printf("\n\n   Enter the ");sfc(ly);printf("Minimum");sfc(ww);printf(" value and then ");sbc(dr);printf(" ENTER ");sbc(bb);
+                                    printf("\n ");sfc(lr);printf(" Note: ");sfc(ww);printf("Range -> (2) to (10 to the power 7)");
+                                    printf("\n\n  Minimum value ->  "); string min_value; cin>>choice1;
+                                    if(choice1=="min") break;
+                                    else if(choice1=="exe") break;
+                                    bool check=valid_pos_neg_integer(choice1);
+                                    if(check==false)
+                                    {
+                                        printf("\n\n   Please check the range and enter a valid Integer");
+                                        printf("\n\n   Now press ");sbc(dr);sfc(lr);printf(" ENTER ");sbc(bb);sfc(ww);printf(" to continue"); getch();break;
+                                    }
+                                    ll store=string_to_integer_converter(choice1);
+                                    if(store<2 || store>10000000)
+                                    {
+                                        printf("\n\n   Please check the range and enter a valid Integer");
+                                        printf("\n\n   Now press ");sbc(dr);sfc(lr);printf(" ENTER ");sbc(bb);sfc(ww);printf(" to continue"); getch();break;
+                                    }
+                                    min_value=choice1; s2_3dc[start-1][1]=min_value;
+                                    dummy_o3dc.push_back(make_pair(store,min_value));  break;
+                                }
+                                if(s2_3dc[start-1][2]=="~")
+                                {
+                                    printf("\n\n   Enter the ");sfc(ly);printf("Maximum");sfc(ww);printf(" value and then ");sbc(dr);printf(" ENTER ");sbc(bb);
+                                    printf("\n ");sfc(lr);printf(" Note: ");sfc(ww);printf("Range -> (2) to (10 to the power 7)");
+                                    printf("\n\n  Maximum value ->  "); string max_value; cin>>choice1;
+                                    if(choice1=="min") break;
+                                    else if(choice1=="exe") break;
+                                    bool check=valid_pos_neg_integer(choice1);
+                                    if(check==false)
+                                    {
+                                        printf("\n\n   Please check the range and enter a valid Integer");
+                                        printf("\n\n   Now press ");sbc(dr);sfc(lr);printf(" ENTER ");sbc(bb);sfc(ww);printf(" to continue"); getch();break;
+                                    }
+                                    ll store1=string_to_integer_converter(choice1);
+                                    ll store2=string_to_integer_converter(s2_3dc[start-1][1]);
+                                    if(store1<2 || store1>10000000)
+                                    {
+                                        printf("\n\n   Please check the range and enter a valid Integer");
+                                        printf("\n\n   Now press ");sbc(dr);sfc(lr);printf(" ENTER ");sbc(bb);sfc(ww);printf(" to continue"); getch();break;
+                                    }
+                                    if(store1<store2)
+                                    {
+                                        printf("\n\n   Maximum value must be greater then Minimum value");
+                                        printf("\n\n   press ");sbc(dr);sfc(lr);printf(" ENTER ");sbc(bb);sfc(ww);printf(" to change"); getch();break;
+                                    }
+                                    check=check_prime_exist(store2,store1);
+                                    if(check==false)
+                                    {
+                                        printf("\n\n   No Prime Integers exist in the given range.");
+                                        printf("\n\n   press ");sbc(dr);sfc(lr);printf(" ENTER ");sbc(bb);sfc(ww);printf(" to change the maximum value"); getch();break;
+                                    }
+                                    max_value=choice1; s2_3dc[start-1][2]=max_value;
+                                    dummy_o3dc.push_back(make_pair(store1,max_value));
+                                    dummy_o3dc.push_back(make_pair(test_cases,"<-size"));
+                                    dummy_o3dc.push_back(make_pair(0,"<-current_pointer"));
+                                    dummy2_o3dc.push_back(dummy_o3dc);
+                                    dummy_o3dc.clear(); s_3dc[i][j]=true; break;
+                                }
+                            }
+                             else if(integer_choice=="5")
+                            {
+                                printf("\n\n  Enter following details for");sfc(lm);printf("  [NON PRIME NUMBER] ");sfc(ww);
+                                if(s2_3dc[start-1][1]=="~")
+                                {
+                                    printf("\n\n   Enter the ");sfc(ly);printf("Minimum");sfc(ww);printf(" value and then ");sbc(dr);printf(" ENTER ");sbc(bb);
+                                    printf("\n ");sfc(lr);printf(" Note: ");sfc(ww);printf("Range -> (1) to (10 to the power 12)");
+                                    printf("\n\n  Minimum value ->  "); string min_value; cin>>choice1;
+                                    if(choice1=="min") break;
+                                    else if(choice1=="exe") break;
+                                    bool check=valid_pos_neg_integer(choice1);
+                                    if(check==false)
+                                    {
+                                        printf("\n\n   Please check the range and enter a valid Integer");
+                                        printf("\n\n   Now press ");sbc(dr);sfc(lr);printf(" ENTER ");sbc(bb);sfc(ww);printf(" to continue"); getch();break;
+                                    }
+                                    ll store=string_to_integer_converter(choice1);
+                                    if(store<1 || store>1000000000000)
+                                    {
+                                        printf("\n\n   Please check the range and enter a valid Integer");
+                                        printf("\n\n   Now press ");sbc(dr);sfc(lr);printf(" ENTER ");sbc(bb);sfc(ww);printf(" to continue"); getch();break;
+                                    }
+                                    min_value=choice1; s2_3dc[start-1][1]=min_value;
+                                    dummy_o3dc.push_back(make_pair(store,min_value));  break;
+                                }
+                                if(s2_3dc[start-1][2]=="~")
+                                {
+                                    printf("\n\n   Enter the ");sfc(ly);printf("Maximum");sfc(ww);printf(" value and then ");sbc(dr);printf(" ENTER ");sbc(bb);
+                                    printf("\n ");sfc(lr);printf(" Note: ");sfc(ww);printf("Range -> (1) to (10 to the power 12)");
+                                    printf("\n\n  Maximum value ->  "); string max_value; cin>>choice1;
+                                    if(choice1=="min") break;
+                                    else if(choice1=="exe") break;
+                                    bool check=valid_pos_neg_integer(choice1);
+                                    if(check==false)
+                                    {
+                                        printf("\n\n   Please check the range and enter a valid Integer");
+                                        printf("\n\n   Now press ");sbc(dr);sfc(lr);printf(" ENTER ");sbc(bb);sfc(ww);printf(" to continue"); getch();break;
+                                    }
+                                    ll store1=string_to_integer_converter(choice1);
+                                    ll store2=string_to_integer_converter(s2_3dc[start-1][1]);
+                                    if(store1<1 || store1>1000000000000)
+                                    {
+                                        printf("\n\n   Please check the range and enter a valid Integer");
+                                        printf("\n\n   Now press ");sbc(dr);sfc(lr);printf(" ENTER ");sbc(bb);sfc(ww);printf(" to continue"); getch();break;
+                                    }
+                                     if(store1<store2)
+                                    {
+                                        printf("\n\n   Maximum value must be greater then Minimum value");
+                                        printf("\n\n   press ");sbc(dr);sfc(lr);printf(" ENTER ");sbc(bb);sfc(ww);printf(" to change"); getch();break;
+                                    }
+                                    check=check_non_prime_exist(store2,store1);
+                                    if(check==false)
+                                    {
+                                        printf("\n\n   No Non_Prime Integer exist in the given range.");
+                                        printf("\n\n   press ");sbc(dr);sfc(lr);printf(" ENTER ");sbc(bb);sfc(ww);printf(" to change the maximum value"); getch();break;
+                                    }
+                                    max_value=choice1; s2_3dc[start-1][2]=max_value;
+                                    dummy_o3dc.push_back(make_pair(store1,max_value));
+                                    dummy2_o3dc.push_back(dummy_o3dc);
+                                    dummy_o3dc.clear(); s_3dc[i][j]=true; break;
+                                }
+                            }
+                             else if(integer_choice=="6")
+                            {
+                                printf("\n\n  Enter following details for");sfc(lm);printf("  [INCREMENTED NUMBER] ");sfc(ww);
+                                if(s2_3dc[start-1][1]=="~")
+                                {
+                                    printf("\n\n   Enter the ");sfc(ly);printf("Starting");sfc(ww);printf(" value and then ");sbc(dr);printf(" ENTER ");sbc(bb);
+                                    printf("\n ");sfc(lr);printf(" Note: ");sfc(ww);printf("Range -> (-10 to the power 18) to (10 to the power 18)");
+                                    printf("\n\n  Starting value ->  ");
+                                    string starting_value; cin>>choice1;
+                                    if(choice1=="min") break;
+                                    else if(choice1=="exe") break;
+                                    bool check=valid_pos_neg_integer(choice1);
+                                    if(check==false)
+                                    {
+                                        printf("\n\n   Please check the range and enter a valid Integer");
+                                        printf("\n\n   Now press ");sbc(dr);sfc(lr);printf(" ENTER ");sbc(bb);sfc(ww);printf(" to continue"); getch();break;
+                                    }
+                                    ll store=string_to_integer_converter(choice1);
+                                    starting_value=choice1; s2_3dc[start-1][1]=starting_value;
+                                    dummy_o3dc.push_back(make_pair(store,starting_value)); break;
+                                }
+                                if(s2_3dc[start-1][2]=="~")
+                                {
+                                    printf("\n\n   Enter the ");sfc(ly);printf("Increment");sfc(ww);printf(" value and then ");sbc(dr);printf(" ENTER ");sbc(bb);
+                                    printf("\n ");sfc(lr);printf(" Note: ");sfc(ww);printf("Range -> (-10 to the power 18) to (10 to the power 18)");
+                                    printf("\n\n  Increment value ->  "); string increment_value; cin>>choice1;
+                                    if(choice1=="min") break;
+                                    else if(choice1=="exe") break;
+                                    bool check=valid_pos_neg_integer(choice1);
+                                    if(check==false)
+                                    {
+                                        printf("\n\n   Please check the range and enter a valid Integer");
+                                        printf("\n\n   Now press ");sbc(dr);sfc(lr);printf(" ENTER ");sbc(bb);sfc(ww);printf(" to continue"); getch();break;
+                                    }
+                                    ll store=string_to_integer_converter(choice1); increment_value=choice1; s2_3dc[start-1][2]=increment_value;
+                                    dummy_o3dc.push_back(make_pair(store,increment_value));
+                                    dummy2_o3dc.push_back(dummy_o3dc);
+                                    dummy_o3dc.clear(); s_3dc[i][j]=true; break;
+                                }
+                            }
+                             else if(integer_choice=="7")
+                            {
+                                printf("\n\n  Enter following details for");sfc(lm);printf("  [Nth FIBONACCI NUMBER] ");sfc(ww);
+                                if(s2_3dc[start-1][1]=="~")
+                                {
+                                    printf("\n\n   Enter the ");sfc(ly);printf("Minimum");sfc(ww);printf(" value and then ");sbc(dr);printf(" ENTER ");sbc(bb);
+                                    printf("\n ");sfc(lr);printf(" Note: ");sfc(ww);printf("Range -> (1) to (93)");
+                                    printf("\n\n  Minimum value ->  "); string min_value; cin>>choice1;
+                                    if(choice1=="min") break;
+                                    else if(choice1=="exe") break;
+                                    bool check=valid_pos_neg_integer(choice1);
+                                    if(check==false)
+                                    {
+                                        printf("\n\n   Please check the range and enter a valid Integer");
+                                        printf("\n\n   Now press ");sbc(dr);sfc(lr);printf(" ENTER ");sbc(bb);sfc(ww);printf(" to continue"); getch();break;
+                                    }
+                                    ll store=string_to_integer_converter(choice1);
+                                    if(store<1 || store>93)
+                                    {
+                                        printf("\n\n   Please check the range and enter a valid Integer");
+                                        printf("\n\n   Now press ");sbc(dr);sfc(lr);printf(" ENTER ");sbc(bb);sfc(ww);printf(" to continue"); getch();break;
+                                    }
+                                    min_value=choice1; s2_3dc[start-1][1]=min_value;
+                                    dummy_o3dc.push_back(make_pair(store,min_value));  break;
+                                }
+                                if(s2_3dc[start-1][2]=="~")
+                                {
+                                    printf("\n\n   Enter the ");sfc(ly);printf("Maximum");sfc(ww);printf(" value and then ");sbc(dr);printf(" ENTER ");sbc(bb);
+                                    printf("\n ");sfc(lr);printf(" Note: ");sfc(ww);printf("Range -> (1) to (93)");
+                                    printf("\n\n  Maximum value ->  "); string max_value; cin>>choice1;
+                                    if(choice1=="min") break;
+                                    else if(choice1=="exe") break;
+                                    bool check=valid_pos_neg_integer(choice1);
+                                    if(check==false)
+                                    {
+                                        printf("\n\n   Please check the range and enter a valid Integer");
+                                        printf("\n\n   Now press ");sbc(dr);sfc(lr);printf(" ENTER ");sbc(bb);sfc(ww);printf(" to continue"); getch();break;
+                                    }
+                                    ll store1=string_to_integer_converter(choice1);
+                                    ll store2=string_to_integer_converter(s2_3dc[start-1][1]);
+                                    if(store1<1 || store1>93)
+                                    {
+                                        printf("\n\n   Please check the range and enter a valid Integer");
+                                        printf("\n\n   Now press ");sbc(dr);sfc(lr);printf(" ENTER ");sbc(bb);sfc(ww);printf(" to continue"); getch();break;
+                                    }
+                                    if(store1<store2)
+                                    {
+                                        printf("\n\n   Maximum value must be greater then Minimum value");
+                                        printf("\n\n   press ");sbc(dr);sfc(lr);printf(" ENTER ");sbc(bb);sfc(ww);printf(" to change"); getch();break;
+                                    }
+                                    max_value=choice1; s2_3dc[start-1][2]=max_value;
+                                    dummy_o3dc.push_back(make_pair(store1,max_value));
+                                    dummy_o3dc.push_back(make_pair(test_cases,"<-size"));
+                                    dummy_o3dc.push_back(make_pair(0,"<-current_pointer"));
+                                    dummy2_o3dc.push_back(dummy_o3dc);
+                                    dummy_o3dc.clear(); s_3dc[i][j]=true; break;
+                                }
+                            }
+                             else if(integer_choice=="8")
+                            {
+                                printf("\n\n  Enter following details for");sfc(lm);printf("  [GET-ALL-UNIQUE-RANDOM NUMBER] ");sfc(ww);
+                                if(s2_3dc[start-1][1]=="~")
+                                {
+                                    printf("\n\n   Enter the ");sfc(ly);printf("Minimum");sfc(ww);printf(" value and then ");sbc(dr);printf(" ENTER ");sbc(bb);
+                                    printf("\n ");sfc(lr);printf(" Note: ");sfc(ww);printf("Range -> (-10 to the power 18) to (10 to the power 18)");
+                                    printf("\n\n  Minimum value ->  "); string min_value; cin>>choice1;
+                                    if(choice1=="min") break;
+                                    else if(choice1=="exe") break;
+                                    bool check=valid_pos_neg_integer(choice1);
+                                    if(check==false)
+                                    {
+                                        printf("\n\n   Please check the range and enter a valid Integer");
+                                        printf("\n\n   Now press ");sbc(dr);sfc(lr);printf(" ENTER ");sbc(bb);sfc(ww);printf(" to continue"); getch();break;
+                                    }
+                                    ll store=string_to_integer_converter(choice1);
+                                    min_value=choice1; s2_3dc[start-1][1]=min_value;
+                                    dummy_o3dc.push_back(make_pair(store,min_value));  break;
+                                }
+                                if(s2_3dc[start-1][2]=="~")
+                                {
+                                    printf("\n\n   Enter the ");sfc(ly);printf("Maximum");sfc(ww);printf(" value and then ");sbc(dr);printf(" ENTER ");sbc(bb);
+                                    printf("\n ");sfc(lr);printf(" Note: ");sfc(ww);printf("Range -> (-10 to the power 18) to (10 to the power 18)");
+                                    printf("\n\n  Maximum value ->  "); string max_value; cin>>choice1;
+                                    if(choice1=="min") break;
+                                    else if(choice1=="exe") break;
+                                    bool check=valid_pos_neg_integer(choice1);
+                                    if(check==false)
+                                    {
+                                        printf("\n\n   Please check the range and enter a valid Integer");
+                                        printf("\n\n   Now press ");sbc(dr);sfc(lr);printf(" ENTER ");sbc(bb);sfc(ww);printf(" to continue"); getch();break;
+                                    }
+                                    ll store1=string_to_integer_converter(choice1);
+                                    ll store2=string_to_integer_converter(s2_3dc[start-1][1]);
+                                    if(store1<store2)
+                                    {
+                                        printf("\n\n   Maximum value must be greater then Minimum value");
+                                        printf("\n\n   press ");sbc(dr);sfc(lr);printf(" ENTER ");sbc(bb);sfc(ww);printf(" to change"); getch();break;
+                                    }
+                                    if(test_cases>(store1-store2+1))
+                                    {
+                                           cout<<"\n\n  You wish to create "<<test_cases<<" No. of Test Cases.";
+                                           cout<<"\n  However, only "<<(store1-store2+1)<<" Unique No. exist in range provided by you.";
+                                           printf("\n\n  You are advised to enlarge your range");
+                                           printf("\n\n   press ");sbc(dr);sfc(lr);printf(" ENTER ");sbc(bb);sfc(ww);printf(" to change Maximum value"); getch();break;
+                                    }
+                                    max_value=choice1; s2_3dc[start-1][2]=max_value;
+                                    dummy_o3dc.push_back(make_pair(store1,max_value));
+                                    dummy_o3dc.push_back(make_pair(test_cases,"<-size"));
+                                    dummy_o3dc.push_back(make_pair(0,"<-current_pointer"));
+                                    dummy2_o3dc.push_back(dummy_o3dc);
+                                    dummy_o3dc.clear(); s_3dc[i][j]=true; break;
+                                }
+                            }
+                            else
+                            {
+                                printf("\nPLEASE ENTER A VALID CHOICE\nNow press ");sbc(dr);printf(" ENTER ");sbc(bb);printf(" to continue");
+                                s2_3dc[start-1][0]="~";getch();
+                            }
+                            sbc(bb);sfc(ww);
+                            break;
+                        }
+
+                    case 2:    // REAL CLASS
+                        {
+                            cout<<"  "<<(++start)<<". ";
+                            sfc(lg);cout<<_3dc[i][j].second;sfc(lc);cout<<" [CLASS REAL]";sfc(ww);
+                            if(s2_3dc[start-1][0]=="~")
+                                {
+                                    printf("\n\n   Set the precision for your REAL NUMBER...");
+                                    printf("\n ");sfc(lr);printf(" Note: ");sfc(ww);printf("\n   (You can set form range [0 to 100])\n");
+                                    printf("\n   Enter the precision ->  "); string precision; cin>>choice1;
+                                    if(choice1=="min") break;
+                                    else if(choice1=="exe") break;
+                                    bool check=valid_pos_neg_integer(choice1);
+                                    if(check==false)
+                                    {
+                                        printf("\n\n   Please check the range and enter a valid Integer");
+                                        printf("\n\n   Now press ");sbc(dr);sfc(lr);printf(" ENTER ");sbc(bb);sfc(ww);printf(" to continue"); getch();break;
+                                    }
+                                    ll store=string_to_integer_converter(choice1);
+                                    if(store<0 || store>100)
+                                    {
+                                        printf("\n\n   Please check the range and enter a valid Integer");
+                                        printf("\n\n   Now press ");sbc(dr);sfc(lr);printf(" ENTER ");sbc(bb);sfc(ww);printf(" to continue"); getch();break;
+                                    }
+                                    precision=choice1; s2_3dc[start-1][0]=precision;
+                                    dummy_o3dc.push_back(make_pair(2,"rel"));
+                                    dummy_o3dc.push_back(make_pair(store,precision));  break;
+                            }
+                            if(s2_3dc[start-1][1]=="~")
+                                {
+                                    printf("\n\n   Enter the ");sfc(ly);printf("Minimum");sfc(ww);printf(" value and then ");sbc(dr);printf(" ENTER ");sbc(bb);
+                                    printf("\n ");sfc(lr);printf(" Note: ");sfc(ww);printf("Range -> (-10 to the power 18) to (10 to the power 18)");
+                                    printf("\n\n  Minimum value ->  "); string min_value; cin>>choice1;
+                                    if(choice1=="min") break;
+                                    else if(choice1=="exe") break;
+                                    bool check=valid_pos_neg_integer(choice1);
+                                    if(check==false)
+                                    {
+                                        printf("\n\n   Please check the range and enter a valid Integer");
+                                        printf("\n\n   Now press ");sbc(dr);sfc(lr);printf(" ENTER ");sbc(bb);sfc(ww);printf(" to continue"); getch();break;
+                                    }
+                                    ll store=string_to_integer_converter(choice1);
+                                    min_value=choice1; s2_3dc[start-1][1]=min_value;
+                                    dummy_o3dc.push_back(make_pair(store,min_value));  break;
+                                }
+                            if(s2_3dc[start-1][2]=="~")
+                                {
+                                    printf("\n\n   Enter the ");sfc(ly);printf("Maximum");sfc(ww);printf(" value and then ");sbc(dr);printf(" ENTER ");sbc(bb);
+                                    printf("\n ");sfc(lr);printf(" Note: ");sfc(ww);printf("Range -> (-10 to the power 18) to (10 to the power 18)");
+                                    printf("\n\n  Maximum value ->  "); string max_value; cin>>choice1;
+                                    if(choice1=="min") break;
+                                    else if(choice1=="exe") break;
+                                    bool check=valid_pos_neg_integer(choice1);
+                                    if(check==false)
+                                    {
+                                        printf("\n\n   Please check the range and enter a valid Integer");
+                                        printf("\n\n   Now press ");sbc(dr);sfc(lr);printf(" ENTER ");sbc(bb);sfc(ww);printf(" to continue"); getch();break;
+                                    }
+                                    ll store1=string_to_integer_converter(choice1);
+                                    ll store2=string_to_integer_converter(s2_3dc[start-1][1]);
+                                    if(store1==store2)   //  ( Note -> Max_value-Min_value >=1 )
+                                    {
+                                        printf("\n\n   Note -> (Max_value - Min_value) >=1 ");
+                                        printf("\n\n   press ");sbc(dr);sfc(lr);printf(" ENTER ");sbc(bb);sfc(ww);printf(" to change"); getch();break;
+                                    }
+                                    if(store1<store2)
+                                    {
+                                        printf("\n\n   Maximum value must be greater then Minimum value");
+                                        printf("\n\n   press ");sbc(dr);sfc(lr);printf(" ENTER ");sbc(bb);sfc(ww);printf(" to change"); getch();break;
+                                    }
+                                    max_value=choice1; s2_3dc[start-1][2]=max_value;
+                                    dummy_o3dc.push_back(make_pair(store1,max_value));
+                                    dummy2_o3dc.push_back(dummy_o3dc);
+                                    dummy_o3dc.clear(); s_3dc[i][j]=true; break;
+                                }
+                        }
+
+                    case 3:    // ARRAY CLASS
+                        {
+                            cout<<"  "<<(++start)<<". ";
+                            sfc(lg);cout<<_3dc[i][j].second;sfc(lc);cout<<" [CLASS ARRAY]";sfc(ww);
+                            if(s2_3dc[start-1][0]=="order")   //  set order in Array
+                            {
+                                printf("\n\n  Select a valid ");sfc(lm);printf("ORDER");sfc(ww);printf(" for your ");sfc(lg);printf("ARRAY[]\n");sfc(ww);
+                                printf("\n  ");sfc(lr);printf("press 1");sfc(ww);printf(" and ");sbc(dr);sfc(lr);printf(" ENTER ");sbc(bb);sfc(ww);printf(" to apply -> RANDOMLY ARRANGED");
+                                printf("\n  ");sfc(lr);printf("press 2");sfc(ww);printf(" and ");sbc(dr);sfc(lr);printf(" ENTER ");sbc(bb);sfc(ww);printf(" to apply -> SORTED ASCENDING");
+                                printf("\n  ");sfc(lr);printf("press 3");sfc(ww);printf(" and ");sbc(dr);sfc(lr);printf(" ENTER ");sbc(bb);sfc(ww);printf(" to apply -> SORTED DESCENDING");
+                                printf("\n\n  Enter your choice ->  ");cin>>choice1;
+                                if(choice1=="min") break;
+                                else if(choice1=="exe") break;
+                                if(choice1=="1" || choice1=="2" || choice1=="3")
+                                {
+                                    short store=string_to_integer_converter(choice1);
+                                    dummy_o3dc.push_back(make_pair(store,choice1));
+                                    dummy2_o3dc.push_back(dummy_o3dc);
+                                    dummy_o3dc.clear(); s_3dc[i][j]=true; break;
+                                }
+                                printf("\n\n    Enter the valid choice");
+                                printf("\n\n    Now press ");sbc(dr);sfc(lr);printf(" ENTER ");sbc(bb);sfc(ww);printf(" to continue"); getch(); break;
+                            }
+
+                            if(s2_3dc[start-1][0]=="print")   // set print format in Array
+                            {
+                                printf("\n\n  Select a valid ");sfc(lm);printf("Print Format");sfc(ww);printf(" for your");sfc(lg);printf(" ARRAY[] \n");sfc(ww);
+                                printf("\n  ");sfc(lr);printf("press 1");sfc(ww);printf(" and ");sbc(dr);sfc(lr);printf(" ENTER ");sbc(bb);sfc(ww);printf(" to select -> Space Separated ");
+                                printf("\n  ");sfc(lr);printf("press 2");sfc(ww);printf(" and ");sbc(dr);sfc(lr);printf(" ENTER ");sbc(bb);sfc(ww);printf(" to select -> Line  Separated");
+                                printf("\n\n  Type your choice  -> "); cin>>choice1;
+                                if(choice1=="min") break;
+                                else if(choice1=="exe") break;
+                                if(choice1=="1" || choice1=="2")
+                                {
+                                    s2_3dc[start-1][0]="order";
+                                    short store=string_to_integer_converter(choice1);
+                                    dummy_o3dc.push_back(make_pair(store,choice1)); break;
+                                }
+                                printf("\n\n    Enter the valid choice");
+                                printf("\n\n    Now press ");sbc(dr);sfc(lr);printf(" ENTER ");sbc(bb);sfc(ww);printf(" to continue"); getch(); break;
+                            }
+
+                            if(s2_3dc[start-1][0]=="printt")   // set print format for default string in Array
+                            {
+                                printf("\n\n  Select a valid ");sfc(lm);printf("Print Format");sfc(ww);printf(" for your");sfc(lg);printf(" ARRAY[] \n");sfc(ww);
+                                printf("\n  ");sfc(lr);printf("press 1");sfc(ww);printf(" and ");sbc(dr);sfc(lr);printf(" ENTER ");sbc(bb);sfc(ww);printf(" to select -> Space Separated ");
+                                printf("\n  ");sfc(lr);printf("press 2");sfc(ww);printf(" and ");sbc(dr);sfc(lr);printf(" ENTER ");sbc(bb);sfc(ww);printf(" to select -> Line  Separated");
+                                printf("\n\n  Type your choice  -> "); cin>>choice1;
+                                if(choice1=="min") break;
+                                else if(choice1=="exe") break;
+                                if(choice1=="1" || choice1=="2")
+                                {
+                                    short store=string_to_integer_converter(choice1);
+                                    dummy_o3dc.push_back(make_pair(store,choice1));
+                                    dummy2_o3dc.push_back(dummy_o3dc);
+                                    dummy_o3dc.clear(); s_3dc[i][j]=true; break;
+                                }
+                                printf("\n\n    Enter the valid choice");
+                                printf("\n\n    Now press ");sbc(dr);sfc(lr);printf(" ENTER ");sbc(bb);sfc(ww);printf(" to continue"); getch(); break;
+                            }
+
+                            if(s2_3dc[start-1][0]=="~")       // set type of Array
+                            {
+                                printf("\n  What type of ARRAY would you like to create ?\n");
+                                printf("\n  ");sfc(lr);printf("press 1");sfc(ww);printf(" and ");sbc(dr);sfc(lr);printf(" ENTER ");sbc(bb);sfc(ww);printf(" to create -> ARRAY OF INTEGER");
+                                printf("\n  ");sfc(lr);printf("press 2");sfc(ww);printf(" and ");sbc(dr);sfc(lr);printf(" ENTER ");sbc(bb);sfc(ww);printf(" to create -> ARRAY OF REAL");
+                                printf("\n  ");sfc(lr);printf("press 3");sfc(ww);printf(" and ");sbc(dr);sfc(lr);printf(" ENTER ");sbc(bb);sfc(ww);printf(" to create -> ARRAY OF STRING");
+                                printf("\n  ");sfc(lr);printf("press 4");sfc(ww);printf(" and ");sbc(dr);sfc(lr);printf(" ENTER ");sbc(bb);sfc(ww);printf(" to create -> ARRAY OF PERMUTATION");
+                                printf("\n  ");sfc(lr);printf("press 5");sfc(ww);printf(" and ");sbc(dr);sfc(lr);printf(" ENTER ");sbc(bb);sfc(ww);printf(" to create -> ARRAY OF UNIQUE NUMBER");
+                                printf("\n\n  Type your choice  -> "); cin>>choice1;
+                                if(choice1=="min") break;
+                                else if(choice1=="exe") break;
+                                if(choice1=="1" || choice1=="2" || choice1=="3" || choice1=="4" || choice1=="5")
+                                {
+                                    s2_3dc[start-1][0]=choice1;
+                                    short store=string_to_integer_converter(choice1);
+                                    dummy_o3dc.push_back(make_pair(3,"arr"));
+                                    dummy_o3dc.push_back(make_pair(store,choice1)); break;
+                                }
+                                printf("\n\n    Enter the valid choice");
+                                printf("\n\n    Now press ");sbc(dr);sfc(lr);printf(" ENTER ");sbc(bb);sfc(ww);printf(" to continue"); getch(); break;
+                            }
+
+                            if(s2_3dc[start-1][0]=="1")       // set type of Array of  Integer
+                            {
+                                if(s2_3dc[start-1][1]=="~")  // type of integer
+                                {
+                                    printf("\n  What type of integer would you like to insert ?\n");
+                                    printf("\n  ");sfc(lr);printf("press 1");sfc(ww);printf(" and ");sbc(dr);sfc(lr);printf(" ENTER ");sbc(bb);sfc(ww);printf(" to insert -> RANDOM NUMBER");
+                                    printf("\n  ");sfc(lr);printf("press 2");sfc(ww);printf(" and ");sbc(dr);sfc(lr);printf(" ENTER ");sbc(bb);sfc(ww);printf(" to insert -> ODD NUMBER");
+                                    printf("\n  ");sfc(lr);printf("press 3");sfc(ww);printf(" and ");sbc(dr);sfc(lr);printf(" ENTER ");sbc(bb);sfc(ww);printf(" to insert -> EVEN NUMBER");
+                                    printf("\n  ");sfc(lr);printf("press 4");sfc(ww);printf(" and ");sbc(dr);sfc(lr);printf(" ENTER ");sbc(bb);sfc(ww);printf(" to insert -> PRIME NUMBER");
+                                    printf("\n  ");sfc(lr);printf("press 5");sfc(ww);printf(" and ");sbc(dr);sfc(lr);printf(" ENTER ");sbc(bb);sfc(ww);printf(" to insert -> NON PRIME NUMBER");
+                                    printf("\n  ");sfc(lr);printf("press 6");sfc(ww);printf(" and ");sbc(dr);sfc(lr);printf(" ENTER ");sbc(bb);sfc(ww);printf(" to insert -> INCREMENTED NUMBER");
+                                    printf("\n  ");sfc(lr);printf("press 7");sfc(ww);printf(" and ");sbc(dr);sfc(lr);printf(" ENTER ");sbc(bb);sfc(ww);printf(" to insert -> Nth FIBONACCI NUMBER");
+                                    printf("\n\n  Type your choice  -> "); cin>>choice1;
+                                    if(choice1=="min") break;
+                                    else if(choice1=="exe") break;
+                                    if(choice1=="1" || choice1=="2" || choice1=="3" || choice1=="4" || choice1=="5" || choice1=="6" || choice1=="7")
+                                    {
+                                        s2_3dc[start-1][1]=choice1;
+                                        short store=string_to_integer_converter(choice1);
+                                        dummy_o3dc.push_back(make_pair(store,choice1)); break;
+                                    }
+                                    printf("\n\n    Enter the valid choice");
+                                    printf("\n\n    Now press ");sbc(dr);sfc(lr);printf(" ENTER ");sbc(bb);sfc(ww);printf(" to continue"); getch(); break;
+                                }
+
+                                if(s2_3dc[start-1][1]=="1"&&s2_3dc[start-1][2]=="~")  // min value for random number
+                                {
+                                    printf("\n  Enter following details for");sfc(lm);printf(" [RANDOM NUMBERS] ");sfc(ww);
+                                    printf("\n\n   Enter the ");sfc(ly);printf("Minimum");sfc(ww);printf(" value and then ");sbc(dr);printf(" ENTER ");sbc(bb);
+                                    printf("\n ");sfc(lr);printf(" Note: ");sfc(ww);printf("Range -> (-10 to the power 18) to (10 to the power 18)");
+                                    printf("\n\n  Minimum value ->  ");  cin>>choice1;
+                                    if(choice1=="min") break;
+                                    else if(choice1=="exe") break;
+                                    bool check=valid_pos_neg_integer(choice1);
+                                    if(check==false)
+                                    {
+                                        printf("\n\n   Please check the range and enter a valid Integer");
+                                        printf("\n\n   Now press ");sbc(dr);sfc(lr);printf(" ENTER ");sbc(bb);sfc(ww);printf(" to continue"); getch();break;
+                                    }
+                                    ll store=string_to_integer_converter(choice1); s2_3dc[start-1][2]=choice1;
+                                    dummy_o3dc.push_back(make_pair(store,choice1)); break;
+                                }
+
+                                if(s2_3dc[start-1][1]=="2"&&s2_3dc[start-1][2]=="~")  // min value for odd number
+                                {
+                                    printf("\n  Enter following details for");sfc(lm);printf(" [ODD NUMBERS] ");sfc(ww);
+                                    printf("\n\n   Enter the ");sfc(ly);printf("Minimum");sfc(ww);printf(" value and then ");sbc(dr);printf(" ENTER ");sbc(bb);
+                                    printf("\n ");sfc(lr);printf(" Note: ");sfc(ww);printf("Range -> (-10 to the power 18) to (10 to the power 18)");
+                                    printf("\n\n  Minimum value ->  "); cin>>choice1;
+                                    if(choice1=="min") break;
+                                    else if(choice1=="exe") break;
+                                    bool check=valid_pos_neg_integer(choice1);
+                                    if(check==false)
+                                    {
+                                        printf("\n\n   Please check the range and enter a valid Integer");
+                                        printf("\n\n   Now press ");sbc(dr);sfc(lr);printf(" ENTER ");sbc(bb);sfc(ww);printf(" to continue"); getch();break;
+                                    }
+                                    ll store=string_to_integer_converter(choice1); s2_3dc[start-1][2]=choice1;
+                                    dummy_o3dc.push_back(make_pair(store,choice1));  break;
+                                }
+
+                                if(s2_3dc[start-1][1]=="3"&&s2_3dc[start-1][2]=="~")  // min value for even number
+                                {
+                                    printf("\n  Enter following details for");sfc(lm);printf(" [EVEN NUMBERS] ");sfc(ww);
+                                    printf("\n\n   Enter the ");sfc(ly);printf("Minimum");sfc(ww);printf(" value and then ");sbc(dr);printf(" ENTER ");sbc(bb);
+                                    printf("\n ");sfc(lr);printf(" Note: ");sfc(ww);printf("Range -> (-10 to the power 18) to (10 to the power 18)");
+                                    printf("\n\n  Minimum value ->  "); cin>>choice1;
+                                    if(choice1=="min") break;
+                                    else if(choice1=="exe") break;
+                                    bool check=valid_pos_neg_integer(choice1);
+                                    if(check==false)
+                                    {
+                                        printf("\n\n   Please check the range and enter a valid Integer");
+                                        printf("\n\n   Now press ");sbc(dr);sfc(lr);printf(" ENTER ");sbc(bb);sfc(ww);printf(" to continue"); getch();break;
+                                    }
+                                    ll store=string_to_integer_converter(choice1); s2_3dc[start-1][2]=choice1;
+                                    dummy_o3dc.push_back(make_pair(store,choice1));  break;
+                                }
+
+                                if(s2_3dc[start-1][1]=="4"&&s2_3dc[start-1][2]=="~")  // min value for prime number
+                                {
+                                    printf("\n  Enter following details for");sfc(lm);printf(" [PRIME NUMBERS] ");sfc(ww);
+                                    printf("\n\n   Enter the ");sfc(ly);printf("Minimum");sfc(ww);printf(" value and then ");sbc(dr);printf(" ENTER ");sbc(bb);
+                                    printf("\n ");sfc(lr);printf(" Note: ");sfc(ww);printf("Range -> (2) to (10 to the power 7)");
+                                    printf("\n\n  Minimum value ->  "); cin>>choice1;
+                                    if(choice1=="min") break;
+                                    else if(choice1=="exe") break;
+                                    bool check=valid_pos_neg_integer(choice1);
+                                    if(check==false)
+                                    {
+                                        printf("\n\n   Please check the range and enter a valid Integer");
+                                        printf("\n\n   Now press ");sbc(dr);sfc(lr);printf(" ENTER ");sbc(bb);sfc(ww);printf(" to continue"); getch();break;
+                                    }
+                                    ll store=string_to_integer_converter(choice1);
+                                    if(store<2 || store>10000000)
+                                    {
+                                        printf("\n\n   Please check the range and enter a valid Integer");
+                                        printf("\n\n   Now press ");sbc(dr);sfc(lr);printf(" ENTER ");sbc(bb);sfc(ww);printf(" to continue"); getch();break;
+                                    }
+                                    s2_3dc[start-1][2]=choice1;
+                                    dummy_o3dc.push_back(make_pair(store,choice1));  break;
+                                }
+
+                                if(s2_3dc[start-1][1]=="5"&&s2_3dc[start-1][2]=="~")  // min value for non prime number
+                                {
+                                    printf("\n  Enter following details for");sfc(lm);printf(" [Non Prime Numbers] ");sfc(ww);
+                                    printf("\n\n   Enter the ");sfc(ly);printf("Minimum");sfc(ww);printf(" value and then ");sbc(dr);printf(" ENTER ");sbc(bb);
+                                    printf("\n ");sfc(lr);printf(" Note: ");sfc(ww);printf("Range -> (1) to (10 to the power 12)");
+                                    printf("\n\n  Minimum value ->  "); cin>>choice1;
+                                    if(choice1=="min") break;
+                                    else if(choice1=="exe") break;
+                                    bool check=valid_pos_neg_integer(choice1);
+                                    if(check==false)
+                                    {
+                                        printf("\n\n   Please check the range and enter a valid Integer");
+                                        printf("\n\n   Now press ");sbc(dr);sfc(lr);printf(" ENTER ");sbc(bb);sfc(ww);printf(" to continue"); getch();break;
+                                    }
+                                    ll store=string_to_integer_converter(choice1);
+                                    if(store<1 || store>1000000000000)
+                                    {
+                                        printf("\n\n   Please check the range and enter a valid Integer");
+                                        printf("\n\n   Now press ");sbc(dr);sfc(lr);printf(" ENTER ");sbc(bb);sfc(ww);printf(" to continue"); getch();break;
+                                    }
+                                    s2_3dc[start-1][2]=choice1;
+                                    dummy_o3dc.push_back(make_pair(store,choice1));  break;
+                                }
+
+                                if(s2_3dc[start-1][1]=="6"&&s2_3dc[start-1][2]=="~")  // min value for incremented number
+                                {
+                                    printf("\n  Enter following details for");sfc(lm);printf(" [Incremented Numbers] ");sfc(ww);
+                                    printf("\n\n   Enter the ");sfc(ly);printf("Starting");sfc(ww);printf(" value and then ");sbc(dr);printf(" ENTER ");sbc(bb);
+                                    printf("\n ");sfc(lr);printf(" Note: ");sfc(ww);printf("Range -> (-10 to the power 18) to (10 to the power 18)");
+                                    printf("\n\n  Starting value ->  "); cin>>choice1;
+                                    if(choice1=="min") break;
+                                    else if(choice1=="exe") break;
+                                    bool check=valid_pos_neg_integer(choice1);
+                                    if(check==false)
+                                    {
+                                        printf("\n\n   Please check the range and enter a valid Integer");
+                                        printf("\n\n   Now press ");sbc(dr);sfc(lr);printf(" ENTER ");sbc(bb);sfc(ww);printf(" to continue"); getch();break;
+                                    }
+                                    ll store=string_to_integer_converter(choice1);
+                                    s2_3dc[start-1][2]=choice1;
+                                    dummy_o3dc.push_back(make_pair(store,choice1)); break;
+                                }
+
+                                if(s2_3dc[start-1][1]=="7"&&s2_3dc[start-1][2]=="~")  // min value for Nth Fibonacci number
+                                {
+                                    printf("\n  Enter following details for");sfc(lm);printf(" [FIBONACCI NUMBERS] ");sfc(ww);
+                                    printf("\n\n   Enter the ");sfc(ly);printf("Minimum");sfc(ww);printf(" value and then ");sbc(dr);printf(" ENTER ");sbc(bb);
+                                    printf("\n ");sfc(lr);printf(" Note: ");sfc(ww);printf("Range -> (1) to (93)");
+                                    printf("\n\n  Minimum value ->  "); cin>>choice1;
+                                    if(choice1=="min") break;
+                                    else if(choice1=="exe") break;
+                                    bool check=valid_pos_neg_integer(choice1);
+                                    if(check==false)
+                                    {
+                                        printf("\n\n   Please check the range and enter a valid Integer");
+                                        printf("\n\n   Now press ");sbc(dr);sfc(lr);printf(" ENTER ");sbc(bb);sfc(ww);printf(" to continue"); getch();break;
+                                    }
+                                    ll store=string_to_integer_converter(choice1);
+                                    if(store<1 || store>93)
+                                    {
+                                        printf("\n\n   Please check the range and enter a valid Integer");
+                                        printf("\n\n   Now press ");sbc(dr);sfc(lr);printf(" ENTER ");sbc(bb);sfc(ww);printf(" to continue"); getch();break;
+                                    }
+                                    s2_3dc[start-1][2]=choice1;
+                                    dummy_o3dc.push_back(make_pair(store,choice1));  break;
+                                }
+
+
+                                if(s2_3dc[start-1][1]=="1"&&s2_3dc[start-1][3]=="~")  // max value for random number
+                                {
+                                    printf("\n  Enter following details for");sfc(lm);printf(" [RANDOM NUMBERS] ");sfc(ww);
+                                    printf("\n\n   Enter the ");sfc(ly);printf("Maximum");sfc(ww);printf(" value and then ");sbc(dr);printf(" ENTER ");sbc(bb);
+                                    printf("\n ");sfc(lr);printf(" Note: ");sfc(ww);printf("Range -> (-10 to the power 18) to (10 to the power 18)");
+                                    printf("\n\n  Maximum value ->  ");  cin>>choice1;
+                                    if(choice1=="min") break;
+                                    else if(choice1=="exe") break;
+                                    bool check=valid_pos_neg_integer(choice1);
+                                    if(check==false)
+                                    {
+                                        printf("\n\n   Please check the range and enter a valid Integer");
+                                        printf("\n\n   Now press ");sbc(dr);sfc(lr);printf(" ENTER ");sbc(bb);sfc(ww);printf(" to continue"); getch();break;
+                                    }
+                                    ll store1=string_to_integer_converter(choice1); ll store2=dummy_o3dc[3].first;
+                                    if(store1<store2)
+                                    {
+                                        printf("\n\n   Maximum value must be greater then Minimum value");
+                                        printf("\n\n   press ");sbc(dr);sfc(lr);printf(" ENTER ");sbc(bb);sfc(ww);printf(" to change"); getch();break;
+                                    }
+                                    s2_3dc[start-1][3]=choice1;
+                                    dummy_o3dc.push_back(make_pair(store1,choice1)); break;
+                                }
+
+                                if(s2_3dc[start-1][1]=="2"&&s2_3dc[start-1][3]=="~")  // max value for odd number
+                                {
+                                    printf("\n  Enter following details for");sfc(lm);printf(" [ODD NUMBERS] ");sfc(ww);
+                                    printf("\n\n   Enter the ");sfc(ly);printf("Maximum");sfc(ww);printf(" value and then ");sbc(dr);printf(" ENTER ");sbc(bb);
+                                    printf("\n ");sfc(lr);printf(" Note: ");sfc(ww);printf("Range -> (-10 to the power 18) to (10 to the power 18)");
+                                    printf("\n\n  Maximum value ->  "); cin>>choice1;
+                                    if(choice1=="min") break;
+                                    else if(choice1=="exe") break;
+                                    bool check=valid_pos_neg_integer(choice1);
+                                    if(check==false)
+                                    {
+                                        printf("\n\n   Please check the range and enter a valid Integer");
+                                        printf("\n\n   Now press ");sbc(dr);sfc(lr);printf(" ENTER ");sbc(bb);sfc(ww);printf(" to continue"); getch();break;
+                                    }
+                                    ll store1=string_to_integer_converter(choice1); ll store2=dummy_o3dc[3].first;
+                                    if(store1<store2)
+                                    {
+                                        printf("\n\n   Maximum value must be greater then Minimum value");
+                                        printf("\n\n   press ");sbc(dr);sfc(lr);printf(" ENTER ");sbc(bb);sfc(ww);printf(" to change"); getch();break;
+                                    }
+                                    check=check_odd_exist(store2,store1);
+                                    if(check==false)
+                                    {
+                                        printf("\n\n  No odd Integer exist in the given range");
+                                        printf("\n\n To change Maximum value, press ");sbc(dr);sfc(lr);printf(" ENTER ");sbc(bb);sfc(ww); getch();break;
+                                    }
+                                    s2_3dc[start-1][3]=choice1;
+                                    dummy_o3dc.push_back(make_pair(store1,choice1)); break;
+                                }
+
+                                if(s2_3dc[start-1][1]=="3"&&s2_3dc[start-1][3]=="~")  // max value for even number
+                                {
+                                    printf("\n  Enter following details for");sfc(lm);printf(" [EVEN NUMBERS] ");sfc(ww);
+                                    printf("\n\n   Enter the ");sfc(ly);printf("Maximum");sfc(ww);printf(" value and then ");sbc(dr);printf(" ENTER ");sbc(bb);
+                                    printf("\n ");sfc(lr);printf(" Note: ");sfc(ww);printf("Range -> (-10 to the power 18) to (10 to the power 18)");
+                                    printf("\n\n  Maximum value ->  "); cin>>choice1;
+                                    if(choice1=="min") break;
+                                    else if(choice1=="exe") break;
+                                    bool check=valid_pos_neg_integer(choice1);
+                                    if(check==false)
+                                    {
+                                        printf("\n\n   Please check the range and enter a valid Integer");
+                                        printf("\n\n   Now press ");sbc(dr);sfc(lr);printf(" ENTER ");sbc(bb);sfc(ww);printf(" to continue"); getch();break;
+                                    }
+                                    ll store1=string_to_integer_converter(choice1); ll store2=dummy_o3dc[3].first;
+                                    if(store1<store2)
+                                    {
+                                        printf("\n\n   Maximum value must be greater then Minimum value");
+                                        printf("\n\n   press ");sbc(dr);sfc(lr);printf(" ENTER ");sbc(bb);sfc(ww);printf(" to change"); getch();break;
+                                    }
+                                    check=check_even_exist(store2,store1);
+                                    if(check==false)
+                                    {
+                                        printf("\n\n  No even Integer exist in the given range");
+                                        printf("\n\n To change Maximum value, press ");sbc(dr);sfc(lr);printf(" ENTER ");sbc(bb);sfc(ww); getch();break;
+                                    }
+                                    s2_3dc[start-1][3]=choice1;
+                                    dummy_o3dc.push_back(make_pair(store1,choice1)); break;
+                                }
+
+                                if(s2_3dc[start-1][1]=="4"&&s2_3dc[start-1][3]=="~")  // max value for prime number
+                                {
+                                    printf("\n  Enter following details for");sfc(lm);printf(" [PRIME NUMBERS] ");sfc(ww);
+                                    printf("\n\n   Enter the ");sfc(ly);printf("Maximum");sfc(ww);printf(" value and then ");sbc(dr);printf(" ENTER ");sbc(bb);
+                                    printf("\n ");sfc(lr);printf(" Note: ");sfc(ww);printf("Range -> (2) to (10 to the power 7)");
+                                    printf("\n\n  Maximum value ->  "); cin>>choice1;
+                                    if(choice1=="min") break;
+                                    else if(choice1=="exe") break;
+                                    bool check=valid_pos_neg_integer(choice1);
+                                    if(check==false)
+                                    {
+                                        printf("\n\n   Please check the range and enter a valid Integer");
+                                        printf("\n\n   Now press ");sbc(dr);sfc(lr);printf(" ENTER ");sbc(bb);sfc(ww);printf(" to continue"); getch();break;
+                                    }
+                                    ll store1=string_to_integer_converter(choice1); ll store2=dummy_o3dc[3].first;
+                                    if(store1<2 || store1>10000000)
+                                    {
+                                        printf("\n\n   Please check the range and enter a valid Integer");
+                                        printf("\n\n   Now press ");sbc(dr);sfc(lr);printf(" ENTER ");sbc(bb);sfc(ww);printf(" to continue"); getch();break;
+                                    }
+                                    if(store1<store2)
+                                    {
+                                        printf("\n\n   Maximum value must be greater then Minimum value");
+                                        printf("\n\n   press ");sbc(dr);sfc(lr);printf(" ENTER ");sbc(bb);sfc(ww);printf(" to change"); getch();break;
+                                    }
+                                    check=check_prime_exist(store2,store1);
+                                    if(check==false)
+                                    {
+                                        printf("\n\n   No Prime Integers exist in the given range.");
+                                        printf("\n\n   press ");sbc(dr);sfc(lr);printf(" ENTER ");sbc(bb);sfc(ww);printf(" to change the maximum value"); getch();break;
+                                    }
+                                    s2_3dc[start-1][3]=choice1;
+                                    dummy_o3dc.push_back(make_pair(store1,choice1)); break;
+                                }
+
+                                if(s2_3dc[start-1][1]=="5"&&s2_3dc[start-1][3]=="~")  // max value for non prime number
+                                {
+                                    printf("\n  Enter following details for");sfc(lm);printf(" [NON PRIME NUMBERS] ");sfc(ww);
+                                    printf("\n\n   Enter the ");sfc(ly);printf("Maximum");sfc(ww);printf(" value and then ");sbc(dr);printf(" ENTER ");sbc(bb);
+                                    printf("\n ");sfc(lr);printf(" Note: ");sfc(ww);printf("Range -> (1) to (10 to the power 12)");
+                                    printf("\n\n  Maximum value ->  "); cin>>choice1;
+                                    if(choice1=="min") break;
+                                    else if(choice1=="exe") break;
+                                    bool check=valid_pos_neg_integer(choice1);
+                                    if(check==false)
+                                    {
+                                        printf("\n\n   Please check the range and enter a valid Integer");
+                                        printf("\n\n   Now press ");sbc(dr);sfc(lr);printf(" ENTER ");sbc(bb);sfc(ww);printf(" to continue"); getch();break;
+                                    }
+                                    ll store1=string_to_integer_converter(choice1); ll store2=dummy_o3dc[3].first;
+                                    if(store1<1 || store1>1000000000000)
+                                    {
+                                        printf("\n\n   Please check the range and enter a valid Integer");
+                                        printf("\n\n   Now press ");sbc(dr);sfc(lr);printf(" ENTER ");sbc(bb);sfc(ww);printf(" to continue"); getch();break;
+                                    }
+                                     if(store1<store2)
+                                    {
+                                        printf("\n\n   Maximum value must be greater then Minimum value");
+                                        printf("\n\n   press ");sbc(dr);sfc(lr);printf(" ENTER ");sbc(bb);sfc(ww);printf(" to change"); getch();break;
+                                    }
+                                    check=check_non_prime_exist(store2,store1);
+                                    if(check==false)
+                                    {
+                                        printf("\n\n   No Non_Prime Integer exist in the given range.");
+                                        printf("\n\n   press ");sbc(dr);sfc(lr);printf(" ENTER ");sbc(bb);sfc(ww);printf(" to change the maximum value"); getch();break;
+                                    }
+                                    s2_3dc[start-1][3]=choice1;
+                                    dummy_o3dc.push_back(make_pair(store1,choice1)); break;
+                                }
+
+                                if(s2_3dc[start-1][1]=="6"&&s2_3dc[start-1][3]=="~")  // max value for incremented number
+                                {
+                                    printf("\n  Enter following details for");sfc(lm);printf(" [INCREMENTED NUMBERS] ");sfc(ww);
+                                    printf("\n\n   Enter the ");sfc(ly);printf("Increment");sfc(ww);printf(" value and then ");sbc(dr);printf(" ENTER ");sbc(bb);
+                                    printf("\n ");sfc(lr);printf(" Note: ");sfc(ww);printf("Range -> (-10 to the power 18) to (10 to the power 18)");
+                                    printf("\n\n  Increment value ->  "); cin>>choice1;
+                                    if(choice1=="min") break;
+                                    else if(choice1=="exe") break;
+                                    bool check=valid_pos_neg_integer(choice1);
+                                    if(check==false)
+                                    {
+                                        printf("\n\n   Please check the range and enter a valid Integer");
+                                        printf("\n\n   Now press ");sbc(dr);sfc(lr);printf(" ENTER ");sbc(bb);sfc(ww);printf(" to continue"); getch();break;
+                                    }
+                                    ll store=string_to_integer_converter(choice1); s2_3dc[start-1][3]=choice1;
+                                    dummy_o3dc.push_back(make_pair(store,choice1)); break;
+                                }
+
+                                if(s2_3dc[start-1][1]=="7"&&s2_3dc[start-1][3]=="~")  // max value for Nth Fibonacci number
+                                {
+                                    printf("\n  Enter following details for");sfc(lm);printf(" [Nth FIBONACCI NUMBERS] ");sfc(ww);
+                                    printf("\n\n   Enter the ");sfc(ly);printf("Maximum");sfc(ww);printf(" value and then ");sbc(dr);printf(" ENTER ");sbc(bb);
+                                    printf("\n ");sfc(lr);printf(" Note: ");sfc(ww);printf("Range -> (1) to (93)");
+                                    printf("\n\n  Maximum value ->  "); cin>>choice1;
+                                    if(choice1=="min") break;
+                                    else if(choice1=="exe") break;
+                                    bool check=valid_pos_neg_integer(choice1);
+                                    if(check==false)
+                                    {
+                                        printf("\n\n   Please check the range and enter a valid Integer");
+                                        printf("\n\n   Now press ");sbc(dr);sfc(lr);printf(" ENTER ");sbc(bb);sfc(ww);printf(" to continue"); getch();break;
+                                    }
+                                    ll store1=string_to_integer_converter(choice1); ll store2=dummy_o3dc[3].first;
+                                    if(store1<1 || store1>93)
+                                    {
+                                        printf("\n\n   Please check the range and enter a valid Integer");
+                                        printf("\n\n   Now press ");sbc(dr);sfc(lr);printf(" ENTER ");sbc(bb);sfc(ww);printf(" to continue"); getch();break;
+                                    }
+                                    if(store1<store2)
+                                    {
+                                        printf("\n\n   Maximum value must be greater then Minimum value");
+                                        printf("\n\n   press ");sbc(dr);sfc(lr);printf(" ENTER ");sbc(bb);sfc(ww);printf(" to change"); getch();break;
+                                    }
+                                    s2_3dc[start-1][3]=choice1;
+                                    dummy_o3dc.push_back(make_pair(store1,choice1)); break;
+                                }
+
+
+
+                                if(s2_3dc[start-1][4]=="~~")  // size of array through initializer
+                                {
+                                    printf("\n  List of ");sfc(ly);printf("INITIALIZER");sfc(ww);printf(" available\n");
+                                    for(short itrr=0;itrr<si.size();itrr++)
+                                    {
+                                        printf("\n "); cout<<(itrr+1)<<"- ";
+                                        sfc(ly);cout<<get<3>(si[itrr]);sfc(ww);
+                                        cout<<"   Range ["<<get<1>(si[itrr])<<" - "<<get<2>(si[itrr])<<"]";
+                                    }
+                                    printf("\n\n  Type  the  ");sfc(ly);printf("INITIALIZER");sfc(ww);printf("  name  and  ");sbc(dr);sfc(lr);printf(" ENTER ");sbc(bb);sfc(ww);
+                                    printf("\n  To cancel this feature type ");sfc(lm);printf("cl");sfc(ww);printf(" and ");sbc(dr);sfc(lr);printf(" ENTER ");sbc(bb);sfc(ww);
+                                    printf("\n\n  Type your choice ->  ");cin>>choice1;
+                                    if(choice1=="cl") { s2_3dc[start-1][4]="~";break; }
+                                    else if(choice1=="min") break;
+                                    else if(choice1=="exe") break;
+                                    bool flag=false;
+                                    for(short itrr=0;itrr<si.size();itrr++)
+                                    {
+                                        if(get<3>(si[itrr])==choice1)
+                                        {
+                                            flag=true; s2_3dc[start-1][4]=choice1; dummy_o3dc.push_back(make_pair(get<0>(si[itrr]),choice1)); s2_3dc[start-1][0]="print"; break;
+                                       }
+                                    }
+                                    if(flag==false)
+                                    {
+                                       printf("\n\n   Please type a valid choice");
+                                        printf("\n\n   Now press ");sbc(dr);sfc(lr);printf(" ENTER ");sbc(bb);sfc(ww);printf(" to continue"); getch();break;
+                                    }
+                                    break;
+                                }
+
+
+                                if(s2_3dc[start-1][4]=="~")  // size of array
+                                {
+                                    printf("\n\n  Enter the Size of your ");sfc(lg);printf("ARRAY[]");sfc(ww);printf(" and then press ");sbc(dr);printf(" ENTER ");sbc(bb);
+                                    printf("\n ");sfc(lr);printf(" Note: ");sfc(ww);printf("Range -> (1) to (10 to the power 6)");
+                                    printf("\n\n  If you want to choose an ");sfc(ly);printf("INITIALIZER");sfc(ww);printf(" then type ");sfc(lm);printf("int");sfc(ww);printf(" and ");sbc(dr);printf(" ENTER ");sbc(bb);
+                                    printf("\n\n  Type your choice ->  ");
+                                    cin>>choice1;
+                                    if(choice1=="int")
+                                    {
+                                        if(si.size()==0)
+                                        {
+                                            printf("\n\n  Oops, you have not defined any ");sfc(ly);printf("INITIALIZER");sfc(ww);printf(" yet, you can not use this feature.");
+                                            printf("\n\n   Now press ");sbc(dr);sfc(lr);printf(" ENTER ");sbc(bb);sfc(ww);printf(" to continue"); getch();break;
+                                        }
+                                        else { s2_3dc[start-1][4]="~~"; break; }
+                                    }
+                                    if(choice1=="min") break;
+                                    else if(choice1=="exe") break;
+                                    bool check=valid_pos_neg_integer(choice1);
+                                    if(check==false)
+                                    {
+                                        printf("\n\n   Please check the range and enter a valid Integer");
+                                        printf("\n\n   Now press ");sbc(dr);sfc(lr);printf(" ENTER ");sbc(bb);sfc(ww);printf(" to continue"); getch();break;
+                                    }
+                                    ll store=string_to_integer_converter(choice1);
+                                    if(store<1 || store>1000000)
+                                    {
+                                        printf("\n\n   Please check the range and enter a valid Integer");
+                                        printf("\n\n   Now press ");sbc(dr);sfc(lr);printf(" ENTER ");sbc(bb);sfc(ww);printf(" to continue"); getch();break;
+                                    }
+                                    s2_3dc[start-1][4]=choice1;
+                                    dummy_o3dc.push_back(make_pair(store,choice1)); s2_3dc[start-1][0]="print"; break;
+                                    }
+
+
+                            }
+
+                            if(s2_3dc[start-1][0]=="2")       // Array of  Real
+                            {
+                                printf("\n  Enter following details for");sfc(lm);printf(" [REAL NUMBERS] ");sfc(ww);
+                                if(s2_3dc[start-1][1]=="~")   // set precision
+                                {
+                                    printf("\n\n   Set the precision for your REAL NUMBER...");
+                                    printf("\n ");sfc(lr);printf(" Note: ");sfc(ww);printf("   (You can set form range [0 to 100])\n");
+                                    printf("\n   Enter the precision ->  "); cin>>choice1;
+                                    if(choice1=="min") break;
+                                    else if(choice1=="exe") break;
+                                    bool check=valid_pos_neg_integer(choice1);
+                                    if(check==false)
+                                    {
+                                        printf("\n\n   Please check the range and enter a valid Integer");
+                                        printf("\n\n   Now press ");sbc(dr);sfc(lr);printf(" ENTER ");sbc(bb);sfc(ww);printf(" to continue"); getch();break;
+                                    }
+                                    ll store=string_to_integer_converter(choice1);
+                                    if(store<0 || store>100)
+                                    {
+                                        printf("\n\n   Please check the range and enter a valid Integer");
+                                        printf("\n\n   Now press ");sbc(dr);sfc(lr);printf(" ENTER ");sbc(bb);sfc(ww);printf(" to continue"); getch();break;
+                                    }
+                                    s2_3dc[start-1][1]=choice1;
+                                    dummy_o3dc.push_back(make_pair(store,choice1));  break;
+                                }
+                                if(s2_3dc[start-1][2]=="~")  // set minimum value
+                                {
+                                    printf("\n\n   Enter the ");sfc(ly);printf("Minimum");sfc(ww);printf(" value and then ");sbc(dr);printf(" ENTER ");sbc(bb);
+                                    printf("\n ");sfc(lr);printf(" Note: ");sfc(ww);printf("Range -> (-10 to the power 18) to (10 to the power 18)");
+                                    printf("\n\n  Minimum value ->  ");  cin>>choice1;
+                                    if(choice1=="min") break;
+                                    else if(choice1=="exe") break;
+                                    bool check=valid_pos_neg_integer(choice1);
+                                    if(check==false)
+                                    {
+                                        printf("\n\n   Please check the range and enter a valid Integer");
+                                        printf("\n\n   Now press ");sbc(dr);sfc(lr);printf(" ENTER ");sbc(bb);sfc(ww);printf(" to continue"); getch();break;
+                                    }
+                                    ll store=string_to_integer_converter(choice1);
+                                    s2_3dc[start-1][2]=choice1;
+                                    dummy_o3dc.push_back(make_pair(store,choice1));  break;
+                                }
+                                if(s2_3dc[start-1][3]=="~")  // set maximum value
+                                {
+                                    printf("\n\n   Enter the ");sfc(ly);printf("Maximum");sfc(ww);printf(" value and then ");sbc(dr);printf(" ENTER ");sbc(bb);
+                                    printf("\n ");sfc(lr);printf(" Note: ");sfc(ww);printf("Range -> (-10 to the power 18) to (10 to the power 18)");
+                                    printf("\n\n  Maximum value ->  "); cin>>choice1;
+                                    if(choice1=="min") break;
+                                    else if(choice1=="exe") break;
+                                    bool check=valid_pos_neg_integer(choice1);
+                                    if(check==false)
+                                    {
+                                        printf("\n\n   Please check the range and enter a valid Integer");
+                                        printf("\n\n   Now press ");sbc(dr);sfc(lr);printf(" ENTER ");sbc(bb);sfc(ww);printf(" to continue"); getch();break;
+                                    }
+                                    ll store1=string_to_integer_converter(choice1); ll store2=dummy_o3dc[3].first;
+                                    if(store1==store2)   //  ( Note -> Max_value-Min_value >=1 )
+                                    {
+                                        printf("\n\n   Note -> (Max_value - Min_value) >=1 ");
+                                        printf("\n\n   press ");sbc(dr);sfc(lr);printf(" ENTER ");sbc(bb);sfc(ww);printf(" to change"); getch();break;
+                                    }
+                                    if(store1<store2)
+                                    {
+                                        printf("\n\n   Maximum value must be greater then Minimum value");
+                                        printf("\n\n   press ");sbc(dr);sfc(lr);printf(" ENTER ");sbc(bb);sfc(ww);printf(" to change"); getch();break;
+                                    }
+                                    s2_3dc[start-1][3]=choice1;
+                                    dummy_o3dc.push_back(make_pair(store1,choice1)); break;
+                                }
+                                if(s2_3dc[start-1][4]=="~~")  // set size of Array through initializer
+                                {
+                                    printf("\n  List of ");sfc(ly);printf("INITIALIZER");sfc(ww);printf(" available\n");
+                                    for(short itrr=0;itrr<si.size();itrr++)
+                                    {
+                                        printf("\n "); cout<<(itrr+1)<<"- ";
+                                        sfc(ly);cout<<get<3>(si[itrr]);sfc(ww);
+                                        cout<<"   Range ["<<get<1>(si[itrr])<<" - "<<get<2>(si[itrr])<<"]";
+                                    }
+                                    printf("\n\n  Type  the  ");sfc(ly);printf("INITIALIZER");sfc(ww);printf("  name  and  ");sbc(dr);sfc(lr);printf(" ENTER ");sbc(bb);sfc(ww);
+                                    printf("\n  To cancel this feature type ");sfc(lm);printf("cl");sfc(ww);printf(" and ");sbc(dr);sfc(lr);printf(" ENTER ");sbc(bb);sfc(ww);
+                                    printf("\n\n  Type your choice ->  ");cin>>choice1;
+                                    if(choice1=="cl") { s2_3dc[start-1][4]="~";break; }
+                                    else if(choice1=="min") break;
+                                    else if(choice1=="exe") break;
+                                    bool flag=false;
+                                    for(short itrr=0;itrr<si.size();itrr++)
+                                    {
+                                        if(get<3>(si[itrr])==choice1)
+                                        {
+                                            flag=true; s2_3dc[start-1][4]=choice1; dummy_o3dc.push_back(make_pair(get<0>(si[itrr]),choice1)); s2_3dc[start-1][0]="print"; break;
+                                       }
+                                    }
+                                    if(flag==false)
+                                    {
+                                       printf("\n\n   Please type a valid choice");
+                                        printf("\n\n   Now press ");sbc(dr);sfc(lr);printf(" ENTER ");sbc(bb);sfc(ww);printf(" to continue"); getch();break;
+                                    }
+                                    break;
+                                }
+                                if(s2_3dc[start-1][4]=="~")  // set size of Array
+                                {
+                                    printf("\n\n  Enter the Size of your ");sfc(lg);printf("ARRAY[]");sfc(ww);printf(" and then press ");sbc(dr);printf(" ENTER ");sbc(bb);
+                                    printf("\n ");sfc(lr);printf(" Note: ");sfc(ww);printf("Range -> (1) to (10 to the power 6)");
+                                    printf("\n\n  If you want to choose an ");sfc(ly);printf("INITIALIZER");sfc(ww);printf(" then type ");sfc(lm);printf("int");sfc(ww);printf(" and ");sbc(dr);printf(" ENTER ");sbc(bb);
+                                    printf("\n\n  Type your choice ->  ");
+                                    cin>>choice1;
+                                    if(choice1=="int")
+                                    {
+                                        if(si.size()==0)
+                                        {
+                                            printf("\n\n  Oops, you have not defined any ");sfc(ly);printf("INITIALIZER");sfc(ww);printf(" yet, you can not use this feature.");
+                                            printf("\n\n   Now press ");sbc(dr);sfc(lr);printf(" ENTER ");sbc(bb);sfc(ww);printf(" to continue"); getch();break;
+                                        }
+                                        else { s2_3dc[start-1][4]="~~"; break; }
+                                    }
+                                    if(choice1=="min") break;
+                                    else if(choice1=="exe") break;
+                                    bool check=valid_pos_neg_integer(choice1);
+                                    if(check==false)
+                                    {
+                                        printf("\n\n   Please check the range and enter a valid Integer");
+                                        printf("\n\n   Now press ");sbc(dr);sfc(lr);printf(" ENTER ");sbc(bb);sfc(ww);printf(" to continue"); getch();break;
+                                    }
+                                    ll store=string_to_integer_converter(choice1);
+                                    if(store<1 || store>1000000)
+                                    {
+                                        printf("\n\n   Please check the range and enter a valid Integer");
+                                        printf("\n\n   Now press ");sbc(dr);sfc(lr);printf(" ENTER ");sbc(bb);sfc(ww);printf(" to continue"); getch();break;
+                                    }
+                                    s2_3dc[start-1][4]=choice1;
+                                    dummy_o3dc.push_back(make_pair(store,choice1)); s2_3dc[start-1][0]="print"; break;
+                                }
+                            }
+
+                            if(s2_3dc[start-1][0]=="3")       // Array of  String
+                            {
+                                if(s2_3dc[start-1][1]=="~")  // type of string
+                                {
+                                    printf("\n\n    What type of string you want to create ?");
+                                    printf("\n\n  ");sfc(lr);printf("press 1");sfc(ww);printf(" and ");sbc(dr);printf(" ENTER ");sbc(bb);printf(" to create ");sfc(ly);printf("DEFAULT STRING");sfc(ww);printf(" (user defined)");
+                                    printf("\n\n  ");sfc(lr);printf("press 2");sfc(ww);printf(" and ");sbc(dr);printf(" ENTER ");sbc(bb);printf(" to create ");sfc(lg);printf("INPUT   STRING");sfc(ww);printf(" (computer generated)");
+                                    printf("\n\n   Enter your choice ->  "); cin>>choice1;
+                                    if(choice1=="min") break;
+                                    else if(choice1=="exe") break;
+                                    if(choice1=="1" || choice1=="2")
+                                    {
+                                        short store=string_to_integer_converter(choice1); s2_3dc[start-1][1]=choice1;
+                                        dummy_o3dc.push_back(make_pair(store,choice1));  break;
+                                    }
+                                    printf("\n\n    Enter the valid choice");
+                                    printf("\n\n    Now press ");sbc(dr);sfc(lr);printf(" ENTER ");sbc(bb);sfc(ww);printf(" to continue"); getch(); break;
+                                }
+                                if(s2_3dc[start-1][1]=="1")    // Default String
+                                {
+                                    if(s2_3dc[start-1][2]=="~") //  store the default String
+                                    {
+                                        printf("\n\n  Type the Default String and then press ");sbc(dr);printf("ENTER");sbc(bb);
+                                        sfc(lr);printf("\n  NOTE: ");sfc(ww);printf("Do not include spaces in your string");
+                                        printf("\n\n  Type your string  ->  "); string def_string; cin>>def_string; s2_3dc[start-1][2]=def_string;
+                                        dummy_o3dc.push_back(make_pair(4,def_string)); break;
+                                    }
+                                    if(s2_3dc[start-1][4]=="~~")  // set size of Array through initializer
+                                    {
+                                        printf("\n  List of ");sfc(ly);printf("INITIALIZER");sfc(ww);printf(" available\n");
+                                        for(short itrr=0;itrr<si.size();itrr++)
+                                        {
+                                            printf("\n "); cout<<(itrr+1)<<"- ";
+                                            sfc(ly);cout<<get<3>(si[itrr]);sfc(ww);
+                                            cout<<"   Range ["<<get<1>(si[itrr])<<" - "<<get<2>(si[itrr])<<"]";
+                                        }
+                                        printf("\n\n  Type  the  ");sfc(ly);printf("INITIALIZER");sfc(ww);printf("  name  and  ");sbc(dr);sfc(lr);printf(" ENTER ");sbc(bb);sfc(ww);
+                                        printf("\n  To cancel this feature type ");sfc(lm);printf("cl");sfc(ww);printf(" and ");sbc(dr);sfc(lr);printf(" ENTER ");sbc(bb);sfc(ww);
+                                        printf("\n\n  Type your choice ->  ");cin>>choice1;
+                                        if(choice1=="cl") { s2_3dc[start-1][4]="~";break; }
+                                        else if(choice1=="min") break;
+                                        else if(choice1=="exe") break;
+                                        bool flag=false;
+                                        for(short itrr=0;itrr<si.size();itrr++)
+                                        {
+                                            if(get<3>(si[itrr])==choice1)
+                                            {
+                                                flag=true; s2_3dc[start-1][4]=choice1; dummy_o3dc.push_back(make_pair(get<0>(si[itrr]),choice1)); s2_3dc[start-1][0]="printt"; break;
+                                           }
+                                        }
+                                        if(flag==false)
+                                        {
+                                           printf("\n\n   Please type a valid choice");
+                                            printf("\n\n   Now press ");sbc(dr);sfc(lr);printf(" ENTER ");sbc(bb);sfc(ww);printf(" to continue"); getch();break;
+                                        }
+                                        break;
+                                    }
+                                    if(s2_3dc[start-1][4]=="~") //  set size of ARRAY
+                                    {
+                                        printf("\n\n  Enter the Size of your ");sfc(lg);printf("ARRAY[]");sfc(ww);printf(" and then press ");sbc(dr);printf(" ENTER ");sbc(bb);
+                                        printf("\n ");sfc(lr);printf(" Note: ");sfc(ww);printf("Range -> (1) to (10 to the power 6)");
+                                        printf("\n\n  If you want to choose an ");sfc(ly);printf("INITIALIZER");sfc(ww);printf(" then type ");sfc(lm);printf("int");sfc(ww);printf(" and ");sbc(dr);printf(" ENTER ");sbc(bb);
+                                        printf("\n\n  Type your choice ->  ");
+                                        cin>>choice1;
+                                        if(choice1=="int")
+                                        {
+                                            if(si.size()==0)
+                                            {
+                                                printf("\n\n  Oops, you have not defined any ");sfc(ly);printf("INITIALIZER");sfc(ww);printf(" yet, you can not use this feature.");
+                                                printf("\n\n   Now press ");sbc(dr);sfc(lr);printf(" ENTER ");sbc(bb);sfc(ww);printf(" to continue"); getch();break;
+                                            }
+                                            else { s2_3dc[start-1][4]="~~"; break; }
+                                        }
+                                        if(choice1=="min") break;
+                                        else if(choice1=="exe") break;
+                                        bool check=valid_pos_neg_integer(choice1);
+                                        if(check==false)
+                                        {
+                                            printf("\n\n   Please check the range and enter a valid Integer");
+                                            printf("\n\n   Now press ");sbc(dr);sfc(lr);printf(" ENTER ");sbc(bb);sfc(ww);printf(" to continue"); getch();break;
+                                        }
+                                        ll store=string_to_integer_converter(choice1);
+                                        if(store<1 || store>1000000)
+                                        {
+                                            printf("\n\n   Please check the range and enter a valid Integer");
+                                            printf("\n\n   Now press ");sbc(dr);sfc(lr);printf(" ENTER ");sbc(bb);sfc(ww);printf(" to continue"); getch();break;
+                                        }
+                                        s2_3dc[start-1][4]=choice1;
+                                        dummy_o3dc.push_back(make_pair(store,choice1)); s2_3dc[start-1][0]="printt"; break;
+                                    }
+                                }
+
+                                else                           // Input String
+                                {
+                                    if(s2_3dc[start-1][2]=="~")  // store input string
+                                    {
+                                        printf("\n\n  Type the Input String and then press ");sbc(dr);printf("ENTER");sbc(bb);
+                                        sfc(lr);printf("\n  NOTE: ");sfc(ww);printf("Do not include spaces in your string");
+                                        printf("\n\n  Type your string  ->  "); string in_string;cin>>in_string; s2_3dc[start-1][2]=in_string;
+                                        dummy_o3dc.push_back(make_pair(4,in_string)); break;
+                                    }
+                                    if(s2_3dc[start-1][3]=="~")  // type of string
+                                    {
+                                        printf("\n\n  What type of STRING you want to create ?\n");
+                                        sfc(lr);printf("\n  press 1");sfc(ww);printf(" and ");sbc(dr);printf(" ENTER ");sbc(bb);printf(" to create -> ");sfc(ly);printf("RANDOM STRING");
+                                        sfc(lr);printf("\n  press 2");sfc(ww);printf(" and ");sbc(dr);printf(" ENTER ");sbc(bb);printf(" to create -> ");sfc(ly);printf("SORTED ASSENDING STRING");
+                                        sfc(lr);printf("\n  press 3");sfc(ww);printf(" and ");sbc(dr);printf(" ENTER ");sbc(bb);printf(" to create -> ");sfc(ly);printf("SORTED DESCENDING STRING");
+                                        sfc(lr);printf("\n  press 4");sfc(ww);printf(" and ");sbc(dr);printf(" ENTER ");sbc(bb);printf(" to create -> ");sfc(ly);printf("PALINDROMIC STRING");sfc(ww);
+                                        printf("\n\n  Enter your choice ->  "); cin>>choice1;
+                                        if(choice1=="min") break;
+                                        else if(choice1=="exe") break;
+                                        if(choice1=="1" || choice1=="2" || choice1=="3" || choice1=="4")
+                                        {
+                                            short store=string_to_integer_converter(choice1);
+                                            s2_3dc[start-1][3]=choice1;
+                                            dummy_o3dc.push_back(make_pair(store,choice1));  break;
+                                        }
+                                        printf("\n\n    Enter the valid choice");
+                                        printf("\n\n    Now press ");sbc(dr);sfc(lr);printf(" ENTER ");sbc(bb);sfc(ww);printf(" to continue"); getch(); break;
+                                    }
+                                    if(s2_3dc[start-1][5]=="~")  // mode of string
+                                    {
+                                        printf("\n\n  Select a valid mode of create\n");
+                                        sfc(lr);printf("\n  press 1");sfc(ww);printf(" and ");sbc(dr);printf(" ENTER ");sbc(bb);printf(" to generate -> ");sfc(ly);printf(" REPEATED   SYMBOL STRING");
+                                        sfc(lr);printf("\n  press 2");sfc(ww);printf(" and ");sbc(dr);printf(" ENTER ");sbc(bb);printf(" to generate -> ");sfc(ly);printf(" ALL UNIQUE SYMBOL STRING");sfc(ww);
+                                        printf("\n\n Enter your choice -> "); cin>>choice1;
+                                        if(choice1=="min") break;
+                                        else if(choice1=="exe") break;
+                                        if(choice1=="1" || choice1=="2")
+                                        {
+                                            short store=string_to_integer_converter(choice1); s2_3dc[start-1][5]=choice1;
+                                            dummy_o3dc.push_back(make_pair(store,choice1));  break;
+                                        }
+                                        printf("\n\n    Enter the valid choice");
+                                        printf("\n\n    Now press ");sbc(dr);sfc(lr);printf(" ENTER ");sbc(bb);sfc(ww);printf(" to continue"); getch(); break;
+                                    }
+                                    if(s2_3dc[start-1][6]=="~")  // size of string
+                                    {
+                                        if(s2_3dc[start-1][5]=="1")    // Repetition allowed in symbols
+                                        {
+                                            printf("\n\n Enter the size of STRING and then press ");sbc(dr);printf(" ENTER ");sbc(bb);
+                                            printf("\n ");sfc(lr);printf(" Note: ");sfc(ww);printf("Range -> (1) to (10 to the power 6)");
+                                            printf("\n\n SIZE ->  "); cin>>choice1;
+                                            if(choice1=="min") break;
+                                            else if(choice1=="exe") break;
+                                            bool check=valid_pos_neg_integer(choice1);
+                                            if(check==false)
+                                            {
+                                                printf("\n\n   Please check the range and enter a valid Integer");
+                                                printf("\n\n   Now press ");sbc(dr);sfc(lr);printf(" ENTER ");sbc(bb);sfc(ww);printf(" to continue"); getch();break;
+                                            }
+                                            ll store=string_to_integer_converter(choice1);
+                                            if(store<1 || store>1000000)
+                                            {
+                                                printf("\n\n   Please check the range and enter a valid Integer");
+                                                printf("\n\n   Now press ");sbc(dr);sfc(lr);printf(" ENTER ");sbc(bb);sfc(ww);printf(" to continue"); getch();break;
+                                            }
+                                            s2_3dc[start-1][6]=choice1;
+                                            dummy_o3dc.push_back(make_pair(store,choice1)); break;
+                                        }
+                                        else        // No repetition allowed in symbols
+                                        {
+                                            if(s2_3dc[start-1][3]=="4")    // palindromic
+                                            {
+                                                printf("\n\n Enter the size of Palindromic STRING and then press ");sbc(dr);printf(" ENTER ");sbc(bb);
+                                                printf("\n ");sfc(lr);printf(" Note: ");sfc(ww);printf("Range -> (1) to (");cout<<(2*s2_3dc[start-1][2].size())<<")";
+                                                printf("\n\n SIZE ->  "); cin>>choice1;
+                                                if(choice1=="min") break;
+                                                else if(choice1=="exe") break;
+                                                bool check=valid_pos_neg_integer(choice1);
+                                                if(check==false)
+                                                {
+                                                    printf("\n\n   Please check the range and enter a valid Integer");
+                                                    printf("\n\n   Now press ");sbc(dr);sfc(lr);printf(" ENTER ");sbc(bb);sfc(ww);printf(" to continue"); getch();break;
+                                                }
+                                                ll store=string_to_integer_converter(choice1);
+                                                if(store<1 || store>(2*s2_3dc[start-1][2].size()))
+                                                {
+                                                    printf("\n\n   Please check the range and enter a valid Integer");
+                                                    printf("\n\n   Now press ");sbc(dr);sfc(lr);printf(" ENTER ");sbc(bb);sfc(ww);printf(" to continue"); getch();break;
+                                                }
+                                                s2_3dc[start-1][6]=choice1;
+                                                dummy_o3dc.push_back(make_pair(store,choice1)); break;
+                                            }
+                                            else   //  Ordinary
+                                            {
+                                                printf("\n\n Enter the size of STRING and then press ");sbc(dr);printf(" ENTER ");sbc(bb);
+                                                printf("\n ");sfc(lr);printf(" Note: ");sfc(ww);printf("Range -> (1) to (");cout<<s2_3dc[start-1][2].size()<<")";
+                                                printf("\n\n SIZE ->  "); cin>>choice1;
+                                                if(choice1=="min") break;
+                                                else if(choice1=="exe") break;
+                                                bool check=valid_pos_neg_integer(choice1);
+                                                if(check==false)
+                                                {
+                                                    printf("\n\n   Please check the range and enter a valid Integer");
+                                                    printf("\n\n   Now press ");sbc(dr);sfc(lr);printf(" ENTER ");sbc(bb);sfc(ww);printf(" to continue"); getch();break;
+                                                }
+                                                ll store=string_to_integer_converter(choice1);
+                                                if(store<1 || store>s2_3dc[start-1][2].size())
+                                                {
+                                                    printf("\n\n   Please check the range and enter a valid Integer");
+                                                    printf("\n\n   Now press ");sbc(dr);sfc(lr);printf(" ENTER ");sbc(bb);sfc(ww);printf(" to continue"); getch();break;
+                                                }
+                                                s2_3dc[start-1][6]=choice1;
+                                                dummy_o3dc.push_back(make_pair(store,choice1)); break;
+                                            }
+                                        }
+                                    }
+                                    if(s2_3dc[start-1][4]=="~~")  // size of array through initializer
+                                    {
+                                        printf("\n  List of ");sfc(ly);printf("INITIALIZER");sfc(ww);printf(" available\n");
+                                        for(short itrr=0;itrr<si.size();itrr++)
+                                        {
+                                            printf("\n "); cout<<(itrr+1)<<"- ";
+                                            sfc(ly);cout<<get<3>(si[itrr]);sfc(ww);
+                                            cout<<"   Range ["<<get<1>(si[itrr])<<" - "<<get<2>(si[itrr])<<"]";
+                                        }
+                                        printf("\n\n  Type  the  ");sfc(ly);printf("INITIALIZER");sfc(ww);printf("  name  and  ");sbc(dr);sfc(lr);printf(" ENTER ");sbc(bb);sfc(ww);
+                                        printf("\n  To cancel this feature type ");sfc(lm);printf("cl");sfc(ww);printf(" and ");sbc(dr);sfc(lr);printf(" ENTER ");sbc(bb);sfc(ww);
+                                        printf("\n\n  Type your choice ->  ");cin>>choice1;
+                                        if(choice1=="cl") { s2_3dc[start-1][4]="~";break; }
+                                        else if(choice1=="min") break;
+                                        else if(choice1=="exe") break;
+                                        bool flag=false;
+                                        for(short itrr=0;itrr<si.size();itrr++)
+                                        {
+                                            if(get<3>(si[itrr])==choice1)
+                                            {
+                                                flag=true; s2_3dc[start-1][4]=choice1; dummy_o3dc.push_back(make_pair(get<0>(si[itrr]),choice1)); s2_3dc[start-1][0]="print"; break;
+                                            }
+                                        }
+                                        if(flag==false)
+                                        {
+                                            printf("\n\n   Please type a valid choice");
+                                            printf("\n\n   Now press ");sbc(dr);sfc(lr);printf(" ENTER ");sbc(bb);sfc(ww);printf(" to continue"); getch();break;
+                                        }
+                                        break;
+                                    }
+                                    if(s2_3dc[start-1][4]=="~")  // size of array
+                                    {
+                                        printf("\n\n  Enter the Size of your ");sfc(lg);printf("ARRAY[]");sfc(ww);printf(" and then press ");sbc(dr);printf(" ENTER ");sbc(bb);
+                                        printf("\n ");sfc(lr);printf(" Note: ");sfc(ww);printf("Range -> (1) to (10 to the power 6)");
+                                        printf("\n\n  If you want to choose an ");sfc(ly);printf("INITIALIZER");sfc(ww);printf(" then type ");sfc(lm);printf("int");sfc(ww);printf(" and ");sbc(dr);printf(" ENTER ");sbc(bb);
+                                        printf("\n\n  Type your choice ->  ");
+                                        cin>>choice1;
+                                        if(choice1=="int")
+                                        {
+                                            if(si.size()==0)
+                                            {
+                                                printf("\n\n  Oops, you have not defined any ");sfc(ly);printf("INITIALIZER");sfc(ww);printf(" yet, you can not use this feature.");
+                                                printf("\n\n   Now press ");sbc(dr);sfc(lr);printf(" ENTER ");sbc(bb);sfc(ww);printf(" to continue"); getch();break;
+                                            }
+                                            else { s2_3dc[start-1][4]="~~"; break; }
+                                        }
+                                        if(choice1=="min") break;
+                                        else if(choice1=="exe") break;
+                                        bool check=valid_pos_neg_integer(choice1);
+                                        if(check==false)
+                                        {
+                                            printf("\n\n   Please check the range and enter a valid Integer");
+                                            printf("\n\n   Now press ");sbc(dr);sfc(lr);printf(" ENTER ");sbc(bb);sfc(ww);printf(" to continue"); getch();break;
+                                        }
+                                        ll store=string_to_integer_converter(choice1);
+                                        if(store<1 || store>1000000)
+                                        {
+                                            printf("\n\n   Please check the range and enter a valid Integer");
+                                            printf("\n\n   Now press ");sbc(dr);sfc(lr);printf(" ENTER ");sbc(bb);sfc(ww);printf(" to continue"); getch();break;
+                                        }
+                                        s2_3dc[start-1][4]=choice1;
+                                        dummy_o3dc.push_back(make_pair(store,choice1)); s2_3dc[start-1][0]="print"; break;
+                                        }
+                                }
+                            }
+
+                            if(s2_3dc[start-1][0]=="4")       // prepare for Permutations
+                            {
+                                dummy_o3dc.push_back(make_pair(1,"~")); // for storing permutation string    (index 2)
+                                dummy_o3dc.push_back(make_pair(1,"~")); // for storing Size of array         (index 3)
+                                dummy_o3dc.push_back(make_pair(1,"~")); // for storing print format of array (index 4)
+                                dummy_o3dc.push_back(make_pair(1,"~")); // for storing order of array        (index 5)
+                                s2_3dc[start-1][0]="ready_for_permutation"; break;
+                            }
+
+                            if(s2_3dc[start-1][0]=="ready_for_permutation")    // Array of Permutation
+                            {
+                                printf("\n  Enter following details for");sfc(lm);printf(" [PERMUTATIONS] ");sfc(ww);
+                                if(s2_3dc[start-1][4]=="~~")  // set size of Array through initializer
+                                {
+                                    printf("\n  List of ");sfc(ly);printf("INITIALIZER");sfc(ww);printf(" available\n");
+                                    for(short itrr=0;itrr<si.size();itrr++)
+                                    {
+                                        printf("\n "); cout<<(itrr+1)<<"- ";
+                                        sfc(ly);cout<<get<3>(si[itrr]);sfc(ww);
+                                        cout<<"   Range ["<<get<1>(si[itrr])<<" - "<<get<2>(si[itrr])<<"]";
+                                    }
+                                    printf("\n\n  Type  the  ");sfc(ly);printf("INITIALIZER");sfc(ww);printf("  name  and  ");sbc(dr);sfc(lr);printf(" ENTER ");sbc(bb);sfc(ww);
+                                    printf("\n  To cancel this feature type ");sfc(lm);printf("cl");sfc(ww);printf(" and ");sbc(dr);sfc(lr);printf(" ENTER ");sbc(bb);sfc(ww);
+                                    printf("\n\n  Type your choice ->  ");cin>>choice1;
+                                    if(choice1=="cl") { s2_3dc[start-1][4]="~";break; }
+                                    else if(choice1=="min") break;
+                                    else if(choice1=="exe") break;
+                                    bool flag=false;
+                                    for(short itrr=0;itrr<si.size();itrr++)
+                                    {
+                                        if(get<3>(si[itrr])==choice1)
+                                        {
+                                            flag=true; s2_3dc[start-1][4]=choice1;
+                                            dummy_o3dc[3].first=get<0>(si[itrr]); dummy_o3dc[3].second=choice1; break;
+                                       }
+                                    }
+                                    if(flag==false)
+                                    {
+                                       printf("\n\n   Please type a valid choice");
+                                        printf("\n\n   Now press ");sbc(dr);sfc(lr);printf(" ENTER ");sbc(bb);sfc(ww);printf(" to continue"); getch();break;
+                                    }
+                                    break;
+                                }
+
+                                if(s2_3dc[start-1][4]=="~")  // set size of Array
+                                {
+                                    printf("\n\n  Enter the Size of your ");sfc(lg);printf("ARRAY[]");sfc(ww);printf(" and then press ");sbc(dr);printf(" ENTER ");sbc(bb);
+                                    printf("\n ");sfc(lr);printf(" Note: ");sfc(ww);printf("Range -> (1) to (10 to the power 6)");
+                                    printf("\n\n  If you want to choose an ");sfc(ly);printf("INITIALIZER");sfc(ww);printf(" then type ");sfc(lm);printf("int");sfc(ww);printf(" and ");sbc(dr);printf(" ENTER ");sbc(bb);
+                                    printf("\n\n  Type your choice ->  ");
+                                    cin>>choice1;
+                                    if(choice1=="int")
+                                    {
+                                        if(si.size()==0)
+                                        {
+                                            printf("\n\n  Oops, you have not defined any ");sfc(ly);printf("INITIALIZER");sfc(ww);printf(" yet, you can not use this feature.");
+                                            printf("\n\n   Now press ");sbc(dr);sfc(lr);printf(" ENTER ");sbc(bb);sfc(ww);printf(" to continue"); getch();break;
+                                        }
+                                        else { s2_3dc[start-1][4]="~~"; break; }
+                                    }
+                                    if(choice1=="min") break;
+                                    else if(choice1=="exe") break;
+                                    bool check=valid_pos_neg_integer(choice1);
+                                    if(check==false)
+                                    {
+                                        printf("\n\n   Please check the range and enter a valid Integer");
+                                        printf("\n\n   Now press ");sbc(dr);sfc(lr);printf(" ENTER ");sbc(bb);sfc(ww);printf(" to continue"); getch();break;
+                                    }
+                                    ll store=string_to_integer_converter(choice1);
+                                    if(store<1 || store>1000000)
+                                    {
+                                        printf("\n\n   Please check the range and enter a valid Integer");
+                                        printf("\n\n   Now press ");sbc(dr);sfc(lr);printf(" ENTER ");sbc(bb);sfc(ww);printf(" to continue"); getch();break;
+                                    }
+                                    s2_3dc[start-1][4]=choice1;
+                                    dummy_o3dc[3].first=store;dummy_o3dc[3].second=choice1; break;
+                                }
+
+                                if(dummy_o3dc[2].second=="~")  // store string for permutation
+                                {
+                                    printf("\n\n  Type the String and then press ");sbc(dr);printf("ENTER");sbc(bb);
+                                    sfc(lr);printf("\n  NOTE: ");sfc(ww);printf("Do not include spaces in your string");
+                                    printf("\n        ");printf("Range : Length must be less then 20 characters");
+                                    printf("\n\n  Type your string  ->  "); string in_string; cin>>in_string;
+                                    if(in_string.size()>19)
+                                    {
+                                        printf("\n\n    Please check the range of string");
+                                        printf("\n\n    Now press ");sbc(dr);sfc(lr);printf(" ENTER ");sbc(bb);sfc(ww);printf(" to continue"); getch(); break;
+                                    }
+                                    ll store1=count_no_of_permutations(in_string);
+                                    if(dummy_o3dc[3].first<0)
+                                    {
+                                        short indexx=abs(dummy_o3dc[3].first)-1;
+                                        ll store2=get<2>(si[indexx]);
+                                        if(store1<store2)
+                                        {
+                                            cout<<"\n\n    Only "<<store1<<" number of permutations are possible of your string.";
+                                            cout<<"\n    However, you want to create ";sfc(lg);printf("ARRAY[]");sfc(ww);printf(" of size ");cout<<store2;printf(" as per your ");sfc(ly);printf("INITIALIZER");sfc(ww);printf(" size");
+                                            sfc(ly);printf("\n  INITIALIZER : ");cout<<get<3>(si[indexx]);sfc(ww);printf(" Range -> [ ");cout<<get<1>(si[indexx])<<" - "<<get<2>(si[indexx])<<" ]";                                                    cout<<"\n\n    So you are advised to change your string which have at least "<<store2<<" number of permutations.";
+                                            printf("\n\n    Now press ");sbc(dr);sfc(lr);printf(" ENTER ");sbc(bb);sfc(ww);printf(" to continue"); getch(); break;
+                                        }
+                                    }
+                                    else
+                                    {
+                                        ll store2=dummy_o3dc[3].first;
+                                        if(store1<store2)
+                                        {
+                                            cout<<"\n\n    Only "<<store1<<" number of permutations are possible of your string.";
+                                            cout<<"\n    However, you want to create ";sfc(lg);printf("ARRAY[]");sfc(ww);printf(" of size ");cout<<store2;
+                                            cout<<"\n\n    So you are advised to change your string which have at least "<<store2<<" number of permutations.";
+                                            printf("\n\n    Now press ");sbc(dr);sfc(lr);printf(" ENTER ");sbc(bb);sfc(ww);printf(" to continue"); getch(); break;
+                                        }
+                                    }
+                                            dummy_o3dc[2].second=in_string;
+                                            dummy_o3dc[2].first=4; break;
+                                }
+
+                                if(dummy_o3dc[4].second=="~")  // store  print style of array
+                                {
+                                    printf("\n\n  Select a valid ");sfc(lm);printf("Print Format");sfc(ww);printf(" for your");sfc(lg);printf(" ARRAY[] \n");sfc(ww);
+                                    printf("\n  ");sfc(lr);printf("press 1");sfc(ww);printf(" and ");sbc(dr);sfc(lr);printf(" ENTER ");sbc(bb);sfc(ww);printf(" to select -> Space Separated ");
+                                    printf("\n  ");sfc(lr);printf("press 2");sfc(ww);printf(" and ");sbc(dr);sfc(lr);printf(" ENTER ");sbc(bb);sfc(ww);printf(" to select -> Line  Separated");
+                                    printf("\n\n  Type your choice  -> "); cin>>choice1;
+                                    if(choice1=="min") break;
+                                    else if(choice1=="exe") break;
+                                    if(choice1=="1" || choice1=="2")
+                                    {
+                                        short store=string_to_integer_converter(choice1);
+                                        dummy_o3dc[4].first=store; dummy_o3dc[4].second=choice1; break;
+                                    }
+                                    printf("\n\n    Enter the valid choice");
+                                    printf("\n\n    Now press ");sbc(dr);sfc(lr);printf(" ENTER ");sbc(bb);sfc(ww);printf(" to continue"); getch(); break;
+                                }
+
+                                if(dummy_o3dc[5].second=="~")  // store  order of array
+                                {
+                                    printf("\n\n  Select a valid ");sfc(lm);printf("ORDER");sfc(ww);printf(" for your ");sfc(lg);printf("ARRAY[]\n");sfc(ww);
+                                    printf("\n  ");sfc(lr);printf("press 1");sfc(ww);printf(" and ");sbc(dr);sfc(lr);printf(" ENTER ");sbc(bb);sfc(ww);printf(" to apply -> RANDOMLY ARRANGED");
+                                    printf("\n  ");sfc(lr);printf("press 2");sfc(ww);printf(" and ");sbc(dr);sfc(lr);printf(" ENTER ");sbc(bb);sfc(ww);printf(" to apply -> SORTED ASCENDING");
+                                    printf("\n  ");sfc(lr);printf("press 3");sfc(ww);printf(" and ");sbc(dr);sfc(lr);printf(" ENTER ");sbc(bb);sfc(ww);printf(" to apply -> SORTED DESCENDING");
+                                    printf("\n\n  Enter your choice ->  ");cin>>choice1;
+                                    if(choice1=="min") break;
+                                    else if(choice1=="exe") break;
+                                    if(choice1=="1" || choice1=="2" || choice1=="3")
+                                    {
+                                        short store=string_to_integer_converter(choice1);
+                                        dummy_o3dc[5].first=store; dummy_o3dc[5].second=choice1;
+                                        dummy2_o3dc.push_back(dummy_o3dc);
+                                        dummy_o3dc.clear(); s_3dc[i][j]=true; break;
+                                    }
+                                    printf("\n\n    Enter the valid choice");
+                                    printf("\n\n    Now press ");sbc(dr);sfc(lr);printf(" ENTER ");sbc(bb);sfc(ww);printf(" to continue"); getch(); break;
+                                }
+                            }
+
+                            if(s2_3dc[start-1][0]=="5")                       // prepare for unique number
+                            {
+                                dummy_o3dc.push_back(make_pair(1,"~"));  // for storing minimum value    (index 2)
+                                dummy_o3dc.push_back(make_pair(1,"~"));  // for storing maximum value    (index 3)
+                                dummy_o3dc.push_back(make_pair(1,"~"));  // for storing size of array    (index 4)
+                                dummy_o3dc.push_back(make_pair(1,"~"));  // for storing print format     (index 5)
+                                dummy_o3dc.push_back(make_pair(1,"~"));  // for storing order            (index 6)
+                                s2_3dc[start-1][0]="ready_for_unique"; break;
+                            }
+
+                            if(s2_3dc[start-1][0]=="ready_for_unique")        // Array of Unique Numbers
+                            {
+                                printf("\n  Enter following details for");sfc(lm);printf(" [UNIQUE NUMBERS] ");sfc(ww);
+                                if(s2_3dc[start-1][4]=="~~")   // set size of Array through initializer
+                                {
+                                    printf("\n  List of ");sfc(ly);printf("INITIALIZER");sfc(ww);printf(" available\n");
+                                    for(short itrr=0;itrr<si.size();itrr++)
+                                    {
+                                        printf("\n "); cout<<(itrr+1)<<"- ";
+                                        sfc(ly);cout<<get<3>(si[itrr]);sfc(ww);
+                                        cout<<"   Range ["<<get<1>(si[itrr])<<" - "<<get<2>(si[itrr])<<"]";
+                                    }
+                                    printf("\n\n  Type  the  ");sfc(ly);printf("INITIALIZER");sfc(ww);printf("  name  and  ");sbc(dr);sfc(lr);printf(" ENTER ");sbc(bb);sfc(ww);
+                                    printf("\n  To cancel this feature type ");sfc(lm);printf("cl");sfc(ww);printf(" and ");sbc(dr);sfc(lr);printf(" ENTER ");sbc(bb);sfc(ww);
+                                    printf("\n\n  Type your choice ->  ");cin>>choice1;
+                                    if(choice1=="cl") { s2_3dc[start-1][4]="~";break; }
+                                    else if(choice1=="min") break;
+                                    else if(choice1=="exe") break;
+                                    bool flag=false;
+                                    for(short itrr=0;itrr<si.size();itrr++)
+                                    {
+                                        if(get<3>(si[itrr])==choice1)
+                                        {
+                                            flag=true; s2_3dc[start-1][4]=choice1;
+                                            dummy_o3dc[4].first=get<0>(si[itrr]); dummy_o3dc[4].second=choice1; break;
+                                       }
+                                    }
+                                    if(flag==false)
+                                    {
+                                       printf("\n\n   Please type a valid choice");
+                                        printf("\n\n   Now press ");sbc(dr);sfc(lr);printf(" ENTER ");sbc(bb);sfc(ww);printf(" to continue"); getch();break;
+                                    }
+                                    break;
+                                }
+
+                                if(s2_3dc[start-1][4]=="~")   // set size of Array
+                                {
+                                    printf("\n\n  Enter the Size of your ");sfc(lg);printf("ARRAY[]");sfc(ww);printf(" and then press ");sbc(dr);printf(" ENTER ");sbc(bb);
+                                    printf("\n ");sfc(lr);printf(" Note: ");sfc(ww);printf("Range -> (1) to (10 to the power 6)");
+                                    printf("\n\n  If you want to choose an ");sfc(ly);printf("INITIALIZER");sfc(ww);printf(" then type ");sfc(lm);printf("int");sfc(ww);printf(" and ");sbc(dr);printf(" ENTER ");sbc(bb);
+                                    printf("\n\n  Type your choice ->  ");
+                                    cin>>choice1;
+                                    if(choice1=="int")
+                                    {
+                                        if(si.size()==0)
+                                        {
+                                            printf("\n\n  Oops, you have not defined any ");sfc(ly);printf("INITIALIZER");sfc(ww);printf(" yet, you can not use this feature.");
+                                            printf("\n\n   Now press ");sbc(dr);sfc(lr);printf(" ENTER ");sbc(bb);sfc(ww);printf(" to continue"); getch();break;
+                                        }
+                                        else { s2_3dc[start-1][4]="~~"; break; }
+                                    }
+                                    if(choice1=="min") break;
+                                    else if(choice1=="exe") break;
+                                    bool check=valid_pos_neg_integer(choice1);
+                                    if(check==false)
+                                    {
+                                        printf("\n\n   Please check the range and enter a valid Integer");
+                                        printf("\n\n   Now press ");sbc(dr);sfc(lr);printf(" ENTER ");sbc(bb);sfc(ww);printf(" to continue"); getch();break;
+                                    }
+                                    ll store=string_to_integer_converter(choice1);
+                                    if(store<1 || store>1000000)
+                                    {
+                                        printf("\n\n   Please check the range and enter a valid Integer");
+                                        printf("\n\n   Now press ");sbc(dr);sfc(lr);printf(" ENTER ");sbc(bb);sfc(ww);printf(" to continue"); getch();break;
+                                    }
+                                    s2_3dc[start-1][4]=choice1;
+                                    dummy_o3dc[4].first=store;dummy_o3dc[4].second=choice1; break;
+                                }
+
+                                if(dummy_o3dc[2].second=="~")  // set minimum value
+                                {
+                                    printf("\n\n   Enter the ");sfc(ly);printf("Minimum");sfc(ww);printf(" value and then ");sbc(dr);printf(" ENTER ");sbc(bb);
+                                    printf("\n ");sfc(lr);printf(" Note: ");sfc(ww);printf("Range -> (-10 to the power 18) to (10 to the power 18)");
+                                    printf("\n\n  Minimum value ->  "); cin>>choice1;
+                                    if(choice1=="min") break;
+                                    else if(choice1=="exe") break;
+                                    bool check=valid_pos_neg_integer(choice1);
+                                    if(check==false)
+                                    {
+                                        printf("\n\n   Please check the range and enter a valid Integer");
+                                        printf("\n\n   Now press ");sbc(dr);sfc(lr);printf(" ENTER ");sbc(bb);sfc(ww);printf(" to continue"); getch();break;
+                                    }
+                                    ll store=string_to_integer_converter(choice1);
+                                    dummy_o3dc[2].first=store;dummy_o3dc[2].second=choice1; break;
+                                }
+
+                                if(dummy_o3dc[3].second=="~")  // set maximum value
+                                {
+                                    printf("\n\n   Enter the ");sfc(ly);printf("Maximum");sfc(ww);printf(" value and then ");sbc(dr);printf(" ENTER ");sbc(bb);
+                                    printf("\n ");sfc(lr);printf(" Note: ");sfc(ww);printf("Range -> (-10 to the power 18) to (10 to the power 18)");
+                                    printf("\n\n  Maximum value ->  "); cin>>choice1;
+                                    if(choice1=="min") break;
+                                    else if(choice1=="exe") break;
+                                    bool check=valid_pos_neg_integer(choice1);
+                                    if(check==false)
+                                    {
+                                        printf("\n\n   Please check the range and enter a valid Integer");
+                                        printf("\n\n   Now press ");sbc(dr);sfc(lr);printf(" ENTER ");sbc(bb);sfc(ww);printf(" to continue"); getch();break;
+                                    }
+                                    ll store1=string_to_integer_converter(choice1);
+                                    ll store2=dummy_o3dc[2].first;
+                                    if(store1<store2)
+                                    {
+                                        printf("\n\n   Maximum value must be greater then Minimum value");
+                                        printf("\n\n   press ");sbc(dr);sfc(lr);printf(" ENTER ");sbc(bb);sfc(ww);printf(" to change"); getch();break;
+                                    }
+                                    if(dummy_o3dc[4].first<0)
+                                    {
+                                        short indexx=abs(dummy_o3dc[4].first)-1;
+                                        ll maxi=get<2>(si[indexx]);
+                                        if(maxi>(store1-store2+1))
+                                        {
+                                            cout<<"\n\n  You wish to create "<<maxi<<" Size of ";sfc(lg);printf("ARRAY[]");sfc(ww);cout<<" at Maximum as per your ";sfc(ly);printf("INITIALIZER");sfc(ww);printf(" size.");
+                                            sfc(ly);printf("\n  INITIALIZER : ");cout<<get<3>(si[indexx]);sfc(ww);printf(" Range -> [ ");cout<<get<1>(si[indexx])<<" - "<<get<2>(si[indexx])<<" ]";
+                                            cout<<"\n  However, only "<<(store1-store2+1)<<" Unique No. exists in range provided by you.";
+                                            printf("\n\n  You are advised to enlarge your range");
+                                            printf("\n\n   press ");sbc(dr);sfc(lr);printf(" ENTER ");sbc(bb);sfc(ww);printf(" to change Maximum value"); getch();break;
+                                        }
+                                    }
+                                    else
+                                    {
+                                    if(dummy_o3dc[4].first>(store1-store2+1))
+                                    {
+                                        cout<<"\n\n  You wish to create "<<dummy_o3dc[4].first<<" Size of ";sfc(lg);printf("ARRAY[]");sfc(ww);
+                                        cout<<"\n  However, only "<<(store1-store2+1)<<" Unique No. exists in range provided by you.";
+                                        printf("\n\n  You are advised to enlarge your range");
+                                        printf("\n\n   press ");sbc(dr);sfc(lr);printf(" ENTER ");sbc(bb);sfc(ww);printf(" to change Maximum value"); getch();break;
+                                    }
+                                    }
+                                    dummy_o3dc[3].first=store1;dummy_o3dc[3].second=choice1; break;
+                                }
+
+                                if(dummy_o3dc[5].second=="~")  // set print format
+                                {
+                                    printf("\n\n  Select a valid ");sfc(lm);printf("Print Format");sfc(ww);printf(" for your");sfc(lg);printf(" ARRAY[] \n");sfc(ww);
+                                    printf("\n  ");sfc(lr);printf("press 1");sfc(ww);printf(" and ");sbc(dr);sfc(lr);printf(" ENTER ");sbc(bb);sfc(ww);printf(" to select -> Space Separated ");
+                                    printf("\n  ");sfc(lr);printf("press 2");sfc(ww);printf(" and ");sbc(dr);sfc(lr);printf(" ENTER ");sbc(bb);sfc(ww);printf(" to select -> Line  Separated");
+                                    printf("\n\n  Type your choice  -> "); cin>>choice1;
+                                    if(choice1=="min") break;
+                                    else if(choice1=="exe") break;
+                                    if(choice1=="1" || choice1=="2")
+                                    {
+                                        short store=string_to_integer_converter(choice1);
+                                        dummy_o3dc[5].first=store; dummy_o3dc[5].second=choice1; break;
+                                    }
+                                    printf("\n\n    Enter the valid choice");
+                                    printf("\n\n    Now press ");sbc(dr);sfc(lr);printf(" ENTER ");sbc(bb);sfc(ww);printf(" to continue"); getch(); break;
+                                }
+
+                                if(dummy_o3dc[6].second=="~")  // set order
+                                {
+                                    printf("\n\n  Select a valid ");sfc(lm);printf("ORDER");sfc(ww);printf(" for your ");sfc(lg);printf("ARRAY[]\n");sfc(ww);
+                                    printf("\n  ");sfc(lr);printf("press 1");sfc(ww);printf(" and ");sbc(dr);sfc(lr);printf(" ENTER ");sbc(bb);sfc(ww);printf(" to apply -> RANDOMLY ARRANGED");
+                                    printf("\n  ");sfc(lr);printf("press 2");sfc(ww);printf(" and ");sbc(dr);sfc(lr);printf(" ENTER ");sbc(bb);sfc(ww);printf(" to apply -> SORTED ASCENDING");
+                                    printf("\n  ");sfc(lr);printf("press 3");sfc(ww);printf(" and ");sbc(dr);sfc(lr);printf(" ENTER ");sbc(bb);sfc(ww);printf(" to apply -> SORTED DESCENDING");
+                                    printf("\n\n  Enter your choice ->  ");cin>>choice1;
+                                    if(choice1=="min") break;
+                                    else if(choice1=="exe") break;
+                                    if(choice1=="1" || choice1=="2" || choice1=="3")
+                                    {
+                                        short store=string_to_integer_converter(choice1);
+                                        dummy_o3dc[6].first=store; dummy_o3dc[6].second=choice1;
+                                        dummy2_o3dc.push_back(dummy_o3dc);
+                                        dummy_o3dc.clear(); s_3dc[i][j]=true; break;
+                                    }
+                                    printf("\n\n    Enter the valid choice");
+                                    printf("\n\n    Now press ");sbc(dr);sfc(lr);printf(" ENTER ");sbc(bb);sfc(ww);printf(" to continue"); getch(); break;
+                                }
+                            }
+                        }
+
+                    case 4:    // STRING CLASS
+                        {
+                            cout<<"  "<<(++start)<<". ";
+                            sfc(lg);cout<<_3dc[i][j].second;sfc(lc);cout<<" [CLASS STRING]";sfc(ww);
+                            string type_of_string;
+                            if(s2_3dc[start-1][0]=="~")
+                            {
+                                printf("\n\n    What type of string you want to create ?");
+                                printf("\n\n  ");sfc(lr);printf("press 1");sfc(ww);printf(" and ");sbc(dr);printf(" ENTER ");sbc(bb);printf(" to create ");sfc(ly);printf("DEFAULT STRING");sfc(ww);printf(" (user defined)");
+                                printf("\n\n  ");sfc(lr);printf("press 2");sfc(ww);printf(" and ");sbc(dr);printf(" ENTER ");sbc(bb);printf(" to create ");sfc(lg);printf("INPUT   STRING");sfc(ww);printf(" (computer generated)");
+                                printf("\n\n   Enter your choice ->  "); cin>>choice1;
+                                if(choice1=="min") break;
+                                else if(choice1=="exe") break;
+                                if(choice1=="1" || choice1=="2")
+                                {
+                                    type_of_string=choice1;
+                                    short store=string_to_integer_converter(choice1); s2_3dc[start-1][0]=type_of_string;
+                                    dummy_o3dc.push_back(make_pair(4,"str"));
+                                    dummy_o3dc.push_back(make_pair(store,type_of_string));  break;
+                                }
+                                printf("\n\n    Enter the valid choice");
+                                printf("\n\n    Now press ");sbc(dr);sfc(lr);printf(" ENTER ");sbc(bb);sfc(ww);printf(" to continue"); getch(); break;
+                            }
+                            type_of_string=s2_3dc[start-1][0];
+                            if(type_of_string=="1")
+                            {
+                                printf("\n\n  Type the Default String and then press ");sbc(dr);printf("ENTER");sbc(bb);
+                                sfc(lr);printf("\n  NOTE: ");sfc(ww);printf("Do not include spaces in your string");
+                                printf("\n\n  Type your string  ->  "); string def_string; cin>>def_string; s2_3dc[start-1][1]=def_string;
+                                dummy_o3dc.push_back(make_pair(4,def_string));
+                                dummy2_o3dc.push_back(dummy_o3dc);
+                                dummy_o3dc.clear(); s_3dc[i][j]=true; break;
+                            }
+                            if(type_of_string=="2")
+                            {
+                                string in_string;
+                                if(s2_3dc[start-1][1]=="~")
+                                {
+                                    printf("\n\n  Type the Input String and then press ");sbc(dr);printf("ENTER");sbc(bb);
+                                    sfc(lr);printf("\n  NOTE: ");sfc(ww);printf("Do not include spaces in your string");
+                                    printf("\n\n  Type your string  ->  "); cin>>in_string; s2_3dc[start-1][1]=in_string;
+                                    dummy_o3dc.push_back(make_pair(4,in_string)); break;
+                                }
+                                in_string=s2_3dc[start-1][1]; string input_string_type;
+                                if(s2_3dc[start-1][2]=="~")
+                                {
+                                    string input_string_type;
+                                    printf("\n\n  What type of STRING you want to create ?\n");
+                                    sfc(lr);printf("\n  press 1");sfc(ww);printf(" and ");sbc(dr);printf(" ENTER ");sbc(bb);printf(" to create -> ");sfc(ly);printf("RANDOM STRING");
+                                    sfc(lr);printf("\n  press 2");sfc(ww);printf(" and ");sbc(dr);printf(" ENTER ");sbc(bb);printf(" to create -> ");sfc(ly);printf("SORTED ASSENDING STRING");
+                                    sfc(lr);printf("\n  press 3");sfc(ww);printf(" and ");sbc(dr);printf(" ENTER ");sbc(bb);printf(" to create -> ");sfc(ly);printf("SORTED DESCENDING STRING");
+                                    sfc(lr);printf("\n  press 4");sfc(ww);printf(" and ");sbc(dr);printf(" ENTER ");sbc(bb);printf(" to create -> ");sfc(ly);printf("PALINDROMIC STRING");sfc(ww);
+                                    printf("\n\n  Enter your choice ->  "); cin>>choice1;
+                                    if(choice1=="min") break;
+                                    else if(choice1=="exe") break;
+                                    if(choice1=="1" || choice1=="2" || choice1=="3" || choice1=="4")
+                                    {
+                                        input_string_type=choice1; short store=string_to_integer_converter(choice1);
+                                        s2_3dc[start-1][2]=input_string_type;
+                                        dummy_o3dc.push_back(make_pair(store,input_string_type));  break;
+                                    }
+                                    printf("\n\n    Enter the valid choice");
+                                    printf("\n\n    Now press ");sbc(dr);sfc(lr);printf(" ENTER ");sbc(bb);sfc(ww);printf(" to continue"); getch(); break;
+                                }
+                                input_string_type=s2_3dc[start-1][2]; string input_string_mode;
+                                if(s2_3dc[start-1][3]=="~")
+                                {
+                                    printf("\n\n  Select a valid mode of create\n");
+                                    sfc(lr);printf("\n  press 1");sfc(ww);printf(" and ");sbc(dr);printf(" ENTER ");sbc(bb);printf(" to generate -> ");sfc(ly);printf(" REPEATED   SYMBOL STRING");
+                                    sfc(lr);printf("\n  press 2");sfc(ww);printf(" and ");sbc(dr);printf(" ENTER ");sbc(bb);printf(" to generate -> ");sfc(ly);printf(" ALL UNIQUE SYMBOL STRING");sfc(ww);
+                                    printf("\n\n Enter your choice -> "); cin>>choice1;
+                                    if(choice1=="min") break;
+                                    else if(choice1=="exe") break;
+                                    if(choice1=="1" || choice1=="2")
+                                    {
+                                        input_string_mode=choice1; short store=string_to_integer_converter(choice1); s2_3dc[start-1][3]=input_string_mode;
+                                        dummy_o3dc.push_back(make_pair(store,input_string_mode));  break;
+                                    }
+                                    printf("\n\n    Enter the valid choice");
+                                    printf("\n\n    Now press ");sbc(dr);sfc(lr);printf(" ENTER ");sbc(bb);sfc(ww);printf(" to continue"); getch(); break;
+                                }
+                                input_string_mode=s2_3dc[start-1][3];
+                                string input_string_size;
+                                if(s2_3dc[start-1][4]=="~")
+                                {
+                                    if(s2_3dc[start-1][3]=="1")    // Repetition allowed in symbols
+                                    {
+                                        printf("\n\n Enter the size of STRING and then press ");sbc(dr);printf(" ENTER ");sbc(bb);
+                                        printf("\n ");sfc(lr);printf(" Note: ");sfc(ww);printf("Range -> (1) to (10 to the power 6)");
+                                        printf("\n\n SIZE ->  "); cin>>choice1;
+                                        if(choice1=="min") break;
+                                        else if(choice1=="exe") break;
+                                        bool check=valid_pos_neg_integer(choice1);
+                                        if(check==false)
+                                        {
+                                            printf("\n\n   Please check the range and enter a valid Integer");
+                                            printf("\n\n   Now press ");sbc(dr);sfc(lr);printf(" ENTER ");sbc(bb);sfc(ww);printf(" to continue"); getch();break;
+                                        }
+                                        ll store=string_to_integer_converter(choice1);
+                                        if(store<1 || store>1000000)
+                                        {
+                                            printf("\n\n   Please check the range and enter a valid Integer");
+                                            printf("\n\n   Now press ");sbc(dr);sfc(lr);printf(" ENTER ");sbc(bb);sfc(ww);printf(" to continue"); getch();break;
+                                        }
+                                        input_string_size=choice1; s2_3dc[start-1][4]=input_string_size;
+                                        dummy_o3dc.push_back(make_pair(store,input_string_size));
+                                        dummy2_o3dc.push_back(dummy_o3dc);
+                                        dummy_o3dc.clear(); s_3dc[i][j]=true; break;
+                                    }
+                                    else        // No repetition allowed in symbols
+                                    {
+                                        if(s2_3dc[start-1][2]=="4")    // palindromic
+                                        {
+                                            printf("\n\n Enter the size of Palindromic STRING and then press ");sbc(dr);printf(" ENTER ");sbc(bb);
+                                            printf("\n ");sfc(lr);printf(" Note: ");sfc(ww);printf("Range -> (1) to (");cout<<(2*s2_3dc[start-1][1].size())<<")";
+                                            printf("\n\n SIZE ->  "); cin>>choice1;
+                                            if(choice1=="min") break;
+                                            else if(choice1=="exe") break;
+                                            bool check=valid_pos_neg_integer(choice1);
+                                            if(check==false)
+                                            {
+                                                printf("\n\n   Please check the range and enter a valid Integer");
+                                                printf("\n\n   Now press ");sbc(dr);sfc(lr);printf(" ENTER ");sbc(bb);sfc(ww);printf(" to continue"); getch();break;
+                                            }
+                                            ll store=string_to_integer_converter(choice1);
+                                            if(store<1 || store>(2*s2_3dc[start-1][1].size()))
+                                            {
+                                                printf("\n\n   Please check the range and enter a valid Integer");
+                                                printf("\n\n   Now press ");sbc(dr);sfc(lr);printf(" ENTER ");sbc(bb);sfc(ww);printf(" to continue"); getch();break;
+                                            }
+                                            input_string_size=choice1; s2_3dc[start-1][4]=input_string_size;
+                                            dummy_o3dc.push_back(make_pair(store,input_string_size));
+                                            dummy2_o3dc.push_back(dummy_o3dc);
+                                            dummy_o3dc.clear(); s_3dc[i][j]=true; break;
+                                        }
+                                        else   //  Ordinary
+                                        {
+                                            printf("\n\n Enter the size of STRING and then press ");sbc(dr);printf(" ENTER ");sbc(bb);
+                                            printf("\n ");sfc(lr);printf(" Note: ");sfc(ww);printf("Range -> (1) to (");cout<<s2_3dc[start-1][1].size()<<")";
+                                            printf("\n\n SIZE ->  "); cin>>choice1;
+                                            if(choice1=="min") break;
+                                            else if(choice1=="exe") break;
+                                            bool check=valid_pos_neg_integer(choice1);
+                                            if(check==false)
+                                            {
+                                                printf("\n\n   Please check the range and enter a valid Integer");
+                                                printf("\n\n   Now press ");sbc(dr);sfc(lr);printf(" ENTER ");sbc(bb);sfc(ww);printf(" to continue"); getch();break;
+                                            }
+                                            ll store=string_to_integer_converter(choice1);
+                                            if(store<1 || store>s2_3dc[start-1][1].size())
+                                            {
+                                                printf("\n\n   Please check the range and enter a valid Integer");
+                                                printf("\n\n   Now press ");sbc(dr);sfc(lr);printf(" ENTER ");sbc(bb);sfc(ww);printf(" to continue"); getch();break;
+                                            }
+                                            input_string_size=choice1; s2_3dc[start-1][4]=input_string_size;
+                                            dummy_o3dc.push_back(make_pair(store,input_string_size));
+                                            dummy2_o3dc.push_back(dummy_o3dc);
+                                            dummy_o3dc.clear(); s_3dc[i][j]=true; break;
+                                        }
+                                    }
+                                }
+                            }
+                            break;
+                        }
+
+                    case 5:    // MATRIX CLASS
+                        {
+                            cout<<"  "<<(++start)<<". ";
+                            sfc(lg);cout<<_3dc[i][j].second;sfc(lc);cout<<" [CLASS MATRIX]";sfc(ww);
+                            if(s2_3dc[start-1][0]=="order2")   //  set order2 in Matrix
+                            {
+                                printf("\n\n  Select a valid ");sfc(lm);printf("COLUMN ORDER");sfc(ww);printf(" for your ");sfc(lg);printf("MATRIX[][]\n");sfc(ww);
+                                printf("\n  ");sfc(lr);printf("press 1");sfc(ww);printf(" and ");sbc(dr);sfc(lr);printf(" ENTER ");sbc(bb);sfc(ww);printf(" to apply -> COLUMN WISE RANDOMLY ARRANGED");
+                                printf("\n  ");sfc(lr);printf("press 2");sfc(ww);printf(" and ");sbc(dr);sfc(lr);printf(" ENTER ");sbc(bb);sfc(ww);printf(" to apply -> COLUMN WISE SORTED ASCENDING");
+                                printf("\n  ");sfc(lr);printf("press 3");sfc(ww);printf(" and ");sbc(dr);sfc(lr);printf(" ENTER ");sbc(bb);sfc(ww);printf(" to apply -> COLUMN WISE SORTED DESCENDING");
+                                printf("\n\n  Enter your choice ->  ");cin>>choice1;
+                                if(choice1=="min") break;
+                                else if(choice1=="exe") break;
+                                if(choice1=="1" || choice1=="2" || choice1=="3")
+                                {
+                                    short store=string_to_integer_converter(choice1);
+                                    dummy_o3dc.push_back(make_pair(store,choice1));
+                                    dummy2_o3dc.push_back(dummy_o3dc);
+                                    dummy_o3dc.clear(); s_3dc[i][j]=true; break;
+                                }
+                                printf("\n\n    Enter the valid choice");
+                                printf("\n\n    Now press ");sbc(dr);sfc(lr);printf(" ENTER ");sbc(bb);sfc(ww);printf(" to continue"); getch(); break;
+                            }
+
+                            if(s2_3dc[start-1][0]=="order1")   //  set order in Matrix
+                            {
+                                printf("\n\n  Select a valid ");sfc(lm);printf("ROW ORDER");sfc(ww);printf(" for your ");sfc(lg);printf("MATRIX[][]\n");sfc(ww);
+                                printf("\n  ");sfc(lr);printf("press 1");sfc(ww);printf(" and ");sbc(dr);sfc(lr);printf(" ENTER ");sbc(bb);sfc(ww);printf(" to apply -> ROW WISE RANDOMLY ARRANGED");
+                                printf("\n  ");sfc(lr);printf("press 2");sfc(ww);printf(" and ");sbc(dr);sfc(lr);printf(" ENTER ");sbc(bb);sfc(ww);printf(" to apply -> ROW WISE SORTED ASCENDING");
+                                printf("\n  ");sfc(lr);printf("press 3");sfc(ww);printf(" and ");sbc(dr);sfc(lr);printf(" ENTER ");sbc(bb);sfc(ww);printf(" to apply -> ROW WISE SORTED DESCENDING");
+                                printf("\n\n  Enter your choice ->  ");cin>>choice1;
+                                if(choice1=="min") break;
+                                else if(choice1=="exe") break;
+                                if(choice1=="1" || choice1=="2" || choice1=="3")
+                                {
+                                    short store=string_to_integer_converter(choice1);
+                                    dummy_o3dc.push_back(make_pair(store,choice1));
+                                    s2_3dc[start-1][0]="order2"; break;
+                                }
+                                printf("\n\n    Enter the valid choice");
+                                printf("\n\n    Now press ");sbc(dr);sfc(lr);printf(" ENTER ");sbc(bb);sfc(ww);printf(" to continue"); getch(); break;
+                            }
+
+                            if(s2_3dc[start-1][0]=="~")       // set type of Matrix
+                            {
+                                printf("\n  What type of MATRIX would you like to create ?\n");
+                                printf("\n  ");sfc(lr);printf("press 1");sfc(ww);printf(" and ");sbc(dr);sfc(lr);printf(" ENTER ");sbc(bb);sfc(ww);printf(" to create -> MATRIX OF INTEGER");
+                                printf("\n  ");sfc(lr);printf("press 2");sfc(ww);printf(" and ");sbc(dr);sfc(lr);printf(" ENTER ");sbc(bb);sfc(ww);printf(" to create -> MATRIX OF REAL");
+                                printf("\n  ");sfc(lr);printf("press 3");sfc(ww);printf(" and ");sbc(dr);sfc(lr);printf(" ENTER ");sbc(bb);sfc(ww);printf(" to create -> MATRIX OF STRING");
+                                printf("\n  ");sfc(lr);printf("press 4");sfc(ww);printf(" and ");sbc(dr);sfc(lr);printf(" ENTER ");sbc(bb);sfc(ww);printf(" to create -> MATRIX OF PERMUTATION");
+                                printf("\n  ");sfc(lr);printf("press 5");sfc(ww);printf(" and ");sbc(dr);sfc(lr);printf(" ENTER ");sbc(bb);sfc(ww);printf(" to create -> MATRIX OF UNIQUE NUMBER");
+                                printf("\n\n  Type your choice  -> "); cin>>choice1;
+                                if(choice1=="min") break;
+                                else if(choice1=="exe") break;
+                                if(choice1=="1" || choice1=="2" || choice1=="3" || choice1=="4" || choice1=="5")
+                                {
+                                    s2_3dc[start-1][0]=choice1;
+                                    short store=string_to_integer_converter(choice1);
+                                    dummy_o3dc.push_back(make_pair(5,"mat"));
+                                    dummy_o3dc.push_back(make_pair(store,choice1)); break;
+                                }
+                                printf("\n\n    Enter the valid choice");
+                                printf("\n\n    Now press ");sbc(dr);sfc(lr);printf(" ENTER ");sbc(bb);sfc(ww);printf(" to continue"); getch(); break;
+                            }
+
+                            if(s2_3dc[start-1][0]=="1")       // matrix of Integer
+                            {
+                                if(s2_3dc[start-1][1]=="~")  // type of integer
+                                {
+                                    printf("\n  What type of integer would you like to insert ?\n");
+                                    printf("\n  ");sfc(lr);printf("press 1");sfc(ww);printf(" and ");sbc(dr);sfc(lr);printf(" ENTER ");sbc(bb);sfc(ww);printf(" to insert -> RANDOM NUMBER");
+                                    printf("\n  ");sfc(lr);printf("press 2");sfc(ww);printf(" and ");sbc(dr);sfc(lr);printf(" ENTER ");sbc(bb);sfc(ww);printf(" to insert -> ODD NUMBER");
+                                    printf("\n  ");sfc(lr);printf("press 3");sfc(ww);printf(" and ");sbc(dr);sfc(lr);printf(" ENTER ");sbc(bb);sfc(ww);printf(" to insert -> EVEN NUMBER");
+                                    printf("\n  ");sfc(lr);printf("press 4");sfc(ww);printf(" and ");sbc(dr);sfc(lr);printf(" ENTER ");sbc(bb);sfc(ww);printf(" to insert -> PRIME NUMBER");
+                                    printf("\n  ");sfc(lr);printf("press 5");sfc(ww);printf(" and ");sbc(dr);sfc(lr);printf(" ENTER ");sbc(bb);sfc(ww);printf(" to insert -> NON PRIME NUMBER");
+                                    printf("\n  ");sfc(lr);printf("press 6");sfc(ww);printf(" and ");sbc(dr);sfc(lr);printf(" ENTER ");sbc(bb);sfc(ww);printf(" to insert -> INCREMENTED NUMBER");
+                                    printf("\n  ");sfc(lr);printf("press 7");sfc(ww);printf(" and ");sbc(dr);sfc(lr);printf(" ENTER ");sbc(bb);sfc(ww);printf(" to insert -> Nth FIBONACCI NUMBER");
+                                    printf("\n\n  Type your choice  -> "); cin>>choice1;
+                                    if(choice1=="min") break;
+                                    else if(choice1=="exe") break;
+                                    if(choice1=="1" || choice1=="2" || choice1=="3" || choice1=="4" || choice1=="5" || choice1=="6" || choice1=="7")
+                                    {
+                                        s2_3dc[start-1][1]=choice1;
+                                        short store=string_to_integer_converter(choice1);
+                                        dummy_o3dc.push_back(make_pair(store,choice1)); break;
+                                    }
+                                    printf("\n\n    Enter the valid choice");
+                                    printf("\n\n    Now press ");sbc(dr);sfc(lr);printf(" ENTER ");sbc(bb);sfc(ww);printf(" to continue"); getch(); break;
+                                }
+
+                                if(s2_3dc[start-1][1]=="1"&&s2_3dc[start-1][2]=="~")  // min value for random number
+                                {
+                                    printf("\n  Enter following details for");sfc(lm);printf(" [RANDOM NUMBERS] ");sfc(ww);
+                                    printf("\n\n   Enter the ");sfc(ly);printf("Minimum");sfc(ww);printf(" value and then ");sbc(dr);printf(" ENTER ");sbc(bb);
+                                    printf("\n ");sfc(lr);printf(" Note: ");sfc(ww);printf("Range -> (-10 to the power 18) to (10 to the power 18)");
+                                    printf("\n\n  Minimum value ->  ");  cin>>choice1;
+                                    if(choice1=="min") break;
+                                    else if(choice1=="exe") break;
+                                    bool check=valid_pos_neg_integer(choice1);
+                                    if(check==false)
+                                    {
+                                        printf("\n\n   Please check the range and enter a valid Integer");
+                                        printf("\n\n   Now press ");sbc(dr);sfc(lr);printf(" ENTER ");sbc(bb);sfc(ww);printf(" to continue"); getch();break;
+                                    }
+                                    ll store=string_to_integer_converter(choice1); s2_3dc[start-1][2]=choice1;
+                                    dummy_o3dc.push_back(make_pair(store,choice1)); break;
+                                }
+
+                                if(s2_3dc[start-1][1]=="2"&&s2_3dc[start-1][2]=="~")  // min value for odd number
+                                {
+                                    printf("\n  Enter following details for");sfc(lm);printf(" [ODD NUMBERS] ");sfc(ww);
+                                    printf("\n\n   Enter the ");sfc(ly);printf("Minimum");sfc(ww);printf(" value and then ");sbc(dr);printf(" ENTER ");sbc(bb);
+                                    printf("\n ");sfc(lr);printf(" Note: ");sfc(ww);printf("Range -> (-10 to the power 18) to (10 to the power 18)");
+                                    printf("\n\n  Minimum value ->  "); cin>>choice1;
+                                    if(choice1=="min") break;
+                                    else if(choice1=="exe") break;
+                                    bool check=valid_pos_neg_integer(choice1);
+                                    if(check==false)
+                                    {
+                                        printf("\n\n   Please check the range and enter a valid Integer");
+                                        printf("\n\n   Now press ");sbc(dr);sfc(lr);printf(" ENTER ");sbc(bb);sfc(ww);printf(" to continue"); getch();break;
+                                    }
+                                    ll store=string_to_integer_converter(choice1); s2_3dc[start-1][2]=choice1;
+                                    dummy_o3dc.push_back(make_pair(store,choice1));  break;
+                                }
+
+                                if(s2_3dc[start-1][1]=="3"&&s2_3dc[start-1][2]=="~")  // min value for even number
+                                {
+                                    printf("\n  Enter following details for");sfc(lm);printf(" [EVEN NUMBERS] ");sfc(ww);
+                                    printf("\n\n   Enter the ");sfc(ly);printf("Minimum");sfc(ww);printf(" value and then ");sbc(dr);printf(" ENTER ");sbc(bb);
+                                    printf("\n ");sfc(lr);printf(" Note: ");sfc(ww);printf("Range -> (-10 to the power 18) to (10 to the power 18)");
+                                    printf("\n\n  Minimum value ->  "); cin>>choice1;
+                                    if(choice1=="min") break;
+                                    else if(choice1=="exe") break;
+                                    bool check=valid_pos_neg_integer(choice1);
+                                    if(check==false)
+                                    {
+                                        printf("\n\n   Please check the range and enter a valid Integer");
+                                        printf("\n\n   Now press ");sbc(dr);sfc(lr);printf(" ENTER ");sbc(bb);sfc(ww);printf(" to continue"); getch();break;
+                                    }
+                                    ll store=string_to_integer_converter(choice1); s2_3dc[start-1][2]=choice1;
+                                    dummy_o3dc.push_back(make_pair(store,choice1));  break;
+                                }
+
+                                if(s2_3dc[start-1][1]=="4"&&s2_3dc[start-1][2]=="~")  // min value for prime number
+                                {
+                                    printf("\n  Enter following details for");sfc(lm);printf(" [PRIME NUMBERS] ");sfc(ww);
+                                    printf("\n\n   Enter the ");sfc(ly);printf("Minimum");sfc(ww);printf(" value and then ");sbc(dr);printf(" ENTER ");sbc(bb);
+                                    printf("\n ");sfc(lr);printf(" Note: ");sfc(ww);printf("Range -> (2) to (10 to the power 7)");
+                                    printf("\n\n  Minimum value ->  "); cin>>choice1;
+                                    if(choice1=="min") break;
+                                    else if(choice1=="exe") break;
+                                    bool check=valid_pos_neg_integer(choice1);
+                                    if(check==false)
+                                    {
+                                        printf("\n\n   Please check the range and enter a valid Integer");
+                                        printf("\n\n   Now press ");sbc(dr);sfc(lr);printf(" ENTER ");sbc(bb);sfc(ww);printf(" to continue"); getch();break;
+                                    }
+                                    ll store=string_to_integer_converter(choice1);
+                                    if(store<2 || store>10000000)
+                                    {
+                                        printf("\n\n   Please check the range and enter a valid Integer");
+                                        printf("\n\n   Now press ");sbc(dr);sfc(lr);printf(" ENTER ");sbc(bb);sfc(ww);printf(" to continue"); getch();break;
+                                    }
+                                    s2_3dc[start-1][2]=choice1;
+                                    dummy_o3dc.push_back(make_pair(store,choice1));  break;
+                                }
+
+                                if(s2_3dc[start-1][1]=="5"&&s2_3dc[start-1][2]=="~")  // min value for non prime number
+                                {
+                                    printf("\n  Enter following details for");sfc(lm);printf(" [Non Prime Numbers] ");sfc(ww);
+                                    printf("\n\n   Enter the ");sfc(ly);printf("Minimum");sfc(ww);printf(" value and then ");sbc(dr);printf(" ENTER ");sbc(bb);
+                                    printf("\n ");sfc(lr);printf(" Note: ");sfc(ww);printf("Range -> (1) to (10 to the power 12)");
+                                    printf("\n\n  Minimum value ->  "); cin>>choice1;
+                                    if(choice1=="min") break;
+                                    else if(choice1=="exe") break;
+                                    bool check=valid_pos_neg_integer(choice1);
+                                    if(check==false)
+                                    {
+                                        printf("\n\n   Please check the range and enter a valid Integer");
+                                        printf("\n\n   Now press ");sbc(dr);sfc(lr);printf(" ENTER ");sbc(bb);sfc(ww);printf(" to continue"); getch();break;
+                                    }
+                                    ll store=string_to_integer_converter(choice1);
+                                    if(store<1 || store>1000000000000)
+                                    {
+                                        printf("\n\n   Please check the range and enter a valid Integer");
+                                        printf("\n\n   Now press ");sbc(dr);sfc(lr);printf(" ENTER ");sbc(bb);sfc(ww);printf(" to continue"); getch();break;
+                                    }
+                                    s2_3dc[start-1][2]=choice1;
+                                    dummy_o3dc.push_back(make_pair(store,choice1));  break;
+                                }
+
+                                if(s2_3dc[start-1][1]=="6"&&s2_3dc[start-1][2]=="~")  // min value for incremented number
+                                {
+                                    printf("\n  Enter following details for");sfc(lm);printf(" [Incremented Numbers] ");sfc(ww);
+                                    printf("\n\n   Enter the ");sfc(ly);printf("Starting");sfc(ww);printf(" value and then ");sbc(dr);printf(" ENTER ");sbc(bb);
+                                    printf("\n ");sfc(lr);printf(" Note: ");sfc(ww);printf("Range -> (-10 to the power 18) to (10 to the power 18)");
+                                    printf("\n\n  Starting value ->  "); cin>>choice1;
+                                    if(choice1=="min") break;
+                                    else if(choice1=="exe") break;
+                                    bool check=valid_pos_neg_integer(choice1);
+                                    if(check==false)
+                                    {
+                                        printf("\n\n   Please check the range and enter a valid Integer");
+                                        printf("\n\n   Now press ");sbc(dr);sfc(lr);printf(" ENTER ");sbc(bb);sfc(ww);printf(" to continue"); getch();break;
+                                    }
+                                    ll store=string_to_integer_converter(choice1);
+                                    s2_3dc[start-1][2]=choice1;
+                                    dummy_o3dc.push_back(make_pair(store,choice1)); break;
+                                }
+
+                                if(s2_3dc[start-1][1]=="7"&&s2_3dc[start-1][2]=="~")  // min value for Nth Fibonacci number
+                                {
+                                    printf("\n  Enter following details for");sfc(lm);printf(" [FIBONACCI NUMBERS] ");sfc(ww);
+                                    printf("\n\n   Enter the ");sfc(ly);printf("Minimum");sfc(ww);printf(" value and then ");sbc(dr);printf(" ENTER ");sbc(bb);
+                                    printf("\n ");sfc(lr);printf(" Note: ");sfc(ww);printf("Range -> (1) to (93)");
+                                    printf("\n\n  Minimum value ->  "); cin>>choice1;
+                                    if(choice1=="min") break;
+                                    else if(choice1=="exe") break;
+                                    bool check=valid_pos_neg_integer(choice1);
+                                    if(check==false)
+                                    {
+                                        printf("\n\n   Please check the range and enter a valid Integer");
+                                        printf("\n\n   Now press ");sbc(dr);sfc(lr);printf(" ENTER ");sbc(bb);sfc(ww);printf(" to continue"); getch();break;
+                                    }
+                                    ll store=string_to_integer_converter(choice1);
+                                    if(store<1 || store>93)
+                                    {
+                                        printf("\n\n   Please check the range and enter a valid Integer");
+                                        printf("\n\n   Now press ");sbc(dr);sfc(lr);printf(" ENTER ");sbc(bb);sfc(ww);printf(" to continue"); getch();break;
+                                    }
+                                    s2_3dc[start-1][2]=choice1;
+                                    dummy_o3dc.push_back(make_pair(store,choice1));  break;
+                                }
+
+                                if(s2_3dc[start-1][1]=="1"&&s2_3dc[start-1][3]=="~")  // max value for random number
+                                {
+                                    printf("\n  Enter following details for");sfc(lm);printf(" [RANDOM NUMBERS] ");sfc(ww);
+                                    printf("\n\n   Enter the ");sfc(ly);printf("Maximum");sfc(ww);printf(" value and then ");sbc(dr);printf(" ENTER ");sbc(bb);
+                                    printf("\n ");sfc(lr);printf(" Note: ");sfc(ww);printf("Range -> (-10 to the power 18) to (10 to the power 18)");
+                                    printf("\n\n  Maximum value ->  ");  cin>>choice1;
+                                    if(choice1=="min") break;
+                                    else if(choice1=="exe") break;
+                                    bool check=valid_pos_neg_integer(choice1);
+                                    if(check==false)
+                                    {
+                                        printf("\n\n   Please check the range and enter a valid Integer");
+                                        printf("\n\n   Now press ");sbc(dr);sfc(lr);printf(" ENTER ");sbc(bb);sfc(ww);printf(" to continue"); getch();break;
+                                    }
+                                    ll store1=string_to_integer_converter(choice1); ll store2=dummy_o3dc[3].first;
+                                    if(store1<store2)
+                                    {
+                                        printf("\n\n   Maximum value must be greater then Minimum value");
+                                        printf("\n\n   press ");sbc(dr);sfc(lr);printf(" ENTER ");sbc(bb);sfc(ww);printf(" to change"); getch();break;
+                                    }
+                                    s2_3dc[start-1][3]=choice1;
+                                    dummy_o3dc.push_back(make_pair(store1,choice1)); break;
+                                }
+
+                                if(s2_3dc[start-1][1]=="2"&&s2_3dc[start-1][3]=="~")  // max value for odd number
+                                {
+                                    printf("\n  Enter following details for");sfc(lm);printf(" [ODD NUMBERS] ");sfc(ww);
+                                    printf("\n\n   Enter the ");sfc(ly);printf("Maximum");sfc(ww);printf(" value and then ");sbc(dr);printf(" ENTER ");sbc(bb);
+                                    printf("\n ");sfc(lr);printf(" Note: ");sfc(ww);printf("Range -> (-10 to the power 18) to (10 to the power 18)");
+                                    printf("\n\n  Maximum value ->  "); cin>>choice1;
+                                    if(choice1=="min") break;
+                                    else if(choice1=="exe") break;
+                                    bool check=valid_pos_neg_integer(choice1);
+                                    if(check==false)
+                                    {
+                                        printf("\n\n   Please check the range and enter a valid Integer");
+                                        printf("\n\n   Now press ");sbc(dr);sfc(lr);printf(" ENTER ");sbc(bb);sfc(ww);printf(" to continue"); getch();break;
+                                    }
+                                    ll store1=string_to_integer_converter(choice1); ll store2=dummy_o3dc[3].first;
+                                    if(store1<store2)
+                                    {
+                                        printf("\n\n   Maximum value must be greater then Minimum value");
+                                        printf("\n\n   press ");sbc(dr);sfc(lr);printf(" ENTER ");sbc(bb);sfc(ww);printf(" to change"); getch();break;
+                                    }
+                                    check=check_odd_exist(store2,store1);
+                                    if(check==false)
+                                    {
+                                        printf("\n\n  No odd Integer exist in the given range");
+                                        printf("\n\n To change Maximum value, press ");sbc(dr);sfc(lr);printf(" ENTER ");sbc(bb);sfc(ww); getch();break;
+                                    }
+                                    s2_3dc[start-1][3]=choice1;
+                                    dummy_o3dc.push_back(make_pair(store1,choice1)); break;
+                                }
+
+                                if(s2_3dc[start-1][1]=="3"&&s2_3dc[start-1][3]=="~")  // max value for even number
+                                {
+                                    printf("\n  Enter following details for");sfc(lm);printf(" [EVEN NUMBERS] ");sfc(ww);
+                                    printf("\n\n   Enter the ");sfc(ly);printf("Maximum");sfc(ww);printf(" value and then ");sbc(dr);printf(" ENTER ");sbc(bb);
+                                    printf("\n ");sfc(lr);printf(" Note: ");sfc(ww);printf("Range -> (-10 to the power 18) to (10 to the power 18)");
+                                    printf("\n\n  Maximum value ->  "); cin>>choice1;
+                                    if(choice1=="min") break;
+                                    else if(choice1=="exe") break;
+                                    bool check=valid_pos_neg_integer(choice1);
+                                    if(check==false)
+                                    {
+                                        printf("\n\n   Please check the range and enter a valid Integer");
+                                        printf("\n\n   Now press ");sbc(dr);sfc(lr);printf(" ENTER ");sbc(bb);sfc(ww);printf(" to continue"); getch();break;
+                                    }
+                                    ll store1=string_to_integer_converter(choice1); ll store2=dummy_o3dc[3].first;
+                                    if(store1<store2)
+                                    {
+                                        printf("\n\n   Maximum value must be greater then Minimum value");
+                                        printf("\n\n   press ");sbc(dr);sfc(lr);printf(" ENTER ");sbc(bb);sfc(ww);printf(" to change"); getch();break;
+                                    }
+                                    check=check_even_exist(store2,store1);
+                                    if(check==false)
+                                    {
+                                        printf("\n\n  No even Integer exist in the given range");
+                                        printf("\n\n To change Maximum value, press ");sbc(dr);sfc(lr);printf(" ENTER ");sbc(bb);sfc(ww); getch();break;
+                                    }
+                                    s2_3dc[start-1][3]=choice1;
+                                    dummy_o3dc.push_back(make_pair(store1,choice1)); break;
+                                }
+
+                                if(s2_3dc[start-1][1]=="4"&&s2_3dc[start-1][3]=="~")  // max value for prime number
+                                {
+                                    printf("\n  Enter following details for");sfc(lm);printf(" [PRIME NUMBERS] ");sfc(ww);
+                                    printf("\n\n   Enter the ");sfc(ly);printf("Maximum");sfc(ww);printf(" value and then ");sbc(dr);printf(" ENTER ");sbc(bb);
+                                    printf("\n ");sfc(lr);printf(" Note: ");sfc(ww);printf("Range -> (2) to (10 to the power 7)");
+                                    printf("\n\n  Maximum value ->  "); cin>>choice1;
+                                    if(choice1=="min") break;
+                                    else if(choice1=="exe") break;
+                                    bool check=valid_pos_neg_integer(choice1);
+                                    if(check==false)
+                                    {
+                                        printf("\n\n   Please check the range and enter a valid Integer");
+                                        printf("\n\n   Now press ");sbc(dr);sfc(lr);printf(" ENTER ");sbc(bb);sfc(ww);printf(" to continue"); getch();break;
+                                    }
+                                    ll store1=string_to_integer_converter(choice1); ll store2=dummy_o3dc[3].first;
+                                    if(store1<2 || store1>10000000)
+                                    {
+                                        printf("\n\n   Please check the range and enter a valid Integer");
+                                        printf("\n\n   Now press ");sbc(dr);sfc(lr);printf(" ENTER ");sbc(bb);sfc(ww);printf(" to continue"); getch();break;
+                                    }
+                                    if(store1<store2)
+                                    {
+                                        printf("\n\n   Maximum value must be greater then Minimum value");
+                                        printf("\n\n   press ");sbc(dr);sfc(lr);printf(" ENTER ");sbc(bb);sfc(ww);printf(" to change"); getch();break;
+                                    }
+                                    check=check_prime_exist(store2,store1);
+                                    if(check==false)
+                                    {
+                                        printf("\n\n   No Prime Integers exist in the given range.");
+                                        printf("\n\n   press ");sbc(dr);sfc(lr);printf(" ENTER ");sbc(bb);sfc(ww);printf(" to change the maximum value"); getch();break;
+                                    }
+                                    s2_3dc[start-1][3]=choice1;
+                                    dummy_o3dc.push_back(make_pair(store1,choice1)); break;
+                                }
+
+                                if(s2_3dc[start-1][1]=="5"&&s2_3dc[start-1][3]=="~")  // max value for non prime number
+                                {
+                                    printf("\n  Enter following details for");sfc(lm);printf(" [NON PRIME NUMBERS] ");sfc(ww);
+                                    printf("\n\n   Enter the ");sfc(ly);printf("Maximum");sfc(ww);printf(" value and then ");sbc(dr);printf(" ENTER ");sbc(bb);
+                                    printf("\n ");sfc(lr);printf(" Note: ");sfc(ww);printf("Range -> (1) to (10 to the power 12)");
+                                    printf("\n\n  Maximum value ->  "); cin>>choice1;
+                                    if(choice1=="min") break;
+                                    else if(choice1=="exe") break;
+                                    bool check=valid_pos_neg_integer(choice1);
+                                    if(check==false)
+                                    {
+                                        printf("\n\n   Please check the range and enter a valid Integer");
+                                        printf("\n\n   Now press ");sbc(dr);sfc(lr);printf(" ENTER ");sbc(bb);sfc(ww);printf(" to continue"); getch();break;
+                                    }
+                                    ll store1=string_to_integer_converter(choice1); ll store2=dummy_o3dc[3].first;
+                                    if(store1<1 || store1>1000000000000)
+                                    {
+                                        printf("\n\n   Please check the range and enter a valid Integer");
+                                        printf("\n\n   Now press ");sbc(dr);sfc(lr);printf(" ENTER ");sbc(bb);sfc(ww);printf(" to continue"); getch();break;
+                                    }
+                                     if(store1<store2)
+                                    {
+                                        printf("\n\n   Maximum value must be greater then Minimum value");
+                                        printf("\n\n   press ");sbc(dr);sfc(lr);printf(" ENTER ");sbc(bb);sfc(ww);printf(" to change"); getch();break;
+                                    }
+                                    check=check_non_prime_exist(store2,store1);
+                                    if(check==false)
+                                    {
+                                        printf("\n\n   No Non_Prime Integer exist in the given range.");
+                                        printf("\n\n   press ");sbc(dr);sfc(lr);printf(" ENTER ");sbc(bb);sfc(ww);printf(" to change the maximum value"); getch();break;
+                                    }
+                                    s2_3dc[start-1][3]=choice1;
+                                    dummy_o3dc.push_back(make_pair(store1,choice1)); break;
+                                }
+
+                                if(s2_3dc[start-1][1]=="6"&&s2_3dc[start-1][3]=="~")  // max value for incremented number
+                                {
+                                    printf("\n  Enter following details for");sfc(lm);printf(" [INCREMENTED NUMBERS] ");sfc(ww);
+                                    printf("\n\n   Enter the ");sfc(ly);printf("Increment");sfc(ww);printf(" value and then ");sbc(dr);printf(" ENTER ");sbc(bb);
+                                    printf("\n ");sfc(lr);printf(" Note: ");sfc(ww);printf("Range -> (-10 to the power 18) to (10 to the power 18)");
+                                    printf("\n\n  Increment value ->  "); cin>>choice1;
+                                    if(choice1=="min") break;
+                                    else if(choice1=="exe") break;
+                                    bool check=valid_pos_neg_integer(choice1);
+                                    if(check==false)
+                                    {
+                                        printf("\n\n   Please check the range and enter a valid Integer");
+                                        printf("\n\n   Now press ");sbc(dr);sfc(lr);printf(" ENTER ");sbc(bb);sfc(ww);printf(" to continue"); getch();break;
+                                    }
+                                    ll store=string_to_integer_converter(choice1); s2_3dc[start-1][3]=choice1;
+                                    dummy_o3dc.push_back(make_pair(store,choice1)); break;
+                                }
+
+                                if(s2_3dc[start-1][1]=="7"&&s2_3dc[start-1][3]=="~")  // max value for Nth Fibonacci number
+                                {
+                                    printf("\n  Enter following details for");sfc(lm);printf(" [Nth FIBONACCI NUMBERS] ");sfc(ww);
+                                    printf("\n\n   Enter the ");sfc(ly);printf("Maximum");sfc(ww);printf(" value and then ");sbc(dr);printf(" ENTER ");sbc(bb);
+                                    printf("\n ");sfc(lr);printf(" Note: ");sfc(ww);printf("Range -> (1) to (93)");
+                                    printf("\n\n  Maximum value ->  "); cin>>choice1;
+                                    if(choice1=="min") break;
+                                    else if(choice1=="exe") break;
+                                    bool check=valid_pos_neg_integer(choice1);
+                                    if(check==false)
+                                    {
+                                        printf("\n\n   Please check the range and enter a valid Integer");
+                                        printf("\n\n   Now press ");sbc(dr);sfc(lr);printf(" ENTER ");sbc(bb);sfc(ww);printf(" to continue"); getch();break;
+                                    }
+                                    ll store1=string_to_integer_converter(choice1); ll store2=dummy_o3dc[3].first;
+                                    if(store1<1 || store1>93)
+                                    {
+                                        printf("\n\n   Please check the range and enter a valid Integer");
+                                        printf("\n\n   Now press ");sbc(dr);sfc(lr);printf(" ENTER ");sbc(bb);sfc(ww);printf(" to continue"); getch();break;
+                                    }
+                                    if(store1<store2)
+                                    {
+                                        printf("\n\n   Maximum value must be greater then Minimum value");
+                                        printf("\n\n   press ");sbc(dr);sfc(lr);printf(" ENTER ");sbc(bb);sfc(ww);printf(" to change"); getch();break;
+                                    }
+                                    s2_3dc[start-1][3]=choice1;
+                                    dummy_o3dc.push_back(make_pair(store1,choice1)); break;
+                                }
+
+                                if(s2_3dc[start-1][4]=="~~")  // Rows in Matrix through initializer
+                                {
+                                    printf("\n  List of ");sfc(ly);printf("INITIALIZER");sfc(ww);printf(" available\n");
+                                    for(short itrr=0;itrr<si.size();itrr++)
+                                    {
+                                        printf("\n "); cout<<(itrr+1)<<"- ";
+                                        sfc(ly);cout<<get<3>(si[itrr]);sfc(ww);
+                                        cout<<"   Range ["<<get<1>(si[itrr])<<" - "<<get<2>(si[itrr])<<"]";
+                                    }
+                                    printf("\n\n  Type  the  ");sfc(ly);printf("INITIALIZER");sfc(ww);printf("  name  and  ");sbc(dr);sfc(lr);printf(" ENTER ");sbc(bb);sfc(ww);
+                                    printf("\n  To cancel this feature type ");sfc(lm);printf("cl");sfc(ww);printf(" and ");sbc(dr);sfc(lr);printf(" ENTER ");sbc(bb);sfc(ww);
+                                    printf("\n\n  Type your choice ->  ");cin>>choice1;
+                                    if(choice1=="cl") { s2_3dc[start-1][4]="~";break; }
+                                    else if(choice1=="min") break;
+                                    else if(choice1=="exe") break;
+                                    bool flag=false;
+                                    for(short itrr=0;itrr<si.size();itrr++)
+                                    {
+                                        if(get<3>(si[itrr])==choice1)
+                                        {
+                                            fi=get<2>(si[itrr]);
+                                            flag=true; s2_3dc[start-1][4]=choice1; dummy_o3dc.push_back(make_pair(get<0>(si[itrr]),choice1)); break;
+                                        }
+                                    }
+                                    if(flag==false)
+                                    {
+                                       printf("\n\n   Please type a valid choice");
+                                        printf("\n\n   Now press ");sbc(dr);sfc(lr);printf(" ENTER ");sbc(bb);sfc(ww);printf(" to continue"); getch();break;
+                                    }
+                                    break;
+                                }
+
+
+                                if(s2_3dc[start-1][4]=="~")  // Rows in Matrix
+                                {
+                                    printf("\n\n  Enter the Number of Rows for your ");sfc(lg);printf("MATRIX[]");sfc(ww);printf(" and then press ");sbc(dr);printf(" ENTER ");sbc(bb);
+                                    printf("\n ");sfc(lr);printf(" Note: ");sfc(ww);printf("Range -> (1) to (10 to the power 6)");
+                                    printf("\n\n  If you want to choose an ");sfc(ly);printf("INITIALIZER");sfc(ww);printf(" then type ");sfc(lm);printf("int");sfc(ww);printf(" and ");sbc(dr);printf(" ENTER ");sbc(bb);
+                                    printf("\n\n  Type your choice ->  ");
+                                    cin>>choice1;
+                                    if(choice1=="int")
+                                    {
+                                        if(si.size()==0)
+                                        {
+                                            printf("\n\n  Oops, you have not defined any ");sfc(ly);printf("INITIALIZER");sfc(ww);printf(" yet, you can not use this feature.");
+                                            printf("\n\n   Now press ");sbc(dr);sfc(lr);printf(" ENTER ");sbc(bb);sfc(ww);printf(" to continue"); getch();break;
+                                        }
+                                        else { s2_3dc[start-1][4]="~~"; break; }
+                                    }
+                                    if(choice1=="min") break;
+                                    else if(choice1=="exe") break;
+                                    bool check=valid_pos_neg_integer(choice1);
+                                    if(check==false)
+                                    {
+                                        printf("\n\n   Please check the range and enter a valid Integer");
+                                        printf("\n\n   Now press ");sbc(dr);sfc(lr);printf(" ENTER ");sbc(bb);sfc(ww);printf(" to continue"); getch();break;
+                                    }
+                                    ll store=string_to_integer_converter(choice1);
+                                    if(store<1 || store>1000000)
+                                    {
+                                        printf("\n\n   Please check the range and enter a valid Integer");
+                                        printf("\n\n   Now press ");sbc(dr);sfc(lr);printf(" ENTER ");sbc(bb);sfc(ww);printf(" to continue"); getch();break;
+                                    }
+                                    s2_3dc[start-1][4]=choice1;
+                                    fi=store;
+                                    dummy_o3dc.push_back(make_pair(store,choice1)); break;
+                                    }
+
+                                if(s2_3dc[start-1][5]=="~~")  // Columns in Matrix through initializer
+                                {
+                                    printf("\n  List of ");sfc(ly);printf("INITIALIZER");sfc(ww);printf(" available\n");
+                                    for(short itrr=0;itrr<si.size();itrr++)
+                                    {
+                                        printf("\n "); cout<<(itrr+1)<<"- ";
+                                        sfc(ly);cout<<get<3>(si[itrr]);sfc(ww);
+                                        cout<<"   Range ["<<get<1>(si[itrr])<<" - "<<get<2>(si[itrr])<<"]";
+                                    }
+                                    printf("\n\n  Type  the  ");sfc(ly);printf("INITIALIZER");sfc(ww);printf("  name  and  ");sbc(dr);sfc(lr);printf(" ENTER ");sbc(bb);sfc(ww);
+                                    printf("\n  To cancel this feature type ");sfc(lm);printf("cl");sfc(ww);printf(" and ");sbc(dr);sfc(lr);printf(" ENTER ");sbc(bb);sfc(ww);
+                                    printf("\n\n  Type your choice ->  ");cin>>choice1;
+                                    if(choice1=="cl") { s2_3dc[start-1][5]="~";break; }
+                                    else if(choice1=="min") break;
+                                    else if(choice1=="exe") break;
+                                    short flag=0;
+                                    for(short itrr=0;itrr<si.size();itrr++)
+                                    {
+                                        if(get<3>(si[itrr])==choice1)
+                                        {
+                                            ll range=fi*get<2>(si[itrr]);
+                                            if(range>1000000)
+                                            {
+                                                printf("\n\n  You are only allowed to create 1000000 Number of Cells in your ");sfc(lg);printf("Matrix[][]");sfc(ww);printf(" at a time.");
+                                                printf("\n\n  However, as per the details of Rows and Columns of your ");sfc(lg);printf("Matrix[][]");sfc(ww);
+                                                printf("Number of cells is = ");sfc(lr);cout<<range;sfc(ww);
+                                                printf("\n\n  So you are advised to reduce the Number of Columns from your ");sfc(lg);printf("Matrix[][]");sfc(ww);
+                                                sfc(lr);printf("\n  Note: ");sfc(ww);printf("Number of cells = Rows*Columns");
+                                                printf("\n\n   Now press ");sbc(dr);sfc(lr);printf(" ENTER ");sbc(bb);sfc(ww);printf(" to change Number of Columns"); getch();flag=1;break;
+                                            }
+                                            flag=2; s2_3dc[start-1][5]=choice1; dummy_o3dc.push_back(make_pair(get<0>(si[itrr]),choice1));s2_3dc[start-1][0]="order1"; break;
+                                        }
+                                    }
+                                    if(flag==0)
+                                    {
+                                        printf("\n\n   Please type a valid choice");
+                                        printf("\n\n   Now press ");sbc(dr);sfc(lr);printf(" ENTER ");sbc(bb);sfc(ww);printf(" to continue"); getch();break;
+                                    }
+                                    break;
+                                }
+
+
+                                if(s2_3dc[start-1][5]=="~")  // Columns in Matrix
+                                {
+                                    printf("\n\n  Enter the Number of Columns for your ");sfc(lg);printf("MATRIX[]");sfc(ww);printf(" and then press ");sbc(dr);printf(" ENTER ");sbc(bb);
+                                    printf("\n ");sfc(lr);printf(" Note: ");sfc(ww);printf("Range -> (1) to (10 to the power 6)");
+                                    printf("\n\n  If you want to choose an ");sfc(ly);printf("INITIALIZER");sfc(ww);printf(" then type ");sfc(lm);printf("int");sfc(ww);printf(" and ");sbc(dr);printf(" ENTER ");sbc(bb);
+                                    printf("\n\n  Type your choice ->  ");
+                                    cin>>choice1;
+                                    if(choice1=="int")
+                                    {
+                                        if(si.size()==0)
+                                        {
+                                            printf("\n\n  Oops, you have not defined any ");sfc(ly);printf("INITIALIZER");sfc(ww);printf(" yet, you can not use this feature.");
+                                            printf("\n\n   Now press ");sbc(dr);sfc(lr);printf(" ENTER ");sbc(bb);sfc(ww);printf(" to continue"); getch();break;
+                                        }
+                                        else { s2_3dc[start-1][5]="~~"; break; }
+                                    }
+                                    if(choice1=="min") break;
+                                    else if(choice1=="exe") break;
+                                    bool check=valid_pos_neg_integer(choice1);
+                                    if(check==false)
+                                    {
+                                        printf("\n\n   Please check the range and enter a valid Integer");
+                                        printf("\n\n   Now press ");sbc(dr);sfc(lr);printf(" ENTER ");sbc(bb);sfc(ww);printf(" to continue"); getch();break;
+                                    }
+                                    ll store=string_to_integer_converter(choice1);
+                                    if(store<1 || store>1000000)
+                                    {
+                                        printf("\n\n   Please check the range and enter a valid Integer");
+                                        printf("\n\n   Now press ");sbc(dr);sfc(lr);printf(" ENTER ");sbc(bb);sfc(ww);printf(" to continue"); getch();break;
+                                    }
+                                    ll range=fi*store;
+                                    if(range>1000000)
+                                    {
+                                        printf("\n\n  You are only allowed to create 1000000 Number of Cells in your ");sfc(lg);printf("Matrix[][]");sfc(ww);printf(" at a time.");
+                                        printf("\n\n  However, as per the details of Rows and Columns of your ");sfc(lg);printf("Matrix[][]");sfc(ww);
+                                        printf("Number of cells is = ");sfc(lr);cout<<range;sfc(ww);
+                                        printf("\n\n  So you are advised to reduce the Number of Columns from your ");sfc(lg);printf("Matrix[][]");sfc(ww);
+                                        sfc(lr);printf("\n  Note: ");sfc(ww);printf("Number of cells = Rows*Columns");
+                                        printf("\n\n   Now press ");sbc(dr);sfc(lr);printf(" ENTER ");sbc(bb);sfc(ww);printf(" to change Number of Columns"); getch();break;
+                                    }
+                                    s2_3dc[start-1][5]=choice1;
+                                    dummy_o3dc.push_back(make_pair(store,choice1)); s2_3dc[start-1][0]="order1"; break;
+                                    }
+
+                            }
+
+                            if(s2_3dc[start-1][0]=="2")  // matrix of Real
+                            {
+                                printf("\n  Enter following details for");sfc(lm);printf(" [REAL NUMBERS] ");sfc(ww);
+                                if(s2_3dc[start-1][1]=="~")   // set precision
+                                {
+                                    printf("\n\n   Set the precision for your REAL NUMBER...");
+                                    printf("\n ");sfc(lr);printf(" Note: ");sfc(ww);printf("   (You can set form range [0 to 100])\n");
+                                    printf("\n   Enter the precision ->  "); cin>>choice1;
+                                    if(choice1=="min") break;
+                                    else if(choice1=="exe") break;
+                                    bool check=valid_pos_neg_integer(choice1);
+                                    if(check==false)
+                                    {
+                                        printf("\n\n   Please check the range and enter a valid Integer");
+                                        printf("\n\n   Now press ");sbc(dr);sfc(lr);printf(" ENTER ");sbc(bb);sfc(ww);printf(" to continue"); getch();break;
+                                    }
+                                    ll store=string_to_integer_converter(choice1);
+                                    if(store<0 || store>100)
+                                    {
+                                        printf("\n\n   Please check the range and enter a valid Integer");
+                                        printf("\n\n   Now press ");sbc(dr);sfc(lr);printf(" ENTER ");sbc(bb);sfc(ww);printf(" to continue"); getch();break;
+                                    }
+                                    s2_3dc[start-1][1]=choice1;
+                                    dummy_o3dc.push_back(make_pair(store,choice1));  break;
+                                }
+
+                                if(s2_3dc[start-1][2]=="~")  // set minimum value
+                                {
+                                    printf("\n\n   Enter the ");sfc(ly);printf("Minimum");sfc(ww);printf(" value and then ");sbc(dr);printf(" ENTER ");sbc(bb);
+                                    printf("\n ");sfc(lr);printf(" Note: ");sfc(ww);printf("Range -> (-10 to the power 18) to (10 to the power 18)");
+                                    printf("\n\n  Minimum value ->  ");  cin>>choice1;
+                                    if(choice1=="min") break;
+                                    else if(choice1=="exe") break;
+                                    bool check=valid_pos_neg_integer(choice1);
+                                    if(check==false)
+                                    {
+                                        printf("\n\n   Please check the range and enter a valid Integer");
+                                        printf("\n\n   Now press ");sbc(dr);sfc(lr);printf(" ENTER ");sbc(bb);sfc(ww);printf(" to continue"); getch();break;
+                                    }
+                                    ll store=string_to_integer_converter(choice1);
+                                    s2_3dc[start-1][2]=choice1;
+                                    dummy_o3dc.push_back(make_pair(store,choice1));  break;
+                                }
+
+                                if(s2_3dc[start-1][3]=="~")  // set maximum value
+                                {
+                                    printf("\n\n   Enter the ");sfc(ly);printf("Maximum");sfc(ww);printf(" value and then ");sbc(dr);printf(" ENTER ");sbc(bb);
+                                    printf("\n ");sfc(lr);printf(" Note: ");sfc(ww);printf("Range -> (-10 to the power 18) to (10 to the power 18)");
+                                    printf("\n\n  Maximum value ->  "); cin>>choice1;
+                                    if(choice1=="min") break;
+                                    else if(choice1=="exe") break;
+                                    bool check=valid_pos_neg_integer(choice1);
+                                    if(check==false)
+                                    {
+                                        printf("\n\n   Please check the range and enter a valid Integer");
+                                        printf("\n\n   Now press ");sbc(dr);sfc(lr);printf(" ENTER ");sbc(bb);sfc(ww);printf(" to continue"); getch();break;
+                                    }
+                                    ll store1=string_to_integer_converter(choice1); ll store2=dummy_o3dc[3].first;
+                                    if(store1==store2)   //  ( Note -> Max_value-Min_value >=1 )
+                                    {
+                                        printf("\n\n   Note -> (Max_value - Min_value) >=1 ");
+                                        printf("\n\n   press ");sbc(dr);sfc(lr);printf(" ENTER ");sbc(bb);sfc(ww);printf(" to change"); getch();break;
+                                    }
+                                    if(store1<store2)
+                                    {
+                                        printf("\n\n   Maximum value must be greater then Minimum value");
+                                        printf("\n\n   press ");sbc(dr);sfc(lr);printf(" ENTER ");sbc(bb);sfc(ww);printf(" to change"); getch();break;
+                                    }
+                                    s2_3dc[start-1][3]=choice1;
+                                    dummy_o3dc.push_back(make_pair(store1,choice1)); break;
+                                }
+
+                                if(s2_3dc[start-1][4]=="~~")  // Rows in Matrix through initializer
+                                {
+                                    printf("\n  List of ");sfc(ly);printf("INITIALIZER");sfc(ww);printf(" available\n");
+                                    for(short itrr=0;itrr<si.size();itrr++)
+                                    {
+                                        printf("\n "); cout<<(itrr+1)<<"- ";
+                                        sfc(ly);cout<<get<3>(si[itrr]);sfc(ww);
+                                        cout<<"   Range ["<<get<1>(si[itrr])<<" - "<<get<2>(si[itrr])<<"]";
+                                    }
+                                    printf("\n\n  Type  the  ");sfc(ly);printf("INITIALIZER");sfc(ww);printf("  name  and  ");sbc(dr);sfc(lr);printf(" ENTER ");sbc(bb);sfc(ww);
+                                    printf("\n  To cancel this feature type ");sfc(lm);printf("cl");sfc(ww);printf(" and ");sbc(dr);sfc(lr);printf(" ENTER ");sbc(bb);sfc(ww);
+                                    printf("\n\n  Type your choice ->  ");cin>>choice1;
+                                    if(choice1=="cl") { s2_3dc[start-1][4]="~";break; }
+                                    else if(choice1=="min") break;
+                                    else if(choice1=="exe") break;
+                                    bool flag=false;
+                                    for(short itrr=0;itrr<si.size();itrr++)
+                                    {
+                                        if(get<3>(si[itrr])==choice1)
+                                        {
+                                            fi=get<2>(si[itrr]);
+                                            flag=true; s2_3dc[start-1][4]=choice1; dummy_o3dc.push_back(make_pair(get<0>(si[itrr]),choice1)); break;
+                                        }
+                                    }
+                                    if(flag==false)
+                                    {
+                                       printf("\n\n   Please type a valid choice");
+                                        printf("\n\n   Now press ");sbc(dr);sfc(lr);printf(" ENTER ");sbc(bb);sfc(ww);printf(" to continue"); getch();break;
+                                    }
+                                    break;
+                                }
+
+
+                                if(s2_3dc[start-1][4]=="~")  // Rows in Matrix
+                                {
+                                    printf("\n\n  Enter the Number of Rows for your ");sfc(lg);printf("MATRIX[]");sfc(ww);printf(" and then press ");sbc(dr);printf(" ENTER ");sbc(bb);
+                                    printf("\n ");sfc(lr);printf(" Note: ");sfc(ww);printf("Range -> (1) to (10 to the power 6)");
+                                    printf("\n\n  If you want to choose an ");sfc(ly);printf("INITIALIZER");sfc(ww);printf(" then type ");sfc(lm);printf("int");sfc(ww);printf(" and ");sbc(dr);printf(" ENTER ");sbc(bb);
+                                    printf("\n\n  Type your choice ->  ");
+                                    cin>>choice1;
+                                    if(choice1=="int")
+                                    {
+                                        if(si.size()==0)
+                                        {
+                                            printf("\n\n  Oops, you have not defined any ");sfc(ly);printf("INITIALIZER");sfc(ww);printf(" yet, you can not use this feature.");
+                                            printf("\n\n   Now press ");sbc(dr);sfc(lr);printf(" ENTER ");sbc(bb);sfc(ww);printf(" to continue"); getch();break;
+                                        }
+                                        else { s2_3dc[start-1][4]="~~"; break; }
+                                    }
+                                    if(choice1=="min") break;
+                                    else if(choice1=="exe") break;
+                                    bool check=valid_pos_neg_integer(choice1);
+                                    if(check==false)
+                                    {
+                                        printf("\n\n   Please check the range and enter a valid Integer");
+                                        printf("\n\n   Now press ");sbc(dr);sfc(lr);printf(" ENTER ");sbc(bb);sfc(ww);printf(" to continue"); getch();break;
+                                    }
+                                    ll store=string_to_integer_converter(choice1);
+                                    if(store<1 || store>1000000)
+                                    {
+                                        printf("\n\n   Please check the range and enter a valid Integer");
+                                        printf("\n\n   Now press ");sbc(dr);sfc(lr);printf(" ENTER ");sbc(bb);sfc(ww);printf(" to continue"); getch();break;
+                                    }
+                                    s2_3dc[start-1][4]=choice1;
+                                    fi=store;
+                                    dummy_o3dc.push_back(make_pair(store,choice1)); break;
+                                }
+
+                                if(s2_3dc[start-1][5]=="~~")  // Columns in Matrix through initializer
+                                {
+                                    printf("\n  List of ");sfc(ly);printf("INITIALIZER");sfc(ww);printf(" available\n");
+                                    for(short itrr=0;itrr<si.size();itrr++)
+                                    {
+                                        printf("\n "); cout<<(itrr+1)<<"- ";
+                                        sfc(ly);cout<<get<3>(si[itrr]);sfc(ww);
+                                        cout<<"   Range ["<<get<1>(si[itrr])<<" - "<<get<2>(si[itrr])<<"]";
+                                    }
+                                    printf("\n\n  Type  the  ");sfc(ly);printf("INITIALIZER");sfc(ww);printf("  name  and  ");sbc(dr);sfc(lr);printf(" ENTER ");sbc(bb);sfc(ww);
+                                    printf("\n  To cancel this feature type ");sfc(lm);printf("cl");sfc(ww);printf(" and ");sbc(dr);sfc(lr);printf(" ENTER ");sbc(bb);sfc(ww);
+                                    printf("\n\n  Type your choice ->  ");cin>>choice1;
+                                    if(choice1=="cl") { s2_3dc[start-1][5]="~";break; }
+                                    else if(choice1=="min") break;
+                                    else if(choice1=="exe") break;
+                                    short flag=0;
+                                    for(short itrr=0;itrr<si.size();itrr++)
+                                    {
+                                        if(get<3>(si[itrr])==choice1)
+                                        {
+                                            ll range=fi*get<2>(si[itrr]);
+                                            if(range>1000000)
+                                            {
+                                                printf("\n\n  You are only allowed to create 1000000 Number of Cells in your ");sfc(lg);printf("Matrix[][]");sfc(ww);printf(" at a time.");
+                                                printf("\n\n  However, as per the details of Rows and Columns of your ");sfc(lg);printf("Matrix[][]");sfc(ww);
+                                                printf("Number of cells is = ");sfc(lr);cout<<range;sfc(ww);
+                                                printf("\n\n  So you are advised to reduce the Number of Columns from your ");sfc(lg);printf("Matrix[][]");sfc(ww);
+                                                sfc(lr);printf("\n  Note: ");sfc(ww);printf("Number of cells = Rows*Columns");
+                                                printf("\n\n   Now press ");sbc(dr);sfc(lr);printf(" ENTER ");sbc(bb);sfc(ww);printf(" to change Number of Columns"); getch();flag=1;break;
+                                            }
+                                            flag=2; s2_3dc[start-1][5]=choice1; dummy_o3dc.push_back(make_pair(get<0>(si[itrr]),choice1));s2_3dc[start-1][0]="order1"; break;
+                                        }
+                                    }
+                                    if(flag==0)
+                                    {
+                                        printf("\n\n   Please type a valid choice");
+                                        printf("\n\n   Now press ");sbc(dr);sfc(lr);printf(" ENTER ");sbc(bb);sfc(ww);printf(" to continue"); getch();break;
+                                    }
+                                    break;
+                                }
+
+
+                                if(s2_3dc[start-1][5]=="~")  // Columns in Matrix
+                                {
+                                    printf("\n\n  Enter the Number of Columns for your ");sfc(lg);printf("MATRIX[]");sfc(ww);printf(" and then press ");sbc(dr);printf(" ENTER ");sbc(bb);
+                                    printf("\n ");sfc(lr);printf(" Note: ");sfc(ww);printf("Range -> (1) to (10 to the power 6)");
+                                    printf("\n\n  If you want to choose an ");sfc(ly);printf("INITIALIZER");sfc(ww);printf(" then type ");sfc(lm);printf("int");sfc(ww);printf(" and ");sbc(dr);printf(" ENTER ");sbc(bb);
+                                    printf("\n\n  Type your choice ->  ");
+                                    cin>>choice1;
+                                    if(choice1=="int")
+                                    {
+                                        if(si.size()==0)
+                                        {
+                                            printf("\n\n  Oops, you have not defined any ");sfc(ly);printf("INITIALIZER");sfc(ww);printf(" yet, you can not use this feature.");
+                                            printf("\n\n   Now press ");sbc(dr);sfc(lr);printf(" ENTER ");sbc(bb);sfc(ww);printf(" to continue"); getch();break;
+                                        }
+                                        else { s2_3dc[start-1][5]="~~"; break; }
+                                    }
+                                    if(choice1=="min") break;
+                                    else if(choice1=="exe") break;
+                                    bool check=valid_pos_neg_integer(choice1);
+                                    if(check==false)
+                                    {
+                                        printf("\n\n   Please check the range and enter a valid Integer");
+                                        printf("\n\n   Now press ");sbc(dr);sfc(lr);printf(" ENTER ");sbc(bb);sfc(ww);printf(" to continue"); getch();break;
+                                    }
+                                    ll store=string_to_integer_converter(choice1);
+                                    if(store<1 || store>1000000)
+                                    {
+                                        printf("\n\n   Please check the range and enter a valid Integer");
+                                        printf("\n\n   Now press ");sbc(dr);sfc(lr);printf(" ENTER ");sbc(bb);sfc(ww);printf(" to continue"); getch();break;
+                                    }
+                                    ll range=fi*store;
+                                    if(range>1000000)
+                                    {
+                                        printf("\n\n  You are only allowed to create 1000000 Number of Cells in your ");sfc(lg);printf("Matrix[][]");sfc(ww);printf(" at a time.");
+                                        printf("\n\n  However, as per the details of Rows and Columns of your ");sfc(lg);printf("Matrix[][]");sfc(ww);
+                                        printf("Number of cells is = ");sfc(lr);cout<<range;sfc(ww);
+                                        printf("\n\n  So you are advised to reduce the Number of Columns from your ");sfc(lg);printf("Matrix[][]");sfc(ww);
+                                        sfc(lr);printf("\n  Note: ");sfc(ww);printf("Number of cells = Rows*Columns");
+                                        printf("\n\n   Now press ");sbc(dr);sfc(lr);printf(" ENTER ");sbc(bb);sfc(ww);printf(" to change Number of Columns"); getch();break;
+                                    }
+                                    s2_3dc[start-1][5]=choice1;
+                                    dummy_o3dc.push_back(make_pair(store,choice1)); s2_3dc[start-1][0]="order1"; break;
+                                }
+                            }
+
+                            if(s2_3dc[start-1][0]=="3")  // matrix of String
+                            {
+                                if(s2_3dc[start-1][1]=="~")  // type of string
+                                {
+                                    printf("\n\n    What type of string you want to create ?");
+                                    printf("\n\n  ");sfc(lr);printf("press 1");sfc(ww);printf(" and ");sbc(dr);printf(" ENTER ");sbc(bb);printf(" to create ");sfc(ly);printf("DEFAULT STRING");sfc(ww);printf(" (user defined)");
+                                    printf("\n\n  ");sfc(lr);printf("press 2");sfc(ww);printf(" and ");sbc(dr);printf(" ENTER ");sbc(bb);printf(" to create ");sfc(lg);printf("INPUT   STRING");sfc(ww);printf(" (computer generated)");
+                                    printf("\n\n   Enter your choice ->  "); cin>>choice1;
+                                    if(choice1=="min") break;
+                                    else if(choice1=="exe") break;
+                                    if(choice1=="1" || choice1=="2")
+                                    {
+                                        short store=string_to_integer_converter(choice1); s2_3dc[start-1][1]=choice1;
+                                        dummy_o3dc.push_back(make_pair(store,choice1));  break;
+                                    }
+                                    printf("\n\n    Enter the valid choice");
+                                    printf("\n\n    Now press ");sbc(dr);sfc(lr);printf(" ENTER ");sbc(bb);sfc(ww);printf(" to continue"); getch(); break;
+                                }
+
+                                if(s2_3dc[start-1][1]=="1")    // Default String
+                                {
+                                    if(s2_3dc[start-1][2]=="~") //  store the default String
+                                    {
+                                        printf("\n\n  Type the Default String and then press ");sbc(dr);printf("ENTER");sbc(bb);
+                                        sfc(lr);printf("\n  NOTE: ");sfc(ww);printf("Do not include spaces in your string");
+                                        printf("\n\n  Type your string  ->  "); string def_string; cin>>def_string; s2_3dc[start-1][2]=def_string;
+                                        dummy_o3dc.push_back(make_pair(4,def_string)); break;
+                                    }
+
+                                    if(s2_3dc[start-1][4]=="~~")  // Rows in Matrix through initializer
+                                    {
+                                        printf("\n  List of ");sfc(ly);printf("INITIALIZER");sfc(ww);printf(" available\n");
+                                        for(short itrr=0;itrr<si.size();itrr++)
+                                        {
+                                            printf("\n "); cout<<(itrr+1)<<"- ";
+                                            sfc(ly);cout<<get<3>(si[itrr]);sfc(ww);
+                                            cout<<"   Range ["<<get<1>(si[itrr])<<" - "<<get<2>(si[itrr])<<"]";
+                                        }
+                                        printf("\n\n  Type  the  ");sfc(ly);printf("INITIALIZER");sfc(ww);printf("  name  and  ");sbc(dr);sfc(lr);printf(" ENTER ");sbc(bb);sfc(ww);
+                                        printf("\n  To cancel this feature type ");sfc(lm);printf("cl");sfc(ww);printf(" and ");sbc(dr);sfc(lr);printf(" ENTER ");sbc(bb);sfc(ww);
+                                        printf("\n\n  Type your choice ->  ");cin>>choice1;
+                                        if(choice1=="cl") { s2_3dc[start-1][4]="~";break; }
+                                        else if(choice1=="min") break;
+                                        else if(choice1=="exe") break;
+                                        bool flag=false;
+                                        for(short itrr=0;itrr<si.size();itrr++)
+                                        {
+                                            if(get<3>(si[itrr])==choice1)
+                                            {
+                                                fi=get<2>(si[itrr]);
+                                                flag=true; s2_3dc[start-1][4]=choice1; dummy_o3dc.push_back(make_pair(get<0>(si[itrr]),choice1)); break;
+                                            }
+                                        }
+                                        if(flag==false)
+                                        {
+                                           printf("\n\n   Please type a valid choice");
+                                            printf("\n\n   Now press ");sbc(dr);sfc(lr);printf(" ENTER ");sbc(bb);sfc(ww);printf(" to continue"); getch();break;
+                                        }
+                                        break;
+                                    }
+
+                                    if(s2_3dc[start-1][4]=="~")  // Rows in Matrix
+                                    {
+                                        printf("\n\n  Enter the Number of Rows for your ");sfc(lg);printf("MATRIX[]");sfc(ww);printf(" and then press ");sbc(dr);printf(" ENTER ");sbc(bb);
+                                        printf("\n ");sfc(lr);printf(" Note: ");sfc(ww);printf("Range -> (1) to (10 to the power 6)");
+                                        printf("\n\n  If you want to choose an ");sfc(ly);printf("INITIALIZER");sfc(ww);printf(" then type ");sfc(lm);printf("int");sfc(ww);printf(" and ");sbc(dr);printf(" ENTER ");sbc(bb);
+                                        printf("\n\n  Type your choice ->  ");
+                                        cin>>choice1;
+                                        if(choice1=="int")
+                                        {
+                                            if(si.size()==0)
+                                            {
+                                                printf("\n\n  Oops, you have not defined any ");sfc(ly);printf("INITIALIZER");sfc(ww);printf(" yet, you can not use this feature.");
+                                                printf("\n\n   Now press ");sbc(dr);sfc(lr);printf(" ENTER ");sbc(bb);sfc(ww);printf(" to continue"); getch();break;
+                                            }
+                                            else { s2_3dc[start-1][4]="~~"; break; }
+                                        }
+                                        if(choice1=="min") break;
+                                        else if(choice1=="exe") break;
+                                        bool check=valid_pos_neg_integer(choice1);
+                                        if(check==false)
+                                        {
+                                            printf("\n\n   Please check the range and enter a valid Integer");
+                                            printf("\n\n   Now press ");sbc(dr);sfc(lr);printf(" ENTER ");sbc(bb);sfc(ww);printf(" to continue"); getch();break;
+                                        }
+                                        ll store=string_to_integer_converter(choice1);
+                                        if(store<1 || store>1000000)
+                                        {
+                                            printf("\n\n   Please check the range and enter a valid Integer");
+                                            printf("\n\n   Now press ");sbc(dr);sfc(lr);printf(" ENTER ");sbc(bb);sfc(ww);printf(" to continue"); getch();break;
+                                        }
+                                        s2_3dc[start-1][4]=choice1;
+                                        fi=store;
+                                        dummy_o3dc.push_back(make_pair(store,choice1)); break;
+                                    }
+
+                                    if(s2_3dc[start-1][5]=="~~")  // Columns in Matrix through initializer
+                                    {
+                                        printf("\n  List of ");sfc(ly);printf("INITIALIZER");sfc(ww);printf(" available\n");
+                                        for(short itrr=0;itrr<si.size();itrr++)
+                                        {
+                                            printf("\n "); cout<<(itrr+1)<<"- ";
+                                            sfc(ly);cout<<get<3>(si[itrr]);sfc(ww);
+                                            cout<<"   Range ["<<get<1>(si[itrr])<<" - "<<get<2>(si[itrr])<<"]";
+                                        }
+                                        printf("\n\n  Type  the  ");sfc(ly);printf("INITIALIZER");sfc(ww);printf("  name  and  ");sbc(dr);sfc(lr);printf(" ENTER ");sbc(bb);sfc(ww);
+                                        printf("\n  To cancel this feature type ");sfc(lm);printf("cl");sfc(ww);printf(" and ");sbc(dr);sfc(lr);printf(" ENTER ");sbc(bb);sfc(ww);
+                                        printf("\n\n  Type your choice ->  ");cin>>choice1;
+                                        if(choice1=="cl") { s2_3dc[start-1][5]="~";break; }
+                                        else if(choice1=="min") break;
+                                        else if(choice1=="exe") break;
+                                        short flag=0;
+                                        for(short itrr=0;itrr<si.size();itrr++)
+                                        {
+                                            if(get<3>(si[itrr])==choice1)
+                                            {
+                                                ll range=fi*get<2>(si[itrr]);
+                                                if(range>1000000)
+                                                {
+                                                    printf("\n\n  You are only allowed to create 1000000 Number of Cells in your ");sfc(lg);printf("Matrix[][]");sfc(ww);printf(" at a time.");
+                                                    printf("\n\n  However, as per the details of Rows and Columns of your ");sfc(lg);printf("Matrix[][]");sfc(ww);
+                                                    printf("Number of cells is = ");sfc(lr);cout<<range;sfc(ww);
+                                                    printf("\n\n  So you are advised to reduce the Number of Columns from your ");sfc(lg);printf("Matrix[][]");sfc(ww);
+                                                    sfc(lr);printf("\n  Note: ");sfc(ww);printf("Number of cells = Rows*Columns");
+                                                    printf("\n\n   Now press ");sbc(dr);sfc(lr);printf(" ENTER ");sbc(bb);sfc(ww);printf(" to change Number of Columns"); getch();flag=1;break;
+                                                }
+                                                flag=2; s2_3dc[start-1][5]=choice1; dummy_o3dc.push_back(make_pair(get<0>(si[itrr]),choice1));
+                                                dummy2_o3dc.push_back(dummy_o3dc); dummy_o3dc.clear(); s_3dc[i][j]=true; break;
+                                            }
+                                        }
+                                        if(flag==0)
+                                        {
+                                            printf("\n\n   Please type a valid choice");
+                                            printf("\n\n   Now press ");sbc(dr);sfc(lr);printf(" ENTER ");sbc(bb);sfc(ww);printf(" to continue"); getch();break;
+                                        }
+                                        break;
+                                    }
+
+                                    if(s2_3dc[start-1][5]=="~")  // Columns in Matrix
+                                    {
+                                        printf("\n\n  Enter the Number of Columns for your ");sfc(lg);printf("MATRIX[]");sfc(ww);printf(" and then press ");sbc(dr);printf(" ENTER ");sbc(bb);
+                                        printf("\n ");sfc(lr);printf(" Note: ");sfc(ww);printf("Range -> (1) to (10 to the power 6)");
+                                        printf("\n\n  If you want to choose an ");sfc(ly);printf("INITIALIZER");sfc(ww);printf(" then type ");sfc(lm);printf("int");sfc(ww);printf(" and ");sbc(dr);printf(" ENTER ");sbc(bb);
+                                        printf("\n\n  Type your choice ->  ");
+                                        cin>>choice1;
+                                        if(choice1=="int")
+                                        {
+                                            if(si.size()==0)
+                                            {
+                                                printf("\n\n  Oops, you have not defined any ");sfc(ly);printf("INITIALIZER");sfc(ww);printf(" yet, you can not use this feature.");
+                                                printf("\n\n   Now press ");sbc(dr);sfc(lr);printf(" ENTER ");sbc(bb);sfc(ww);printf(" to continue"); getch();break;
+                                            }
+                                            else { s2_3dc[start-1][5]="~~"; break; }
+                                        }
+                                        if(choice1=="min") break;
+                                        else if(choice1=="exe") break;
+                                        bool check=valid_pos_neg_integer(choice1);
+                                        if(check==false)
+                                        {
+                                            printf("\n\n   Please check the range and enter a valid Integer");
+                                            printf("\n\n   Now press ");sbc(dr);sfc(lr);printf(" ENTER ");sbc(bb);sfc(ww);printf(" to continue"); getch();break;
+                                        }
+                                        ll store=string_to_integer_converter(choice1);
+                                        if(store<1 || store>1000000)
+                                        {
+                                            printf("\n\n   Please check the range and enter a valid Integer");
+                                            printf("\n\n   Now press ");sbc(dr);sfc(lr);printf(" ENTER ");sbc(bb);sfc(ww);printf(" to continue"); getch();break;
+                                        }
+                                        ll range=fi*store;
+                                        if(range>1000000)
+                                        {
+                                            printf("\n\n  You are only allowed to create 1000000 Number of Cells in your ");sfc(lg);printf("Matrix[][]");sfc(ww);printf(" at a time.");
+                                            printf("\n\n  However, as per the details of Rows and Columns of your ");sfc(lg);printf("Matrix[][]");sfc(ww);
+                                            printf("Number of cells is = ");sfc(lr);cout<<range;sfc(ww);
+                                            printf("\n\n  So you are advised to reduce the Number of Columns from your ");sfc(lg);printf("Matrix[][]");sfc(ww);
+                                            sfc(lr);printf("\n  Note: ");sfc(ww);printf("Number of cells = Rows*Columns");
+                                            printf("\n\n   Now press ");sbc(dr);sfc(lr);printf(" ENTER ");sbc(bb);sfc(ww);printf(" to change Number of Columns"); getch();break;
+                                        }
+                                        s2_3dc[start-1][5]=choice1;
+                                        dummy_o3dc.push_back(make_pair(store,choice1));
+                                        dummy2_o3dc.push_back(dummy_o3dc); dummy_o3dc.clear(); s_3dc[i][j]=true; break;
+                                    }
+                                }
+
+                                else                           // Input String
+                                {
+                                    if(s2_3dc[start-1][2]=="~")   // store input string
+                                    {
+                                        printf("\n\n  Type the Input String and then press ");sbc(dr);printf("ENTER");sbc(bb);
+                                        sfc(lr);printf("\n  NOTE: ");sfc(ww);printf("Do not include spaces in your string");
+                                        printf("\n\n  Type your string  ->  "); string in_string;cin>>in_string; s2_3dc[start-1][2]=in_string;
+                                        dummy_o3dc.push_back(make_pair(4,in_string)); break;
+                                    }
+
+                                    if(s2_3dc[start-1][3]=="~")   // type of string
+                                    {
+                                        printf("\n\n  What type of STRING you want to create ?\n");
+                                        sfc(lr);printf("\n  press 1");sfc(ww);printf(" and ");sbc(dr);printf(" ENTER ");sbc(bb);printf(" to create -> ");sfc(ly);printf("RANDOM STRING");
+                                        sfc(lr);printf("\n  press 2");sfc(ww);printf(" and ");sbc(dr);printf(" ENTER ");sbc(bb);printf(" to create -> ");sfc(ly);printf("SORTED ASSENDING STRING");
+                                        sfc(lr);printf("\n  press 3");sfc(ww);printf(" and ");sbc(dr);printf(" ENTER ");sbc(bb);printf(" to create -> ");sfc(ly);printf("SORTED DESCENDING STRING");
+                                        sfc(lr);printf("\n  press 4");sfc(ww);printf(" and ");sbc(dr);printf(" ENTER ");sbc(bb);printf(" to create -> ");sfc(ly);printf("PALINDROMIC STRING");sfc(ww);
+                                        printf("\n\n  Enter your choice ->  "); cin>>choice1;
+                                        if(choice1=="min") break;
+                                        else if(choice1=="exe") break;
+                                        if(choice1=="1" || choice1=="2" || choice1=="3" || choice1=="4")
+                                        {
+                                            short store=string_to_integer_converter(choice1);
+                                            s2_3dc[start-1][3]=choice1;
+                                            dummy_o3dc.push_back(make_pair(store,choice1));  break;
+                                        }
+                                        printf("\n\n    Enter the valid choice");
+                                        printf("\n\n    Now press ");sbc(dr);sfc(lr);printf(" ENTER ");sbc(bb);sfc(ww);printf(" to continue"); getch(); break;
+                                    }
+
+                                    if(s2_3dc[start-1][7]=="~")   // mode of string
+                                    {
+                                        printf("\n\n  Select a valid mode of create\n");
+                                        sfc(lr);printf("\n  press 1");sfc(ww);printf(" and ");sbc(dr);printf(" ENTER ");sbc(bb);printf(" to generate -> ");sfc(ly);printf(" REPEATED   SYMBOL STRING");
+                                        sfc(lr);printf("\n  press 2");sfc(ww);printf(" and ");sbc(dr);printf(" ENTER ");sbc(bb);printf(" to generate -> ");sfc(ly);printf(" ALL UNIQUE SYMBOL STRING");sfc(ww);
+                                        printf("\n\n Enter your choice -> "); cin>>choice1;
+                                        if(choice1=="min") break;
+                                        else if(choice1=="exe") break;
+                                        if(choice1=="1" || choice1=="2")
+                                        {
+                                            short store=string_to_integer_converter(choice1); s2_3dc[start-1][7]=choice1;
+                                            dummy_o3dc.push_back(make_pair(store,choice1));  break;
+                                        }
+                                        printf("\n\n    Enter the valid choice");
+                                        printf("\n\n    Now press ");sbc(dr);sfc(lr);printf(" ENTER ");sbc(bb);sfc(ww);printf(" to continue"); getch(); break;
+                                    }
+
+                                    if(s2_3dc[start-1][6]=="~")   // size of string
+                                    {
+                                        if(s2_3dc[start-1][7]=="1")    // Repetition allowed in symbols
+                                        {
+                                            printf("\n\n Enter the size of STRING and then press ");sbc(dr);printf(" ENTER ");sbc(bb);
+                                            printf("\n ");sfc(lr);printf(" Note: ");sfc(ww);printf("Range -> (1) to (10 to the power 6)");
+                                            printf("\n\n SIZE ->  "); cin>>choice1;
+                                            if(choice1=="min") break;
+                                            else if(choice1=="exe") break;
+                                            bool check=valid_pos_neg_integer(choice1);
+                                            if(check==false)
+                                            {
+                                                printf("\n\n   Please check the range and enter a valid Integer");
+                                                printf("\n\n   Now press ");sbc(dr);sfc(lr);printf(" ENTER ");sbc(bb);sfc(ww);printf(" to continue"); getch();break;
+                                            }
+                                            ll store=string_to_integer_converter(choice1);
+                                            if(store<1 || store>1000000)
+                                            {
+                                                printf("\n\n   Please check the range and enter a valid Integer");
+                                                printf("\n\n   Now press ");sbc(dr);sfc(lr);printf(" ENTER ");sbc(bb);sfc(ww);printf(" to continue"); getch();break;
+                                            }
+                                            s2_3dc[start-1][6]=choice1;
+                                            dummy_o3dc.push_back(make_pair(store,choice1)); break;
+                                        }
+                                        else        // No repetition allowed in symbols
+                                        {
+                                            if(s2_3dc[start-1][3]=="4")    // palindromic
+                                            {
+                                                printf("\n\n Enter the size of Palindromic STRING and then press ");sbc(dr);printf(" ENTER ");sbc(bb);
+                                                printf("\n ");sfc(lr);printf(" Note: ");sfc(ww);printf("Range -> (1) to (");cout<<(2*s2_3dc[start-1][2].size())<<")";
+                                                printf("\n\n SIZE ->  "); cin>>choice1;
+                                                if(choice1=="min") break;
+                                                else if(choice1=="exe") break;
+                                                bool check=valid_pos_neg_integer(choice1);
+                                                if(check==false)
+                                                {
+                                                    printf("\n\n   Please check the range and enter a valid Integer");
+                                                    printf("\n\n   Now press ");sbc(dr);sfc(lr);printf(" ENTER ");sbc(bb);sfc(ww);printf(" to continue"); getch();break;
+                                                }
+                                                ll store=string_to_integer_converter(choice1);
+                                                if(store<1 || store>(2*s2_3dc[start-1][2].size()))
+                                                {
+                                                    printf("\n\n   Please check the range and enter a valid Integer");
+                                                    printf("\n\n   Now press ");sbc(dr);sfc(lr);printf(" ENTER ");sbc(bb);sfc(ww);printf(" to continue"); getch();break;
+                                                }
+                                                s2_3dc[start-1][6]=choice1;
+                                                dummy_o3dc.push_back(make_pair(store,choice1)); break;
+                                            }
+                                            else   //  Ordinary
+                                            {
+                                                printf("\n\n Enter the size of STRING and then press ");sbc(dr);printf(" ENTER ");sbc(bb);
+                                                printf("\n ");sfc(lr);printf(" Note: ");sfc(ww);printf("Range -> (1) to (");cout<<s2_3dc[start-1][2].size()<<")";
+                                                printf("\n\n SIZE ->  "); cin>>choice1;
+                                                if(choice1=="min") break;
+                                                else if(choice1=="exe") break;
+                                                bool check=valid_pos_neg_integer(choice1);
+                                                if(check==false)
+                                                {
+                                                    printf("\n\n   Please check the range and enter a valid Integer");
+                                                    printf("\n\n   Now press ");sbc(dr);sfc(lr);printf(" ENTER ");sbc(bb);sfc(ww);printf(" to continue"); getch();break;
+                                                }
+                                                ll store=string_to_integer_converter(choice1);
+                                                if(store<1 || store>s2_3dc[start-1][2].size())
+                                                {
+                                                    printf("\n\n   Please check the range and enter a valid Integer");
+                                                    printf("\n\n   Now press ");sbc(dr);sfc(lr);printf(" ENTER ");sbc(bb);sfc(ww);printf(" to continue"); getch();break;
+                                                }
+                                                s2_3dc[start-1][6]=choice1;
+                                                dummy_o3dc.push_back(make_pair(store,choice1)); break;
+                                            }
+                                        }
+                                    }
+
+                                    if(s2_3dc[start-1][4]=="~~")  // Rows in Matrix through initializer
+                                    {
+                                        printf("\n  List of ");sfc(ly);printf("INITIALIZER");sfc(ww);printf(" available\n");
+                                        for(short itrr=0;itrr<si.size();itrr++)
+                                        {
+                                            printf("\n "); cout<<(itrr+1)<<"- ";
+                                            sfc(ly);cout<<get<3>(si[itrr]);sfc(ww);
+                                            cout<<"   Range ["<<get<1>(si[itrr])<<" - "<<get<2>(si[itrr])<<"]";
+                                        }
+                                        printf("\n\n  Type  the  ");sfc(ly);printf("INITIALIZER");sfc(ww);printf("  name  and  ");sbc(dr);sfc(lr);printf(" ENTER ");sbc(bb);sfc(ww);
+                                        printf("\n  To cancel this feature type ");sfc(lm);printf("cl");sfc(ww);printf(" and ");sbc(dr);sfc(lr);printf(" ENTER ");sbc(bb);sfc(ww);
+                                        printf("\n\n  Type your choice ->  ");cin>>choice1;
+                                        if(choice1=="cl") { s2_3dc[start-1][4]="~";break; }
+                                        else if(choice1=="min") break;
+                                        else if(choice1=="exe") break;
+                                        bool flag=false;
+                                        for(short itrr=0;itrr<si.size();itrr++)
+                                        {
+                                            if(get<3>(si[itrr])==choice1)
+                                            {
+                                                fi=get<2>(si[itrr]);
+                                                flag=true; s2_3dc[start-1][4]=choice1; dummy_o3dc.push_back(make_pair(get<0>(si[itrr]),choice1)); break;
+                                            }
+                                        }
+                                        if(flag==false)
+                                        {
+                                            printf("\n\n   Please type a valid choice");
+                                            printf("\n\n   Now press ");sbc(dr);sfc(lr);printf(" ENTER ");sbc(bb);sfc(ww);printf(" to continue"); getch();break;
+                                        }
+                                        break;
+                                    }
+
+                                    if(s2_3dc[start-1][4]=="~")   // Rows in Matrix
+                                    {
+                                        printf("\n\n  Enter the Number of Rows for your ");sfc(lg);printf("MATRIX[]");sfc(ww);printf(" and then press ");sbc(dr);printf(" ENTER ");sbc(bb);
+                                        printf("\n ");sfc(lr);printf(" Note: ");sfc(ww);printf("Range -> (1) to (10 to the power 6)");
+                                        printf("\n\n  If you want to choose an ");sfc(ly);printf("INITIALIZER");sfc(ww);printf(" then type ");sfc(lm);printf("int");sfc(ww);printf(" and ");sbc(dr);printf(" ENTER ");sbc(bb);
+                                        printf("\n\n  Type your choice ->  ");
+                                        cin>>choice1;
+                                        if(choice1=="int")
+                                        {
+                                            if(si.size()==0)
+                                            {
+                                                printf("\n\n  Oops, you have not defined any ");sfc(ly);printf("INITIALIZER");sfc(ww);printf(" yet, you can not use this feature.");
+                                                printf("\n\n   Now press ");sbc(dr);sfc(lr);printf(" ENTER ");sbc(bb);sfc(ww);printf(" to continue"); getch();break;
+                                            }
+                                            else { s2_3dc[start-1][4]="~~"; break; }
+                                        }
+                                        if(choice1=="min") break;
+                                        else if(choice1=="exe") break;
+                                        bool check=valid_pos_neg_integer(choice1);
+                                        if(check==false)
+                                        {
+                                            printf("\n\n   Please check the range and enter a valid Integer");
+                                            printf("\n\n   Now press ");sbc(dr);sfc(lr);printf(" ENTER ");sbc(bb);sfc(ww);printf(" to continue"); getch();break;
+                                        }
+                                        ll store=string_to_integer_converter(choice1);
+                                        if(store<1 || store>1000000)
+                                        {
+                                            printf("\n\n   Please check the range and enter a valid Integer");
+                                            printf("\n\n   Now press ");sbc(dr);sfc(lr);printf(" ENTER ");sbc(bb);sfc(ww);printf(" to continue"); getch();break;
+                                        }
+                                        s2_3dc[start-1][4]=choice1;
+                                        fi=store;
+                                        dummy_o3dc.push_back(make_pair(store,choice1)); break;
+                                    }
+
+                                    if(s2_3dc[start-1][5]=="~~")  // Columns in Matrix through initializer
+                                    {
+                                        printf("\n  List of ");sfc(ly);printf("INITIALIZER");sfc(ww);printf(" available\n");
+                                        for(short itrr=0;itrr<si.size();itrr++)
+                                        {
+                                            printf("\n "); cout<<(itrr+1)<<"- ";
+                                            sfc(ly);cout<<get<3>(si[itrr]);sfc(ww);
+                                            cout<<"   Range ["<<get<1>(si[itrr])<<" - "<<get<2>(si[itrr])<<"]";
+                                        }
+                                        printf("\n\n  Type  the  ");sfc(ly);printf("INITIALIZER");sfc(ww);printf("  name  and  ");sbc(dr);sfc(lr);printf(" ENTER ");sbc(bb);sfc(ww);
+                                        printf("\n  To cancel this feature type ");sfc(lm);printf("cl");sfc(ww);printf(" and ");sbc(dr);sfc(lr);printf(" ENTER ");sbc(bb);sfc(ww);
+                                        printf("\n\n  Type your choice ->  ");cin>>choice1;
+                                        if(choice1=="cl") { s2_3dc[start-1][5]="~";break; }
+                                        else if(choice1=="min") break;
+                                        else if(choice1=="exe") break;
+                                        short flag=0;
+                                        for(short itrr=0;itrr<si.size();itrr++)
+                                        {
+                                            if(get<3>(si[itrr])==choice1)
+                                            {
+                                                ll range=fi*get<2>(si[itrr]);
+                                                if(range>1000000)
+                                                {
+                                                    printf("\n\n  You are only allowed to create 1000000 Number of Cells in your ");sfc(lg);printf("Matrix[][]");sfc(ww);printf(" at a time.");
+                                                    printf("\n\n  However, as per the details of Rows and Columns of your ");sfc(lg);printf("Matrix[][]");sfc(ww);
+                                                    printf("Number of cells is = ");sfc(lr);cout<<range;sfc(ww);
+                                                    printf("\n\n  So you are advised to reduce the Number of Columns from your ");sfc(lg);printf("Matrix[][]");sfc(ww);
+                                                    sfc(lr);printf("\n  Note: ");sfc(ww);printf("Number of cells = Rows*Columns");
+                                                    printf("\n\n   Now press ");sbc(dr);sfc(lr);printf(" ENTER ");sbc(bb);sfc(ww);printf(" to change Number of Columns"); getch();flag=1;break;
+                                                }
+                                                flag=2; s2_3dc[start-1][5]=choice1; dummy_o3dc.push_back(make_pair(get<0>(si[itrr]),choice1));s2_3dc[start-1][0]="order1"; break;
+                                            }
+                                        }
+                                        if(flag==0)
+                                        {
+                                            printf("\n\n   Please type a valid choice");
+                                            printf("\n\n   Now press ");sbc(dr);sfc(lr);printf(" ENTER ");sbc(bb);sfc(ww);printf(" to continue"); getch();break;
+                                        }
+                                        break;
+                                    }
+
+                                    if(s2_3dc[start-1][5]=="~")   // Columns in Matrix
+                                    {
+                                        printf("\n\n  Enter the Number of Columns for your ");sfc(lg);printf("MATRIX[]");sfc(ww);printf(" and then press ");sbc(dr);printf(" ENTER ");sbc(bb);
+                                        printf("\n ");sfc(lr);printf(" Note: ");sfc(ww);printf("Range -> (1) to (10 to the power 6)");
+                                        printf("\n\n  If you want to choose an ");sfc(ly);printf("INITIALIZER");sfc(ww);printf(" then type ");sfc(lm);printf("int");sfc(ww);printf(" and ");sbc(dr);printf(" ENTER ");sbc(bb);
+                                        printf("\n\n  Type your choice ->  ");
+                                        cin>>choice1;
+                                        if(choice1=="int")
+                                        {
+                                            if(si.size()==0)
+                                            {
+                                                printf("\n\n  Oops, you have not defined any ");sfc(ly);printf("INITIALIZER");sfc(ww);printf(" yet, you can not use this feature.");
+                                                printf("\n\n   Now press ");sbc(dr);sfc(lr);printf(" ENTER ");sbc(bb);sfc(ww);printf(" to continue"); getch();break;
+                                            }
+                                            else { s2_3dc[start-1][5]="~~"; break; }
+                                        }
+                                        if(choice1=="min") break;
+                                        else if(choice1=="exe") break;
+                                        bool check=valid_pos_neg_integer(choice1);
+                                        if(check==false)
+                                        {
+                                            printf("\n\n   Please check the range and enter a valid Integer");
+                                            printf("\n\n   Now press ");sbc(dr);sfc(lr);printf(" ENTER ");sbc(bb);sfc(ww);printf(" to continue"); getch();break;
+                                        }
+                                        ll store=string_to_integer_converter(choice1);
+                                        if(store<1 || store>1000000)
+                                        {
+                                            printf("\n\n   Please check the range and enter a valid Integer");
+                                            printf("\n\n   Now press ");sbc(dr);sfc(lr);printf(" ENTER ");sbc(bb);sfc(ww);printf(" to continue"); getch();break;
+                                        }
+                                        ll range=fi*store;
+                                        if(range>1000000)
+                                        {
+                                            printf("\n\n  You are only allowed to create 1000000 Number of Cells in your ");sfc(lg);printf("Matrix[][]");sfc(ww);printf(" at a time.");
+                                            printf("\n\n  However, as per the details of Rows and Columns of your ");sfc(lg);printf("Matrix[][]");sfc(ww);
+                                            printf("Number of cells is = ");sfc(lr);cout<<range;sfc(ww);
+                                            printf("\n\n  So you are advised to reduce the Number of Columns from your ");sfc(lg);printf("Matrix[][]");sfc(ww);
+                                            sfc(lr);printf("\n  Note: ");sfc(ww);printf("Number of cells = Rows*Columns");
+                                            printf("\n\n   Now press ");sbc(dr);sfc(lr);printf(" ENTER ");sbc(bb);sfc(ww);printf(" to change Number of Columns"); getch();break;
+                                        }
+                                        s2_3dc[start-1][5]=choice1;
+                                        dummy_o3dc.push_back(make_pair(store,choice1)); s2_3dc[start-1][0]="order1"; break;
+                                    }
+
+                                }
+                            }
+
+                            if(s2_3dc[start-1][0]=="4")  // matrix of Permutation
+                            {
+                                dummy_o3dc.push_back(make_pair(1,"~")); // for storing permutation string    (index 2)
+                                dummy_o3dc.push_back(make_pair(1,"~")); // for Storing Row of Matrix         (index 3)
+                                dummy_o3dc.push_back(make_pair(1,"~")); // for storing Column of Matrix      (index 4)
+                                s2_3dc[start-1][0]="ready_for_permutation"; break;
+                            }
+
+                            if(s2_3dc[start-1][0]=="ready_for_permutation")    // Matrix of Permutation
+                            {
+                                printf("\n  Enter following details for");sfc(lm);printf(" [PERMUTATIONS] ");sfc(ww);
+                                if(s2_3dc[start-1][4]=="~~")  // Rows in Matrix through initializer
+                                {
+                                    printf("\n  List of ");sfc(ly);printf("INITIALIZER");sfc(ww);printf(" available\n");
+                                    for(short itrr=0;itrr<si.size();itrr++)
+                                    {
+                                        printf("\n "); cout<<(itrr+1)<<"- ";
+                                        sfc(ly);cout<<get<3>(si[itrr]);sfc(ww);
+                                        cout<<"   Range ["<<get<1>(si[itrr])<<" - "<<get<2>(si[itrr])<<"]";
+                                    }
+                                    printf("\n\n  Type  the  ");sfc(ly);printf("INITIALIZER");sfc(ww);printf("  name  and  ");sbc(dr);sfc(lr);printf(" ENTER ");sbc(bb);sfc(ww);
+                                    printf("\n  To cancel this feature type ");sfc(lm);printf("cl");sfc(ww);printf(" and ");sbc(dr);sfc(lr);printf(" ENTER ");sbc(bb);sfc(ww);
+                                    printf("\n\n  Type your choice ->  ");cin>>choice1;
+                                    if(choice1=="cl") { s2_3dc[start-1][4]="~";break; }
+                                    else if(choice1=="min") break;
+                                    else if(choice1=="exe") break;
+                                    bool flag=false;
+                                    for(short itrr=0;itrr<si.size();itrr++)
+                                    {
+                                        if(get<3>(si[itrr])==choice1)
+                                        {
+                                            fi=get<2>(si[itrr]);
+                                            flag=true; s2_3dc[start-1][4]=choice1;
+                                            dummy_o3dc[3].first=get<0>(si[itrr]);dummy_o3dc[3].second=choice1; break;
+                                        }
+                                    }
+                                    if(flag==false)
+                                    {
+                                       printf("\n\n   Please type a valid choice");
+                                        printf("\n\n   Now press ");sbc(dr);sfc(lr);printf(" ENTER ");sbc(bb);sfc(ww);printf(" to continue"); getch();break;
+                                    }
+                                    break;
+                                }
+
+                                if(s2_3dc[start-1][4]=="~")  // Rows in Matrix
+                                {
+                                    printf("\n\n  Enter the Number of Rows for your ");sfc(lg);printf("MATRIX[]");sfc(ww);printf(" and then press ");sbc(dr);printf(" ENTER ");sbc(bb);
+                                    printf("\n ");sfc(lr);printf(" Note: ");sfc(ww);printf("Range -> (1) to (10 to the power 6)");
+                                    printf("\n\n  If you want to choose an ");sfc(ly);printf("INITIALIZER");sfc(ww);printf(" then type ");sfc(lm);printf("int");sfc(ww);printf(" and ");sbc(dr);printf(" ENTER ");sbc(bb);
+                                    printf("\n\n  Type your choice ->  ");
+                                    cin>>choice1;
+                                    if(choice1=="int")
+                                    {
+                                        if(si.size()==0)
+                                        {
+                                            printf("\n\n  Oops, you have not defined any ");sfc(ly);printf("INITIALIZER");sfc(ww);printf(" yet, you can not use this feature.");
+                                            printf("\n\n   Now press ");sbc(dr);sfc(lr);printf(" ENTER ");sbc(bb);sfc(ww);printf(" to continue"); getch();break;
+                                        }
+                                        else { s2_3dc[start-1][4]="~~"; break; }
+                                    }
+                                    if(choice1=="min") break;
+                                    else if(choice1=="exe") break;
+                                    bool check=valid_pos_neg_integer(choice1);
+                                    if(check==false)
+                                    {
+                                        printf("\n\n   Please check the range and enter a valid Integer");
+                                        printf("\n\n   Now press ");sbc(dr);sfc(lr);printf(" ENTER ");sbc(bb);sfc(ww);printf(" to continue"); getch();break;
+                                    }
+                                    ll store=string_to_integer_converter(choice1);
+                                    if(store<1 || store>1000000)
+                                    {
+                                        printf("\n\n   Please check the range and enter a valid Integer");
+                                        printf("\n\n   Now press ");sbc(dr);sfc(lr);printf(" ENTER ");sbc(bb);sfc(ww);printf(" to continue"); getch();break;
+                                    }
+                                    s2_3dc[start-1][4]=choice1;
+                                    fi=store;
+                                    dummy_o3dc[3].first=store;dummy_o3dc[3].second=choice1; break;
+                                }
+
+                                if(s2_3dc[start-1][5]=="~~")  // Columns in Matrix through initializer
+                                {
+                                    printf("\n  List of ");sfc(ly);printf("INITIALIZER");sfc(ww);printf(" available\n");
+                                    for(short itrr=0;itrr<si.size();itrr++)
+                                    {
+                                        printf("\n "); cout<<(itrr+1)<<"- ";
+                                        sfc(ly);cout<<get<3>(si[itrr]);sfc(ww);
+                                        cout<<"   Range ["<<get<1>(si[itrr])<<" - "<<get<2>(si[itrr])<<"]";
+                                    }
+                                    printf("\n\n  Type  the  ");sfc(ly);printf("INITIALIZER");sfc(ww);printf("  name  and  ");sbc(dr);sfc(lr);printf(" ENTER ");sbc(bb);sfc(ww);
+                                    printf("\n  To cancel this feature type ");sfc(lm);printf("cl");sfc(ww);printf(" and ");sbc(dr);sfc(lr);printf(" ENTER ");sbc(bb);sfc(ww);
+                                    printf("\n\n  Type your choice ->  ");cin>>choice1;
+                                    if(choice1=="cl") { s2_3dc[start-1][5]="~";break; }
+                                    else if(choice1=="min") break;
+                                    else if(choice1=="exe") break;
+                                    short flag=0;
+                                    for(short itrr=0;itrr<si.size();itrr++)
+                                    {
+                                        if(get<3>(si[itrr])==choice1)
+                                        {
+                                            ll range=fi*get<2>(si[itrr]);
+                                            if(range>1000000)
+                                            {
+                                                printf("\n\n  You are only allowed to create 1000000 Number of Cells in your ");sfc(lg);printf("Matrix[][]");sfc(ww);printf(" at a time.");
+                                                printf("\n\n  However, as per the details of Rows and Columns of your ");sfc(lg);printf("Matrix[][]");sfc(ww);
+                                                printf("Number of cells is = ");sfc(lr);cout<<range;sfc(ww);
+                                                printf("\n\n  So you are advised to reduce the Number of Columns from your ");sfc(lg);printf("Matrix[][]");sfc(ww);
+                                                sfc(lr);printf("\n  Note: ");sfc(ww);printf("Number of cells = Rows*Columns");
+                                                printf("\n\n   Now press ");sbc(dr);sfc(lr);printf(" ENTER ");sbc(bb);sfc(ww);printf(" to change Number of Columns"); getch();flag=1;break;
+                                            }
+                                            flag=2; s2_3dc[start-1][5]=choice1;  fi=range;
+                                            dummy_o3dc[4].first=get<0>(si[itrr]);dummy_o3dc[4].second=choice1; break;
+                                        }
+                                    }
+                                    if(flag==0)
+                                    {
+                                        printf("\n\n   Please type a valid choice");
+                                        printf("\n\n   Now press ");sbc(dr);sfc(lr);printf(" ENTER ");sbc(bb);sfc(ww);printf(" to continue"); getch();break;
+                                    }
+                                    break;
+                                }
+
+                                if(s2_3dc[start-1][5]=="~")  // Columns in Matrix
+                                {
+                                    printf("\n\n  Enter the Number of Columns for your ");sfc(lg);printf("MATRIX[]");sfc(ww);printf(" and then press ");sbc(dr);printf(" ENTER ");sbc(bb);
+                                    printf("\n ");sfc(lr);printf(" Note: ");sfc(ww);printf("Range -> (1) to (10 to the power 6)");
+                                    printf("\n\n  If you want to choose an ");sfc(ly);printf("INITIALIZER");sfc(ww);printf(" then type ");sfc(lm);printf("int");sfc(ww);printf(" and ");sbc(dr);printf(" ENTER ");sbc(bb);
+                                    printf("\n\n  Type your choice ->  ");
+                                    cin>>choice1;
+                                    if(choice1=="int")
+                                    {
+                                        if(si.size()==0)
+                                        {
+                                            printf("\n\n  Oops, you have not defined any ");sfc(ly);printf("INITIALIZER");sfc(ww);printf(" yet, you can not use this feature.");
+                                            printf("\n\n   Now press ");sbc(dr);sfc(lr);printf(" ENTER ");sbc(bb);sfc(ww);printf(" to continue"); getch();break;
+                                        }
+                                        else { s2_3dc[start-1][5]="~~"; break; }
+                                    }
+                                    if(choice1=="min") break;
+                                    else if(choice1=="exe") break;
+                                    bool check=valid_pos_neg_integer(choice1);
+                                    if(check==false)
+                                    {
+                                        printf("\n\n   Please check the range and enter a valid Integer");
+                                        printf("\n\n   Now press ");sbc(dr);sfc(lr);printf(" ENTER ");sbc(bb);sfc(ww);printf(" to continue"); getch();break;
+                                    }
+                                    ll store=string_to_integer_converter(choice1);
+                                    if(store<1 || store>1000000)
+                                    {
+                                        printf("\n\n   Please check the range and enter a valid Integer");
+                                        printf("\n\n   Now press ");sbc(dr);sfc(lr);printf(" ENTER ");sbc(bb);sfc(ww);printf(" to continue"); getch();break;
+                                    }
+                                    ll range=fi*store;
+                                    if(range>1000000)
+                                    {
+                                        printf("\n\n  You are only allowed to create 1000000 Number of Cells in your ");sfc(lg);printf("Matrix[][]");sfc(ww);printf(" at a time.");
+                                        printf("\n\n  However, as per the details of Rows and Columns of your ");sfc(lg);printf("Matrix[][]");sfc(ww);
+                                        printf("Number of cells is = ");sfc(lr);cout<<range;sfc(ww);
+                                        printf("\n\n  So you are advised to reduce the Number of Columns from your ");sfc(lg);printf("Matrix[][]");sfc(ww);
+                                        sfc(lr);printf("\n  Note: ");sfc(ww);printf("Number of cells = Rows*Columns");
+                                        printf("\n\n   Now press ");sbc(dr);sfc(lr);printf(" ENTER ");sbc(bb);sfc(ww);printf(" to change Number of Columns"); getch();break;
+                                    }
+                                    s2_3dc[start-1][5]=choice1;
+                                    fi=range;
+                                    dummy_o3dc[4].first=store;dummy_o3dc[4].second=choice1; break;
+                                }
+
+                                if(dummy_o3dc[2].second=="~")  // store string for permutation
+                                {
+                                    printf("\n\n  Type the String and then press ");sbc(dr);printf("ENTER");sbc(bb);
+                                    sfc(lr);printf("\n  NOTE: ");sfc(ww);printf("Do not include spaces in your string");
+                                    printf("\n        ");printf("Range : Length must be less then 20 characters");
+                                    printf("\n\n  Type your string  ->  "); string in_string; cin>>in_string;
+                                    if(in_string.size()>19)
+                                    {
+                                        printf("\n\n    Please check the range of string");
+                                        printf("\n\n    Now press ");sbc(dr);sfc(lr);printf(" ENTER ");sbc(bb);sfc(ww);printf(" to continue"); getch(); break;
+                                    }
+                                    ll store1=count_no_of_permutations(in_string);
+                                    if(store1<fi)
+                                    {
+                                        cout<<"\n\n    Only "<<store1<<" number of permutations are possible of your string.";
+                                        cout<<"\n    However, you want to create ";sfc(lg);printf("MATRIX[][]");sfc(ww);printf(" of ");cout<<fi;printf(" Number of cells");
+                                        printf("\n\n  So you are advised to change your string, which meets the above criteria.");
+                                        printf("\n\n    Now press ");sbc(dr);sfc(lr);printf(" ENTER ");sbc(bb);sfc(ww);printf(" to continue"); getch(); break;
+                                    }
+                                    dummy_o3dc[2].second=in_string; dummy_o3dc[2].first=5;
+                                    s2_3dc[start-1][0]="order1"; break;
+                                }
+                            }
+
+
+                            if(s2_3dc[start-1][0]=="5")                       // prepare for unique number
+                            {
+                                dummy_o3dc.push_back(make_pair(1,"~"));  // for storing minimum value     (index 2)
+                                dummy_o3dc.push_back(make_pair(1,"~"));  // for storing maximum value     (index 3)
+                                dummy_o3dc.push_back(make_pair(1,"~"));  // for storing Rows of Matrix    (index 4)
+                                dummy_o3dc.push_back(make_pair(1,"~"));  // for storing Columns of Matrix (index 5)
+                                s2_3dc[start-1][0]="ready_for_unique"; break;
+                            }
+
+                            if(s2_3dc[start-1][0]=="ready_for_unique")  // matrix of all unique number
+                            {
+                                printf("\n  Enter following details for");sfc(lm);printf(" [UNIQUE NUMBERS] ");sfc(ww);
+                                if(s2_3dc[start-1][4]=="~~")  // Rows in Matrix through initializer
+                                {
+                                    printf("\n  List of ");sfc(ly);printf("INITIALIZER");sfc(ww);printf(" available\n");
+                                    for(short itrr=0;itrr<si.size();itrr++)
+                                    {
+                                        printf("\n "); cout<<(itrr+1)<<"- ";
+                                        sfc(ly);cout<<get<3>(si[itrr]);sfc(ww);
+                                        cout<<"   Range ["<<get<1>(si[itrr])<<" - "<<get<2>(si[itrr])<<"]";
+                                    }
+                                    printf("\n\n  Type  the  ");sfc(ly);printf("INITIALIZER");sfc(ww);printf("  name  and  ");sbc(dr);sfc(lr);printf(" ENTER ");sbc(bb);sfc(ww);
+                                    printf("\n  To cancel this feature type ");sfc(lm);printf("cl");sfc(ww);printf(" and ");sbc(dr);sfc(lr);printf(" ENTER ");sbc(bb);sfc(ww);
+                                    printf("\n\n  Type your choice ->  ");cin>>choice1;
+                                    if(choice1=="cl") { s2_3dc[start-1][4]="~";break; }
+                                    else if(choice1=="min") break;
+                                    else if(choice1=="exe") break;
+                                    bool flag=false;
+                                    for(short itrr=0;itrr<si.size();itrr++)
+                                    {
+                                        if(get<3>(si[itrr])==choice1)
+                                        {
+                                            fi=get<2>(si[itrr]);
+                                            flag=true; s2_3dc[start-1][4]=choice1;
+                                            dummy_o3dc[4].first=get<0>(si[itrr]);dummy_o3dc[4].second=choice1; break;
+                                        }
+                                    }
+                                    if(flag==false)
+                                    {
+                                       printf("\n\n   Please type a valid choice");
+                                        printf("\n\n   Now press ");sbc(dr);sfc(lr);printf(" ENTER ");sbc(bb);sfc(ww);printf(" to continue"); getch();break;
+                                    }
+                                    break;
+                                }
+
+                                if(s2_3dc[start-1][4]=="~")  // Rows in Matrix
+                                {
+                                    printf("\n\n  Enter the Number of Rows for your ");sfc(lg);printf("MATRIX[]");sfc(ww);printf(" and then press ");sbc(dr);printf(" ENTER ");sbc(bb);
+                                    printf("\n ");sfc(lr);printf(" Note: ");sfc(ww);printf("Range -> (1) to (10 to the power 6)");
+                                    printf("\n\n  If you want to choose an ");sfc(ly);printf("INITIALIZER");sfc(ww);printf(" then type ");sfc(lm);printf("int");sfc(ww);printf(" and ");sbc(dr);printf(" ENTER ");sbc(bb);
+                                    printf("\n\n  Type your choice ->  ");
+                                    cin>>choice1;
+                                    if(choice1=="int")
+                                    {
+                                        if(si.size()==0)
+                                        {
+                                            printf("\n\n  Oops, you have not defined any ");sfc(ly);printf("INITIALIZER");sfc(ww);printf(" yet, you can not use this feature.");
+                                            printf("\n\n   Now press ");sbc(dr);sfc(lr);printf(" ENTER ");sbc(bb);sfc(ww);printf(" to continue"); getch();break;
+                                        }
+                                        else { s2_3dc[start-1][4]="~~"; break; }
+                                    }
+                                    if(choice1=="min") break;
+                                    else if(choice1=="exe") break;
+                                    bool check=valid_pos_neg_integer(choice1);
+                                    if(check==false)
+                                    {
+                                        printf("\n\n   Please check the range and enter a valid Integer");
+                                        printf("\n\n   Now press ");sbc(dr);sfc(lr);printf(" ENTER ");sbc(bb);sfc(ww);printf(" to continue"); getch();break;
+                                    }
+                                    ll store=string_to_integer_converter(choice1);
+                                    if(store<1 || store>1000000)
+                                    {
+                                        printf("\n\n   Please check the range and enter a valid Integer");
+                                        printf("\n\n   Now press ");sbc(dr);sfc(lr);printf(" ENTER ");sbc(bb);sfc(ww);printf(" to continue"); getch();break;
+                                    }
+                                    s2_3dc[start-1][4]=choice1;
+                                    fi=store;
+                                    dummy_o3dc[4].first=store;dummy_o3dc[4].second=choice1; break;
+                                }
+
+                                if(s2_3dc[start-1][5]=="~~")  // Columns in Matrix through initializer
+                                {
+                                    printf("\n  List of ");sfc(ly);printf("INITIALIZER");sfc(ww);printf(" available\n");
+                                    for(short itrr=0;itrr<si.size();itrr++)
+                                    {
+                                        printf("\n "); cout<<(itrr+1)<<"- ";
+                                        sfc(ly);cout<<get<3>(si[itrr]);sfc(ww);
+                                        cout<<"   Range ["<<get<1>(si[itrr])<<" - "<<get<2>(si[itrr])<<"]";
+                                    }
+                                    printf("\n\n  Type  the  ");sfc(ly);printf("INITIALIZER");sfc(ww);printf("  name  and  ");sbc(dr);sfc(lr);printf(" ENTER ");sbc(bb);sfc(ww);
+                                    printf("\n  To cancel this feature type ");sfc(lm);printf("cl");sfc(ww);printf(" and ");sbc(dr);sfc(lr);printf(" ENTER ");sbc(bb);sfc(ww);
+                                    printf("\n\n  Type your choice ->  ");cin>>choice1;
+                                    if(choice1=="cl") { s2_3dc[start-1][5]="~";break; }
+                                    else if(choice1=="min") break;
+                                    else if(choice1=="exe") break;
+                                    short flag=0;
+                                    for(short itrr=0;itrr<si.size();itrr++)
+                                    {
+                                        if(get<3>(si[itrr])==choice1)
+                                        {
+                                            ll range=fi*get<2>(si[itrr]);
+                                            if(range>1000000)
+                                            {
+                                                printf("\n\n  You are only allowed to create 1000000 Number of Cells in your ");sfc(lg);printf("Matrix[][]");sfc(ww);printf(" at a time.");
+                                                printf("\n\n  However, as per the details of Rows and Columns of your ");sfc(lg);printf("Matrix[][]");sfc(ww);
+                                                printf("Number of cells is = ");sfc(lr);cout<<range;sfc(ww);
+                                                printf("\n\n  So you are advised to reduce the Number of Columns from your ");sfc(lg);printf("Matrix[][]");sfc(ww);
+                                                sfc(lr);printf("\n  Note: ");sfc(ww);printf("Number of cells = Rows*Columns");
+                                                printf("\n\n   Now press ");sbc(dr);sfc(lr);printf(" ENTER ");sbc(bb);sfc(ww);printf(" to change Number of Columns"); getch();flag=1;break;
+                                            }
+                                            flag=2; s2_3dc[start-1][5]=choice1;  fi=range;
+                                            dummy_o3dc[5].first=get<0>(si[itrr]);dummy_o3dc[5].second=choice1; break;
+                                        }
+                                    }
+                                    if(flag==0)
+                                    {
+                                        printf("\n\n   Please type a valid choice");
+                                        printf("\n\n   Now press ");sbc(dr);sfc(lr);printf(" ENTER ");sbc(bb);sfc(ww);printf(" to continue"); getch();break;
+                                    }
+                                    break;
+                                }
+
+                                if(s2_3dc[start-1][5]=="~")  // Columns in Matrix
+                                {
+                                    printf("\n\n  Enter the Number of Columns for your ");sfc(lg);printf("MATRIX[]");sfc(ww);printf(" and then press ");sbc(dr);printf(" ENTER ");sbc(bb);
+                                    printf("\n ");sfc(lr);printf(" Note: ");sfc(ww);printf("Range -> (1) to (10 to the power 6)");
+                                    printf("\n\n  If you want to choose an ");sfc(ly);printf("INITIALIZER");sfc(ww);printf(" then type ");sfc(lm);printf("int");sfc(ww);printf(" and ");sbc(dr);printf(" ENTER ");sbc(bb);
+                                    printf("\n\n  Type your choice ->  ");
+                                    cin>>choice1;
+                                    if(choice1=="int")
+                                    {
+                                        if(si.size()==0)
+                                        {
+                                            printf("\n\n  Oops, you have not defined any ");sfc(ly);printf("INITIALIZER");sfc(ww);printf(" yet, you can not use this feature.");
+                                            printf("\n\n   Now press ");sbc(dr);sfc(lr);printf(" ENTER ");sbc(bb);sfc(ww);printf(" to continue"); getch();break;
+                                        }
+                                        else { s2_3dc[start-1][5]="~~"; break; }
+                                    }
+                                    if(choice1=="min") break;
+                                    else if(choice1=="exe") break;
+                                    bool check=valid_pos_neg_integer(choice1);
+                                    if(check==false)
+                                    {
+                                        printf("\n\n   Please check the range and enter a valid Integer");
+                                        printf("\n\n   Now press ");sbc(dr);sfc(lr);printf(" ENTER ");sbc(bb);sfc(ww);printf(" to continue"); getch();break;
+                                    }
+                                    ll store=string_to_integer_converter(choice1);
+                                    if(store<1 || store>1000000)
+                                    {
+                                        printf("\n\n   Please check the range and enter a valid Integer");
+                                        printf("\n\n   Now press ");sbc(dr);sfc(lr);printf(" ENTER ");sbc(bb);sfc(ww);printf(" to continue"); getch();break;
+                                    }
+                                    ll range=fi*store;
+                                    if(range>1000000)
+                                    {
+                                        printf("\n\n  You are only allowed to create 1000000 Number of Cells in your ");sfc(lg);printf("Matrix[][]");sfc(ww);printf(" at a time.");
+                                        printf("\n\n  However, as per the details of Rows and Columns of your ");sfc(lg);printf("Matrix[][]");sfc(ww);
+                                        printf("Number of cells is = ");sfc(lr);cout<<range;sfc(ww);
+                                        printf("\n\n  So you are advised to reduce the Number of Columns from your ");sfc(lg);printf("Matrix[][]");sfc(ww);
+                                        sfc(lr);printf("\n  Note: ");sfc(ww);printf("Number of cells = Rows*Columns");
+                                        printf("\n\n   Now press ");sbc(dr);sfc(lr);printf(" ENTER ");sbc(bb);sfc(ww);printf(" to change Number of Columns"); getch();break;
+                                    }
+                                    s2_3dc[start-1][5]=choice1;
+                                    fi=range;
+                                    dummy_o3dc[5].first=store;dummy_o3dc[5].second=choice1; break;
+                                }
+
+                                if(dummy_o3dc[2].second=="~")  // set minimum value
+                                {
+                                    printf("\n\n   Enter the ");sfc(ly);printf("Minimum");sfc(ww);printf(" value and then ");sbc(dr);printf(" ENTER ");sbc(bb);
+                                    printf("\n ");sfc(lr);printf(" Note: ");sfc(ww);printf("Range -> (-10 to the power 18) to (10 to the power 18)");
+                                    printf("\n\n  Minimum value ->  "); cin>>choice1;
+                                    if(choice1=="min") break;
+                                    else if(choice1=="exe") break;
+                                    bool check=valid_pos_neg_integer(choice1);
+                                    if(check==false)
+                                    {
+                                        printf("\n\n   Please check the range and enter a valid Integer");
+                                        printf("\n\n   Now press ");sbc(dr);sfc(lr);printf(" ENTER ");sbc(bb);sfc(ww);printf(" to continue"); getch();break;
+                                    }
+                                    ll store=string_to_integer_converter(choice1);
+                                    dummy_o3dc[2].first=store;dummy_o3dc[2].second=choice1; break;
+                                }
+
+                                if(dummy_o3dc[3].second=="~")  // set maximum value
+                                {
+                                    printf("\n\n   Enter the ");sfc(ly);printf("Maximum");sfc(ww);printf(" value and then ");sbc(dr);printf(" ENTER ");sbc(bb);
+                                    printf("\n ");sfc(lr);printf(" Note: ");sfc(ww);printf("Range -> (-10 to the power 18) to (10 to the power 18)");
+                                    printf("\n\n  Maximum value ->  "); cin>>choice1;
+                                    if(choice1=="min") break;
+                                    else if(choice1=="exe") break;
+                                    bool check=valid_pos_neg_integer(choice1);
+                                    if(check==false)
+                                    {
+                                        printf("\n\n   Please check the range and enter a valid Integer");
+                                        printf("\n\n   Now press ");sbc(dr);sfc(lr);printf(" ENTER ");sbc(bb);sfc(ww);printf(" to continue"); getch();break;
+                                    }
+                                    ll store1=string_to_integer_converter(choice1);
+                                    ll store2=dummy_o3dc[2].first;
+                                    if(store1<store2)
+                                    {
+                                        printf("\n\n   Maximum value must be greater then Minimum value");
+                                        printf("\n\n   press ");sbc(dr);sfc(lr);printf(" ENTER ");sbc(bb);sfc(ww);printf(" to change"); getch();break;
+                                    }
+
+                                    if(fi>(store1-store2+1))
+                                    {
+                                        cout<<"\n\n  You wish to create "<<fi<<" Number of cells in your ";sfc(lg);printf("MATRIX[][]");sfc(ww);
+                                        cout<<"\n  However, only "<<(store1-store2+1)<<" Unique No. exists in range provided by you.";
+                                        printf("\n\n  You are advised to enlarge your range");
+                                        printf("\n\n   press ");sbc(dr);sfc(lr);printf(" ENTER ");sbc(bb);sfc(ww);printf(" to change Maximum value"); getch();break;
+                                    }
+                                    dummy_o3dc[3].first=store1;dummy_o3dc[3].second=choice1;
+                                    s2_3dc[start-1][0]="order1"; break;
+                                }
+                            }
+                        }
+
+                    case 6:    // TREE CLASS
+                        {
+                            cout<<"  "<<(++start)<<". ";
+                            sfc(lg);cout<<_3dc[i][j].second;sfc(lc);cout<<" [CLASS TREE]";sfc(ww);
+                            s_3dc[i][j]=true;
+                            break;
+                        }
+
+                    case 7:    // GRAPH CLASS
+                        {
+                            cout<<"  "<<(++start)<<". ";
+                            sfc(lg);cout<<_3dc[i][j].second;sfc(lc);cout<<" [CLASS GRAPH]";sfc(ww);
+                            s_3dc[i][j]=true;
+                            break;
+                        }
+
+                    case 8:    // CUSTOM DATA TYPE CLASS
+                        {
+                            cout<<"  "<<(++start)<<". ";
+                            sfc(lg);cout<<_3dc[i][j].second;sfc(lc);cout<<" [CLASS CUSTOM_DATA_TYPE]";sfc(ww);
+                            if(s2_3dc[start-1][0]=="~")
+                            {
+                                printf("\n\n  Enter the number of Attributes you want to insert and then press ");sbc(dr);printf(" ENTER ");sbc(bb);
+                                printf("\n ");sfc(lr);printf(" Note: ");sfc(ww);printf("Range -> (1) to (20)");
+                                printf("\n\n  Type your choice ->  "); cin>>choice1;
+                                if(choice1=="min") break;
+                                else if(choice1=="exe") break;
+                                bool check=valid_pos_neg_integer(choice1);
+                                if(check==false)
+                                {
+                                    printf("\n\n   Please check the range and enter a valid Integer");
+                                    printf("\n\n   Now press ");sbc(dr);sfc(lr);printf(" ENTER ");sbc(bb);sfc(ww);printf(" to continue"); getch();break;
+                                }
+                                ll store=string_to_integer_converter(choice1);
+                                if(store<1 || store>20)
+                                {
+                                    printf("\n\n   Please check the range and enter a valid Integer");
+                                    printf("\n\n   Now press ");sbc(dr);sfc(lr);printf(" ENTER ");sbc(bb);sfc(ww);printf(" to continue"); getch();break;
+                                }
+                                no_of_attribute_for_custom=store; s2_3dc[start-1][0]=choice1;
+                                dummy_o3dc.push_back(make_pair(8,"cus"));
+                                dummy_o3dc.push_back(make_pair(store,choice1)); break;
+                            }
+                            if(s2_3dc[start-1][1]=="~~")
+                            {
+                                printf("\n  List of ");sfc(ly);printf("INITIALIZER");sfc(ww);printf(" available\n");
+                                for(short itrr=0;itrr<si.size();itrr++)
+                                {
+                                    printf("\n "); cout<<(itrr+1)<<"- ";
+                                    sfc(ly);cout<<get<3>(si[itrr]);sfc(ww);
+                                    cout<<"   Range ["<<get<1>(si[itrr])<<" - "<<get<2>(si[itrr])<<"]";
+                                }
+                                printf("\n\n  Type  the  ");sfc(ly);printf("INITIALIZER");sfc(ww);printf("  name  and  ");sbc(dr);sfc(lr);printf(" ENTER ");sbc(bb);sfc(ww);
+                                printf("\n  To cancel this feature type ");sfc(lm);printf("cl");sfc(ww);printf(" and ");sbc(dr);sfc(lr);printf(" ENTER ");sbc(bb);sfc(ww);
+                                printf("\n\n  Type your choice ->  ");cin>>choice1;
+                                if(choice1=="cl") { s2_3dc[start-1][1]="~";break; }
+                                else if(choice1=="min") break;
+                                else if(choice1=="exe") break;
+                                bool flag=false;
+                                for(short itrr=0;itrr<si.size();itrr++)
+                                {
+                                    if(get<3>(si[itrr])==choice1)
+                                    {
+                                        flag=true; s2_3dc[start-1][1]=choice1; dummy_o3dc.push_back(make_pair(get<0>(si[itrr]),choice1)); break;
+                                    }
+                                }
+                                if(flag==false)
+                                {
+                                    printf("\n\n   Please type a valid choice");
+                                    printf("\n\n   Now press ");sbc(dr);sfc(lr);printf(" ENTER ");sbc(bb);sfc(ww);printf(" to continue"); getch();break;
+                                }
+                                break;
+                            }
+                            if(s2_3dc[start-1][1]=="~")
+                            {
+                                printf("\n\n  Enter the number of Rows you want to create and then press ");sbc(dr);printf(" ENTER ");sbc(bb);
+                                printf("\n ");sfc(lr);printf(" Note: ");sfc(ww);printf("Range -> (1) to (10 to the power 6)");
+                                printf("\n\n  If you want to choose an ");sfc(ly);printf("INITIALIZER");sfc(ww);printf(" then type ");sfc(lm);printf("int");sfc(ww);printf(" and ");sbc(dr);printf(" ENTER ");sbc(bb);
+                                printf("\n\n  Type your choice ->  ");
+                                cin>>choice1;
+                                if(choice1=="int")
+                                {
+                                    if(si.size()==0)
+                                    {
+                                        printf("\n\n  Oops, you have not defined any ");sfc(ly);printf("INITIALIZER");sfc(ww);printf(" yet, you can not use this feature.");
+                                        printf("\n\n   Now press ");sbc(dr);sfc(lr);printf(" ENTER ");sbc(bb);sfc(ww);printf(" to continue"); getch();break;
+                                    }
+                                    else { s2_3dc[start-1][1]="~~"; break; }
+                                }
+                                if(choice1=="min") break;
+                                else if(choice1=="exe") break;
+                                bool check=valid_pos_neg_integer(choice1);
+                                if(check==false)
+                                {
+                                    printf("\n\n   Please check the range and enter a valid Integer");
+                                    printf("\n\n   Now press ");sbc(dr);sfc(lr);printf(" ENTER ");sbc(bb);sfc(ww);printf(" to continue"); getch();break;
+                                }
+                                ll store=string_to_integer_converter(choice1);
+                                if(store<1 || store>1000000)
+                                {
+                                    printf("\n\n   Please check the range and enter a valid Integer");
+                                    printf("\n\n   Now press ");sbc(dr);sfc(lr);printf(" ENTER ");sbc(bb);sfc(ww);printf(" to continue"); getch();break;
+                                }
+                                s2_3dc[start-1][1]=choice1;
+                                dummy_o3dc.push_back(make_pair(store,choice1)); break;
+                            }
+                            while(no_of_attribute_for_custom>0)
+                            {
+                                cout<<"\n\n  Your structure -> ";vector <pair <ll,string>> demo_custom;
+                                sfc(lm);cout<<custom_structure;sfc(ww);printf("\n\n  You can add following Attributes\n");
+                                printf("\n  ");sfc(lr);printf("press 1");sfc(ww);printf(" and ");sbc(dr);sfc(lr);printf(" ENTER ");sbc(bb);sfc(ww);printf(" to add -> INTEGER");
+                                printf("\n  ");sfc(lr);printf("press 2");sfc(ww);printf(" and ");sbc(dr);sfc(lr);printf(" ENTER ");sbc(bb);sfc(ww);printf(" to add -> REAL");
+                                printf("\n  ");sfc(lr);printf("press 3");sfc(ww);printf(" and ");sbc(dr);sfc(lr);printf(" ENTER ");sbc(bb);sfc(ww);printf(" to add -> STRING");
+                                printf("\n  ");sfc(lr);printf("press 4");sfc(ww);printf(" and ");sbc(dr);sfc(lr);printf(" ENTER ");sbc(bb);sfc(ww);printf(" to add -> PERMUTATION");
+                                printf("\n  ");sfc(lr);printf("press 5");sfc(ww);printf(" and ");sbc(dr);sfc(lr);printf(" ENTER ");sbc(bb);sfc(ww);printf(" to add -> UNIQUE NUMBER");
+                                printf("\n  ");sfc(lr);printf("press 6");sfc(ww);printf(" and ");sbc(dr);sfc(lr);printf(" ENTER ");sbc(bb);sfc(ww);printf(" to add -> SPACE");
+                                printf("\n\n  Type your choice  -> "); cin>>choice1;
+                                if(choice1=="min") break;
+                                else if(choice1=="exe") break;
+                                if(choice1=="1" || choice1=="2" || choice1=="3" || choice1=="4" || choice1=="5" || choice1=="6")
+                                {
+                                    if(choice1=="1")
+                                    {
+                                        custom_structure+="Integer";
+                                        demo_custom.push_back(make_pair(1,"int"));  // Integer   (index 0)
+                                        demo_custom.push_back(make_pair(1,"~"));    // type      (index 1)
+                                        demo_custom.push_back(make_pair(1,"~"));    // min_value (index 2)
+                                        demo_custom.push_back(make_pair(1,"~"));    // max_value (index 3)
+                                        demo_custom.push_back(make_pair(1,"~"));    // order     (index 4)
+                                        dummy_o3dc.push_back(make_pair(++index_of_custom_data_type,"Integer"));
+                                        cdt.push_back(demo_custom);
+                                    }
+                                    else if(choice1=="2")
+                                    {
+                                        custom_structure+="Real";
+                                        demo_custom.push_back(make_pair(2,"rel")); // Real         (index 0)
+                                        demo_custom.push_back(make_pair(2,"~"));   // precision    (index 1)
+                                        demo_custom.push_back(make_pair(2,"~"));   // min_value    (index 2)
+                                        demo_custom.push_back(make_pair(2,"~"));   // max_value    (index 3)
+                                        demo_custom.push_back(make_pair(2,"~"));   // order        (index 4)
+                                        dummy_o3dc.push_back(make_pair(++index_of_custom_data_type,"Real"));
+                                        cdt.push_back(demo_custom);
+                                    }
+                                    else if(choice1=="3")
+                                    {
+                                        custom_structure+="String";
+                                        demo_custom.push_back(make_pair(3,"str"));  // string   (index 0)
+                                        demo_custom.push_back(make_pair(3,"~"));    // type     (index 1)
+                                        dummy_o3dc.push_back(make_pair(++index_of_custom_data_type,"String"));
+                                        cdt.push_back(demo_custom);
+                                    }
+                                    else if(choice1=="4")
+                                    {
+                                        custom_structure+="Permutation";
+                                        demo_custom.push_back(make_pair(4,"per"));  // permutation  (index 0)
+                                        demo_custom.push_back(make_pair(4,"~"));    // string       (index 1)
+                                        demo_custom.push_back(make_pair(4,"~"));    // order        (index 2)
+                                        dummy_o3dc.push_back(make_pair(++index_of_custom_data_type,"Permutation"));
+                                        cdt.push_back(demo_custom);
+                                    }
+                                    else if(choice1=="5")
+                                    {
+                                        custom_structure+="Unique_No";
+                                        demo_custom.push_back(make_pair(5,"uni"));  // Unique Number  (index 0)
+                                        demo_custom.push_back(make_pair(5,"~"));    // min_value      (index 1)
+                                        demo_custom.push_back(make_pair(5,"~"));    // max_value      (index 2)
+                                        demo_custom.push_back(make_pair(5,"~"));    // order          (index 3)
+                                        dummy_o3dc.push_back(make_pair(++index_of_custom_data_type,"Unique_Number"));
+                                        cdt.push_back(demo_custom);
+                                    }
+                                    else if(choice1=="6")
+                                    {
+                                        custom_structure+="_space_";
+                                        demo_custom.push_back(make_pair(6,"spc"));  // space
+                                        dummy_o3dc.push_back(make_pair(++index_of_custom_data_type,"Space"));
+                                        cdt.push_back(demo_custom);
+                                    }
+                                    --no_of_attribute_for_custom;
+                                    break;
+                                }
+                                printf("\n\n    Enter the valid choice");
+                                printf("\n\n    Now press ");sbc(dr);sfc(lr);printf(" ENTER ");sbc(bb);sfc(ww);printf(" to continue"); getch(); break;
+                            }
+                            if(no_of_attribute_for_custom==0)
+                            {
+                                no_of_attribute_for_custom=-1; dummy2_o3dc.push_back(dummy_o3dc); break;
+                            }
+                            if(no_of_attribute_for_custom==-1)
+                            {
+                                cout<<"\n\n  Your structure -> "; sfc(lm);cout<<custom_structure;sfc(ww);
+                                printf("\n  Define following sub attributes of your custom data type\n");
+                                for(short itr=3;itr<dummy_o3dc.size();itr++)
+                                {
+                                    if(dummy_o3dc[itr].first<0)
+                                    {
+                                        if(itr==(dummy_o3dc.size()-1))
+                                        {
+                                            no_of_attribute_for_custom=-2; break;
+                                        }
+                                        cout<<"\n"<<(itr-2)<<"- Attribute value saved for ";sfc(lm);cout<<dummy_o3dc[itr].second;sfc(ww); continue;
+                                    }
+                                    if(dummy_o3dc[itr].second=="Integer")
+                                    {
+                                        printf("\n\n  Class [Integer] \n\n");
+                                        for(short itr2=1;itr2<=4;itr2++)
+                                        {
+                                            if(cdt[dummy_o3dc[itr].first][itr2].second=="~" && itr2==1)   // case 1 -> Type of Integer
+                                            {
+                                                printf("\n  What type of integer would you like to create ?\n");
+                                                printf("\n  ");sfc(lr);printf("press 1");sfc(ww);printf(" and ");sbc(dr);sfc(lr);printf(" ENTER ");sbc(bb);sfc(ww);printf(" to create -> RANDOM NUMBER");
+                                                printf("\n  ");sfc(lr);printf("press 2");sfc(ww);printf(" and ");sbc(dr);sfc(lr);printf(" ENTER ");sbc(bb);sfc(ww);printf(" to create -> ODD NUMBER");
+                                                printf("\n  ");sfc(lr);printf("press 3");sfc(ww);printf(" and ");sbc(dr);sfc(lr);printf(" ENTER ");sbc(bb);sfc(ww);printf(" to create -> EVEN NUMBER");
+                                                printf("\n  ");sfc(lr);printf("press 4");sfc(ww);printf(" and ");sbc(dr);sfc(lr);printf(" ENTER ");sbc(bb);sfc(ww);printf(" to create -> PRIME NUMBER");
+                                                printf("\n  ");sfc(lr);printf("press 5");sfc(ww);printf(" and ");sbc(dr);sfc(lr);printf(" ENTER ");sbc(bb);sfc(ww);printf(" to create -> NON PRIME NUMBER");
+                                                printf("\n  ");sfc(lr);printf("press 6");sfc(ww);printf(" and ");sbc(dr);sfc(lr);printf(" ENTER ");sbc(bb);sfc(ww);printf(" to create -> INCREMENTED NUMBER");
+                                                printf("\n  ");sfc(lr);printf("press 7");sfc(ww);printf(" and ");sbc(dr);sfc(lr);printf(" ENTER ");sbc(bb);sfc(ww);printf(" to create -> Nth FIBONACCI NUMBER");
+                                                printf("\n\n  Type your choice  -> "); cin>>choice1;
+                                                if(choice1=="min") break;
+                                                else if(choice1=="exe") break;
+                                                if(choice1=="1" || choice1=="2" || choice1=="3" || choice1=="4" || choice1=="5" || choice1=="6" || choice1=="7")
+                                                    {
+                                                        short store=string_to_integer_converter(choice1);
+                                                        cdt[dummy_o3dc[itr].first][itr2].first=store;
+                                                        cdt[dummy_o3dc[itr].first][itr2].second=choice1;
+                                                        break;
+                                                    }
+                                                printf("\n\n    Enter the valid choice");
+                                                printf("\n\n    Now press ");sbc(dr);sfc(lr);printf(" ENTER ");sbc(bb);sfc(ww);printf(" to continue"); getch(); break;
+                                            }
+
+                                            if(cdt[dummy_o3dc[itr].first][itr2].second=="~" && itr2==2)    //  case 2 -> Minimum value
+                                            {
+                                                if(cdt[dummy_o3dc[itr].first][itr2-1].first==1)   // random integer
+                                                {
+                                                    printf("\n  Random Integer");
+                                                    printf("\n\n   Enter the ");sfc(ly);printf("Minimum");sfc(ww);printf(" value and then ");sbc(dr);printf(" ENTER ");sbc(bb);
+                                                    printf("\n ");sfc(lr);printf(" Note: ");sfc(ww);printf("Range -> (-10 to the power 18) to (10 to the power 18)");
+                                                    printf("\n\n  Minimum value ->  "); cin>>choice1;
+                                                    if(choice1=="min") break;
+                                                    else if(choice1=="exe") break;
+                                                    bool check=valid_pos_neg_integer(choice1);
+                                                    if(check==false)
+                                                    {
+                                                        printf("\n\n   Please check the range and enter a valid Integer");
+                                                        printf("\n\n   Now press ");sbc(dr);sfc(lr);printf(" ENTER ");sbc(bb);sfc(ww);printf(" to continue"); getch();break;
+                                                    }
+                                                    ll store=string_to_integer_converter(choice1);
+                                                    cdt[dummy_o3dc[itr].first][itr2].second=choice1; cdt[dummy_o3dc[itr].first][itr2].first=store; break;
+                                                }
+                                                if(cdt[dummy_o3dc[itr].first][itr2-1].first==2)   // odd number
+                                                {
+                                                    printf("\n  Odd Integer");
+                                                    printf("\n\n   Enter the ");sfc(ly);printf("Minimum");sfc(ww);printf(" value and then ");sbc(dr);printf(" ENTER ");sbc(bb);
+                                                    printf("\n ");sfc(lr);printf(" Note: ");sfc(ww);printf("Range -> (-10 to the power 18) to (10 to the power 18)");
+                                                    printf("\n\n  Minimum value ->  "); cin>>choice1;
+                                                    if(choice1=="min") break;
+                                                    else if(choice1=="exe") break;
+                                                    bool check=valid_pos_neg_integer(choice1);
+                                                    if(check==false)
+                                                    {
+                                                        printf("\n\n   Please check the range and enter a valid Integer");
+                                                        printf("\n\n   Now press ");sbc(dr);sfc(lr);printf(" ENTER ");sbc(bb);sfc(ww);printf(" to continue"); getch();break;
+                                                    }
+                                                    ll store=string_to_integer_converter(choice1);
+                                                    cdt[dummy_o3dc[itr].first][itr2].second=choice1; cdt[dummy_o3dc[itr].first][itr2].first=store; break;
+                                                }
+                                                if(cdt[dummy_o3dc[itr].first][itr2-1].first==3)   // even number
+                                                {
+                                                    printf("\n  Even Integer");
+                                                    printf("\n\n   Enter the ");sfc(ly);printf("Minimum");sfc(ww);printf(" value and then ");sbc(dr);printf(" ENTER ");sbc(bb);
+                                                    printf("\n ");sfc(lr);printf(" Note: ");sfc(ww);printf("Range -> (-10 to the power 18) to (10 to the power 18)");
+                                                    printf("\n\n  Minimum value ->  "); cin>>choice1;
+                                                    if(choice1=="min") break;
+                                                    else if(choice1=="exe") break;
+                                                    bool check=valid_pos_neg_integer(choice1);
+                                                    if(check==false)
+                                                    {
+                                                        printf("\n\n   Please check the range and enter a valid Integer");
+                                                        printf("\n\n   Now press ");sbc(dr);sfc(lr);printf(" ENTER ");sbc(bb);sfc(ww);printf(" to continue"); getch();break;
+                                                    }
+                                                    ll store=string_to_integer_converter(choice1);
+                                                    cdt[dummy_o3dc[itr].first][itr2].second=choice1; cdt[dummy_o3dc[itr].first][itr2].first=store; break;
+                                                }
+                                                if(cdt[dummy_o3dc[itr].first][itr2-1].first==4)   // prime number
+                                                {
+                                                    printf("\n  Prime Number");
+                                                    printf("\n\n   Enter the ");sfc(ly);printf("Minimum");sfc(ww);printf(" value and then ");sbc(dr);printf(" ENTER ");sbc(bb);
+                                                    printf("\n ");sfc(lr);printf(" Note: ");sfc(ww);printf("Range -> (2) to (10 to the power 7)");
+                                                    printf("\n\n  Minimum value ->  "); string min_value; cin>>choice1;
+                                                    if(choice1=="min") break;
+                                                    else if(choice1=="exe") break;
+                                                    bool check=valid_pos_neg_integer(choice1);
+                                                    if(check==false)
+                                                    {
+                                                        printf("\n\n   Please check the range and enter a valid Integer");
+                                                        printf("\n\n   Now press ");sbc(dr);sfc(lr);printf(" ENTER ");sbc(bb);sfc(ww);printf(" to continue"); getch();break;
+                                                    }
+                                                    ll store=string_to_integer_converter(choice1);
+                                                    if(store<2 || store>10000000)
+                                                    {
+                                                        printf("\n\n   Please check the range and enter a valid Integer");
+                                                        printf("\n\n   Now press ");sbc(dr);sfc(lr);printf(" ENTER ");sbc(bb);sfc(ww);printf(" to continue"); getch();break;
+                                                    }
+                                                    cdt[dummy_o3dc[itr].first][itr2].second=choice1; cdt[dummy_o3dc[itr].first][itr2].first=store; break;
+                                                }
+                                                if(cdt[dummy_o3dc[itr].first][itr2-1].first==5)   // non prime number
+                                                {
+                                                    printf("\n  Non prime Number");
+                                                    printf("\n\n   Enter the ");sfc(ly);printf("Minimum");sfc(ww);printf(" value and then ");sbc(dr);printf(" ENTER ");sbc(bb);
+                                                    printf("\n ");sfc(lr);printf(" Note: ");sfc(ww);printf("Range -> (1) to (10 to the power 12)");
+                                                    printf("\n\n  Minimum value ->  "); string min_value; cin>>choice1;
+                                                    if(choice1=="min") break;
+                                                    else if(choice1=="exe") break;
+                                                    bool check=valid_pos_neg_integer(choice1);
+                                                    if(check==false)
+                                                    {
+                                                        printf("\n\n   Please check the range and enter a valid Integer");
+                                                        printf("\n\n   Now press ");sbc(dr);sfc(lr);printf(" ENTER ");sbc(bb);sfc(ww);printf(" to continue"); getch();break;
+                                                    }
+                                                    ll store=string_to_integer_converter(choice1);
+                                                    if(store<1 || store>1000000000000)
+                                                    {
+                                                        printf("\n\n   Please check the range and enter a valid Integer");
+                                                        printf("\n\n   Now press ");sbc(dr);sfc(lr);printf(" ENTER ");sbc(bb);sfc(ww);printf(" to continue"); getch();break;
+                                                    }
+                                                    cdt[dummy_o3dc[itr].first][itr2].second=choice1; cdt[dummy_o3dc[itr].first][itr2].first=store; break;
+                                                }
+                                                if(cdt[dummy_o3dc[itr].first][itr2-1].first==6)   // incremented number
+                                                {
+                                                    printf("\n  Incremented Number");
+                                                    printf("\n\n   Enter the ");sfc(ly);printf("Starting");sfc(ww);printf(" value and then ");sbc(dr);printf(" ENTER ");sbc(bb);
+                                                    printf("\n ");sfc(lr);printf(" Note: ");sfc(ww);printf("Range -> (-10 to the power 18) to (10 to the power 18)");
+                                                    printf("\n\n  Minimum value ->  "); cin>>choice1;
+                                                    if(choice1=="min") break;
+                                                    else if(choice1=="exe") break;
+                                                    bool check=valid_pos_neg_integer(choice1);
+                                                    if(check==false)
+                                                    {
+                                                        printf("\n\n   Please check the range and enter a valid Integer");
+                                                        printf("\n\n   Now press ");sbc(dr);sfc(lr);printf(" ENTER ");sbc(bb);sfc(ww);printf(" to continue"); getch();break;
+                                                    }
+                                                    ll store=string_to_integer_converter(choice1);
+                                                    cdt[dummy_o3dc[itr].first][itr2].second=choice1; cdt[dummy_o3dc[itr].first][itr2].first=store; break;
+                                                }
+                                                if(cdt[dummy_o3dc[itr].first][itr2-1].first==7)   // Nth fibonacci number
+                                                {
+                                                    printf("\n  Nth Fibonacci Number");
+                                                    printf("\n\n   Enter the ");sfc(ly);printf("Minimum");sfc(ww);printf(" value and then ");sbc(dr);printf(" ENTER ");sbc(bb);
+                                                    printf("\n ");sfc(lr);printf(" Note: ");sfc(ww);printf("Range -> (1) to (93)");
+                                                    printf("\n\n  Minimum value ->  "); string min_value; cin>>choice1;
+                                                    if(choice1=="min") break;
+                                                    else if(choice1=="exe") break;
+                                                    bool check=valid_pos_neg_integer(choice1);
+                                                    if(check==false)
+                                                    {
+                                                        printf("\n\n   Please check the range and enter a valid Integer");
+                                                        printf("\n\n   Now press ");sbc(dr);sfc(lr);printf(" ENTER ");sbc(bb);sfc(ww);printf(" to continue"); getch();break;
+                                                    }
+                                                    ll store=string_to_integer_converter(choice1);
+                                                    if(store<1 || store>93)
+                                                    {
+                                                        printf("\n\n   Please check the range and enter a valid Integer");
+                                                        printf("\n\n   Now press ");sbc(dr);sfc(lr);printf(" ENTER ");sbc(bb);sfc(ww);printf(" to continue"); getch();break;
+                                                    }
+                                                    cdt[dummy_o3dc[itr].first][itr2].second=choice1; cdt[dummy_o3dc[itr].first][itr2].first=store; break;
+                                                }
+                                            }
+
+                                            if(cdt[dummy_o3dc[itr].first][itr2].second=="~" && itr2==3)    //  case 3 ->  maximum value
+                                            {
+                                                if(cdt[dummy_o3dc[itr].first][itr2-2].first==1)   // random integer
+                                                {
+                                                    printf("\n   Random Number");
+                                                    printf("\n\n   Enter the ");sfc(ly);printf("Maximum");sfc(ww);printf(" value and then ");sbc(dr);printf(" ENTER ");sbc(bb);
+                                                    printf("\n ");sfc(lr);printf(" Note: ");sfc(ww);printf("Range -> (-10 to the power 18) to (10 to the power 18)");
+                                                    printf("\n\n  Maximum value ->  ");  cin>>choice1;
+                                                    if(choice1=="min") break;
+                                                    else if(choice1=="exe") break;
+                                                    bool check=valid_pos_neg_integer(choice1);
+                                                    if(check==false)
+                                                    {
+                                                        printf("\n\n   Please check the range and enter a valid Integer");
+                                                        printf("\n\n   Now press ");sbc(dr);sfc(lr);printf(" ENTER ");sbc(bb);sfc(ww);printf(" to continue"); getch();break;
+                                                    }
+                                                    ll store1=string_to_integer_converter(choice1);
+                                                    ll store2=string_to_integer_converter(cdt[dummy_o3dc[itr].first][itr2-1].second);
+                                                    if(store1<store2)
+                                                    {
+                                                        printf("\n\n   Maximum value must be greater then Minimum value");
+                                                        printf("\n\n   press ");sbc(dr);sfc(lr);printf(" ENTER ");sbc(bb);sfc(ww);printf(" to change"); getch();break;
+                                                    }
+                                                    cdt[dummy_o3dc[itr].first][itr2].second=choice1; cdt[dummy_o3dc[itr].first][itr2].first=store1; break;
+                                                }
+                                                if(cdt[dummy_o3dc[itr].first][itr2-2].first==2)   // odd number
+                                                {
+                                                    printf("\n  Odd Number");
+                                                    printf("\n\n   Enter the ");sfc(ly);printf("Maximum");sfc(ww);printf(" value and then ");sbc(dr);printf(" ENTER ");sbc(bb);
+                                                    printf("\n ");sfc(lr);printf(" Note: ");sfc(ww);printf("Range -> (-10 to the power 18) to (10 to the power 18)");
+                                                    printf("\n\n  Maximum value ->  ");  cin>>choice1;
+                                                    if(choice1=="min") break;
+                                                    else if(choice1=="exe") break;
+                                                    bool check=valid_pos_neg_integer(choice1);
+                                                    if(check==false)
+                                                    {
+                                                        printf("\n\n   Please check the range and enter a valid Integer");
+                                                        printf("\n\n   Now press ");sbc(dr);sfc(lr);printf(" ENTER ");sbc(bb);sfc(ww);printf(" to continue"); getch();break;
+                                                    }
+                                                    ll store1=string_to_integer_converter(choice1);
+                                                    ll store2=string_to_integer_converter(cdt[dummy_o3dc[itr].first][itr2-1].second);
+                                                    if(store1<store2)
+                                                    {
+                                                        printf("\n\n   Maximum value must be greater then Minimum value");
+                                                        printf("\n\n   press ");sbc(dr);sfc(lr);printf(" ENTER ");sbc(bb);sfc(ww);printf(" to change"); getch();break;
+                                                    }
+                                                    check=check_odd_exist(store2,store1);
+                                                    if(check==false)
+                                                    {
+                                                        printf("\n\n  No odd Integer exist in the given range");
+                                                        printf("\n\n To change Maximum value, press ");sbc(dr);sfc(lr);printf(" ENTER ");sbc(bb);sfc(ww); getch();break;
+                                                    }
+                                                    cdt[dummy_o3dc[itr].first][itr2].second=choice1; cdt[dummy_o3dc[itr].first][itr2].first=store1; break;
+                                                }
+                                                if(cdt[dummy_o3dc[itr].first][itr2-2].first==3)   // even number
+                                                {
+                                                    printf("\n  Even Number");
+                                                    printf("\n\n   Enter the ");sfc(ly);printf("Maximum");sfc(ww);printf(" value and then ");sbc(dr);printf(" ENTER ");sbc(bb);
+                                                    printf("\n ");sfc(lr);printf(" Note: ");sfc(ww);printf("Range -> (-10 to the power 18) to (10 to the power 18)");
+                                                    printf("\n\n  Maximum value ->  "); cin>>choice1;
+                                                    if(choice1=="min") break;
+                                                    else if(choice1=="exe") break;
+                                                    bool check=valid_pos_neg_integer(choice1);
+                                                    if(check==false)
+                                                    {
+                                                        printf("\n\n   Please check the range and enter a valid Integer");
+                                                        printf("\n\n   Now press ");sbc(dr);sfc(lr);printf(" ENTER ");sbc(bb);sfc(ww);printf(" to continue"); getch();break;
+                                                    }
+                                                    ll store1=string_to_integer_converter(choice1);
+                                                    ll store2=string_to_integer_converter(cdt[dummy_o3dc[itr].first][itr2-1].second);
+                                                    if(store1<store2)
+                                                    {
+                                                        printf("\n\n   Maximum value must be greater then Minimum value");
+                                                        printf("\n\n   press ");sbc(dr);sfc(lr);printf(" ENTER ");sbc(bb);sfc(ww);printf(" to change"); getch();break;
+                                                    }
+                                                    check=check_even_exist(store2,store1);
+                                                    if(check==false)
+                                                    {
+                                                        printf("\n\n  No even Integer exist in the given range");
+                                                        printf("\n\n To change Maximum value, press ");sbc(dr);sfc(lr);printf(" ENTER ");sbc(bb);sfc(ww); getch();break;
+                                                    }
+                                                    cdt[dummy_o3dc[itr].first][itr2].second=choice1; cdt[dummy_o3dc[itr].first][itr2].first=store1; break;
+                                                }
+                                                if(cdt[dummy_o3dc[itr].first][itr2-2].first==4)   //  prime number
+                                                {
+                                                    printf("\n  Prime Number");
+                                                    printf("\n\n   Enter the ");sfc(ly);printf("Maximum");sfc(ww);printf(" value and then ");sbc(dr);printf(" ENTER ");sbc(bb);
+                                                    printf("\n ");sfc(lr);printf(" Note: ");sfc(ww);printf("Range -> (2) to (10 to the power 7)");
+                                                    printf("\n\n  Maximum value ->  "); string max_value; cin>>choice1;
+                                                    if(choice1=="min") break;
+                                                    else if(choice1=="exe") break;
+                                                    bool check=valid_pos_neg_integer(choice1);
+                                                    if(check==false)
+                                                    {
+                                                        printf("\n\n   Please check the range and enter a valid Integer");
+                                                        printf("\n\n   Now press ");sbc(dr);sfc(lr);printf(" ENTER ");sbc(bb);sfc(ww);printf(" to continue"); getch();break;
+                                                    }
+                                                    ll store1=string_to_integer_converter(choice1);
+                                                    ll store2=string_to_integer_converter(cdt[dummy_o3dc[itr].first][itr2-1].second);
+                                                    if(store1<2 || store1>10000000)
+                                                    {
+                                                        printf("\n\n   Please check the range and enter a valid Integer");
+                                                        printf("\n\n   Now press ");sbc(dr);sfc(lr);printf(" ENTER ");sbc(bb);sfc(ww);printf(" to continue"); getch();break;
+                                                    }
+                                                    if(store1<store2)
+                                                    {
+                                                        printf("\n\n   Maximum value must be greater then Minimum value");
+                                                        printf("\n\n   press ");sbc(dr);sfc(lr);printf(" ENTER ");sbc(bb);sfc(ww);printf(" to change"); getch();break;
+                                                    }
+                                                    check=check_prime_exist(store2,store1);
+                                                    if(check==false)
+                                                    {
+                                                        printf("\n\n   No Prime Integers exist in the given range.");
+                                                        printf("\n\n   press ");sbc(dr);sfc(lr);printf(" ENTER ");sbc(bb);sfc(ww);printf(" to change the maximum value"); getch();break;
+                                                    }
+                                                    cdt[dummy_o3dc[itr].first][itr2].second=choice1; cdt[dummy_o3dc[itr].first][itr2].first=store1; break;
+                                                }
+                                                if(cdt[dummy_o3dc[itr].first][itr2-2].first==5)   //  Non prime number
+                                                {
+                                                    printf("\n  Non Prime Number");
+                                                    printf("\n\n   Enter the ");sfc(ly);printf("Maximum");sfc(ww);printf(" value and then ");sbc(dr);printf(" ENTER ");sbc(bb);
+                                                    printf("\n ");sfc(lr);printf(" Note: ");sfc(ww);printf("Range -> (1) to (10 to the power 12)");
+                                                    printf("\n\n  Maximum value ->  "); cin>>choice1;
+                                                    if(choice1=="min") break;
+                                                    else if(choice1=="exe") break;
+                                                    bool check=valid_pos_neg_integer(choice1);
+                                                    if(check==false)
+                                                    {
+                                                        printf("\n\n   Please check the range and enter a valid Integer");
+                                                        printf("\n\n   Now press ");sbc(dr);sfc(lr);printf(" ENTER ");sbc(bb);sfc(ww);printf(" to continue"); getch();break;
+                                                    }
+                                                    ll store1=string_to_integer_converter(choice1);
+                                                    ll store2=string_to_integer_converter(cdt[dummy_o3dc[itr].first][itr2-1].second);
+                                                    if(store1<1 || store1>1000000000000)
+                                                    {
+                                                        printf("\n\n   Please check the range and enter a valid Integer");
+                                                        printf("\n\n   Now press ");sbc(dr);sfc(lr);printf(" ENTER ");sbc(bb);sfc(ww);printf(" to continue"); getch();break;
+                                                    }
+                                                    if(store1<store2)
+                                                    {
+                                                        printf("\n\n   Maximum value must be greater then Minimum value");
+                                                        printf("\n\n   press ");sbc(dr);sfc(lr);printf(" ENTER ");sbc(bb);sfc(ww);printf(" to change"); getch();break;
+                                                    }
+                                                    check=check_non_prime_exist(store2,store1);
+                                                    if(check==false)
+                                                    {
+                                                        printf("\n\n   No Non_Prime Integer exist in the given range.");
+                                                        printf("\n\n   press ");sbc(dr);sfc(lr);printf(" ENTER ");sbc(bb);sfc(ww);printf(" to change the maximum value"); getch();break;
+                                                    }
+                                                    cdt[dummy_o3dc[itr].first][itr2].second=choice1; cdt[dummy_o3dc[itr].first][itr2].first=store1; break;
+                                                }
+                                                if(cdt[dummy_o3dc[itr].first][itr2-2].first==6)   //  incremented number
+                                                {
+                                                    printf("\n  Incremented Number");
+                                                    printf("\n\n   Enter the ");sfc(ly);printf("Increment");sfc(ww);printf(" value and then ");sbc(dr);printf(" ENTER ");sbc(bb);
+                                                    printf("\n ");sfc(lr);printf(" Note: ");sfc(ww);printf("Range -> (-10 to the power 18) to (10 to the power 18)");
+                                                    printf("\n\n  Increment value ->  ");  cin>>choice1;
+                                                    if(choice1=="min") break;
+                                                    else if(choice1=="exe") break;
+                                                    bool check=valid_pos_neg_integer(choice1);
+                                                    if(check==false)
+                                                    {
+                                                        printf("\n\n   Please check the range and enter a valid Integer");
+                                                        printf("\n\n   Now press ");sbc(dr);sfc(lr);printf(" ENTER ");sbc(bb);sfc(ww);printf(" to continue"); getch();break;
+                                                    }
+                                                    ll store=string_to_integer_converter(choice1);
+                                                    cdt[dummy_o3dc[itr].first][itr2].second=choice1; cdt[dummy_o3dc[itr].first][itr2].first=store; break;
+                                                }
+                                                if(cdt[dummy_o3dc[itr].first][itr2-2].first==7)   //  Nth fibonacci number
+                                                {
+                                                    printf("\n  Nth Fibonacci Number");
+                                                    printf("\n\n   Enter the ");sfc(ly);printf("Maximum");sfc(ww);printf(" value and then ");sbc(dr);printf(" ENTER ");sbc(bb);
+                                                    printf("\n ");sfc(lr);printf(" Note: ");sfc(ww);printf("Range -> (1) to (93)");
+                                                    printf("\n\n  Maximum value ->  "); cin>>choice1;
+                                                    if(choice1=="min") break;
+                                                    else if(choice1=="exe") break;
+                                                    bool check=valid_pos_neg_integer(choice1);
+                                                    if(check==false)
+                                                    {
+                                                        printf("\n\n   Please check the range and enter a valid Integer");
+                                                        printf("\n\n   Now press ");sbc(dr);sfc(lr);printf(" ENTER ");sbc(bb);sfc(ww);printf(" to continue"); getch();break;
+                                                    }
+                                                    ll store1=string_to_integer_converter(choice1);
+                                                    ll store2=string_to_integer_converter(cdt[dummy_o3dc[itr].first][itr2-1].second);
+                                                    if(store1<1 || store1>93)
+                                                    {
+                                                        printf("\n\n   Please check the range and enter a valid Integer");
+                                                        printf("\n\n   Now press ");sbc(dr);sfc(lr);printf(" ENTER ");sbc(bb);sfc(ww);printf(" to continue"); getch();break;
+                                                    }
+                                                    if(store1<store2)
+                                                    {
+                                                        printf("\n\n   Maximum value must be greater then Minimum value");
+                                                        printf("\n\n   press ");sbc(dr);sfc(lr);printf(" ENTER ");sbc(bb);sfc(ww);printf(" to change"); getch();break;
+                                                    }
+                                                    cdt[dummy_o3dc[itr].first][itr2].second=choice1; cdt[dummy_o3dc[itr].first][itr2].first=store1; break;
+                                                }
+                                            }
+
+                                            if(cdt[dummy_o3dc[itr].first][itr2].second=="~" && itr2==4)    //    case 4 -> order
+                                            {
+                                                printf("\n  Select a valid order \n");
+                                                printf("\n  ");sfc(lr);printf("press 1");sfc(ww);printf(" and ");sbc(dr);sfc(lr);printf(" ENTER ");sbc(bb);sfc(ww);printf(" to apply -> RANDOMLY ARRANGED");
+                                                printf("\n  ");sfc(lr);printf("press 2");sfc(ww);printf(" and ");sbc(dr);sfc(lr);printf(" ENTER ");sbc(bb);sfc(ww);printf(" to apply -> SORTED ASCENDING");
+                                                printf("\n  ");sfc(lr);printf("press 3");sfc(ww);printf(" and ");sbc(dr);sfc(lr);printf(" ENTER ");sbc(bb);sfc(ww);printf(" to apply -> SORTED DESCENDING");
+                                                printf("\n  Enter your choice ->  ");cin>>choice1;
+                                                if(choice1=="min") break;
+                                                else if(choice1=="exe") break;
+                                                if(choice1=="1" || choice1=="2" || choice1=="3")
+                                                {
+                                                    ll store=string_to_integer_converter(choice1);
+                                                    cdt[dummy_o3dc[itr].first][itr2].first=store;
+                                                    cdt[dummy_o3dc[itr].first][itr2].second=choice1;
+                                                    dummy_o3dc[itr].first=-1; break;
+                                                }
+                                                printf("\n\n    Enter the valid choice");
+                                                printf("\n\n    Now press ");sbc(dr);sfc(lr);printf(" ENTER ");sbc(bb);sfc(ww);printf(" to continue"); getch(); break;
+                                            }
+                                        }
+                                    }
+
+                                    if(dummy_o3dc[itr].second=="Real")
+                                    {
+                                        printf("\n\n  Class [REAL] \n\n");
+                                        for(short itr2=1;itr2<=4;itr2++)
+                                        {
+                                            if(cdt[dummy_o3dc[itr].first][itr2].second=="~" && itr2==1)
+                                            {
+                                                printf("\n\n   Set the precision for your REAL NUMBER...");
+                                                printf("\n ");sfc(lr);printf(" Note: ");sfc(ww);printf("\n   (You can set form range [0 to 100])\n");
+                                                printf("\n   Enter the precision ->  "); cin>>choice1;
+                                                if(choice1=="min") break;
+                                                else if(choice1=="exe") break;
+                                                bool check=valid_pos_neg_integer(choice1);
+                                                if(check==false)
+                                                {
+                                                    printf("\n\n   Please check the range and enter a valid Integer");
+                                                    printf("\n\n   Now press ");sbc(dr);sfc(lr);printf(" ENTER ");sbc(bb);sfc(ww);printf(" to continue"); getch();break;
+                                                }
+                                                ll store=string_to_integer_converter(choice1);
+                                                if(store<0 || store>100)
+                                                {
+                                                    printf("\n\n   Please check the range and enter a valid Integer");
+                                                    printf("\n\n   Now press ");sbc(dr);sfc(lr);printf(" ENTER ");sbc(bb);sfc(ww);printf(" to continue"); getch();break;
+                                                }
+                                                cdt[dummy_o3dc[itr].first][itr2].second=choice1; cdt[dummy_o3dc[itr].first][itr2].first=store; break;
+                                            }
+                                            if(cdt[dummy_o3dc[itr].first][itr2].second=="~" && itr2==2)
+                                            {
+                                                printf("\n\n   Enter the ");sfc(ly);printf("Minimum");sfc(ww);printf(" value and then ");sbc(dr);printf(" ENTER ");sbc(bb);
+                                                printf("\n ");sfc(lr);printf(" Note: ");sfc(ww);printf("Range -> (-10 to the power 18) to (10 to the power 18)");
+                                                printf("\n\n  Minimum value ->  "); cin>>choice1;
+                                                if(choice1=="min") break;
+                                                else if(choice1=="exe") break;
+                                                bool check=valid_pos_neg_integer(choice1);
+                                                if(check==false)
+                                                {
+                                                    printf("\n\n   Please check the range and enter a valid Integer");
+                                                    printf("\n\n   Now press ");sbc(dr);sfc(lr);printf(" ENTER ");sbc(bb);sfc(ww);printf(" to continue");
+                                                    getch();break;
+                                                }
+                                                ll store=string_to_integer_converter(choice1);
+                                                cdt[dummy_o3dc[itr].first][itr2].second=choice1; cdt[dummy_o3dc[itr].first][itr2].first=store; break;
+                                            }
+                                            if(cdt[dummy_o3dc[itr].first][itr2].second=="~" && itr2==3)
+                                            {
+                                                printf("\n\n   Enter the ");sfc(ly);printf("Maximum");sfc(ww);printf(" value and then ");sbc(dr);printf(" ENTER ");sbc(bb);
+                                                printf("\n ");sfc(lr);printf(" Note: ");sfc(ww);printf("Range -> (-10 to the power 18) to (10 to the power 18)");
+                                                printf("\n\n  Maximum value ->  "); cin>>choice1;
+                                                if(choice1=="min") break;
+                                                else if(choice1=="exe") break;
+                                                bool check=valid_pos_neg_integer(choice1);
+                                                if(check==false)
+                                                {
+                                                    printf("\n\n   Please check the range and enter a valid Integer");
+                                                    printf("\n\n   Now press ");sbc(dr);sfc(lr);printf(" ENTER ");sbc(bb);sfc(ww);printf(" to continue"); getch();break;
+                                                }
+                                                ll store1=string_to_integer_converter(choice1);
+                                                ll store2=cdt[dummy_o3dc[itr].first][itr2-1].first;
+                                                if(store1==store2)   //  ( Note -> Max_value-Min_value >=1 )
+                                                {
+                                                    printf("\n\n   Note -> (Max_value - Min_value) >=1 ");
+                                                    printf("\n\n   press ");sbc(dr);sfc(lr);printf(" ENTER ");sbc(bb);sfc(ww);printf(" to change"); getch();break;
+                                                }
+                                                if(store1<store2)
+                                                {
+                                                    printf("\n\n   Maximum value must be greater then Minimum value");
+                                                    printf("\n\n   press ");sbc(dr);sfc(lr);printf(" ENTER ");sbc(bb);sfc(ww);printf(" to change"); getch();break;
+                                                }
+                                                cdt[dummy_o3dc[itr].first][itr2].second=choice1; cdt[dummy_o3dc[itr].first][itr2].first=store1; break;
+                                            }
+                                            if(cdt[dummy_o3dc[itr].first][itr2].second=="~" && itr2==4)
+                                            {
+                                                printf("\n  Select a valid order \n");
+                                                printf("\n  ");sfc(lr);printf("press 1");sfc(ww);printf(" and ");sbc(dr);sfc(lr);printf(" ENTER ");sbc(bb);sfc(ww);printf(" to apply -> RANDOMLY ARRANGED");
+                                                printf("\n  ");sfc(lr);printf("press 2");sfc(ww);printf(" and ");sbc(dr);sfc(lr);printf(" ENTER ");sbc(bb);sfc(ww);printf(" to apply -> SORTED ASCENDING");
+                                                printf("\n  ");sfc(lr);printf("press 3");sfc(ww);printf(" and ");sbc(dr);sfc(lr);printf(" ENTER ");sbc(bb);sfc(ww);printf(" to apply -> SORTED DESCENDING");
+                                                printf("\n  Enter your choice ->  ");cin>>choice1;
+                                                if(choice1=="min") break;
+                                                else if(choice1=="exe") break;
+                                                if(choice1=="1" || choice1=="2" || choice1=="3")
+                                                {
+                                                    ll store=string_to_integer_converter(choice1);
+                                                    cdt[dummy_o3dc[itr].first][itr2].first=store;
+                                                    cdt[dummy_o3dc[itr].first][itr2].second=choice1;
+                                                    dummy_o3dc[itr].first=-1;
+                                                    break;
+                                                }
+                                                printf("\n\n    Enter the valid choice");
+                                                printf("\n\n    Now press ");sbc(dr);sfc(lr);printf(" ENTER ");sbc(bb);sfc(ww);printf(" to continue"); getch(); break;
+                                            }
+                                        }
+                                    }
+
+                                    if(dummy_o3dc[itr].second=="String")
+                                    {
+                                        printf("\n\n [CLASS STRING]");
+                                        if(cdt[dummy_o3dc[itr].first][1].second=="~")
+                                        {
+                                            printf("\n\n    What type of string you want to create ?");
+                                            printf("\n\n  ");sfc(lr);printf("press 1");sfc(ww);printf(" and ");sbc(dr);printf(" ENTER ");sbc(bb);printf(" to create ");sfc(ly);printf("DEFAULT STRING");sfc(ww);printf(" (user defined)");
+                                            printf("\n\n  ");sfc(lr);printf("press 2");sfc(ww);printf(" and ");sbc(dr);printf(" ENTER ");sbc(bb);printf(" to create ");sfc(lg);printf("INPUT   STRING");sfc(ww);printf(" (computer generated)");
+                                            printf("\n\n   Enter your choice ->  "); cin>>choice1;
+                                            if(choice1=="min") break;
+                                            else if(choice1=="exe") break;
+                                            if(choice1=="1")  // default string
+                                            {
+                                                short store=string_to_integer_converter(choice1);
+                                                cdt[dummy_o3dc[itr].first][1].second=choice1; cdt[dummy_o3dc[itr].first][1].first=store;
+                                                cdt[dummy_o3dc[itr].first].push_back(make_pair(1,"~"));  // default_string
+                                                break;
+                                            }
+                                            if(choice1=="2")   // Computer_generated string
+                                            {
+                                                short store=string_to_integer_converter(choice1);
+                                                cdt[dummy_o3dc[itr].first][1].second=choice1; cdt[dummy_o3dc[itr].first][1].first=store;
+                                                cdt[dummy_o3dc[itr].first].push_back(make_pair(2,"~"));  // input_string (index 2)
+                                                cdt[dummy_o3dc[itr].first].push_back(make_pair(2,"~"));  // type         (index 3)
+                                                cdt[dummy_o3dc[itr].first].push_back(make_pair(2,"~"));  // mode         (index 4)
+                                                cdt[dummy_o3dc[itr].first].push_back(make_pair(2,"~"));  // size         (index 5)
+                                                cdt[dummy_o3dc[itr].first].push_back(make_pair(2,"~"));  // order        (index 6)
+                                                break;
+                                            }
+                                            printf("\n\n    Enter the valid choice");
+                                            printf("\n\n    Now press ");sbc(dr);sfc(lr);printf(" ENTER ");sbc(bb);sfc(ww);printf(" to continue"); getch(); break;
+                                        }
+                                        if(cdt[dummy_o3dc[itr].first][1].first==1)  // default string
+                                        {
+                                            printf("\n\n  Type the Default String and then press ");sbc(dr);printf("ENTER");sbc(bb);
+                                            sfc(lr);printf("\n  NOTE: ");sfc(ww);printf("Do not include spaces in your string");
+                                            printf("\n\n  Type your string  ->  "); string def_string; cin>>def_string;
+                                            cdt[dummy_o3dc[itr].first][2].second=def_string;
+                                            dummy_o3dc[itr].first=-1; break;
+                                        }
+                                        if(cdt[dummy_o3dc[itr].first][1].first==2)  // input string
+                                        {
+                                            if(cdt[dummy_o3dc[itr].first][2].second=="~")  // input_string
+                                            {
+                                                printf("\n\n  Type the Input String and then press ");sbc(dr);printf("ENTER");sbc(bb);
+                                                sfc(lr);printf("\n  NOTE: ");sfc(ww);printf("Do not include spaces in your string");
+                                                printf("\n\n  Type your string  ->  "); string in_string; cin>>in_string;
+                                                cdt[dummy_o3dc[itr].first][2].second=in_string; break;
+                                            }
+                                            if(cdt[dummy_o3dc[itr].first][3].second=="~")  // string type
+                                            {
+                                                string input_string_type;
+                                                printf("\n\n  What type of STRING you want to create ?\n");
+                                                sfc(lr);printf("\n  press 1");sfc(ww);printf(" and ");sbc(dr);printf(" ENTER ");sbc(bb);printf(" to create -> ");sfc(ly);printf("RANDOM STRING");
+                                                sfc(lr);printf("\n  press 2");sfc(ww);printf(" and ");sbc(dr);printf(" ENTER ");sbc(bb);printf(" to create -> ");sfc(ly);printf("SORTED ASSENDING STRING");
+                                                sfc(lr);printf("\n  press 3");sfc(ww);printf(" and ");sbc(dr);printf(" ENTER ");sbc(bb);printf(" to create -> ");sfc(ly);printf("SORTED DESCENDING STRING");
+                                                sfc(lr);printf("\n  press 4");sfc(ww);printf(" and ");sbc(dr);printf(" ENTER ");sbc(bb);printf(" to create -> ");sfc(ly);printf("PALINDROMIC STRING");sfc(ww);
+                                                printf("\n\n  Enter your choice ->  "); cin>>choice1;
+                                                if(choice1=="min") break;
+                                                else if(choice1=="exe") break;
+                                                if(choice1=="1" || choice1=="2" || choice1=="3" || choice1=="4")
+                                                {
+                                                    short store=string_to_integer_converter(choice1);
+                                                    cdt[dummy_o3dc[itr].first][3].second=choice1; cdt[dummy_o3dc[itr].first][3].first=store; break;
+                                                }
+                                                printf("\n\n    Enter the valid choice");
+                                                printf("\n\n    Now press ");sbc(dr);sfc(lr);printf(" ENTER ");sbc(bb);sfc(ww);printf(" to continue"); getch(); break;
+                                            }
+                                            if(cdt[dummy_o3dc[itr].first][4].second=="~")  // string mode
+                                            {
+                                                printf("\n\n  Select a valid mode of create\n");
+                                                sfc(lr);printf("\n  press 1");sfc(ww);printf(" and ");sbc(dr);printf(" ENTER ");sbc(bb);printf(" to generate -> ");sfc(ly);printf(" REPEATED   SYMBOL STRING");
+                                                sfc(lr);printf("\n  press 2");sfc(ww);printf(" and ");sbc(dr);printf(" ENTER ");sbc(bb);printf(" to generate -> ");sfc(ly);printf(" ALL UNIQUE SYMBOL STRING");sfc(ww);
+                                                printf("\n\n Enter your choice -> "); cin>>choice1;
+                                                if(choice1=="min") break;
+                                                else if(choice1=="exe") break;
+                                                if(choice1=="1" || choice1=="2")
+                                                {
+                                                    short store=string_to_integer_converter(choice1);
+                                                    cdt[dummy_o3dc[itr].first][4].second=choice1; cdt[dummy_o3dc[itr].first][4].first=store; break;
+                                                }
+                                                printf("\n\n    Enter the valid choice");
+                                                printf("\n\n    Now press ");sbc(dr);sfc(lr);printf(" ENTER ");sbc(bb);sfc(ww);printf(" to continue"); getch(); break;
+                                            }
+                                            if(cdt[dummy_o3dc[itr].first][5].second=="~")  //  string size
+                                            {
+                                                if(cdt[dummy_o3dc[itr].first][4].second=="1")    // Repetition allowed in symbols
+                                                {
+                                                    printf("\n\n Enter the size of STRING and then press ");sbc(dr);printf(" ENTER ");sbc(bb);
+                                                    printf("\n ");sfc(lr);printf(" Note: ");sfc(ww);printf("Range -> (1) to (10 to the power 6)");
+                                                    printf("\n\n SIZE ->  "); cin>>choice1;
+                                                    if(choice1=="min") break;
+                                                    else if(choice1=="exe") break;
+                                                    bool check=valid_pos_neg_integer(choice1);
+                                                    if(check==false)
+                                                    {
+                                                        printf("\n\n   Please check the range and enter a valid Integer");
+                                                        printf("\n\n   Now press ");sbc(dr);sfc(lr);printf(" ENTER ");sbc(bb);sfc(ww);printf(" to continue"); getch();break;
+                                                    }
+                                                    ll store=string_to_integer_converter(choice1);
+                                                    if(store<1 || store>1000000)
+                                                    {
+                                                        printf("\n\n   Please check the range and enter a valid Integer");
+                                                        printf("\n\n   Now press ");sbc(dr);sfc(lr);printf(" ENTER ");sbc(bb);sfc(ww);printf(" to continue"); getch();break;
+                                                    }
+                                                    cdt[dummy_o3dc[itr].first][5].second=choice1; cdt[dummy_o3dc[itr].first][5].first=store; break;
+                                                }
+                                                else        // No repetition allowed in symbols
+                                                {
+                                                    if(cdt[dummy_o3dc[itr].first][3].second=="4")    // palindromic
+                                                    {
+                                                        printf("\n\n Enter the size of Palindromic STRING and then press ");sbc(dr);printf(" ENTER ");sbc(bb);
+                                                        printf("\n ");sfc(lr);printf(" Note: ");sfc(ww);printf("Range -> (1) to (");cout<<(2*cdt[dummy_o3dc[itr].first][2].second.size())<<")";
+                                                        printf("\n\n SIZE ->  "); cin>>choice1;
+                                                        if(choice1=="min") break;
+                                                        else if(choice1=="exe") break;
+                                                        bool check=valid_pos_neg_integer(choice1);
+                                                        if(check==false)
+                                                        {
+                                                            printf("\n\n   Please check the range and enter a valid Integer");
+                                                            printf("\n\n   Now press ");sbc(dr);sfc(lr);printf(" ENTER ");sbc(bb);sfc(ww);printf(" to continue"); getch();break;
+                                                        }
+                                                        ll store=string_to_integer_converter(choice1);
+                                                        if(store<1 || store>(2*cdt[dummy_o3dc[itr].first][2].second.size()))
+                                                        {
+                                                            printf("\n\n   Please check the range and enter a valid Integer");
+                                                            printf("\n\n   Now press ");sbc(dr);sfc(lr);printf(" ENTER ");sbc(bb);sfc(ww);printf(" to continue"); getch();break;
+                                                        }
+                                                        cdt[dummy_o3dc[itr].first][5].second=choice1; cdt[dummy_o3dc[itr].first][5].first=store; break;
+                                                    }
+                                                    else   //  Ordinary
+                                                    {
+                                                        printf("\n\n Enter the size of STRING and then press ");sbc(dr);printf(" ENTER ");sbc(bb);
+                                                        printf("\n ");sfc(lr);printf(" Note: ");sfc(ww);printf("Range -> (1) to (");cout<<cdt[dummy_o3dc[itr].first][2].second.size()<<")";
+                                                        printf("\n\n SIZE ->  "); cin>>choice1;
+                                                        if(choice1=="min") break;
+                                                        else if(choice1=="exe") break;
+                                                        bool check=valid_pos_neg_integer(choice1);
+                                                        if(check==false)
+                                                        {
+                                                            printf("\n\n   Please check the range and enter a valid Integer");
+                                                            printf("\n\n   Now press ");sbc(dr);sfc(lr);printf(" ENTER ");sbc(bb);sfc(ww);printf(" to continue"); getch();break;
+                                                        }
+                                                        ll store=string_to_integer_converter(choice1);
+                                                        if(store<1 || store>cdt[dummy_o3dc[itr].first][2].second.size())
+                                                        {
+                                                            printf("\n\n   Please check the range and enter a valid Integer");
+                                                            printf("\n\n   Now press ");sbc(dr);sfc(lr);printf(" ENTER ");sbc(bb);sfc(ww);printf(" to continue"); getch();break;
+                                                        }
+                                                        cdt[dummy_o3dc[itr].first][5].second=choice1; cdt[dummy_o3dc[itr].first][5].first=store; break;
+                                                    }
+                                                }
+                                            }
+                                            if(cdt[dummy_o3dc[itr].first][6].second=="~")  // string order
+                                            {
+                                                printf("\n  Select a valid order \n");
+                                                printf("\n  ");sfc(lr);printf("press 1");sfc(ww);printf(" and ");sbc(dr);sfc(lr);printf(" ENTER ");sbc(bb);sfc(ww);printf(" to apply -> RANDOMLY ARRANGED");
+                                                printf("\n  ");sfc(lr);printf("press 2");sfc(ww);printf(" and ");sbc(dr);sfc(lr);printf(" ENTER ");sbc(bb);sfc(ww);printf(" to apply -> SORTED ASCENDING");
+                                                printf("\n  ");sfc(lr);printf("press 3");sfc(ww);printf(" and ");sbc(dr);sfc(lr);printf(" ENTER ");sbc(bb);sfc(ww);printf(" to apply -> SORTED DESCENDING");
+                                                printf("\n  Enter your choice ->  ");cin>>choice1;
+                                                if(choice1=="min") break;
+                                                else if(choice1=="exe") break;
+                                                if(choice1=="1" || choice1=="2" || choice1=="3")
+                                                {
+                                                    ll store=string_to_integer_converter(choice1);
+                                                    cdt[dummy_o3dc[itr].first][6].second=choice1; cdt[dummy_o3dc[itr].first][6].first=store;
+                                                    dummy_o3dc[itr].first=-1; break;
+                                                }
+                                                printf("\n\n    Enter the valid choice");
+                                                printf("\n\n    Now press ");sbc(dr);sfc(lr);printf(" ENTER ");sbc(bb);sfc(ww);printf(" to continue"); getch(); break;
+                                            }
+                                        }
+                                    }
+
+                                    if(dummy_o3dc[itr].second=="Permutation")
+                                    {
+                                        printf("\n\n  CLASS [PERMUTATION]");
+                                        if(cdt[dummy_o3dc[itr].first][1].second=="~")   // store string to generate permutation
+                                        {
+                                            printf("\n\n  Type the Input String and then press ");sbc(dr);printf("ENTER");sbc(bb);
+                                            sfc(lr);printf("\n  NOTE: ");sfc(ww);printf("Do not include spaces in your string");
+                                            printf("\n        ");printf("Range : Length must be less then 20 characters");
+                                            printf("\n\n  Type your string  ->  "); string in_string; cin>>in_string;
+                                            if(in_string.size()>19)
+                                            {
+                                                printf("\n\n    Please check the range of string");
+                                                printf("\n\n    Now press ");sbc(dr);sfc(lr);printf(" ENTER ");sbc(bb);sfc(ww);printf(" to continue"); getch(); break;
+                                            }
+                                            ll store1=count_no_of_permutations(in_string);
+                                            if(dummy_o3dc[2].first<0)
+                                            {
+                                                short indexx=abs(dummy_o3dc[2].first)-1;
+                                                ll store2=get<2>(si[indexx]);
+                                                if(store1<store2)
+                                                {
+                                                    cout<<"\n\n    Only "<<store1<<" number of permutations are possible of your string.";
+                                                    cout<<"\n    However, you want to create "<<store2<<" number of rows at Maximum as per your ";sfc(ly);printf("INITIALIZER");sfc(ww);printf(" size");
+                                                    sfc(ly);printf("\n  INITIALIZER : ");cout<<get<3>(si[indexx]);sfc(ww);printf(" Range -> [ ");cout<<get<1>(si[indexx])<<" - "<<get<2>(si[indexx])<<" ]";
+                                                    cout<<"\n\n    So you are advised to change your string which have at least "<<store2<<" number of permutations.";
+                                                    printf("\n\n    Now press ");sbc(dr);sfc(lr);printf(" ENTER ");sbc(bb);sfc(ww);printf(" to continue"); getch(); break;
+                                                }
+                                            }
+                                            else
+                                            {
+                                                ll store2=dummy_o3dc[2].first;
+                                                if(store1<store2)
+                                                {
+                                                    cout<<"\n\n    Only "<<store1<<" number of permutations are possible of your string.";
+                                                    cout<<"\n    However, you want to create "<<store2<<" number of rows";
+                                                    cout<<"\n\n    So you are advised to change your string which have at least "<<store2<<" number of permutations.";
+                                                    printf("\n\n    Now press ");sbc(dr);sfc(lr);printf(" ENTER ");sbc(bb);sfc(ww);printf(" to continue"); getch(); break;
+                                                }
+                                            }
+                                            cdt[dummy_o3dc[itr].first][1].second=in_string; break;
+                                        }
+                                        if(cdt[dummy_o3dc[itr].first][2].second=="~")  // permutation order
+                                            {
+                                                printf("\n  Select a valid order \n");
+                                                printf("\n  ");sfc(lr);printf("press 1");sfc(ww);printf(" and ");sbc(dr);sfc(lr);printf(" ENTER ");sbc(bb);sfc(ww);printf(" to apply -> RANDOMLY ARRANGED");
+                                                printf("\n  ");sfc(lr);printf("press 2");sfc(ww);printf(" and ");sbc(dr);sfc(lr);printf(" ENTER ");sbc(bb);sfc(ww);printf(" to apply -> SORTED ASCENDING");
+                                                printf("\n  ");sfc(lr);printf("press 3");sfc(ww);printf(" and ");sbc(dr);sfc(lr);printf(" ENTER ");sbc(bb);sfc(ww);printf(" to apply -> SORTED DESCENDING");
+                                                printf("\n  Enter your choice ->  ");cin>>choice1;
+                                                if(choice1=="min") break;
+                                                else if(choice1=="exe") break;
+                                                if(choice1=="1" || choice1=="2" || choice1=="3")
+                                                {
+                                                    ll store=string_to_integer_converter(choice1);
+                                                    cdt[dummy_o3dc[itr].first][2].second=choice1; cdt[dummy_o3dc[itr].first][2].first=store;
+                                                    dummy_o3dc[itr].first=-1; break;
+                                                }
+                                                printf("\n\n    Enter the valid choice");
+                                                printf("\n\n    Now press ");sbc(dr);sfc(lr);printf(" ENTER ");sbc(bb);sfc(ww);printf(" to continue"); getch(); break;
+                                            }
+                                    }
+
+                                    if(dummy_o3dc[itr].second=="Unique_Number")
+                                    {
+                                        printf("\n\n  CLASS [UNIQUE-RANDOM NUMBER]");
+                                        if(cdt[dummy_o3dc[itr].first][1].second=="~")
+                                        {
+                                            printf("\n\n   Enter the ");sfc(ly);printf("Minimum");sfc(ww);printf(" value and then ");sbc(dr);printf(" ENTER ");sbc(bb);
+                                            printf("\n ");sfc(lr);printf(" Note: ");sfc(ww);printf("Range -> (-10 to the power 18) to (10 to the power 18)");
+                                            printf("\n\n  Minimum value ->  "); cin>>choice1;
+                                            if(choice1=="min") break;
+                                            else if(choice1=="exe") break;
+                                            bool check=valid_pos_neg_integer(choice1);
+                                            if(check==false)
+                                            {
+                                                printf("\n\n   Please check the range and enter a valid Integer");
+                                                printf("\n\n   Now press ");sbc(dr);sfc(lr);printf(" ENTER ");sbc(bb);sfc(ww);printf(" to continue"); getch();break;
+                                            }
+                                            ll store=string_to_integer_converter(choice1);
+                                            cdt[dummy_o3dc[itr].first][1].second=choice1; cdt[dummy_o3dc[itr].first][1].first=store; break;
+                                        }
+                                        if(cdt[dummy_o3dc[itr].first][2].second=="~")
+                                        {
+                                            printf("\n\n   Enter the ");sfc(ly);printf("Maximum");sfc(ww);printf(" value and then ");sbc(dr);printf(" ENTER ");sbc(bb);
+                                            printf("\n ");sfc(lr);printf(" Note: ");sfc(ww);printf("Range -> (-10 to the power 18) to (10 to the power 18)");
+                                            printf("\n\n  Maximum value ->  "); cin>>choice1;
+                                            if(choice1=="min") break;
+                                            else if(choice1=="exe") break;
+                                            bool check=valid_pos_neg_integer(choice1);
+                                            if(check==false)
+                                            {
+                                                printf("\n\n   Please check the range and enter a valid Integer");
+                                                printf("\n\n   Now press ");sbc(dr);sfc(lr);printf(" ENTER ");sbc(bb);sfc(ww);printf(" to continue"); getch();break;
+                                            }
+                                            ll store1=string_to_integer_converter(choice1);
+                                            ll store2=cdt[dummy_o3dc[itr].first][1].first;
+                                            if(store1<store2)
+                                            {
+                                                printf("\n\n   Maximum value must be greater then Minimum value");
+                                                printf("\n\n   press ");sbc(dr);sfc(lr);printf(" ENTER ");sbc(bb);sfc(ww);printf(" to change"); getch();break;
+                                            }
+                                            if(dummy_o3dc[2].first<0)
+                                            {
+                                                short indexx=abs(dummy_o3dc[2].first)-1;
+                                                ll maxi=get<2>(si[indexx]);
+                                                if(maxi>(store1-store2+1))
+                                                {
+                                                    cout<<"\n\n  You wish to create "<<maxi<<" No. of Rows at Maximum as per your ";sfc(ly);printf("INITIALIZER");sfc(ww);printf(" size.");
+                                                    sfc(ly);printf("\n  INITIALIZER : ");cout<<get<3>(si[indexx]);sfc(ww);printf(" Range -> [ ");cout<<get<1>(si[indexx])<<" - "<<get<2>(si[indexx])<<" ]";
+                                                    cout<<"\n  However, only "<<(store1-store2+1)<<" Unique No. exists in range provided by you.";
+                                                    printf("\n\n  You are advised to enlarge your range");
+                                                    printf("\n\n   press ");sbc(dr);sfc(lr);printf(" ENTER ");sbc(bb);sfc(ww);printf(" to change Maximum value"); getch();break;
+                                                }
+                                            }
+                                            else
+                                            {
+                                            if(dummy_o3dc[2].first>(store1-store2+1))
+                                            {
+                                                cout<<"\n\n  You wish to create "<<dummy_o3dc[2].first<<" No. of Rows.";
+                                                cout<<"\n  However, only "<<(store1-store2+1)<<" Unique No. exists in range provided by you.";
+                                                printf("\n\n  You are advised to enlarge your range");
+                                                printf("\n\n   press ");sbc(dr);sfc(lr);printf(" ENTER ");sbc(bb);sfc(ww);printf(" to change Maximum value"); getch();break;
+                                            }
+                                            }
+                                            cdt[dummy_o3dc[itr].first][2].second=choice1; cdt[dummy_o3dc[itr].first][2].first=store1; break;
+                                        }
+                                        if(cdt[dummy_o3dc[itr].first][3].second=="~")
+                                        {
+                                                printf("\n  Select a valid order \n");
+                                                printf("\n  ");sfc(lr);printf("press 1");sfc(ww);printf(" and ");sbc(dr);sfc(lr);printf(" ENTER ");sbc(bb);sfc(ww);printf(" to apply -> RANDOMLY ARRANGED");
+                                                printf("\n  ");sfc(lr);printf("press 2");sfc(ww);printf(" and ");sbc(dr);sfc(lr);printf(" ENTER ");sbc(bb);sfc(ww);printf(" to apply -> SORTED ASCENDING");
+                                                printf("\n  ");sfc(lr);printf("press 3");sfc(ww);printf(" and ");sbc(dr);sfc(lr);printf(" ENTER ");sbc(bb);sfc(ww);printf(" to apply -> SORTED DESCENDING");
+                                                printf("\n  Enter your choice ->  ");cin>>choice1;
+                                                if(choice1=="min") break;
+                                                else if(choice1=="exe") break;
+                                                if(choice1=="1" || choice1=="2" || choice1=="3")
+                                                {
+                                                    ll store=string_to_integer_converter(choice1);
+                                                    cdt[dummy_o3dc[itr].first][3].second=choice1; cdt[dummy_o3dc[itr].first][3].first=store;
+                                                    dummy_o3dc[itr].first=-1; break;
+                                                }
+                                                printf("\n\n    Enter the valid choice");
+                                                printf("\n\n    Now press ");sbc(dr);sfc(lr);printf(" ENTER ");sbc(bb);sfc(ww);printf(" to continue"); getch(); break;
+                                        }
+                                    }
+
+                                    if(dummy_o3dc[itr].second=="Space")
+                                    {
+                                        dummy_o3dc[itr].first=-1; break;
+                                    }
+                                    break;
+                                }
+                                if(no_of_attribute_for_custom==-2)
+                                {
+                                    no_of_attribute_for_custom=1; custom_structure.clear(); dummy_o3dc.clear();
+                                    s_3dc[i][j]=true; break;
+                                }
+                            }
+                            break;
+                        }
+
+                    default:   //  INITIALIZER CLASS
+                        {
+                            cout<<"  "<<(++start)<<". ";
+                            sfc(ly);cout<<_3dc[i][j].second;sfc(lc);cout<<" [CLASS INITIALIZER]";sfc(ww);
+                            if(s2_3dc[start-1][0]=="~")
+                                {
+                                    printf("\n\n   Enter the ");sfc(ly);printf("Minimum");sfc(ww);printf(" value and then ");sbc(dr);printf(" ENTER ");sbc(bb);
+                                    printf("\n ");sfc(lr);printf(" Note: ");sfc(ww);printf("Range -> (1) to (10 to the power 6)");
+                                    printf("\n\n  Minimum value ->  "); string min_value; cin>>choice1;
+                                    if(choice1=="min") break;
+                                    else if(choice1=="exe") break;
+                                    bool check=valid_pos_neg_integer(choice1);
+                                    if(check==false)
+                                    {
+                                        printf("\n\n   Please check the range and enter a valid Integer");
+                                        printf("\n\n   Now press ");sbc(dr);sfc(lr);printf(" ENTER ");sbc(bb);sfc(ww);printf(" to continue"); getch();break;
+                                    }
+                                    ll store=string_to_integer_converter(choice1);
+                                    if(store<1 || store>1000000)
+                                    {
+                                        printf("\n\n   Please check the range and enter a valid Integer");
+                                        printf("\n\n   Now press ");sbc(dr);sfc(lr);printf(" ENTER ");sbc(bb);sfc(ww);printf(" to continue"); getch();break;
+                                    }
+                                    min_value=choice1;
+                                    dummy_o3dc.push_back(make_pair(_3dc[i][j].first,"ini"));
+                                    dummy_o3dc.push_back(make_pair(store,min_value));
+                                    s2_3dc[start-1][0]=min_value; break;
+                                }
+                                if(s2_3dc[start-1][1]=="~")
+                                {
+                                    printf("\n\n   Enter the ");sfc(ly);printf("Maximum");sfc(ww);printf(" value and then ");sbc(dr);printf(" ENTER ");sbc(bb);
+                                    printf("\n ");sfc(lr);printf(" Note: ");sfc(ww);printf("Range -> (1) to (10 to the power 6)");
+                                    printf("\n\n  Maximum value ->  "); string max_value; cin>>choice1;
+                                    if(choice1=="min") break;
+                                    else if(choice1=="exe") break;
+                                    bool check=valid_pos_neg_integer(choice1);
+                                    if(check==false)
+                                    {
+                                        printf("\n\n   Please check the range and enter a valid Integer");
+                                        printf("\n\n   Now press ");sbc(dr);sfc(lr);printf(" ENTER ");sbc(bb);sfc(ww);printf(" to continue"); getch();break;
+                                    }
+                                    ll store1=string_to_integer_converter(choice1);
+                                    ll store2=string_to_integer_converter(s2_3dc[start-1][0]);
+                                    if(store1<1 || store1>1000000)
+                                    {
+                                        printf("\n\n   Please check the range and enter a valid Integer");
+                                        printf("\n\n   Now press ");sbc(dr);sfc(lr);printf(" ENTER ");sbc(bb);sfc(ww);printf(" to continue"); getch();break;
+                                    }
+                                     if(store1<store2)
+                                    {
+                                        printf("\n\n   Maximum value must be greater then Minimum value");
+                                        printf("\n\n   press ");sbc(dr);sfc(lr);printf(" ENTER ");sbc(bb);sfc(ww);printf(" to change"); getch();break;
+                                    }
+                                    max_value=choice1; s2_3dc[start-1][1]=max_value;
+                                    dummy_o3dc.push_back(make_pair(store1,max_value));
+                                    dummy2_o3dc.push_back(dummy_o3dc);
+                                    si.push_back(make_tuple(_3dc[i][j].first,dummy_o3dc[1].first,dummy_o3dc[2].first,_3dc[i][j].second));
+                                    dummy_o3dc.clear(); s_3dc[i][j]=true; break;
+                                }
+                        }
+                    }
+                    tr=1; cout<<"\n\n"; break;
+                }
+                if(tr==1) break;
+            }
+            if(choice1=="min") break;
+            else if(choice1=="exe") break;
+        }
+
+
+
+        if(state=="state9")
+        {
+            system("cls");
+            cout<<"\n\nInitializers details\n";
+            for(short i=0;i<si.size();i++)
+            {
+                cout<<get<0>(si[i])<<" "<<get<1>(si[i])<<" "<<get<2>(si[i])<<" "<<get<3>(si[i])<<" \n";
+            }
+            cout<<"\n\n   Reached successfully\n\n\n";
+            short sttr=-1;
+            for(short i=0;i<_3dc.size();i++)
+            {
+                for(short j=0;j<_3dc[i].size();j++)
+                {
+                    sttr++;
+                    for(short ii=0;ii<dummy2_o3dc[sttr].size();ii++)
+                    {
+
+                        cout<<"["<<dummy2_o3dc[sttr][ii].first<<" "<<dummy2_o3dc[sttr][ii].second<<"] ";
+                        dummy_o3dc.push_back(dummy2_o3dc[sttr][ii]);
+                    }
+                }
+                o3dc.push_back(dummy_o3dc);
+                dummy_o3dc.clear();
+                cout<<"\n";
+            }
+            cout<<"-------------------------\n\n";
+            for(short i=0;i<o3dc.size();i++)
+            {
+                for(short j=0;j<o3dc[i].size();j++)
+                {
+                    cout<<"["<<o3dc[i][j].first<<" "<<o3dc[i][j].second<<"] ";
+                }
+                cout<<"\n";
+            }
+            cout<<"\ncustom_data_type-----\n\n";
+            for(short i=0;i<cdt.size();i++)
+            {
+                for(short j=0;j<cdt[i].size();j++)
+                {
+                    cout<<"["<<cdt[i][j].first<<" "<<cdt[i][j].second<<"] ";
+                }
+                cout<<"\n";
+            }
+            cout<<"-------------------------\n\n";
+            cout<<"ENTER YOUR CHOICE -> ";
+            cin>>choice1;
+            if(choice1=="exe") break;
+            /*for(int i=0;i<dummy2_o3dc.size();i++)
+            {
+                for(int j=0;j<dummy2_o3dc[i].size();j++)
+                {
+                    cout<<dummy2_o3dc[i][j].first<<" "<<dummy2_o3dc[i][j].second<<" ";
+                }
+                cout<<"\n";
+            }
+            cout<<"\n";
+            for(int i=0;i<s_3dc.size();i++)
+            {
+                for(int j=0;j<s_3dc[i].size();j++)
+                {
+                    cout<<s_3dc[i][j]<<" ";
+                }
+                cout<<"\n";
+            }
+            cout<<"\n\nand\n\n";
+            for(int i=0;i<s2_3dc.size();i++)
+            {
+                for(int j=0;j<s2_3dc[i].size();j++)
+                {
+                    cout<<s2_3dc[i][j]<<" ";
+                }
+                cout<<"\n";
+            } */
             getch();
         }
 
