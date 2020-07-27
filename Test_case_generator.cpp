@@ -1,12 +1,12 @@
-//////////////////////////////////////////////////////////////////////////////////////
-//88888888888888888888888888888888888888
 #include <bits/stdc++.h>
 #include "special_attributes.h"
 #include "special_functions.h"
 
 
 
+#define three_D_cube _3dc
 #define message_box msb
+#define message_box_2 msb2
 #define message mm
 #define object_of_main_menu1 omm1
 #define object_type_one_menu otom
@@ -15,6 +15,12 @@
 #define set_of_containers sofc
 #define set_of_initializers sofi
 #define set_of_all_attributes sofaa
+#define status_of_three_D_cube s_3dc
+#define status_two_of_three_D_cube s2_3dc
+#define original_three_D_cube o3dc
+#define custom_data_type cdt
+#define stored_initializer si
+#define free_integer fi
 
 
 
@@ -38,7 +44,9 @@ public:
     void header();
     void menu();
     void message_box();
+    void message_box_2();
     void undo();
+    void repos();
     void jump_to_main();
     void message(short);
     friend void function_of_object_one();
@@ -66,6 +74,8 @@ public:
     void object_display(short,string&,ll&);  //  function overloading
     void object_display(short,string&,ll&,vector <string>&);      //  function overloading
     void object_display(short,string&,ll&,vector <string>&,short&,vector <pair<short,string>>&);      //  function overloading
+    void object_display(vector<tuple<bool,short,short,string>>&,short&);        // function overloading
+    void object_display(class object_one&); //////////////////////////////////////////////////////////////////////////////////////
     void otom_phase00();          // for phase zero state zero
     void otom_phase01(string&);    // for phase zero state one
     void otom_phase02(string&);    // for phase zero state two
@@ -75,6 +85,7 @@ public:
     void otom_phase14_3(vector <string>&); // for phase one state four part3
     void otom_phase15_1(string&,ll&,vector <string>&);  // for phase one state five part 1
     void otom_phase16_1(string &str,ll &t,vector <string> &v1,short&,vector <pair<short,string>>&);      // for phase one state six part 1
+    void otom_phase27_1(vector <tuple<bool,short,short,string>>&,short&);                  // for phase two state seven part one
 };
 
 
@@ -88,12 +99,25 @@ private:
     ll test_cases=1;   //default set to one
     short no_of_initializers=0;
     short no_of_containers=1;
+    short no_of_attribute_for_custom=1;
+    short index_of_custom_data_type=-1;
+    string custom_structure="";
     vector <pair <short,string>> set_of_initializers;    // short_name -> sofi
     vector <string> unique_names_of_identifiers;         // short_name -> unoi
     vector <string> set_of_containers;                   // short_name -> sofc
     vector <pair <short,string>> containers;
     vector <pair<short,string>> print_containers;
     vector <tuple<bool,short,short,string>> set_of_all_attributes;  // short_name -> sofaa
+    vector <vector <pair <short,string>>> three_D_cube;             // short_name -> _3dc
+    vector <vector <bool>> status_of_three_D_cube;                  // short_name -> s_3dc
+    vector <vector <string>> status_two_of_three_D_cube;            // short name -> s2_3dc;
+    vector <vector <pair<ll,string>>> original_three_D_cube;        // short name -> o3dc;
+    vector <pair<ll,string>> dummy_o3dc;
+    vector <vector <pair<ll,string>>> dummy2_o3dc;
+    vector <vector <pair<ll,string>>> custom_data_type;             // short name -> cdt
+    vector <tuple<short,int,int,string>> stored_initializer;        // short name -> si
+    ll free_integer=0;                                              // short name -> fi
+
 public:
     short incrementer=0;
     string choice1="";
@@ -105,7 +129,14 @@ public:
     string type_of_container16(short);            // for phase one state six
     short count_nth_container16(string&);          //for phase one state six
     void get_correct_print_container16(pair<short,string>&);    //for phase one state six
-    void delete_all_containers();            // for phase one state six
+    void  build_set_of_all_attributes207();              // for phase two state zero_seven (message and build)
+    bool check_the_attribute_choice_range27(string&);        // for phase two state seven
+    bool check_availability_of_attribute27(short&);          // for phase two state seven
+    void object_display_in_phase_two27();                    // for phase two state seven
+    void object_display_in_phase_three308();                 // for phase three state eight
+    void object_display_in_phase_three38();                  // for phase three state eight
+    void reset_three_dimensional_object27();                 // for phase two state seven
+    void delete_all_containers();            // phase and state yet to be decided ..........................................
     void name_the_object00();                  // for phase zero state zero
     void main_controller();
     object_one()  // constructor
@@ -117,6 +148,9 @@ public:
         no_of_initializers=0;
         no_of_containers=1;
         incrementer=0;
+        no_of_attribute_for_custom=1;
+        custom_structure="";
+        index_of_custom_data_type=-1;
     }
 };
 
@@ -247,11 +281,32 @@ void main_menu::msb()
 
 
 
+
+void main_menu::msb2()
+{
+    gxy(0,25);sbc(dr);printf("MESSAGE BOX");sbc(bb);
+}
+
+
+
+
 void main_menu::undo()
 {
     gxy(54,1);
     printf("Type ");sfc(lr);printf("und");sfc(ww);printf(" and ");sbc(dr);printf("ENTER");sbc(bb);printf(" to ");sbc(lgg);printf("UNDO");sbc(bb);
 }
+
+
+
+ void main_menu::repos()
+ {
+    gxy(0,4);sfc(lc);printf("\n     COMMANDS\n");sfc(ww);
+    printf(" Type the corresponding key and ");sbc(dr);printf("ENTER");sbc(bb);printf(" to ");sfc(lc);printf("add ATTRIBUTE into your object\n\n");sfc(ww);
+    printf(" Type ");sfc(lr);printf("rep");sfc(ww);printf(" and ");sbc(dr);printf("ENTER");sbc(bb);printf(" to ");sfc(lc);printf("Reposition the ATTRIBUTES");sfc(ww);printf("\n\n");
+    printf(" Type ");sfc(lr);printf("nex");sfc(ww);printf(" and ");sbc(dr);printf("ENTER");sbc(bb);printf(" to ");sfc(lc);printf("Move in next Line");sfc(ww);printf("\n");
+ }
+
+
 
 
 
@@ -270,39 +325,36 @@ void main_menu::mm(short ch)
 {
     switch (ch)
     {
+    case 0:
+        {
+            gxy(5,26);printf("ENTER YOUR CHOICE ->   "); break;
+        }
     case 1:
         {
-            gxy(5,22);printf("ENTER YOUR CHOICE ->   ");
-            break;
+            gxy(5,22);printf("ENTER YOUR CHOICE ->   "); break;
         }
     case 2:
         {
             gxy(5,23);printf("Please enter a valid choice, now  press ");sbc(dr);printf("ENTER");sbc(bb);printf(" key");
-            getch();
-            system("cls");
-            break;
+            getch(); system("cls"); break;
         }
     case 3:
         {
-            gxy(5,21);printf("You are in PHASE ZERO");printf(". Give a name to your object");
-            break;
+            gxy(5,21);printf("You are in PHASE ZERO");printf(". Give a name to your object"); break;
         }
     case 4:
         {
-            gxy(5,7);printf("Name your object -> ");
-            break;
+            gxy(5,7);printf("Name your object -> "); break;
         }
     case 5:
         {
             gxy(5,22);printf("Nothing to undo in phase zero");
-            gxy(5,23);printf("Press ");sbc(dr);printf("ENTER");sbc(bb);printf(" to continue");
-            break;
+            gxy(5,23);printf("Press ");sbc(dr);printf("ENTER");sbc(bb);printf(" to continue"); break;
         }
     case 6:
         {
             gxy(5,22);printf("Please provide a smaller name of object");
-            gxy(5,23);printf("Press ");sbc(dr);printf("ENTER");sbc(bb);printf(" to continue");
-            break;
+            gxy(5,23);printf("Press ");sbc(dr);printf("ENTER");sbc(bb);printf(" to continue"); break;
         }
      case 7:
         {
@@ -310,61 +362,51 @@ void main_menu::mm(short ch)
             printf("\n\n  ");
             printf("If YES then type ");sfc(lr);printf("yes");sfc(ww);printf(" and ");sbc(dr);printf("ENTER");sbc(bb);
             printf("\n\n  ");
-            printf("If  NO then type  ");sfc(lr);printf("no");sfc(ww);printf(" and ");sbc(dr);printf("ENTER");sbc(bb);
-            break;
+            printf("If  NO then type  ");sfc(lr);printf("no");sfc(ww);printf(" and ");sbc(dr);printf("ENTER");sbc(bb); break;
         }
      case 8:
         {
-            gxy(1,8);printf("How many copies would you like to create");
-            break;
+            gxy(1,8);printf("How many copies would you like to create"); break;
         }
      case 9:
         {
-            gxy(2,22);printf("Only valid integers in range [1 - 1000000] are possible");
-            break;
+            gxy(2,22);printf("Only valid integers in range [1 - 1000000] are possible"); break;
         }
      case 10:
         {
             gxy(1,7);printf("Insert ");sfc(ly);printf("INITIALIZERS");sfc(ww);printf(" into your object");
             gxy(1,9);printf("You can add from range [0 to 10] ");sfc(ly);printf("INITIALIZERS");sfc(ww);
             gxy(1,11);sfc(lr);printf("NOTE: ");sfc(ly);printf("INITIALIZERS");sfc(ww);printf(" can be only of INTEGER TYPE");
-            gxy(1,13);printf("How many ");sfc(ly);printf("INITIALIZERS");sfc(ww);printf(" would you like to add ?");
-            break;
+            gxy(1,13);printf("How many ");sfc(ly);printf("INITIALIZERS");sfc(ww);printf(" would you like to add ?"); break;
         }
      case 11:
         {
-            gxy(2,22);printf("You can add ");sfc(ly);printf("INITIALIZERS");sfc(ww);printf(" in range of [0 - 10] ");
-            break;
+            gxy(2,22);printf("You can add ");sfc(ly);printf("INITIALIZERS");sfc(ww);printf(" in range of [0 - 10] "); break;
         }
      case 12:
         {
             gxy(1,6);printf("Give unique names to your ");sfc(ly);printf("INITIALIZERS");sfc(ww);
-            gxy(1,7);sfc(lr);printf("NOTE: ");sfc(ww);printf("Length of names should be less then 5 character");
-            break;
+            gxy(1,7);sfc(lr);printf("NOTE: ");sfc(ww);printf("Length of names should be less then 5 character"); break;
         }
      case 13:
         {
             gxy(2,22);printf("The name of ");sfc(ly);printf("INITIALIZER");sfc(ww);printf(" has to be less then 5 characters");
-            gxy(5,23);printf("Press ");sbc(dr);printf("ENTER");sbc(bb);printf(" to continue");
-            break;
+            gxy(5,23);printf("Press ");sbc(dr);printf("ENTER");sbc(bb);printf(" to continue"); break;
         }
      case 14:
         {
             gxy(2,22);printf("This name of IDENTIFIER has been already used, try a different name");
-            gxy(5,23);printf("Press ");sbc(dr);printf("ENTER");sbc(bb);printf(" to continue");
-            break;
+            gxy(5,23);printf("Press ");sbc(dr);printf("ENTER");sbc(bb);printf(" to continue"); break;
         }
      case 15:
         {
             gxy(1,7);printf("Insert ");sfc(lg);printf("CONTAINERS");sfc(ww);printf(" into your object");
             gxy(1,9);printf("You can add from range [1 to 10] ");sfc(lg);printf("CONTAINERS");sfc(ww);
-            gxy(1,11);printf("How many ");sfc(lg);printf("CONTAINERS");sfc(ww);printf(" would you like to add ?");
-            break;
+            gxy(1,11);printf("How many ");sfc(lg);printf("CONTAINERS");sfc(ww);printf(" would you like to add ?"); break;
         }
     case 16:
         {
-            gxy(2,22);printf("You can add ");sfc(lg);printf("CONTAINERS");sfc(ww);printf(" in range of [1 - 10] ");
-            break;
+            gxy(2,22);printf("You can add ");sfc(lg);printf("CONTAINERS");sfc(ww);printf(" in range of [1 - 10] "); break;
         }
     case 17:
         {
@@ -377,13 +419,11 @@ void main_menu::mm(short ch)
             printf("5. MATRIX  ->");printf("  type ");sfc(lr);printf("5");sfc(ww);printf(" and ");sbc(dr);printf("ENTER");sbc(bb);printf("\n");
             printf("6. TREE    ->");printf("  type ");sfc(lr);printf("6");sfc(ww);printf(" and ");sbc(dr);printf("ENTER");sbc(bb);printf("\n");
             printf("7. GRAPH   ->");printf("  type ");sfc(lr);printf("7");sfc(ww);printf(" and ");sbc(dr);printf("ENTER");sbc(bb);printf("\n");
-            printf("8. CUSTOM_data_type -> ");printf("  type ");sfc(lr);printf("8");sfc(ww);printf(" and ");sbc(dr);printf("ENTER");sbc(bb);printf("\n");
-            break;
+            printf("8. CUSTOM_data_type -> ");printf("  type ");sfc(lr);printf("8");sfc(ww);printf(" and ");sbc(dr);printf("ENTER");sbc(bb);printf("\n"); break;
         }
     case 18:
         {
-            gxy(2,21);printf("Add ");sfc(lg);printf("CONTAINERS");sfc(ww);printf(" by typing the keys in range [1 - 7] ");
-            break;
+            gxy(2,21);printf("Add ");sfc(lg);printf("CONTAINERS");sfc(ww);printf(" by typing the keys in range [1 - 7] "); break;
         }
     case 19:
         {
@@ -392,8 +432,7 @@ void main_menu::mm(short ch)
             gxy(3,6);printf("Now you are moving towards ");sbc(dy);printf("PHASE THREE");sbc(bb);
             gxy(3,8);printf("In this phase you have to arrange positions of attributes in your object");
             gxy(3,10);printf("You are advised to ");sfc(lc);printf("MAXIMIZE");sfc(ww);printf(" you screen to have complete display");
-            gxy(3,12);printf("Press ");sbc(dr);printf("ENTER");sbc(bb);printf(" to continue...");
-            break;
+            gxy(3,12);printf("Press ");sbc(dr);printf("ENTER");sbc(bb);printf(" to continue..."); break;
         }
     case 20:
         {
@@ -408,8 +447,338 @@ void main_menu::mm(short ch)
             printf("               (nodes in TREE())\n");
             printf("               (nodes in GRAPH())\n\n");sfc(ww);
             sfc(lg);printf("CONTAINERS");sfc(ww);printf(" -> These are set of primitive data types\n");
-            printf("\n");printf("Press ");sbc(dr);printf("ENTER");sbc(bb);printf(" to continue...");
-            break;
+            printf("\n");printf("Press ");sbc(dr);printf("ENTER");sbc(bb);printf(" to continue..."); break;
+        }
+    case 21:
+        {
+            gxy(5,27);printf("Please enter a valid choice, now  press ");sbc(dr);printf("ENTER");sbc(bb);printf(" key");
+            getch(); break;
+        }
+    case 22:
+        {
+            gxy(0,27);printf("This ATTRIBUTE is already inserted, now press ");sbc(dr);printf("ENTER");sbc(bb);printf(" key");
+            getch(); break;
+        }
+     case 23:
+        {
+            gxy(0,27);printf("You must add at least one ATTRIBUTE to move into next line, now press ");sbc(dr);printf("ENTER");sbc(bb);printf(" key");
+            getch(); break;
+        }
+     case 24:
+        {
+            printf("\n  What type of integer would you like to create ?\n");
+            printf("\n  ");sfc(lr);printf("press 1");sfc(ww);printf(" and ");sbc(dr);sfc(lr);printf(" ENTER ");sbc(bb);sfc(ww);printf(" to create -> RANDOM NUMBER");
+            printf("\n  ");sfc(lr);printf("press 2");sfc(ww);printf(" and ");sbc(dr);sfc(lr);printf(" ENTER ");sbc(bb);sfc(ww);printf(" to create -> ODD NUMBER");
+            printf("\n  ");sfc(lr);printf("press 3");sfc(ww);printf(" and ");sbc(dr);sfc(lr);printf(" ENTER ");sbc(bb);sfc(ww);printf(" to create -> EVEN NUMBER");
+            printf("\n  ");sfc(lr);printf("press 4");sfc(ww);printf(" and ");sbc(dr);sfc(lr);printf(" ENTER ");sbc(bb);sfc(ww);printf(" to create -> PRIME NUMBER");
+            printf("\n  ");sfc(lr);printf("press 5");sfc(ww);printf(" and ");sbc(dr);sfc(lr);printf(" ENTER ");sbc(bb);sfc(ww);printf(" to create -> NON PRIME NUMBER");
+            printf("\n  ");sfc(lr);printf("press 6");sfc(ww);printf(" and ");sbc(dr);sfc(lr);printf(" ENTER ");sbc(bb);sfc(ww);printf(" to create -> INCREMENTED NUMBER");
+            printf("\n  ");sfc(lr);printf("press 7");sfc(ww);printf(" and ");sbc(dr);sfc(lr);printf(" ENTER ");sbc(bb);sfc(ww);printf(" to create -> Nth FIBONACCI NUMBER");
+            printf("\n  ");sfc(lr);printf("press 8");sfc(ww);printf(" and ");sbc(dr);sfc(lr);printf(" ENTER ");sbc(bb);sfc(ww);printf(" to create -> GET_ALL_UNIQUE_RANDOM NUMBERS");
+            printf("\n\n  Type your choice  -> "); break;
+        }
+     case 25:
+        {
+            printf("\n\n   Enter the ");sfc(ly);printf("Minimum");sfc(ww);printf(" value and then ");sbc(dr);printf(" ENTER ");sbc(bb);
+            printf("\n ");sfc(lr);printf(" Note: ");sfc(ww);printf("Range -> (-10 to the power 18) to (10 to the power 18)");
+            printf("\n\n  Minimum value ->  "); break;
+        }
+     case 26:
+        {
+            printf("\n\n   Enter the ");sfc(ly);printf("Maximum");sfc(ww);printf(" value and then ");sbc(dr);printf(" ENTER ");sbc(bb);
+            printf("\n ");sfc(lr);printf(" Note: ");sfc(ww);printf("Range -> (-10 to the power 18) to (10 to the power 18)");
+            printf("\n\n  Maximum value ->  "); break;
+        }
+     case 27:
+        {
+            printf("\n\n   Enter the ");sfc(ly);printf("Minimum");sfc(ww);printf(" value and then ");sbc(dr);printf(" ENTER ");sbc(bb);
+            printf("\n ");sfc(lr);printf(" Note: ");sfc(ww);printf("Range -> (2) to (10 to the power 7)");
+            printf("\n\n  Minimum value ->  "); break;
+        }
+     case 28:
+        {
+            printf("\n\n   Enter the ");sfc(ly);printf("Maximum");sfc(ww);printf(" value and then ");sbc(dr);printf(" ENTER ");sbc(bb);
+            printf("\n ");sfc(lr);printf(" Note: ");sfc(ww);printf("Range -> (2) to (10 to the power 7)");
+            printf("\n\n  Maximum value ->  "); break;
+        }
+     case 29:
+        {
+            printf("\n\n   Enter the ");sfc(ly);printf("Minimum");sfc(ww);printf(" value and then ");sbc(dr);printf(" ENTER ");sbc(bb);
+            printf("\n ");sfc(lr);printf(" Note: ");sfc(ww);printf("Range -> (1) to (10 to the power 12)");
+            printf("\n\n  Minimum value ->  ");break;
+        }
+     case 30:
+        {
+            printf("\n\n   Enter the ");sfc(ly);printf("Maximum");sfc(ww);printf(" value and then ");sbc(dr);printf(" ENTER ");sbc(bb);
+            printf("\n ");sfc(lr);printf(" Note: ");sfc(ww);printf("Range -> (1) to (10 to the power 12)");
+            printf("\n\n  Maximum value ->  "); break;
+        }
+     case 31:
+        {
+            printf("\n\n   Enter the ");sfc(ly);printf("Starting");sfc(ww);printf(" value and then ");sbc(dr);printf(" ENTER ");sbc(bb);
+            printf("\n ");sfc(lr);printf(" Note: ");sfc(ww);printf("Range -> (-10 to the power 18) to (10 to the power 18)");
+            printf("\n\n  Maximum value ->  ");  break;
+        }
+     case 32:
+        {
+            printf("\n\n   Enter the ");sfc(ly);printf("Increment");sfc(ww);printf(" value and then ");sbc(dr);printf(" ENTER ");sbc(bb);
+            printf("\n ");sfc(lr);printf(" Note: ");sfc(ww);printf("Range -> (-10 to the power 18) to (10 to the power 18)");
+            printf("\n\n  Increment value ->  ");  break;
+        }
+     case 33:
+        {
+            printf("\n\n   Enter the ");sfc(ly);printf("Minimum");sfc(ww);printf(" value and then ");sbc(dr);printf(" ENTER ");sbc(bb);
+            printf("\n ");sfc(lr);printf(" Note: ");sfc(ww);printf("Range -> (1) to (93)");
+            printf("\n\n  Minimum value ->  ");break;
+        }
+     case 34:
+        {
+            printf("\n\n   Enter the ");sfc(ly);printf("Maximum");sfc(ww);printf(" value and then ");sbc(dr);printf(" ENTER ");sbc(bb);\
+            printf("\n ");sfc(lr);printf(" Note: ");sfc(ww);printf("Range -> (1) to (93)");
+            printf("\n\n  Maximum value ->  "); break;
+        }
+     case 35:
+        {
+            printf("\n  What type of integer would you like to insert ?\n");
+            printf("\n  ");sfc(lr);printf("press 1");sfc(ww);printf(" and ");sbc(dr);sfc(lr);printf(" ENTER ");sbc(bb);sfc(ww);printf(" to insert -> RANDOM NUMBER");
+            printf("\n  ");sfc(lr);printf("press 2");sfc(ww);printf(" and ");sbc(dr);sfc(lr);printf(" ENTER ");sbc(bb);sfc(ww);printf(" to insert -> ODD NUMBER");
+            printf("\n  ");sfc(lr);printf("press 3");sfc(ww);printf(" and ");sbc(dr);sfc(lr);printf(" ENTER ");sbc(bb);sfc(ww);printf(" to insert -> EVEN NUMBER");
+            printf("\n  ");sfc(lr);printf("press 4");sfc(ww);printf(" and ");sbc(dr);sfc(lr);printf(" ENTER ");sbc(bb);sfc(ww);printf(" to insert -> PRIME NUMBER");
+            printf("\n  ");sfc(lr);printf("press 5");sfc(ww);printf(" and ");sbc(dr);sfc(lr);printf(" ENTER ");sbc(bb);sfc(ww);printf(" to insert -> NON PRIME NUMBER");
+            printf("\n  ");sfc(lr);printf("press 6");sfc(ww);printf(" and ");sbc(dr);sfc(lr);printf(" ENTER ");sbc(bb);sfc(ww);printf(" to insert -> INCREMENTED NUMBER");
+            printf("\n  ");sfc(lr);printf("press 7");sfc(ww);printf(" and ");sbc(dr);sfc(lr);printf(" ENTER ");sbc(bb);sfc(ww);printf(" to insert -> Nth FIBONACCI NUMBER");
+            printf("\n\n  Type your choice  -> "); break;
+        }
+     case 36:
+        {
+            printf("\n\n    Enter a valid choice");
+            printf("\n\n    Now press ");sbc(dr);sfc(lr);printf(" ENTER ");sbc(bb);sfc(ww);printf(" to continue"); break;
+        }
+     case 37:
+        {
+            printf("\n\n   Please check the range and enter a valid Integer");
+            printf("\n\n   Now press ");sbc(dr);sfc(lr);printf(" ENTER ");sbc(bb);sfc(ww);printf(" to continue"); break;
+        }
+     case 38:
+        {
+            printf("\n\n   Maximum value must be greater then Minimum value");
+            printf("\n\n   press ");sbc(dr);sfc(lr);printf(" ENTER ");sbc(bb);sfc(ww);printf(" to change"); break;
+        }
+     case 39:
+        {
+            printf("\n\n  No odd Integer exist in the given range");
+            printf("\n\n To change Maximum value, press ");sbc(dr);sfc(lr);printf(" ENTER ");sbc(bb);sfc(ww); break;
+        }
+     case 40:
+        {
+            printf("\n\n  No even Integer exist in the given range");
+            printf("\n\n To change Maximum value, press ");sbc(dr);sfc(lr);printf(" ENTER ");sbc(bb);sfc(ww); break;
+        }
+     case 41:
+        {
+            printf("\n\n   No Prime Integers exist in the given range.");
+            printf("\n\n   press ");sbc(dr);sfc(lr);printf(" ENTER ");sbc(bb);sfc(ww);printf(" to change the maximum value"); break;
+        }
+     case 42:
+        {
+            printf("\n\n   No Non_Prime Integer exist in the given range.");
+            printf("\n\n   press ");sbc(dr);sfc(lr);printf(" ENTER ");sbc(bb);sfc(ww);printf(" to change the maximum value"); break;
+        }
+     case 43:
+        {
+            printf("\n\n   Set the precision for your REAL NUMBER...");
+            printf("\n ");sfc(lr);printf(" Note: ");sfc(ww);printf("\n   (You can set form range [0 to 100])\n");
+            printf("\n   Enter the precision ->  ");break;
+        }
+     case 44:
+        {
+            printf("\n\n   Note -> (Max_value - Min_value) should be >=1 ");
+            printf("\n\n   press ");sbc(dr);sfc(lr);printf(" ENTER ");sbc(bb);sfc(ww);printf(" to change"); break;
+        }
+     case 45:
+        {
+            printf("\n  What type of ARRAY would you like to create ?\n");
+            printf("\n  ");sfc(lr);printf("press 1");sfc(ww);printf(" and ");sbc(dr);sfc(lr);printf(" ENTER ");sbc(bb);sfc(ww);printf(" to create -> ARRAY OF INTEGER");
+            printf("\n  ");sfc(lr);printf("press 2");sfc(ww);printf(" and ");sbc(dr);sfc(lr);printf(" ENTER ");sbc(bb);sfc(ww);printf(" to create -> ARRAY OF REAL");
+            printf("\n  ");sfc(lr);printf("press 3");sfc(ww);printf(" and ");sbc(dr);sfc(lr);printf(" ENTER ");sbc(bb);sfc(ww);printf(" to create -> ARRAY OF STRING");
+            printf("\n  ");sfc(lr);printf("press 4");sfc(ww);printf(" and ");sbc(dr);sfc(lr);printf(" ENTER ");sbc(bb);sfc(ww);printf(" to create -> ARRAY OF PERMUTATION");
+            printf("\n  ");sfc(lr);printf("press 5");sfc(ww);printf(" and ");sbc(dr);sfc(lr);printf(" ENTER ");sbc(bb);sfc(ww);printf(" to create -> ARRAY OF UNIQUE NUMBER");
+            printf("\n\n  Type your choice  -> "); break;
+        }
+     case 46:
+        {
+            printf("\n\n    What type of string you want to create ?");
+            printf("\n\n  ");sfc(lr);printf("press 1");sfc(ww);printf(" and ");sbc(dr);printf(" ENTER ");sbc(bb);printf(" to create ");sfc(ly);printf("DEFAULT STRING");sfc(ww);printf(" (user defined)");
+            printf("\n\n  ");sfc(lr);printf("press 2");sfc(ww);printf(" and ");sbc(dr);printf(" ENTER ");sbc(bb);printf(" to create ");sfc(lg);printf("INPUT   STRING");sfc(ww);printf(" (computer generated)");
+            printf("\n\n   Enter your choice ->  ");  break;
+        }
+     case 47:
+        {
+            printf("\n\n  Type the Default String and then press ");sbc(dr);printf("ENTER");sbc(bb);
+            sfc(lr);printf("\n  NOTE: ");sfc(ww);printf("Do not include spaces in your string");
+            printf("\n\n  Type your string  ->  "); break;
+        }
+     case 48:
+        {
+            printf("\n\n  Type the Input String and then press ");sbc(dr);printf("ENTER");sbc(bb);
+            sfc(lr);printf("\n  NOTE: ");sfc(ww);printf("Do not include spaces in your string");
+            printf("\n\n  Type your string  ->  "); break;
+        }
+     case 49:
+        {
+            printf("\n\n  What type of STRING you want to create ?\n");
+            sfc(lr);printf("\n  press 1");sfc(ww);printf(" and ");sbc(dr);printf(" ENTER ");sbc(bb);printf(" to create -> ");sfc(ly);printf("RANDOM STRING");
+            sfc(lr);printf("\n  press 2");sfc(ww);printf(" and ");sbc(dr);printf(" ENTER ");sbc(bb);printf(" to create -> ");sfc(ly);printf("SORTED ASSENDING STRING");
+            sfc(lr);printf("\n  press 3");sfc(ww);printf(" and ");sbc(dr);printf(" ENTER ");sbc(bb);printf(" to create -> ");sfc(ly);printf("SORTED DESCENDING STRING");
+            sfc(lr);printf("\n  press 4");sfc(ww);printf(" and ");sbc(dr);printf(" ENTER ");sbc(bb);printf(" to create -> ");sfc(ly);printf("PALINDROMIC STRING");sfc(ww);
+            printf("\n\n  Enter your choice ->  "); break;
+        }
+     case 50:
+        {
+            printf("\n\n  Select a valid mode of create\n");
+            sfc(lr);printf("\n  press 1");sfc(ww);printf(" and ");sbc(dr);printf(" ENTER ");sbc(bb);printf(" to generate -> ");sfc(ly);printf(" REPEATED   SYMBOL STRING");
+            sfc(lr);printf("\n  press 2");sfc(ww);printf(" and ");sbc(dr);printf(" ENTER ");sbc(bb);printf(" to generate -> ");sfc(ly);printf(" ALL UNIQUE SYMBOL STRING");sfc(ww);
+            printf("\n\n Enter your choice -> ");  break;
+        }
+     case 51:
+        {
+            printf("\n\n Enter the size of STRING and then press ");sbc(dr);printf(" ENTER ");sbc(bb);
+            printf("\n ");sfc(lr);printf(" Note: ");sfc(ww);printf("Range -> (1) to (10 to the power 6)");
+            printf("\n\n SIZE ->  "); break;
+        }
+     case 52:
+        {
+            printf("\n\n  You can add following Attributes\n");
+            printf("\n  ");sfc(lr);printf("press 1");sfc(ww);printf(" and ");sbc(dr);sfc(lr);printf(" ENTER ");sbc(bb);sfc(ww);printf(" to add -> INTEGER");
+            printf("\n  ");sfc(lr);printf("press 2");sfc(ww);printf(" and ");sbc(dr);sfc(lr);printf(" ENTER ");sbc(bb);sfc(ww);printf(" to add -> REAL");
+            printf("\n  ");sfc(lr);printf("press 3");sfc(ww);printf(" and ");sbc(dr);sfc(lr);printf(" ENTER ");sbc(bb);sfc(ww);printf(" to add -> STRING");
+            printf("\n  ");sfc(lr);printf("press 4");sfc(ww);printf(" and ");sbc(dr);sfc(lr);printf(" ENTER ");sbc(bb);sfc(ww);printf(" to add -> PERMUTATION");
+            printf("\n  ");sfc(lr);printf("press 5");sfc(ww);printf(" and ");sbc(dr);sfc(lr);printf(" ENTER ");sbc(bb);sfc(ww);printf(" to add -> UNIQUE NUMBER");
+            printf("\n  ");sfc(lr);printf("press 6");sfc(ww);printf(" and ");sbc(dr);sfc(lr);printf(" ENTER ");sbc(bb);sfc(ww);printf(" to add -> SPACE");
+            printf("\n\n  Type your choice  -> "); break;
+        }
+     case 53:
+        {
+            printf("\n  Select a valid order for this column of your ");sfc(lg);printf("CUSTOM_{}\n");sfc(ww);
+            printf("\n  ");sfc(lr);printf("press 1");sfc(ww);printf(" and ");sbc(dr);sfc(lr);printf(" ENTER ");sbc(bb);sfc(ww);printf(" to apply -> RANDOMLY ARRANGED");
+            printf("\n  ");sfc(lr);printf("press 2");sfc(ww);printf(" and ");sbc(dr);sfc(lr);printf(" ENTER ");sbc(bb);sfc(ww);printf(" to apply -> SORTED ASCENDING");
+            printf("\n  ");sfc(lr);printf("press 3");sfc(ww);printf(" and ");sbc(dr);sfc(lr);printf(" ENTER ");sbc(bb);sfc(ww);printf(" to apply -> SORTED DESCENDING");
+            printf("\n  Enter your choice ->  "); break;
+        }
+     case 54:
+        {
+            printf("\n\n  Select a valid ");sfc(lm);printf("ORDER");sfc(ww);printf(" for your ");sfc(lg);printf("ARRAY[]\n");sfc(ww);
+            printf("\n  ");sfc(lr);printf("press 1");sfc(ww);printf(" and ");sbc(dr);sfc(lr);printf(" ENTER ");sbc(bb);sfc(ww);printf(" to apply -> RANDOMLY ARRANGED");
+            printf("\n  ");sfc(lr);printf("press 2");sfc(ww);printf(" and ");sbc(dr);sfc(lr);printf(" ENTER ");sbc(bb);sfc(ww);printf(" to apply -> SORTED ASCENDING");
+            printf("\n  ");sfc(lr);printf("press 3");sfc(ww);printf(" and ");sbc(dr);sfc(lr);printf(" ENTER ");sbc(bb);sfc(ww);printf(" to apply -> SORTED DESCENDING");
+            printf("\n\n  Enter your choice ->  "); break;
+        }
+     case 55:
+        {
+            printf("\n\n  Select a valid ");sfc(lm);printf("Print Format");sfc(ww);printf(" for your");sfc(lg);printf(" ARRAY[] \n");sfc(ww);
+            printf("\n  ");sfc(lr);printf("press 1");sfc(ww);printf(" and ");sbc(dr);sfc(lr);printf(" ENTER ");sbc(bb);sfc(ww);printf(" to select -> Space Separated ");
+            printf("\n  ");sfc(lr);printf("press 2");sfc(ww);printf(" and ");sbc(dr);sfc(lr);printf(" ENTER ");sbc(bb);sfc(ww);printf(" to select -> Line  Separated");
+            printf("\n\n  Type your choice  -> "); break;
+        }
+     case 56:
+        {
+            printf("\n\n  Enter the Size of your ");sfc(lg);printf("ARRAY[]");sfc(ww);printf(" and then press ");sbc(dr);printf(" ENTER ");sbc(bb);
+            printf("\n ");sfc(lr);printf(" Note: ");sfc(ww);printf("Range -> (1) to (10 to the power 6)");
+            printf("\n\n  If you want to choose an ");sfc(ly);printf("INITIALIZER");sfc(ww);printf(" then type ");sfc(lm);printf("int");sfc(ww);printf(" and ");sbc(dr);printf(" ENTER ");sbc(bb);
+            printf("\n\n  Type your choice ->  "); break;
+        }
+     case 57:
+        {
+            printf("\n\n  Type  the  ");sfc(ly);printf("INITIALIZER");sfc(ww);printf("  name  and  ");sbc(dr);sfc(lr);printf(" ENTER ");sbc(bb);sfc(ww);
+            printf("\n  To cancel this feature type ");sfc(lm);printf("cl");sfc(ww);printf(" and ");sbc(dr);sfc(lr);printf(" ENTER ");sbc(bb);sfc(ww);
+            printf("\n\n  Type your choice ->  "); break;
+        }
+     case 58:
+        {
+            printf("\n\n   Please type a valid choice");
+            printf("\n\n   Now press ");sbc(dr);sfc(lr);printf(" ENTER ");sbc(bb);sfc(ww);printf(" to continue");  break;
+        }
+     case 59:
+        {
+            printf("\n\n  Oops, you have not defined any ");sfc(ly);printf("INITIALIZER");sfc(ww);printf(" yet, you can not use this feature.");
+            printf("\n\n   Now press ");sbc(dr);sfc(lr);printf(" ENTER ");sbc(bb);sfc(ww);printf(" to continue"); break;
+        }
+     case 60:
+        {
+            printf("\n  What type of MATRIX would you like to create ?\n");
+            printf("\n  ");sfc(lr);printf("press 1");sfc(ww);printf(" and ");sbc(dr);sfc(lr);printf(" ENTER ");sbc(bb);sfc(ww);printf(" to create -> MATRIX OF INTEGER");
+            printf("\n  ");sfc(lr);printf("press 2");sfc(ww);printf(" and ");sbc(dr);sfc(lr);printf(" ENTER ");sbc(bb);sfc(ww);printf(" to create -> MATRIX OF REAL");
+            printf("\n  ");sfc(lr);printf("press 3");sfc(ww);printf(" and ");sbc(dr);sfc(lr);printf(" ENTER ");sbc(bb);sfc(ww);printf(" to create -> MATRIX OF STRING");
+            printf("\n  ");sfc(lr);printf("press 4");sfc(ww);printf(" and ");sbc(dr);sfc(lr);printf(" ENTER ");sbc(bb);sfc(ww);printf(" to create -> MATRIX OF PERMUTATION");
+            printf("\n  ");sfc(lr);printf("press 5");sfc(ww);printf(" and ");sbc(dr);sfc(lr);printf(" ENTER ");sbc(bb);sfc(ww);printf(" to create -> MATRIX OF UNIQUE NUMBER");
+            printf("\n\n  Type your choice  -> "); break;
+        }
+     case 61:
+        {
+            printf("\n\n  Enter the Number of Rows for your ");sfc(lg);printf("MATRIX[]");sfc(ww);printf(" and then press ");sbc(dr);printf(" ENTER ");sbc(bb);
+            printf("\n ");sfc(lr);printf(" Note: ");sfc(ww);printf("Range -> (1) to (10 to the power 6)");
+            printf("\n\n  If you want to choose an ");sfc(ly);printf("INITIALIZER");sfc(ww);printf(" then type ");sfc(lm);printf("int");sfc(ww);printf(" and ");sbc(dr);printf(" ENTER ");sbc(bb);
+            printf("\n\n  Type your choice ->  "); break;
+        }
+     case 62:
+        {
+            printf("\n\n  Enter the Number of Columns for your ");sfc(lg);printf("MATRIX[]");sfc(ww);printf(" and then press ");sbc(dr);printf(" ENTER ");sbc(bb);
+            printf("\n ");sfc(lr);printf(" Note: ");sfc(ww);printf("Range -> (1) to (10 to the power 6)");
+            printf("\n\n  If you want to choose an ");sfc(ly);printf("INITIALIZER");sfc(ww);printf(" then type ");sfc(lm);printf("int");sfc(ww);printf(" and ");sbc(dr);printf(" ENTER ");sbc(bb);
+            printf("\n\n  Type your choice ->  "); break;
+        }
+     case 63:
+        {
+            printf("\n\n  Select a valid ");sfc(lm);printf("COLUMN ORDER");sfc(ww);printf(" for your ");sfc(lg);printf("MATRIX[][]\n");sfc(ww);
+            printf("\n  ");sfc(lr);printf("press 1");sfc(ww);printf(" and ");sbc(dr);sfc(lr);printf(" ENTER ");sbc(bb);sfc(ww);printf(" to apply -> COLUMN WISE RANDOMLY ARRANGED");
+            printf("\n  ");sfc(lr);printf("press 2");sfc(ww);printf(" and ");sbc(dr);sfc(lr);printf(" ENTER ");sbc(bb);sfc(ww);printf(" to apply -> COLUMN WISE SORTED ASCENDING");
+            printf("\n  ");sfc(lr);printf("press 3");sfc(ww);printf(" and ");sbc(dr);sfc(lr);printf(" ENTER ");sbc(bb);sfc(ww);printf(" to apply -> COLUMN WISE SORTED DESCENDING");
+            printf("\n\n  Enter your choice ->  "); break;
+        }
+     case 64:
+        {
+            printf("\n\n  Select a valid ");sfc(lm);printf("ROW ORDER");sfc(ww);printf(" for your ");sfc(lg);printf("MATRIX[][]\n");sfc(ww);
+            printf("\n  ");sfc(lr);printf("press 1");sfc(ww);printf(" and ");sbc(dr);sfc(lr);printf(" ENTER ");sbc(bb);sfc(ww);printf(" to apply -> ROW WISE RANDOMLY ARRANGED");
+            printf("\n  ");sfc(lr);printf("press 2");sfc(ww);printf(" and ");sbc(dr);sfc(lr);printf(" ENTER ");sbc(bb);sfc(ww);printf(" to apply -> ROW WISE SORTED ASCENDING");
+            printf("\n  ");sfc(lr);printf("press 3");sfc(ww);printf(" and ");sbc(dr);sfc(lr);printf(" ENTER ");sbc(bb);sfc(ww);printf(" to apply -> ROW WISE SORTED DESCENDING");
+            printf("\n\n  Enter your choice ->  "); break;
+        }
+     case 65:
+        {
+            printf("\n\n  You are only allowed to create 1000000 Number of Cells in your ");sfc(lg);printf("Matrix[][]");sfc(ww);printf(" at a time.");
+            printf("\n\n  However, as per the details of Rows and Columns of your ");sfc(lg);printf("Matrix[][]");sfc(ww);
+            printf("Number of cells is = ");  break;
+        }
+     case 66:
+        {
+            printf("\n\n  So you are advised to reduce the Number of Columns from your ");sfc(lg);printf("Matrix[][]");sfc(ww);
+            sfc(lr);printf("\n  Note: ");sfc(ww);printf("Number of cells = Rows*Columns");
+            printf("\n\n   Now press ");sbc(dr);sfc(lr);printf(" ENTER ");sbc(bb);sfc(ww);printf(" to change Number of Columns");  break;
+        }
+     case 67:
+        {
+            printf("\n\n  Enter the number of Attributes you want to insert and then press ");sbc(dr);printf(" ENTER ");sbc(bb);
+            printf("\n ");sfc(lr);printf(" Note: ");sfc(ww);printf("Range -> (1) to (20)");
+            printf("\n\n  Type your choice ->  "); break;
+        }
+     case 68:
+        {
+            printf("\n\n  Type the String and then press ");sbc(dr);printf("ENTER");sbc(bb);
+            sfc(lr);printf("\n  NOTE: ");sfc(ww);printf("Do not include spaces in your string");
+            printf("\n        ");printf("Range : Length must be less then 20 characters");
+            printf("\n\n  Type your string  ->  "); break;
+        }
+     case 69:
+        {
+            printf("\n\n  Enter the number of Rows you want to create in your ");sfc(lg);printf("CUSTOM_{}");sfc(ww);printf(" and then press ");sbc(dr);printf(" ENTER ");sbc(bb);
+            printf("\n ");sfc(lr);printf(" Note: ");sfc(ww);printf("Range -> (1) to (10 to the power 6)");
+            printf("\n\n  If you want to choose an ");sfc(ly);printf("INITIALIZER");sfc(ww);printf(" then type ");sfc(lm);printf("int");sfc(ww);printf(" and ");sbc(dr);printf(" ENTER ");sbc(bb);
+            printf("\n\n  Type your choice ->  "); break;
+        }
+     case 70:
+        {
+            printf("\n\n Enter the size of Palindromic STRING and then press ");sbc(dr);printf(" ENTER ");sbc(bb);
+            printf("\n ");sfc(lr);printf(" Note: ");sfc(ww);printf("Range -> (1) to ("); break;
         }
     }
 }
@@ -558,6 +927,30 @@ void otom::object_display(short ch,string &str,ll &t,vector <string> &v1,short &
 
 
 
+void otom::object_display(vector <tuple<bool,short,short,string>> &v1,short& n)
+{
+    gxy(7,13);sfc(ly);printf("INITIALIZERS");sfc(ww); if(n==0) { gxy(4,14);printf("(no initializers)"); }
+    short set_x_axis=1;
+    short set_y_axis=14;
+    for(short i=0;i<n;i++)
+    {
+        if(get<0>(v1[i])==true) continue;
+        gxy(set_x_axis,++set_y_axis);printf("Press ");sfc(lr);cout<<get<2>(v1[i]);sfc(ww);printf(" and ");sbc(dr);printf("ENTER");sbc(bb);printf(" to add ");sfc(ly);cout<<get<3>(v1[i])<<"\n";sfc(ww);
+    }
+    set_x_axis=38;
+    set_y_axis=14;
+    gxy(48,13);sfc(lg);printf("CONTAINERS");sfc(ww);
+    for(short i=n;i<v1.size();i++)
+    {
+        if(get<0>(v1[i])==true) continue;
+        gxy(set_x_axis,++set_y_axis);printf("Press ");sfc(lr);cout<<get<2>(v1[i]);sfc(ww);printf(" and ");sbc(dr);printf("ENTER");sbc(bb);printf(" to add ");sfc(lg);cout<<get<3>(v1[i])<<"\n";sfc(ww);
+    }
+}
+
+
+
+
+
 
 
 void otom::otom_phase00()
@@ -657,6 +1050,16 @@ void otom::otom_phase16_1(string &str,ll &t,vector <string> &v1,short &n,vector 
     gxy(2,3);sbc(dy);printf("PHASE ONE");sbc(bb);printf("-> Adding ATTRIBUTES in Object");mm(17);mm(18);
 }
 
+
+
+
+
+
+void otom::otom_phase27_1(vector<tuple<bool,short,short,string>> &v1,short &n)
+{
+    header();jump_to_main();repos();object_display(v1,n);
+    gxy(2,3);sbc(dy);printf("PHASE THREE");sbc(bb);printf("-> Positioning of ATTRIBUTES in Object");msb2();
+}
 
 
 
@@ -832,9 +1235,151 @@ void object_one::get_correct_print_container16(pair<short,string> &p1)
 
 
 
+void object_one::build_set_of_all_attributes207()
+{
+    incrementer=0;
+    short incrementer2=0;
+    for(short i=0;i<sofi.size();i++)
+    {
+        sofaa.push_back(make_tuple(false,--incrementer2,++incrementer,sofi[i].second));
+    }
+    for(short i=0;i<containers.size();i++)
+    {
+        sofaa.push_back(make_tuple(false,containers[i].first,++incrementer,print_containers[i].second));
+    }
+}
+
+
+
+
+
+
+bool object_one::check_the_attribute_choice_range27(string &temp)
+{
+     if(temp.size()>3)
+        return false;
+    bool check=all_integers(temp);
+    return check;
+}
+
+
+
+
+
+
+bool object_one::check_availability_of_attribute27(short& temp)
+{
+    if(get<0>(sofaa[temp-1])==true) return false;
+    return true;
+}
+
+
+
+
+
+
+void object_one::reset_three_dimensional_object27()
+{
+    _3dc.clear();
+    for(short i=0;i<sofaa.size();i++)
+    {
+        get<0>(sofaa[i])=false;
+    }
+}
+
+
+
+
+
+void object_one::object_display_in_phase_two27()
+{
+    gxy(0,28);
+    sfc(lc);cout<<name_of_object;sfc(ww);
+    if(test_cases==0){ cout<<" (no copies) \n"; }
+    else { printf(" (T=");cout<<test_cases<<")\n"; }
+    if(test_cases!=0) {printf("T\n");}
+    for(short i=0;i<_3dc.size();i++)
+    {
+        for(short j=0;j<_3dc[i].size();j++)
+        {
+            if(_3dc[i][j].first<0) sfc(ly);
+            else if(_3dc[i][j].first>0) sfc(lg);
+            cout<<_3dc[i][j].second<<" ";sfc(ww);
+        }
+        if(i==(_3dc.size()-1)) break;
+        cout<<"\n";
+    }
+    string s1="Acurrent_pointer";s1[0]-=38;
+    sfc(lr);cout<<s1;sfc(ww);
+}
+
+
+
+
+
+
+void object_one::object_display_in_phase_three308()
+{
+    gxy(0,5);
+    printf("This is the structure of your object\n");
+    sfc(lc);cout<<name_of_object;sfc(ww);
+    if(test_cases==0){ cout<<" (no copies) \n"; }
+    else { printf(" (T=");cout<<test_cases<<" copies)\n"; }
+    if(test_cases!=0) {printf("T\n");}
+    for(short i=0;i<_3dc.size();i++)
+    {
+        for(short j=0;j<_3dc[i].size();j++)
+        {
+            if(_3dc[i][j].first<0) sfc(ly);
+            else if(_3dc[i][j].first>0) sfc(lg);
+            cout<<_3dc[i][j].second<<" ";sfc(ww);
+        }
+        printf("\n");
+    }sbc(dr);
+    printf("\n\nMESSAGE BOX\n");sbc(bb);
+    printf("You have successfully completed the three phases\n");
+    printf("Now you are just one final phase away to generate your test cases\n");
+    printf("\n\n  Type ");sfc(lr);printf("rep");sfc(ww);
+    printf(" and ");sbc(dr);printf("ENTER");sbc(bb);printf(" to reposition your object");
+    printf("\n\n  Type ");sfc(lg);printf("con");sfc(ww);
+    printf(" and ");sbc(dr);printf("ENTER");sbc(bb);printf(" to continue...");
+    printf("\n\nEnter your choice ->  ");
+}
+
+
+
+
+
+
+void object_one::object_display_in_phase_three38()
+{
+    gxy(2,3);sbc(dy);printf("PHASE FOUR");sbc(bb);printf("-> Giving Values to ATTRIBUTES");
+    gxy(0,5);printf("This is the structure of your object\n");
+    sfc(lc);cout<<name_of_object;sfc(ww);
+    if(test_cases==0){ cout<<" (no copies) \n"; }
+    else { printf(" (T=");cout<<test_cases<<" copies)\n"; }
+    if(test_cases!=0) {printf("T\n");}
+    for(short i=0;i<_3dc.size();i++)
+    {
+        for(short j=0;j<_3dc[i].size();j++)
+        {
+            if(_3dc[i][j].first<0) sfc(ly);
+            else if(_3dc[i][j].first>0) sfc(lg);
+            cout<<_3dc[i][j].second<<" ";sfc(ww);
+        }
+        printf("\n");
+    }
+}
+
+
+
+
+
+
 
 void object_one::delete_all_containers()     ////phase and state yet to be decided.................................................................................
 {
+    for(short i=0;i<containers.size();i++) { sofaa.pop_back(); }
     containers.clear();
     print_containers.clear();
     sofc.clear();
@@ -853,128 +1398,65 @@ void object_one::main_controller()    // main controller function
         // state 0
         if(state=="state0")  // name the object
         {
-            system("cls");
-            otom_phase00();
-            cin>>choice1;
+            system("cls"); otom_phase00(); cin>>choice1;
             if(choice1=="min") break;
             else if(choice1=="und") {mm(5);getch();}
             else if(choice1=="exe") { break; }
             else if(choice1.size()>10) {system("cls");otom_phase00();mm(6);getch();continue;}
-            else
-            { name_the_object00(); }
+            else { name_the_object00(); }
         }
 
         // state1
         if(state=="state1")   // does it have test cases
         {
-            system("cls");
-            otom_phase01(name_of_object);
-            cin>>choice1;
+            system("cls"); otom_phase01(name_of_object); cin>>choice1;
             if(choice1=="min") break;
-            else if(choice1=="und")
-            {
-                unoi.pop_back();
-                state="state0";
-                continue;
-            }
+            else if(choice1=="und") { unoi.pop_back(); state="state0"; continue; }
             else if(choice1=="exe") { break; }
-            else if(choice1=="yes")
-            {
-                state="state2";
-            }
-            else if(choice1=="no")
-            {
-                state="state03_message";
-            }
+            else if(choice1=="yes") { state="state2"; }
+            else if(choice1=="no") { state="state03_message"; }
             else { system("cls"); otom_phase01(name_of_object); mm(2); }
         }
 
         // state 2
         if(state=="state2")     // if yes, how many
         {
-            system("cls");
-            otom_phase02(name_of_object);
-            cin>>choice1;
+            system("cls"); otom_phase02(name_of_object); cin>>choice1;
             if(choice1=="min") break;
-            else if(choice1=="und")
-            {
-                state="state1";
-                continue;
-            }
+            else if(choice1=="und") { state="state1"; continue; }
             else if(choice1=="exe") { break; }
             else
             {
                 bool check=check_the_test_case_range02(choice1);
-                if(check==false)
-                {
-                    system("cls");
-                    otom_phase02(name_of_object);
-                    mm(9);mm(2);
-                    continue;
-                }
+                if(check==false) { system("cls"); otom_phase02(name_of_object); mm(9);mm(2); continue; }
                 ll int_checker=string_to_integer_converter(choice1);
-                if(int_checker<=0||int_checker>1000000)
-                {
-                    system("cls");
-                    otom_phase02(name_of_object);
-                    mm(9);mm(2);
-                    continue;
-                }
-                else
-                {
-                    test_cases=string_to_integer_converter(choice1);
-                    state="state03_message";
-                }
+                if(int_checker<=0||int_checker>1000000) { system("cls"); otom_phase02(name_of_object); mm(9);mm(2); continue; }
+                else { test_cases=string_to_integer_converter(choice1); state="state03_message"; }
             }
         }
 
 
-
+        // state 03_message
         if(state=="state03_message")
         {
-            system("cls");
-            mm(20);getch();
-            state="state3";
+            system("cls"); mm(20);getch(); state="state3";
         }
 
         // phase 1 starts from here
         // state 3                           how many initializers does it have
         if(state=="state3")
         {
-            system("cls");
-            otom_phase13(name_of_object,test_cases);
-            cin>>choice1;
+            system("cls"); otom_phase13(name_of_object,test_cases); cin>>choice1;
             if(choice1=="min") break;
-            else if(choice1=="und")
-            {
-                state="state1";
-                test_cases=1;
-                continue;
-            }
+            else if(choice1=="und") { state="state1"; test_cases=0; continue; }
             else if(choice1=="exe") { break; }
             else
             {
                 bool check=check_the_initializers_choice_range13(choice1);
-                if(check==false)
-                {
-                    system("cls");
-                    otom_phase13(name_of_object,test_cases);
-                    mm(11);mm(2);
-                    continue;
-                }
+                if(check==false) { system("cls"); otom_phase13(name_of_object,test_cases); mm(11);mm(2); continue; }
                 ll int_checker=string_to_integer_converter(choice1);
-                if(int_checker>10)
-                {
-                    system("cls");
-                    otom_phase13(name_of_object,test_cases);
-                    mm(11);mm(2);
-                    continue;
-                }
-                else
-                {
-                    no_of_initializers=string_to_integer_converter(choice1);
-                    state="state4";
-                }
+                if(int_checker>10) { system("cls"); otom_phase13(name_of_object,test_cases); mm(11);mm(2); continue; }
+                else { no_of_initializers=string_to_integer_converter(choice1); state="state4"; }
 
               }
         }
@@ -995,24 +1477,16 @@ void object_one::main_controller()    // main controller function
                 else if(choice1=="und")
                 {
                     if(i==1) break;
-                    else { unoi.pop_back();i-=2;continue; }
+                    else { unoi.pop_back();sofi.pop_back();++incrementer;i-=2;continue; }
                 }
                 else
                 {
                     bool check=valid_length_of_initializers14();
-                    if(check==false)
-                    {
-                        mm(13);getch();--i;continue;
-                    }
+                    if(check==false) { mm(13);getch();--i;continue; }
                     check=check_if_identifier_exist(); // general for all
-                    if(check==false)
-                    {
-                        mm(14);getch();--i;continue;
-                    }
+                    if(check==false) { mm(14);getch();--i;continue; }
                     unoi.push_back(choice1);
-                    pair <short,string> p1;
-                    p1=make_pair(--incrementer,choice1);
-                    sofi.push_back(p1);
+                    sofi.push_back(make_pair(--incrementer,choice1));
                 }
             }
 
@@ -1033,63 +1507,41 @@ void object_one::main_controller()    // main controller function
         // state 5                how many containers dose it have
         if(state=="state5")
         {
-            system("cls");
-            otom_phase15_1(name_of_object,test_cases,unoi);
-            cin>>choice1;
+            system("cls"); otom_phase15_1(name_of_object,test_cases,unoi); cin>>choice1;
             if(choice1=="min") break;
-            else if(choice1=="und")
-            {
-                delete_all_initializers15();
-                state="state4";continue;
-            }
+            else if(choice1=="und") { delete_all_initializers15(); state="state4";continue; }
             else if(choice1=="exe") { break; }
             else
             {
                 bool check=check_the_initializers_choice_range13(choice1);  // same functionality, so using this function
-                if(check==false)
-                {
-                    system("cls");
-                    otom_phase15_1(name_of_object,test_cases,unoi);
-                    mm(16);mm(2);
-                    continue;
-                }
+                if(check==false) { system("cls"); otom_phase15_1(name_of_object,test_cases,unoi); mm(16);mm(2); continue; }
                 ll int_checker=string_to_integer_converter(choice1);
                 if(int_checker<=0 || int_checker>10)
                 {
-                    system("cls");
-                    otom_phase15_1(name_of_object,test_cases,unoi);
-                    mm(16);mm(2);
-                    continue;
+                    system("cls"); otom_phase15_1(name_of_object,test_cases,unoi); mm(16);mm(2); continue;
                 }
                 else
                 {
-                    no_of_containers=string_to_integer_converter(choice1);
-                    state="state6";
+                    no_of_containers=string_to_integer_converter(choice1); state="state6";
                 }
-
-              }
+            }
         }
 
 
-        // state 6
+        // state 6                   type of containers
         if(state=="state6")
         {
 
             for(short i=1;i<=no_of_containers;i++)
             {
-                system("cls");
-                otom_phase16_1(name_of_object,test_cases,unoi,no_of_initializers,print_containers);mm(1);
-                cin>>choice1;
+                system("cls"); otom_phase16_1(name_of_object,test_cases,unoi,no_of_initializers,print_containers);mm(1); cin>>choice1;
                 if(choice1=="min") break;
                 else if(choice1=="und")
                 {
                     if(i==1) { break; }
                     else
                     {
-                        containers.pop_back();
-                        print_containers.pop_back();
-                        sofc.pop_back();i-=2;
-                        continue;
+                        containers.pop_back(); print_containers.pop_back(); sofc.pop_back();i-=2; continue;
                     }
                 }
                 else if(choice1=="exe") { break; }
@@ -1098,87 +1550,3204 @@ void object_one::main_controller()    // main controller function
                     bool check=check_the_initializers_choice_range13(choice1);   // same functionality so using this function again
                     if(check==false)
                         {
-                            system("cls");
-                            otom_phase16_1(name_of_object,test_cases,unoi,no_of_initializers,print_containers);
-                            mm(2);--i;
-                            continue;
+                            system("cls"); otom_phase16_1(name_of_object,test_cases,unoi,no_of_initializers,print_containers); mm(2);--i; continue;
                         }
                     ll int_checker=string_to_integer_converter(choice1);
                     if(int_checker<=0 || int_checker>=9)
                         {
-                            system("cls");
-                            otom_phase16_1(name_of_object,test_cases,unoi,no_of_initializers,print_containers);
-                            mm(2);--i;
-                            continue;
+                            system("cls"); otom_phase16_1(name_of_object,test_cases,unoi,no_of_initializers,print_containers); mm(2);--i; continue;
                         }
                     else
                         {
                             string name_of_container=type_of_container16(int_checker);
                             sofc.push_back(name_of_container);
                             short nth_number_of_container=count_nth_container16(name_of_container);
+                            containers.push_back(make_pair(int_checker,name_of_container));
                             pair <short,string> p1;
                             p1=make_pair(nth_number_of_container,name_of_container);
-                            //p1.first=nth_number_of_container;
-                            //p1.second=name_of_container;
-                            containers.push_back(p1);
                             get_correct_print_container16(p1);
                             print_containers.push_back(p1);
                         }
                  }
             }
-
-
             if(choice1=="min") break;
-            else if(choice1=="und")
-            {
-                //delete_all_containers16();
-                state="state5";continue;
-            }
+            else if(choice1=="und") { state="state5";continue; }
             else if(choice1=="exe") { break; }
             state="state07";
         }
 
 
-
+        // state 07 message and build
         if(state=="state07")
         {
-            system("cls");
-            mm(19);
-            getch();
-            state="state7";
+            system("cls"); mm(19); getch(); build_set_of_all_attributes207(); state="state7";
         }
 
 
 
-        // phase 3 state 7
+        // phase 2 state 7                positioning of attributes
         if(state=="state7")
         {
-            cout<<"Reached successfully\n";
+            short elements=sofaa.size();
+            vector <pair<short,string>> null_object;
+            null_object.push_back(make_pair(0,""));
+            _3dc.push_back(null_object);
+            while(true)
+            {
+                vector <pair<short,string>> dummy_3dc;
+                while(true)
+                {
+                    if(elements==0) break;
+                    system("cls");
+                    otom_phase27_1(sofaa,no_of_initializers);
+                    object_display_in_phase_two27();mm(0);
+                    cin>>choice1;
+                    if(choice1=="min") break;
+                    else if(choice1=="exe") break;
+                    else if(choice1=="rep") break;
+                    else if(choice1=="nex")
+                    {
+                        if(dummy_3dc.size()==0) { mm(23);continue; }
+                        else
+                        {
+                            _3dc.push_back(null_object); break;
+                        }
+                    }
+                    else
+                    {
+                        bool check=check_the_attribute_choice_range27(choice1);
+                        if(check==false) { mm(21);continue; }
+                        short int_checker=string_to_integer_converter(choice1);
+                        if(int_checker<=0||int_checker>sofaa.size())  { mm(21);continue; }
+                        check=check_availability_of_attribute27(int_checker);
+                        if(check==false) { mm(22);continue; }
+                        dummy_3dc.push_back(make_pair(get<1>(sofaa[int_checker-1]),get<3>(sofaa[int_checker-1])));
+                        get<0>(sofaa[int_checker-1])=true;
+                        --elements;  _3dc.pop_back();  _3dc.push_back(dummy_3dc);
+                    }
+                }
+                if(elements==0) {state="state08";break; }
+                if(choice1=="min") break;
+                else if(choice1=="exe") break;
+                else if(choice1=="rep") { reset_three_dimensional_object27();break; }
+            }
+            if(choice1=="min") break;
+            else if(choice1=="exe") break;
+        }
 
 
-            //vector <tuple<bool,short,short,string>> set_of_all_attributes;  // short_name -> sofaa
-            incrementer=0;
-            short incrementer2=0;
-            for(short i=0;i<sofi.size();i++)
+
+
+        // phase 3 state 08                 giving values to object
+        if(state=="state08")
+        {
+            system("cls"); header();jump_to_main(); object_display_in_phase_three308(); cin>>choice1;
+            if(choice1=="min" || choice1=="exe") break;
+            if(choice1=="con")
             {
-                cout<<sofi[i].first<<"  "<<sofi[i].second<<"\n";
+                state="state8";
+                for(short i=0;i<_3dc.size();i++)
+                {
+                    vector <bool> vv;
+                    for(short j=0;j<_3dc[i].size();j++)
+                    {
+                        vector <string> vv2; vv.push_back(false);
+                        short ch=_3dc[i][j].first;
+                        switch(ch)
+                        {
+                            case 1:  // INTEGER
+                                {
+                                    vv2.push_back("~");vv2.push_back("~");vv2.push_back("~"); break;
+                                }
+                            case 2:  // REAL
+                                {
+                                     vv2.push_back("~");vv2.push_back("~");vv2.push_back("~"); break;
+                                }
+                            case 3:  //  ARRAY
+                                {
+                                     vv2.push_back("~");vv2.push_back("~");vv2.push_back("~");
+                                     vv2.push_back("~");vv2.push_back("~");vv2.push_back("~");vv2.push_back("~"); break;
+                                }
+                            case 4:  //  STRING
+                                {
+                                    vv2.push_back("~");vv2.push_back("~");vv2.push_back("~");vv2.push_back("~");vv2.push_back("~"); break;
+                                }
+                            case 5:  //  MATRIX
+                                {
+                                    vv2.push_back("~");vv2.push_back("~");vv2.push_back("~");vv2.push_back("~");vv2.push_back("~");
+                                    vv2.push_back("~");vv2.push_back("~");vv2.push_back("~"); break;
+                                }
+                            case 6:  //  TREE
+                                {
+                                    vv2.push_back("~"); break;
+                                }
+                            case 7:  //  GRAPH
+                                {
+                                    vv2.push_back("~"); break;
+                                }
+                            case 8:  // CUSTOM DATA TYPE
+                                {
+                                    vv2.push_back("~");vv2.push_back("~"); break;
+                                }
+                            default:  //  INITIALIZERS
+                                {
+                                    vv2.push_back("~");vv2.push_back("~");
+                                }
+                            }
+                            s2_3dc.push_back(vv2);
+                        }
+                        s_3dc.push_back(vv);
+                    }
+                    continue;
             }
-            for(short i=0;i<sofi.size();i++)
+            if(choice1=="rep") { state="state7"; reset_three_dimensional_object27(); }
+            else  {  printf("\nEnter a valid choice, now press ");sbc(dr);printf("ENTER");sbc(bb);printf(" to continue");getch();  }
+        }
+
+
+
+        // state 8
+        if(state=="state8")             //  DEFINE FOLLOWING VALUES OF ATTRIBUTES
+        {
+            system("cls"); header();jump_to_main(); object_display_in_phase_three38();
+            printf("\n\nDEFINE FOLLOWING VALUES OF ATTRIBUTES\n\n");
+            short start=0;
+            for(short i=0;i<_3dc.size();i++)
+            {   int tr=0;
+                for(short j=0;j<_3dc[i].size();j++)
+                {
+                    if(s_3dc[i][j]==true)
+                    {
+                        cout<<(++start)<<". ";printf(" Attribute values saved for ");
+                        if(_3dc[i][j].first<0) { sfc(ly);cout<<_3dc[i][j].second<<" \n";sfc(ww); }
+                        else { sfc(lg);cout<<_3dc[i][j].second<<" \n";sfc(ww); }
+                        if((i==_3dc.size()-1)&&(j==_3dc[i].size()-1)) { state="state9"; break; }
+                        continue;
+                    }
+                    short ch=_3dc[i][j].first;printf("\n\n\n");
+                    switch(ch)
+                    {
+                    case 1:    // INTEGER CLASS
+                        {
+                            cout<<"  "<<(++start)<<". ";
+                            sfc(lg);cout<<_3dc[i][j].second;sfc(lc);cout<<" [CLASS INTEGER]";sfc(ww);
+                            string integer_choice;
+                            if(s2_3dc[start-1][0]=="~")
+                            {
+                                mm(24); cin>>choice1;
+                                if(choice1=="min") break;
+                                else if(choice1=="exe") break;
+                                if(choice1=="1" || choice1=="2" || choice1=="3" || choice1=="4" || choice1=="5" || choice1=="6" || choice1=="7" || choice1=="8")
+                                {
+                                    integer_choice=choice1;
+                                    s2_3dc[start-1][0]=integer_choice;
+                                    short store=string_to_integer_converter(choice1);
+                                    dummy_o3dc.push_back(make_pair(1,"int"));
+                                    dummy_o3dc.push_back(make_pair(store,integer_choice)); break;
+                                }
+                                mm(36); getch(); break;
+                            }
+                            else { integer_choice=s2_3dc[start-1][0]; }
+                            if(integer_choice=="1")
+                            {
+                                printf("\n\n  Enter following details for");sfc(lm);printf("  [RANDOM NUMBER] ");sfc(ww);
+                                if(s2_3dc[start-1][1]=="~")
+                                {
+                                    mm(25); string min_value; cin>>choice1;
+                                    if(choice1=="min") break;
+                                    else if(choice1=="exe") break;
+                                    bool check=valid_pos_neg_integer(choice1);
+                                    if(check==false) { mm(37); getch();break; }
+                                    ll store=string_to_integer_converter(choice1); min_value=choice1;
+                                    s2_3dc[start-1][1]=min_value;
+                                    dummy_o3dc.push_back(make_pair(store,min_value)); break;
+                                }
+                                if(s2_3dc[start-1][2]=="~")
+                                {
+                                    mm(26); string max_value; cin>>choice1;
+                                    if(choice1=="min") break;
+                                    else if(choice1=="exe") break;
+                                    bool check=valid_pos_neg_integer(choice1);
+                                    if(check==false) { mm(37); getch();break; }
+                                    ll store1=string_to_integer_converter(choice1);
+                                    ll store2=string_to_integer_converter(s2_3dc[start-1][1]);
+                                    if(store1<store2) { mm(38); getch();break; }
+                                    max_value=choice1; s2_3dc[start-1][2]=max_value;
+                                    dummy_o3dc.push_back(make_pair(store1,max_value));
+                                    dummy2_o3dc.push_back(dummy_o3dc);
+                                    dummy_o3dc.clear(); s_3dc[i][j]=true; break;
+                                }
+                            }
+                            else if(integer_choice=="2")
+                            {
+                                printf("\n\n  Enter following details for");sfc(lm);printf("  [ODD NUMBER] ");sfc(ww);
+                                if(s2_3dc[start-1][1]=="~")
+                                {
+                                    mm(25); string min_value; cin>>choice1;
+                                    if(choice1=="min") break;
+                                    else if(choice1=="exe") break;
+                                    bool check=valid_pos_neg_integer(choice1);
+                                    if(check==false) { mm(37); getch();break; }
+                                    ll store=string_to_integer_converter(choice1);
+                                    min_value=choice1; s2_3dc[start-1][1]=min_value;
+                                    dummy_o3dc.push_back(make_pair(store,min_value));  break;
+                                }
+                                if(s2_3dc[start-1][2]=="~")
+                                {
+                                    mm(26); string max_value; cin>>choice1;
+                                    if(choice1=="min") break;
+                                    else if(choice1=="exe") break;
+                                    bool check=valid_pos_neg_integer(choice1);
+                                    if(check==false) { mm(37); getch();break; }
+                                    ll store1=string_to_integer_converter(choice1);
+                                    ll store2=string_to_integer_converter(s2_3dc[start-1][1]);
+                                    if(store1<store2) { mm(38); getch();break; }
+                                    check=check_odd_exist(store2,store1);
+                                    if(check==false) { mm(39); getch();break; }
+                                    max_value=choice1; s2_3dc[start-1][2]=max_value;
+                                    dummy_o3dc.push_back(make_pair(store1,max_value));
+                                    dummy2_o3dc.push_back(dummy_o3dc);
+                                    dummy_o3dc.clear(); s_3dc[i][j]=true; break;
+                                }
+                            }
+                             else if(integer_choice=="3")
+                            {
+                                printf("\n\n  Enter following details for");sfc(lm);printf("  [EVEN NUMBER] ");sfc(ww);
+                                if(s2_3dc[start-1][1]=="~")
+                                {
+                                    mm(25); string min_value; cin>>choice1;
+                                    if(choice1=="min") break;
+                                    else if(choice1=="exe") break;
+                                    bool check=valid_pos_neg_integer(choice1);
+                                    if(check==false) { mm(37); getch();break; }
+                                    ll store=string_to_integer_converter(choice1);
+                                    min_value=choice1; s2_3dc[start-1][1]=min_value;
+                                    dummy_o3dc.push_back(make_pair(store,min_value));  break;
+                                }
+                                if(s2_3dc[start-1][2]=="~")
+                                {
+                                    mm(26); string max_value; cin>>choice1;
+                                    if(choice1=="min") break;
+                                    else if(choice1=="exe") break;
+                                    bool check=valid_pos_neg_integer(choice1);
+                                    if(check==false) { mm(37); getch();break; }
+                                    ll store1=string_to_integer_converter(choice1);
+                                    ll store2=string_to_integer_converter(s2_3dc[start-1][1]);
+                                    if(store1<store2) { mm(38); getch();break; }
+                                    check=check_even_exist(store2,store1);
+                                    if(check==false) { mm(40); getch();break; }
+                                    max_value=choice1; s2_3dc[start-1][2]=max_value;
+                                    dummy_o3dc.push_back(make_pair(store1,max_value));
+                                    dummy2_o3dc.push_back(dummy_o3dc);
+                                    dummy_o3dc.clear(); s_3dc[i][j]=true; break;
+                                }
+                            }
+                             else if(integer_choice=="4")
+                            {
+                                printf("\n\n  Enter following details for");sfc(lm);printf("  [PRIME NUMBER] ");sfc(ww);
+                                if(s2_3dc[start-1][1]=="~")
+                                {
+                                    mm(27); string min_value; cin>>choice1;
+                                    if(choice1=="min") break;
+                                    else if(choice1=="exe") break;
+                                    bool check=valid_pos_neg_integer(choice1);
+                                    if(check==false) { mm(37); getch();break; }
+                                    ll store=string_to_integer_converter(choice1);
+                                    if(store<2 || store>10000000) { mm(37); getch();break; }
+                                    min_value=choice1; s2_3dc[start-1][1]=min_value;
+                                    dummy_o3dc.push_back(make_pair(store,min_value));  break;
+                                }
+                                if(s2_3dc[start-1][2]=="~")
+                                {
+                                    mm(28); string max_value; cin>>choice1;
+                                    if(choice1=="min") break;
+                                    else if(choice1=="exe") break;
+                                    bool check=valid_pos_neg_integer(choice1);
+                                    if(check==false) { mm(37); getch();break; }
+                                    ll store1=string_to_integer_converter(choice1);
+                                    ll store2=string_to_integer_converter(s2_3dc[start-1][1]);
+                                    if(store1<2 || store1>10000000) { mm(37); getch();break; }
+                                    if(store1<store2) { mm(38); getch();break; }
+                                    check=check_prime_exist(store2,store1);
+                                    if(check==false) { mm(41); getch();break; }
+                                    max_value=choice1; s2_3dc[start-1][2]=max_value;
+                                    dummy_o3dc.push_back(make_pair(store1,max_value));
+                                    dummy_o3dc.push_back(make_pair(test_cases,"<-size"));
+                                    dummy_o3dc.push_back(make_pair(0,"<-current_pointer"));
+                                    dummy2_o3dc.push_back(dummy_o3dc);
+                                    dummy_o3dc.clear(); s_3dc[i][j]=true; break;
+                                }
+                            }
+                             else if(integer_choice=="5")
+                            {
+                                printf("\n\n  Enter following details for");sfc(lm);printf("  [NON PRIME NUMBER] ");sfc(ww);
+                                if(s2_3dc[start-1][1]=="~")
+                                {
+                                    mm(29); string min_value; cin>>choice1;
+                                    if(choice1=="min") break;
+                                    else if(choice1=="exe") break;
+                                    bool check=valid_pos_neg_integer(choice1);
+                                    if(check==false) { mm(37); getch();break; }
+                                    ll store=string_to_integer_converter(choice1);
+                                    if(store<1 || store>1000000000000) { mm(37); getch();break; }
+                                    min_value=choice1; s2_3dc[start-1][1]=min_value;
+                                    dummy_o3dc.push_back(make_pair(store,min_value));  break;
+                                }
+                                if(s2_3dc[start-1][2]=="~")
+                                {
+                                    mm(30);string max_value; cin>>choice1;
+                                    if(choice1=="min") break;
+                                    else if(choice1=="exe") break;
+                                    bool check=valid_pos_neg_integer(choice1);
+                                    if(check==false) { mm(37); getch();break; }
+                                    ll store1=string_to_integer_converter(choice1);
+                                    ll store2=string_to_integer_converter(s2_3dc[start-1][1]);
+                                    if(store1<1 || store1>1000000000000) { mm(37); getch();break; }
+                                    if(store1<store2) { mm(38); getch();break; }
+                                    check=check_non_prime_exist(store2,store1);
+                                    if(check==false) { mm(42); getch();break; }
+                                    max_value=choice1; s2_3dc[start-1][2]=max_value;
+                                    dummy_o3dc.push_back(make_pair(store1,max_value));
+                                    dummy2_o3dc.push_back(dummy_o3dc);
+                                    dummy_o3dc.clear(); s_3dc[i][j]=true; break;
+                                }
+                            }
+                             else if(integer_choice=="6")
+                            {
+                                printf("\n\n  Enter following details for");sfc(lm);printf("  [INCREMENTED NUMBER] ");sfc(ww);
+                                if(s2_3dc[start-1][1]=="~")
+                                {
+                                    mm(31); string starting_value; cin>>choice1;
+                                    if(choice1=="min") break;
+                                    else if(choice1=="exe") break;
+                                    bool check=valid_pos_neg_integer(choice1);
+                                    if(check==false) { mm(37); getch();break; }
+                                    ll store=string_to_integer_converter(choice1);
+                                    starting_value=choice1; s2_3dc[start-1][1]=starting_value;
+                                    dummy_o3dc.push_back(make_pair(store,starting_value)); break;
+                                }
+                                if(s2_3dc[start-1][2]=="~")
+                                {
+                                    mm(32);string increment_value; cin>>choice1;
+                                    if(choice1=="min") break;
+                                    else if(choice1=="exe") break;
+                                    bool check=valid_pos_neg_integer(choice1);
+                                    if(check==false) { mm(37); getch();break; }
+                                    ll store=string_to_integer_converter(choice1); increment_value=choice1; s2_3dc[start-1][2]=increment_value;
+                                    dummy_o3dc.push_back(make_pair(store,increment_value));
+                                    dummy2_o3dc.push_back(dummy_o3dc);
+                                    dummy_o3dc.clear(); s_3dc[i][j]=true; break;
+                                }
+                            }
+                             else if(integer_choice=="7")
+                            {
+                                printf("\n\n  Enter following details for");sfc(lm);printf("  [Nth FIBONACCI NUMBER] ");sfc(ww);
+                                if(s2_3dc[start-1][1]=="~")
+                                {
+                                    mm(33); string min_value; cin>>choice1;
+                                    if(choice1=="min") break;
+                                    else if(choice1=="exe") break;
+                                    bool check=valid_pos_neg_integer(choice1);
+                                    if(check==false) { mm(37); getch();break; }
+                                    ll store=string_to_integer_converter(choice1);
+                                    if(store<1 || store>93) { mm(37); getch();break; }
+                                    min_value=choice1; s2_3dc[start-1][1]=min_value;
+                                    dummy_o3dc.push_back(make_pair(store,min_value));  break;
+                                }
+                                if(s2_3dc[start-1][2]=="~")
+                                {
+                                    mm(34); string max_value; cin>>choice1;
+                                    if(choice1=="min") break;
+                                    else if(choice1=="exe") break;
+                                    bool check=valid_pos_neg_integer(choice1);
+                                    if(check==false) { mm(37); getch();break; }
+                                    ll store1=string_to_integer_converter(choice1);
+                                    ll store2=string_to_integer_converter(s2_3dc[start-1][1]);
+                                    if(store1<1 || store1>93) { mm(37); getch();break; }
+                                    if(store1<store2) { mm(38); getch();break; }
+                                    max_value=choice1; s2_3dc[start-1][2]=max_value;
+                                    dummy_o3dc.push_back(make_pair(store1,max_value));
+                                    dummy_o3dc.push_back(make_pair(test_cases,"<-size"));
+                                    dummy_o3dc.push_back(make_pair(0,"<-current_pointer"));
+                                    dummy2_o3dc.push_back(dummy_o3dc);
+                                    dummy_o3dc.clear(); s_3dc[i][j]=true; break;
+                                }
+                            }
+                             else if(integer_choice=="8")
+                            {
+                                printf("\n\n  Enter following details for");sfc(lm);printf("  [GET-ALL-UNIQUE-RANDOM NUMBER] ");sfc(ww);
+                                if(s2_3dc[start-1][1]=="~")
+                                {
+                                    mm(25); string min_value; cin>>choice1;
+                                    if(choice1=="min") break;
+                                    else if(choice1=="exe") break;
+                                    bool check=valid_pos_neg_integer(choice1);
+                                    if(check==false) { mm(37); getch();break; }
+                                    ll store=string_to_integer_converter(choice1);
+                                    min_value=choice1; s2_3dc[start-1][1]=min_value;
+                                    dummy_o3dc.push_back(make_pair(store,min_value));  break;
+                                }
+                                if(s2_3dc[start-1][2]=="~")
+                                {
+                                    mm(26); string max_value; cin>>choice1;
+                                    if(choice1=="min") break;
+                                    else if(choice1=="exe") break;
+                                    bool check=valid_pos_neg_integer(choice1);
+                                    if(check==false) { mm(37); getch();break; }
+                                    ll store1=string_to_integer_converter(choice1);
+                                    ll store2=string_to_integer_converter(s2_3dc[start-1][1]);
+                                    if(store1<store2) { mm(38); getch();break; }
+                                    if(test_cases>(store1-store2+1))
+                                    {
+                                           cout<<"\n\n  You wish to create "<<test_cases<<" No. of Test Cases.";
+                                           cout<<"\n  However, only "<<(store1-store2+1)<<" Unique No. exist in range provided by you.";
+                                           printf("\n\n  You are advised to enlarge your range");
+                                           printf("\n\n   press ");sbc(dr);sfc(lr);printf(" ENTER ");sbc(bb);sfc(ww);printf(" to change Maximum value"); getch();break;
+                                    }
+                                    max_value=choice1; s2_3dc[start-1][2]=max_value;
+                                    dummy_o3dc.push_back(make_pair(store1,max_value));
+                                    dummy_o3dc.push_back(make_pair(test_cases,"<-size"));
+                                    dummy_o3dc.push_back(make_pair(0,"<-current_pointer"));
+                                    dummy2_o3dc.push_back(dummy_o3dc);
+                                    dummy_o3dc.clear(); s_3dc[i][j]=true; break;
+                                }
+                            }
+                            else
+                            {
+                                printf("\nPLEASE ENTER A VALID CHOICE\nNow press ");sbc(dr);printf(" ENTER ");sbc(bb);printf(" to continue");
+                                s2_3dc[start-1][0]="~";getch();
+                            }
+                            sbc(bb);sfc(ww);
+                            break;
+                        }
+
+                    case 2:    // REAL CLASS
+                        {
+                            cout<<"  "<<(++start)<<". ";
+                            sfc(lg);cout<<_3dc[i][j].second;sfc(lc);cout<<" [CLASS REAL]";sfc(ww);
+                            if(s2_3dc[start-1][0]=="~")
+                                {
+                                    mm(43); string precision; cin>>choice1;
+                                    if(choice1=="min") break;
+                                    else if(choice1=="exe") break;
+                                    bool check=valid_pos_neg_integer(choice1);
+                                    if(check==false) { mm(37); getch();break; }
+                                    ll store=string_to_integer_converter(choice1);
+                                    if(store<0 || store>100) { mm(37); getch();break; }
+                                    precision=choice1; s2_3dc[start-1][0]=precision;
+                                    dummy_o3dc.push_back(make_pair(2,"rel"));
+                                    dummy_o3dc.push_back(make_pair(store,precision));  break;
+                                }
+                            if(s2_3dc[start-1][1]=="~")
+                                {
+                                    mm(25); string min_value; cin>>choice1;
+                                    if(choice1=="min") break;
+                                    else if(choice1=="exe") break;
+                                    bool check=valid_pos_neg_integer(choice1);
+                                    if(check==false) { mm(37); getch();break; }
+                                    ll store=string_to_integer_converter(choice1);
+                                    min_value=choice1; s2_3dc[start-1][1]=min_value;
+                                    dummy_o3dc.push_back(make_pair(store,min_value));  break;
+                                }
+                            if(s2_3dc[start-1][2]=="~")
+                                {
+                                    mm(26); string max_value; cin>>choice1;
+                                    if(choice1=="min") break;
+                                    else if(choice1=="exe") break;
+                                    bool check=valid_pos_neg_integer(choice1);
+                                    if(check==false) { mm(37); getch();break; }
+                                    ll store1=string_to_integer_converter(choice1);
+                                    ll store2=string_to_integer_converter(s2_3dc[start-1][1]);
+                                    if(store1==store2) { mm(44); getch();break; }//  ( Note -> Max_value-Min_value >=1 )
+                                    if(store1<store2) { mm(38); getch();break; }
+                                    max_value=choice1; s2_3dc[start-1][2]=max_value;
+                                    dummy_o3dc.push_back(make_pair(store1,max_value));
+                                    dummy2_o3dc.push_back(dummy_o3dc);
+                                    dummy_o3dc.clear(); s_3dc[i][j]=true; break;
+                                }
+                        }
+
+                    case 3:    // ARRAY CLASS
+                        {
+                            cout<<"  "<<(++start)<<". ";
+                            sfc(lg);cout<<_3dc[i][j].second;sfc(lc);cout<<" [CLASS ARRAY]";sfc(ww);
+                            if(s2_3dc[start-1][0]=="order")   //  set order in Array
+                            {
+                                mm(54); cin>>choice1;
+                                if(choice1=="min") break;
+                                else if(choice1=="exe") break;
+                                if(choice1=="1" || choice1=="2" || choice1=="3")
+                                {
+                                    short store=string_to_integer_converter(choice1);
+                                    dummy_o3dc.push_back(make_pair(store,choice1));
+                                    dummy2_o3dc.push_back(dummy_o3dc);
+                                    dummy_o3dc.clear(); s_3dc[i][j]=true; break;
+                                }
+                                mm(36); getch(); break;
+                            }
+                            if(s2_3dc[start-1][0]=="print")   // set print format in Array
+                            {
+                                mm(55); cin>>choice1;
+                                if(choice1=="min") break;
+                                else if(choice1=="exe") break;
+                                if(choice1=="1" || choice1=="2")
+                                {
+                                    s2_3dc[start-1][0]="order";
+                                    short store=string_to_integer_converter(choice1);
+                                    dummy_o3dc.push_back(make_pair(store,choice1)); break;
+                                }
+                                mm(36); getch(); break;
+                            }
+                            if(s2_3dc[start-1][0]=="printt")   // set print format for default string in Array
+                            {
+                                mm(55); cin>>choice1;
+                                if(choice1=="min") break;
+                                else if(choice1=="exe") break;
+                                if(choice1=="1" || choice1=="2")
+                                {
+                                    short store=string_to_integer_converter(choice1);
+                                    dummy_o3dc.push_back(make_pair(store,choice1));
+                                    dummy2_o3dc.push_back(dummy_o3dc);
+                                    dummy_o3dc.clear(); s_3dc[i][j]=true; break;
+                                }
+                                mm(36); getch(); break;
+                            }
+                            if(s2_3dc[start-1][0]=="~")       // set type of Array
+                            {
+                                mm(45); cin>>choice1;
+                                if(choice1=="min") break;
+                                else if(choice1=="exe") break;
+                                if(choice1=="1" || choice1=="2" || choice1=="3" || choice1=="4" || choice1=="5")
+                                {
+                                    s2_3dc[start-1][0]=choice1;
+                                    short store=string_to_integer_converter(choice1);
+                                    dummy_o3dc.push_back(make_pair(3,"arr"));
+                                    dummy_o3dc.push_back(make_pair(store,choice1)); break;
+                                }
+                                mm(36); getch(); break;
+                            }
+                            if(s2_3dc[start-1][0]=="1")       // set type of Array of  Integer
+                            {
+                                if(s2_3dc[start-1][1]=="~")  // type of integer
+                                {
+                                    mm(35); cin>>choice1;
+                                    if(choice1=="min") break;
+                                    else if(choice1=="exe") break;
+                                    if(choice1=="1" || choice1=="2" || choice1=="3" || choice1=="4" || choice1=="5" || choice1=="6" || choice1=="7")
+                                    {
+                                        s2_3dc[start-1][1]=choice1;
+                                        short store=string_to_integer_converter(choice1);
+                                        dummy_o3dc.push_back(make_pair(store,choice1)); break;
+                                    }
+                                    mm(36); getch(); break;
+                                }
+                                if(s2_3dc[start-1][1]=="1"&&s2_3dc[start-1][2]=="~")  // min value for random number
+                                {
+                                    printf("\n  Enter following details for");sfc(lm);printf(" [RANDOM NUMBERS] ");sfc(ww);
+                                    mm(25); cin>>choice1;
+                                    if(choice1=="min") break;
+                                    else if(choice1=="exe") break;
+                                    bool check=valid_pos_neg_integer(choice1);
+                                    if(check==false) { mm(37); getch();break; }
+                                    ll store=string_to_integer_converter(choice1); s2_3dc[start-1][2]=choice1;
+                                    dummy_o3dc.push_back(make_pair(store,choice1)); break;
+                                }
+                                if(s2_3dc[start-1][1]=="2"&&s2_3dc[start-1][2]=="~")  // min value for odd number
+                                {
+                                    printf("\n  Enter following details for");sfc(lm);printf(" [ODD NUMBERS] ");sfc(ww);
+                                    mm(25); cin>>choice1;
+                                    if(choice1=="min") break;
+                                    else if(choice1=="exe") break;
+                                    bool check=valid_pos_neg_integer(choice1);
+                                    if(check==false) { mm(37); getch();break; }
+                                    ll store=string_to_integer_converter(choice1); s2_3dc[start-1][2]=choice1;
+                                    dummy_o3dc.push_back(make_pair(store,choice1));  break;
+                                }
+                                if(s2_3dc[start-1][1]=="3"&&s2_3dc[start-1][2]=="~")  // min value for even number
+                                {
+                                    printf("\n  Enter following details for");sfc(lm);printf(" [EVEN NUMBERS] ");sfc(ww);
+                                    mm(25); cin>>choice1;
+                                    if(choice1=="min") break;
+                                    else if(choice1=="exe") break;
+                                    bool check=valid_pos_neg_integer(choice1);
+                                    if(check==false) { mm(37); getch();break; }
+                                    ll store=string_to_integer_converter(choice1); s2_3dc[start-1][2]=choice1;
+                                    dummy_o3dc.push_back(make_pair(store,choice1));  break;
+                                }
+                                if(s2_3dc[start-1][1]=="4"&&s2_3dc[start-1][2]=="~")  // min value for prime number
+                                {
+                                    printf("\n  Enter following details for");sfc(lm);printf(" [PRIME NUMBERS] ");sfc(ww);
+                                    mm(27); cin>>choice1;
+                                    if(choice1=="min") break;
+                                    else if(choice1=="exe") break;
+                                    bool check=valid_pos_neg_integer(choice1);
+                                    if(check==false) { mm(37); getch();break; }
+                                    ll store=string_to_integer_converter(choice1);
+                                    if(store<2 || store>10000000) { mm(37); getch();break; }
+                                    s2_3dc[start-1][2]=choice1;
+                                    dummy_o3dc.push_back(make_pair(store,choice1));  break;
+                                }
+                                if(s2_3dc[start-1][1]=="5"&&s2_3dc[start-1][2]=="~")  // min value for non prime number
+                                {
+                                    printf("\n  Enter following details for");sfc(lm);printf(" [Non Prime Numbers] ");sfc(ww);
+                                    mm(29); cin>>choice1;
+                                    if(choice1=="min") break;
+                                    else if(choice1=="exe") break;
+                                    bool check=valid_pos_neg_integer(choice1);
+                                    if(check==false) { mm(37); getch();break; }
+                                    ll store=string_to_integer_converter(choice1);
+                                    if(store<1 || store>1000000000000) { mm(37); getch();break; }
+                                    s2_3dc[start-1][2]=choice1;
+                                    dummy_o3dc.push_back(make_pair(store,choice1));  break;
+                                }
+                                if(s2_3dc[start-1][1]=="6"&&s2_3dc[start-1][2]=="~")  // starting value for incremented number
+                                {
+                                    printf("\n  Enter following details for");sfc(lm);printf(" [Incremented Numbers] ");sfc(ww);
+                                    mm(31); cin>>choice1;
+                                    if(choice1=="min") break;
+                                    else if(choice1=="exe") break;
+                                    bool check=valid_pos_neg_integer(choice1);
+                                    if(check==false) { mm(37); getch();break; }
+                                    ll store=string_to_integer_converter(choice1);
+                                    s2_3dc[start-1][2]=choice1;
+                                    dummy_o3dc.push_back(make_pair(store,choice1)); break;
+                                }
+                                if(s2_3dc[start-1][1]=="7"&&s2_3dc[start-1][2]=="~")  // min value for Nth Fibonacci number
+                                {
+                                    printf("\n  Enter following details for");sfc(lm);printf(" [FIBONACCI NUMBERS] ");sfc(ww);
+                                    mm(33); cin>>choice1;
+                                    if(choice1=="min") break;
+                                    else if(choice1=="exe") break;
+                                    bool check=valid_pos_neg_integer(choice1);
+                                    if(check==false) { mm(37); getch();break; }
+                                    ll store=string_to_integer_converter(choice1);
+                                    if(store<1 || store>93) { mm(37); getch();break; }
+                                    s2_3dc[start-1][2]=choice1;
+                                    dummy_o3dc.push_back(make_pair(store,choice1));  break;
+                                }
+                                if(s2_3dc[start-1][1]=="1"&&s2_3dc[start-1][3]=="~")  // max value for random number
+                                {
+                                    printf("\n  Enter following details for");sfc(lm);printf(" [RANDOM NUMBERS] ");sfc(ww);
+                                    mm(26);  cin>>choice1;
+                                    if(choice1=="min") break;
+                                    else if(choice1=="exe") break;
+                                    bool check=valid_pos_neg_integer(choice1);
+                                    if(check==false) { mm(37); getch();break; }
+                                    ll store1=string_to_integer_converter(choice1); ll store2=dummy_o3dc[3].first;
+                                    if(store1<store2) { mm(38); getch();break; }
+                                    s2_3dc[start-1][3]=choice1;
+                                    dummy_o3dc.push_back(make_pair(store1,choice1)); break;
+                                }
+                                if(s2_3dc[start-1][1]=="2"&&s2_3dc[start-1][3]=="~")  // max value for odd number
+                                {
+                                    printf("\n  Enter following details for");sfc(lm);printf(" [ODD NUMBERS] ");sfc(ww);
+                                    mm(26); cin>>choice1;
+                                    if(choice1=="min") break;
+                                    else if(choice1=="exe") break;
+                                    bool check=valid_pos_neg_integer(choice1);
+                                    if(check==false) { mm(37); getch();break; }
+                                    ll store1=string_to_integer_converter(choice1); ll store2=dummy_o3dc[3].first;
+                                    if(store1<store2) { mm(38); getch();break; }
+                                    check=check_odd_exist(store2,store1);
+                                    if(check==false) { mm(39); getch();break; }
+                                    s2_3dc[start-1][3]=choice1;
+                                    dummy_o3dc.push_back(make_pair(store1,choice1)); break;
+                                }
+                                if(s2_3dc[start-1][1]=="3"&&s2_3dc[start-1][3]=="~")  // max value for even number
+                                {
+                                    printf("\n  Enter following details for");sfc(lm);printf(" [EVEN NUMBERS] ");sfc(ww);
+                                    mm(26); cin>>choice1;
+                                    if(choice1=="min") break;
+                                    else if(choice1=="exe") break;
+                                    bool check=valid_pos_neg_integer(choice1);
+                                    if(check==false) { mm(37); getch();break; }
+                                    ll store1=string_to_integer_converter(choice1); ll store2=dummy_o3dc[3].first;
+                                    if(store1<store2) { mm(38); getch();break; }
+                                    check=check_even_exist(store2,store1);
+                                    if(check==false) { mm(40); getch();break; }
+                                    s2_3dc[start-1][3]=choice1;
+                                    dummy_o3dc.push_back(make_pair(store1,choice1)); break;
+                                }
+                                if(s2_3dc[start-1][1]=="4"&&s2_3dc[start-1][3]=="~")  // max value for prime number
+                                {
+                                    printf("\n  Enter following details for");sfc(lm);printf(" [PRIME NUMBERS] ");sfc(ww);
+                                    mm(28); cin>>choice1;
+                                    if(choice1=="min") break;
+                                    else if(choice1=="exe") break;
+                                    bool check=valid_pos_neg_integer(choice1);
+                                    if(check==false) { mm(37); getch();break; }
+                                    ll store1=string_to_integer_converter(choice1); ll store2=dummy_o3dc[3].first;
+                                    if(store1<2 || store1>10000000) { mm(37); getch();break; }
+                                    if(store1<store2) { mm(38); getch();break; }
+                                    check=check_prime_exist(store2,store1);
+                                    if(check==false) { mm(41); getch();break; }
+                                    s2_3dc[start-1][3]=choice1;
+                                    dummy_o3dc.push_back(make_pair(store1,choice1)); break;
+                                }
+                                if(s2_3dc[start-1][1]=="5"&&s2_3dc[start-1][3]=="~")  // max value for non prime number
+                                {
+                                    printf("\n  Enter following details for");sfc(lm);printf(" [NON PRIME NUMBERS] ");sfc(ww);
+                                    mm(30); cin>>choice1;
+                                    if(choice1=="min") break;
+                                    else if(choice1=="exe") break;
+                                    bool check=valid_pos_neg_integer(choice1);
+                                    if(check==false) { mm(37); getch();break; }
+                                    ll store1=string_to_integer_converter(choice1); ll store2=dummy_o3dc[3].first;
+                                    if(store1<1 || store1>1000000000000) { mm(37); getch();break; }
+                                    if(store1<store2) { mm(38); getch();break; }
+                                    check=check_non_prime_exist(store2,store1);
+                                    if(check==false) { mm(42); getch();break; }
+                                    s2_3dc[start-1][3]=choice1;
+                                    dummy_o3dc.push_back(make_pair(store1,choice1)); break;
+                                }
+                                if(s2_3dc[start-1][1]=="6"&&s2_3dc[start-1][3]=="~")  // incremented value for incremented number
+                                {
+                                    printf("\n  Enter following details for");sfc(lm);printf(" [INCREMENTED NUMBERS] ");sfc(ww);
+                                    mm(32); cin>>choice1;
+                                    if(choice1=="min") break;
+                                    else if(choice1=="exe") break;
+                                    bool check=valid_pos_neg_integer(choice1);
+                                    if(check==false) { mm(37); getch();break; }
+                                    ll store=string_to_integer_converter(choice1); s2_3dc[start-1][3]=choice1;
+                                    dummy_o3dc.push_back(make_pair(store,choice1)); break;
+                                }
+                                if(s2_3dc[start-1][1]=="7"&&s2_3dc[start-1][3]=="~")  // max value for Nth Fibonacci number
+                                {
+                                    printf("\n  Enter following details for");sfc(lm);printf(" [Nth FIBONACCI NUMBERS] ");sfc(ww);
+                                    mm(34); cin>>choice1;
+                                    if(choice1=="min") break;
+                                    else if(choice1=="exe") break;
+                                    bool check=valid_pos_neg_integer(choice1);
+                                    if(check==false) { mm(37); getch();break; }
+                                    ll store1=string_to_integer_converter(choice1); ll store2=dummy_o3dc[3].first;
+                                    if(store1<1 || store1>93) { mm(37); getch();break; }
+                                    if(store1<store2) { mm(38); getch();break; }
+                                    s2_3dc[start-1][3]=choice1;
+                                    dummy_o3dc.push_back(make_pair(store1,choice1)); break;
+                                }
+                                if(s2_3dc[start-1][4]=="~~")  // size of array through initializer
+                                {
+                                    printf("\n  List of ");sfc(ly);printf("INITIALIZER");sfc(ww);printf(" available\n");
+                                    for(short itrr=0;itrr<si.size();itrr++)
+                                    {
+                                        printf("\n "); cout<<(itrr+1)<<"- "; sfc(ly);cout<<get<3>(si[itrr]);sfc(ww);
+                                        cout<<"   Range ["<<get<1>(si[itrr])<<" - "<<get<2>(si[itrr])<<"]";
+                                    }
+                                    mm(57); cin>>choice1;
+                                    if(choice1=="cl") { s2_3dc[start-1][4]="~";break; }
+                                    else if(choice1=="min") break;
+                                    else if(choice1=="exe") break;
+                                    bool flag=false;
+                                    for(short itrr=0;itrr<si.size();itrr++)
+                                    {
+                                        if(get<3>(si[itrr])==choice1)
+                                        {
+                                            flag=true; s2_3dc[start-1][4]=choice1; dummy_o3dc.push_back(make_pair(get<0>(si[itrr]),choice1)); s2_3dc[start-1][0]="print"; break;
+                                        }
+                                    }
+                                    if(flag==false) { mm(58); getch();break; }
+                                    break;
+                                }
+                                if(s2_3dc[start-1][4]=="~")  // size of array
+                                {
+                                    mm(56); cin>>choice1;
+                                    if(choice1=="int")
+                                    {
+                                        if(si.size()==0) { mm(59); getch();break; }
+                                        else { s2_3dc[start-1][4]="~~"; break; }
+                                    }
+                                    if(choice1=="min") break;
+                                    else if(choice1=="exe") break;
+                                    bool check=valid_pos_neg_integer(choice1);
+                                    if(check==false) { mm(37); getch();break; }
+                                    ll store=string_to_integer_converter(choice1);
+                                    if(store<1 || store>1000000) { mm(37); getch();break; }
+                                    s2_3dc[start-1][4]=choice1;
+                                    dummy_o3dc.push_back(make_pair(store,choice1)); s2_3dc[start-1][0]="print"; break;
+                                }
+                            }
+                            if(s2_3dc[start-1][0]=="2")       // Array of  Real
+                            {
+                                printf("\n  Enter following details for");sfc(lm);printf(" [REAL NUMBERS] ");sfc(ww);
+                                if(s2_3dc[start-1][1]=="~")   // set precision
+                                {
+                                    mm(43); cin>>choice1;
+                                    if(choice1=="min") break;
+                                    else if(choice1=="exe") break;
+                                    bool check=valid_pos_neg_integer(choice1);
+                                    if(check==false) { mm(37); getch();break; }
+                                    ll store=string_to_integer_converter(choice1);
+                                    if(store<0 || store>100) { mm(37); getch();break; }
+                                    s2_3dc[start-1][1]=choice1;
+                                    dummy_o3dc.push_back(make_pair(store,choice1));  break;
+                                }
+                                if(s2_3dc[start-1][2]=="~")  // set minimum value
+                                {
+                                    mm(25); cin>>choice1;
+                                    if(choice1=="min") break;
+                                    else if(choice1=="exe") break;
+                                    bool check=valid_pos_neg_integer(choice1);
+                                    if(check==false) { mm(37); getch();break; }
+                                    ll store=string_to_integer_converter(choice1);
+                                    s2_3dc[start-1][2]=choice1;
+                                    dummy_o3dc.push_back(make_pair(store,choice1));  break;
+                                }
+                                if(s2_3dc[start-1][3]=="~")  // set maximum value
+                                {
+                                    mm(26); cin>>choice1;
+                                    if(choice1=="min") break;
+                                    else if(choice1=="exe") break;
+                                    bool check=valid_pos_neg_integer(choice1);
+                                    if(check==false) { mm(37); getch();break; }
+                                    ll store1=string_to_integer_converter(choice1); ll store2=dummy_o3dc[3].first;
+                                    if(store1==store2) { mm(44); getch();break; }//  ( Note -> Max_value-Min_value >=1 )
+                                    if(store1<store2) { mm(38); getch();break; }
+                                    s2_3dc[start-1][3]=choice1;
+                                    dummy_o3dc.push_back(make_pair(store1,choice1)); break;
+                                }
+                                if(s2_3dc[start-1][4]=="~~")  // set size of Array through initializer
+                                {
+                                    printf("\n  List of ");sfc(ly);printf("INITIALIZER");sfc(ww);printf(" available\n");
+                                    for(short itrr=0;itrr<si.size();itrr++)
+                                    {
+                                        printf("\n "); cout<<(itrr+1)<<"- "; sfc(ly);cout<<get<3>(si[itrr]);sfc(ww);
+                                        cout<<"   Range ["<<get<1>(si[itrr])<<" - "<<get<2>(si[itrr])<<"]";
+                                    }
+                                    mm(57); cin>>choice1;
+                                    if(choice1=="cl") { s2_3dc[start-1][4]="~";break; }
+                                    else if(choice1=="min") break;
+                                    else if(choice1=="exe") break;
+                                    bool flag=false;
+                                    for(short itrr=0;itrr<si.size();itrr++)
+                                    {
+                                        if(get<3>(si[itrr])==choice1)
+                                        {
+                                            flag=true; s2_3dc[start-1][4]=choice1; dummy_o3dc.push_back(make_pair(get<0>(si[itrr]),choice1)); s2_3dc[start-1][0]="print"; break;
+                                       }
+                                    }
+                                    if(flag==false) { mm(58); getch();break; }
+                                    break;
+                                }
+                                if(s2_3dc[start-1][4]=="~")  // set size of Array
+                                {
+                                    mm(56); cin>>choice1;
+                                    if(choice1=="int")
+                                    {
+                                        if(si.size()==0) { mm(59); getch();break; }
+                                        else { s2_3dc[start-1][4]="~~"; break; }
+                                    }
+                                    if(choice1=="min") break;
+                                    else if(choice1=="exe") break;
+                                    bool check=valid_pos_neg_integer(choice1);
+                                    if(check==false) { mm(37); getch();break; }
+                                    ll store=string_to_integer_converter(choice1);
+                                    if(store<1 || store>1000000) { mm(37); getch();break; }
+                                    s2_3dc[start-1][4]=choice1;
+                                    dummy_o3dc.push_back(make_pair(store,choice1)); s2_3dc[start-1][0]="print"; break;
+                                }
+                            }
+                            if(s2_3dc[start-1][0]=="3")       // Array of  String
+                            {
+                                if(s2_3dc[start-1][1]=="~")  // type of string
+                                {
+                                    mm(46); cin>>choice1;
+                                    if(choice1=="min") break;
+                                    else if(choice1=="exe") break;
+                                    if(choice1=="1" || choice1=="2")
+                                    {
+                                        short store=string_to_integer_converter(choice1); s2_3dc[start-1][1]=choice1;
+                                        dummy_o3dc.push_back(make_pair(store,choice1));  break;
+                                    }
+                                    mm(36); getch(); break;
+                                }
+                                if(s2_3dc[start-1][1]=="1")    // Default String
+                                {
+                                    if(s2_3dc[start-1][2]=="~") //  store the default String
+                                    {
+                                        mm(47); string def_string; cin>>def_string; s2_3dc[start-1][2]=def_string;
+                                        dummy_o3dc.push_back(make_pair(4,def_string)); break;
+                                    }
+                                    if(s2_3dc[start-1][4]=="~~")  // set size of Array through initializer
+                                    {
+                                        printf("\n  List of ");sfc(ly);printf("INITIALIZER");sfc(ww);printf(" available\n");
+                                        for(short itrr=0;itrr<si.size();itrr++)
+                                        {
+                                            printf("\n "); cout<<(itrr+1)<<"- "; sfc(ly);cout<<get<3>(si[itrr]);sfc(ww);
+                                            cout<<"   Range ["<<get<1>(si[itrr])<<" - "<<get<2>(si[itrr])<<"]";
+                                        }
+                                        mm(57); cin>>choice1;
+                                        if(choice1=="cl") { s2_3dc[start-1][4]="~";break; }
+                                        else if(choice1=="min") break;
+                                        else if(choice1=="exe") break;
+                                        bool flag=false;
+                                        for(short itrr=0;itrr<si.size();itrr++)
+                                        {
+                                            if(get<3>(si[itrr])==choice1)
+                                            {
+                                                flag=true; s2_3dc[start-1][4]=choice1; dummy_o3dc.push_back(make_pair(get<0>(si[itrr]),choice1)); s2_3dc[start-1][0]="printt"; break;
+                                            }
+                                        }
+                                        if(flag==false) { mm(58); getch();break; }
+                                        break;
+                                    }
+                                    if(s2_3dc[start-1][4]=="~") //  set size of ARRAY
+                                    {
+                                        mm(56); cin>>choice1;
+                                        if(choice1=="int")
+                                        {
+                                            if(si.size()==0) { mm(59); getch();break; }
+                                            else { s2_3dc[start-1][4]="~~"; break; }
+                                        }
+                                        if(choice1=="min") break;
+                                        else if(choice1=="exe") break;
+                                        bool check=valid_pos_neg_integer(choice1);
+                                        if(check==false) { mm(37); getch();break; }
+                                        ll store=string_to_integer_converter(choice1);
+                                        if(store<1 || store>1000000) { mm(37); getch();break; }
+                                        s2_3dc[start-1][4]=choice1;
+                                        dummy_o3dc.push_back(make_pair(store,choice1)); s2_3dc[start-1][0]="printt"; break;
+                                    }
+                                }
+                                else                           // Input String
+                                {
+                                    if(s2_3dc[start-1][2]=="~")  // store input string
+                                    {
+                                        mm(48); string in_string;cin>>in_string; s2_3dc[start-1][2]=in_string;
+                                        dummy_o3dc.push_back(make_pair(4,in_string)); break;
+                                    }
+                                    if(s2_3dc[start-1][3]=="~")  // type of string
+                                    {
+                                        mm(49); cin>>choice1;
+                                        if(choice1=="min") break;
+                                        else if(choice1=="exe") break;
+                                        if(choice1=="1" || choice1=="2" || choice1=="3" || choice1=="4")
+                                        {
+                                            short store=string_to_integer_converter(choice1);
+                                            s2_3dc[start-1][3]=choice1;
+                                            dummy_o3dc.push_back(make_pair(store,choice1));  break;
+                                        }
+                                        mm(36); getch(); break;
+                                    }
+                                    if(s2_3dc[start-1][5]=="~")  // mode of string
+                                    {
+                                        mm(50); cin>>choice1;
+                                        if(choice1=="min") break;
+                                        else if(choice1=="exe") break;
+                                        if(choice1=="1" || choice1=="2")
+                                        {
+                                            short store=string_to_integer_converter(choice1); s2_3dc[start-1][5]=choice1;
+                                            dummy_o3dc.push_back(make_pair(store,choice1));  break;
+                                        }
+                                        mm(36); getch(); break;
+                                    }
+                                    if(s2_3dc[start-1][6]=="~")  // size of string
+                                    {
+                                        if(s2_3dc[start-1][5]=="1")    // Repetition allowed in symbols
+                                        {
+                                            mm(51); cin>>choice1;
+                                            if(choice1=="min") break;
+                                            else if(choice1=="exe") break;
+                                            bool check=valid_pos_neg_integer(choice1);
+                                            if(check==false) { mm(37); getch();break; }
+                                            ll store=string_to_integer_converter(choice1);
+                                            if(store<1 || store>1000000) { mm(37); getch();break; }
+                                            s2_3dc[start-1][6]=choice1;
+                                            dummy_o3dc.push_back(make_pair(store,choice1)); break;
+                                        }
+                                        else        // No repetition allowed in symbols
+                                        {
+                                            if(s2_3dc[start-1][3]=="4")    // palindromic
+                                            {
+                                                mm(70);sfc(lm);cout<<(2*s2_3dc[start-1][2].size()); sfc(ww);printf(")\n\n SIZE ->  "); cin>>choice1;
+                                                if(choice1=="min") break;
+                                                else if(choice1=="exe") break;
+                                                bool check=valid_pos_neg_integer(choice1);
+                                                if(check==false) { mm(37); getch();break; }
+                                                ll store=string_to_integer_converter(choice1);
+                                                if(store<1 || store>(2*s2_3dc[start-1][2].size())) { mm(37); getch();break; }
+                                                s2_3dc[start-1][6]=choice1;
+                                                dummy_o3dc.push_back(make_pair(store,choice1)); break;
+                                            }
+                                            else   //  Ordinary
+                                            {
+                                                mm(70);sfc(lm);cout<<s2_3dc[start-1][2].size();sfc(ww); printf(")\n\n SIZE ->  "); cin>>choice1;
+                                                if(choice1=="min") break;
+                                                else if(choice1=="exe") break;
+                                                bool check=valid_pos_neg_integer(choice1);
+                                                if(check==false) { mm(37); getch();break; }
+                                                ll store=string_to_integer_converter(choice1);
+                                                if(store<1 || store>s2_3dc[start-1][2].size())
+                                                { mm(37); getch();break; }
+                                                s2_3dc[start-1][6]=choice1;
+                                                dummy_o3dc.push_back(make_pair(store,choice1)); break;
+                                            }
+                                        }
+                                    }
+                                    if(s2_3dc[start-1][4]=="~~")  // size of array through initializer
+                                    {
+                                        printf("\n  List of ");sfc(ly);printf("INITIALIZER");sfc(ww);printf(" available\n");
+                                        for(short itrr=0;itrr<si.size();itrr++)
+                                        {
+                                            printf("\n "); cout<<(itrr+1)<<"- "; sfc(ly);cout<<get<3>(si[itrr]);sfc(ww);
+                                            cout<<"   Range ["<<get<1>(si[itrr])<<" - "<<get<2>(si[itrr])<<"]";
+                                        }
+                                        mm(57); cin>>choice1;
+                                        if(choice1=="cl") { s2_3dc[start-1][4]="~";break; }
+                                        else if(choice1=="min") break;
+                                        else if(choice1=="exe") break;
+                                        bool flag=false;
+                                        for(short itrr=0;itrr<si.size();itrr++)
+                                        {
+                                            if(get<3>(si[itrr])==choice1)
+                                            {
+                                                flag=true; s2_3dc[start-1][4]=choice1; dummy_o3dc.push_back(make_pair(get<0>(si[itrr]),choice1)); s2_3dc[start-1][0]="print"; break;
+                                            }
+                                        }
+                                        if(flag==false) { mm(58); getch();break; }
+                                        break;
+                                    }
+                                    if(s2_3dc[start-1][4]=="~")  // size of array
+                                    {
+                                        mm(56); cin>>choice1;
+                                        if(choice1=="int")
+                                        {
+                                            if(si.size()==0) { mm(59); getch();break; }
+                                            else { s2_3dc[start-1][4]="~~"; break; }
+                                        }
+                                        if(choice1=="min") break;
+                                        else if(choice1=="exe") break;
+                                        bool check=valid_pos_neg_integer(choice1);
+                                        if(check==false) { mm(37); getch();break; }
+                                        ll store=string_to_integer_converter(choice1);
+                                        if(store<1 || store>1000000) { mm(37); getch();break; }
+                                        s2_3dc[start-1][4]=choice1;
+                                        dummy_o3dc.push_back(make_pair(store,choice1)); s2_3dc[start-1][0]="print"; break;
+                                    }
+                                }
+                            }
+                            if(s2_3dc[start-1][0]=="4")       // prepare for Permutations
+                            {
+                                dummy_o3dc.push_back(make_pair(1,"~")); // for storing permutation string    (index 2)
+                                dummy_o3dc.push_back(make_pair(1,"~")); // for storing Size of array         (index 3)
+                                dummy_o3dc.push_back(make_pair(1,"~")); // for storing print format of array (index 4)
+                                dummy_o3dc.push_back(make_pair(1,"~")); // for storing order of array        (index 5)
+                                s2_3dc[start-1][0]="ready_for_permutation"; break;
+                            }
+                            if(s2_3dc[start-1][0]=="ready_for_permutation")    // Array of Permutation
+                            {
+                                printf("\n  Enter following details for");sfc(lm);printf(" [PERMUTATIONS] ");sfc(ww);
+                                if(s2_3dc[start-1][4]=="~~")  // set size of Array through initializer
+                                {
+                                    printf("\n  List of ");sfc(ly);printf("INITIALIZER");sfc(ww);printf(" available\n");
+                                    for(short itrr=0;itrr<si.size();itrr++)
+                                    {
+                                        printf("\n "); cout<<(itrr+1)<<"- "; sfc(ly);cout<<get<3>(si[itrr]);sfc(ww);
+                                        cout<<"   Range ["<<get<1>(si[itrr])<<" - "<<get<2>(si[itrr])<<"]";
+                                    }
+                                    mm(57); cin>>choice1;
+                                    if(choice1=="cl") { s2_3dc[start-1][4]="~";break; }
+                                    else if(choice1=="min") break;
+                                    else if(choice1=="exe") break;
+                                    bool flag=false;
+                                    for(short itrr=0;itrr<si.size();itrr++)
+                                    {
+                                        if(get<3>(si[itrr])==choice1)
+                                        {
+                                            flag=true; s2_3dc[start-1][4]=choice1;
+                                            dummy_o3dc[3].first=get<0>(si[itrr]); dummy_o3dc[3].second=choice1; break;
+                                       }
+                                    }
+                                    if(flag==false) { mm(58); getch();break; }
+                                    break;
+                                }
+                                if(s2_3dc[start-1][4]=="~")  // set size of Array
+                                {
+                                    mm(56); cin>>choice1;
+                                    if(choice1=="int")
+                                    {
+                                        if(si.size()==0) { mm(59); getch();break; }
+                                        else { s2_3dc[start-1][4]="~~"; break; }
+                                    }
+                                    if(choice1=="min") break;
+                                    else if(choice1=="exe") break;
+                                    bool check=valid_pos_neg_integer(choice1);
+                                    if(check==false) { mm(37); getch();break; }
+                                    ll store=string_to_integer_converter(choice1);
+                                    if(store<1 || store>1000000) { mm(37); getch();break; }
+                                    s2_3dc[start-1][4]=choice1;
+                                    dummy_o3dc[3].first=store;dummy_o3dc[3].second=choice1; break;
+                                }
+                                if(dummy_o3dc[2].second=="~")  // store string for permutation
+                                {
+                                    mm(68); string in_string; cin>>in_string;
+                                    if(in_string.size()>19) { mm(37); getch();break; }
+                                    ll store1=count_no_of_permutations(in_string);
+                                    if(dummy_o3dc[3].first<0)
+                                    {
+                                        short indexx=abs(dummy_o3dc[3].first)-1;
+                                        ll store2=get<2>(si[indexx]);
+                                        if(store1<store2)
+                                        {
+                                            cout<<"\n\n    Only "<<store1<<" number of permutations are possible of your string.";
+                                            cout<<"\n    However, you want to create ";sfc(lg);printf("ARRAY[]");sfc(ww);printf(" of size ");cout<<store2;printf(" as per your ");sfc(ly);printf("INITIALIZER");sfc(ww);printf(" size");
+                                            sfc(ly);printf("\n  INITIALIZER : ");cout<<get<3>(si[indexx]);sfc(ww);printf(" Range -> [ ");cout<<get<1>(si[indexx])<<" - "<<get<2>(si[indexx])<<" ]";                                                    cout<<"\n\n    So you are advised to change your string which have at least "<<store2<<" number of permutations.";
+                                            printf("\n\n    Now press ");sbc(dr);sfc(lr);printf(" ENTER ");sbc(bb);sfc(ww);printf(" to continue"); getch(); break;
+                                        }
+                                    }
+                                    else
+                                    {
+                                        ll store2=dummy_o3dc[3].first;
+                                        if(store1<store2)
+                                        {
+                                            cout<<"\n\n    Only "<<store1<<" number of permutations are possible of your string.";
+                                            cout<<"\n    However, you want to create ";sfc(lg);printf("ARRAY[]");sfc(ww);printf(" of size ");cout<<store2;
+                                            cout<<"\n\n    So you are advised to change your string which have at least "<<store2<<" number of permutations.";
+                                            printf("\n\n    Now press ");sbc(dr);sfc(lr);printf(" ENTER ");sbc(bb);sfc(ww);printf(" to continue"); getch(); break;
+                                        }
+                                    }
+                                            dummy_o3dc[2].second=in_string;
+                                            dummy_o3dc[2].first=4; break;
+                                }
+                                if(dummy_o3dc[4].second=="~")  // store  print style of array
+                                {
+                                    mm(55); cin>>choice1;
+                                    if(choice1=="min") break;
+                                    else if(choice1=="exe") break;
+                                    if(choice1=="1" || choice1=="2")
+                                    {
+                                        short store=string_to_integer_converter(choice1);
+                                        dummy_o3dc[4].first=store; dummy_o3dc[4].second=choice1; break;
+                                    }
+                                    mm(36); getch(); break;
+                                }
+                                if(dummy_o3dc[5].second=="~")  // store  order of array
+                                {
+                                    mm(54); cin>>choice1;
+                                    if(choice1=="min") break;
+                                    else if(choice1=="exe") break;
+                                    if(choice1=="1" || choice1=="2" || choice1=="3")
+                                    {
+                                        short store=string_to_integer_converter(choice1);
+                                        dummy_o3dc[5].first=store; dummy_o3dc[5].second=choice1;
+                                        dummy2_o3dc.push_back(dummy_o3dc);
+                                        dummy_o3dc.clear(); s_3dc[i][j]=true; break;
+                                    }
+                                    mm(36); getch(); break;
+                                }
+                            }
+                            if(s2_3dc[start-1][0]=="5")                       // prepare for unique number
+                            {
+                                dummy_o3dc.push_back(make_pair(1,"~"));  // for storing minimum value    (index 2)
+                                dummy_o3dc.push_back(make_pair(1,"~"));  // for storing maximum value    (index 3)
+                                dummy_o3dc.push_back(make_pair(1,"~"));  // for storing size of array    (index 4)
+                                dummy_o3dc.push_back(make_pair(1,"~"));  // for storing print format     (index 5)
+                                dummy_o3dc.push_back(make_pair(1,"~"));  // for storing order            (index 6)
+                                s2_3dc[start-1][0]="ready_for_unique"; break;
+                            }
+                            if(s2_3dc[start-1][0]=="ready_for_unique")        // Array of Unique Numbers
+                            {
+                                printf("\n  Enter following details for");sfc(lm);printf(" [UNIQUE NUMBERS] ");sfc(ww);
+                                if(s2_3dc[start-1][4]=="~~")   // set size of Array through initializer
+                                {
+                                    printf("\n  List of ");sfc(ly);printf("INITIALIZER");sfc(ww);printf(" available\n");
+                                    for(short itrr=0;itrr<si.size();itrr++)
+                                    {
+                                        printf("\n "); cout<<(itrr+1)<<"- "; sfc(ly);cout<<get<3>(si[itrr]);sfc(ww);
+                                        cout<<"   Range ["<<get<1>(si[itrr])<<" - "<<get<2>(si[itrr])<<"]";
+                                    }
+                                    mm(57); cin>>choice1;
+                                    if(choice1=="cl") { s2_3dc[start-1][4]="~";break; }
+                                    else if(choice1=="min") break;
+                                    else if(choice1=="exe") break;
+                                    bool flag=false;
+                                    for(short itrr=0;itrr<si.size();itrr++)
+                                    {
+                                        if(get<3>(si[itrr])==choice1)
+                                        {
+                                            flag=true; s2_3dc[start-1][4]=choice1;
+                                            dummy_o3dc[4].first=get<0>(si[itrr]); dummy_o3dc[4].second=choice1; break;
+                                       }
+                                    }
+                                    if(flag==false) { mm(58); getch();break; }
+                                    break;
+                                }
+                                if(s2_3dc[start-1][4]=="~")   // set size of Array
+                                {
+                                    mm(56); cin>>choice1;
+                                    if(choice1=="int")
+                                    {
+                                        if(si.size()==0) { mm(59); getch();break; }
+                                        else { s2_3dc[start-1][4]="~~"; break; }
+                                    }
+                                    if(choice1=="min") break;
+                                    else if(choice1=="exe") break;
+                                    bool check=valid_pos_neg_integer(choice1);
+                                    if(check==false) { mm(37); getch();break; }
+                                    ll store=string_to_integer_converter(choice1);
+                                    if(store<1 || store>1000000) { mm(37); getch();break; }
+                                    s2_3dc[start-1][4]=choice1;
+                                    dummy_o3dc[4].first=store;dummy_o3dc[4].second=choice1; break;
+                                }
+                                if(dummy_o3dc[2].second=="~")  // set minimum value
+                                {
+                                    mm(25); cin>>choice1;
+                                    if(choice1=="min") break;
+                                    else if(choice1=="exe") break;
+                                    bool check=valid_pos_neg_integer(choice1);
+                                    if(check==false) { mm(37); getch();break; }
+                                    ll store=string_to_integer_converter(choice1);
+                                    dummy_o3dc[2].first=store;dummy_o3dc[2].second=choice1; break;
+                                }
+                                if(dummy_o3dc[3].second=="~")  // set maximum value
+                                {
+                                    mm(26); cin>>choice1;
+                                    if(choice1=="min") break;
+                                    else if(choice1=="exe") break;
+                                    bool check=valid_pos_neg_integer(choice1);
+                                    if(check==false) { mm(37); getch();break; }
+                                    ll store1=string_to_integer_converter(choice1);
+                                    ll store2=dummy_o3dc[2].first;
+                                    if(store1<store2) { mm(38); getch();break; }
+                                    if(dummy_o3dc[4].first<0)
+                                    {
+                                        short indexx=abs(dummy_o3dc[4].first)-1;
+                                        ll maxi=get<2>(si[indexx]);
+                                        if(maxi>(store1-store2+1))
+                                        {
+                                            cout<<"\n\n  You wish to create "<<maxi<<" Size of ";sfc(lg);printf("ARRAY[]");sfc(ww);cout<<" at Maximum as per your ";sfc(ly);printf("INITIALIZER");sfc(ww);printf(" size.");
+                                            sfc(ly);printf("\n  INITIALIZER : ");cout<<get<3>(si[indexx]);sfc(ww);printf(" Range -> [ ");cout<<get<1>(si[indexx])<<" - "<<get<2>(si[indexx])<<" ]";
+                                            cout<<"\n  However, only "<<(store1-store2+1)<<" Unique No. exists in range provided by you.";
+                                            printf("\n\n  You are advised to enlarge your range");
+                                            printf("\n\n   press ");sbc(dr);sfc(lr);printf(" ENTER ");sbc(bb);sfc(ww);printf(" to change Maximum value"); getch();break;
+                                        }
+                                    }
+                                    else
+                                    {
+                                    if(dummy_o3dc[4].first>(store1-store2+1))
+                                    {
+                                        cout<<"\n\n  You wish to create "<<dummy_o3dc[4].first<<" Size of ";sfc(lg);printf("ARRAY[]");sfc(ww);
+                                        cout<<"\n  However, only "<<(store1-store2+1)<<" Unique No. exists in range provided by you.";
+                                        printf("\n\n  You are advised to enlarge your range");
+                                        printf("\n\n   press ");sbc(dr);sfc(lr);printf(" ENTER ");sbc(bb);sfc(ww);printf(" to change Maximum value"); getch();break;
+                                    }
+                                    }
+                                    dummy_o3dc[3].first=store1;dummy_o3dc[3].second=choice1; break;
+                                }
+                                if(dummy_o3dc[5].second=="~")  // set print format
+                                {
+                                    mm(55); cin>>choice1;
+                                    if(choice1=="min") break;
+                                    else if(choice1=="exe") break;
+                                    if(choice1=="1" || choice1=="2")
+                                    {
+                                        short store=string_to_integer_converter(choice1);
+                                        dummy_o3dc[5].first=store; dummy_o3dc[5].second=choice1; break;
+                                    }
+                                    mm(36); getch(); break;
+                                }
+                                if(dummy_o3dc[6].second=="~")  // set order
+                                {
+                                    mm(54); cin>>choice1;
+                                    if(choice1=="min") break;
+                                    else if(choice1=="exe") break;
+                                    if(choice1=="1" || choice1=="2" || choice1=="3")
+                                    {
+                                        short store=string_to_integer_converter(choice1);
+                                        dummy_o3dc[6].first=store; dummy_o3dc[6].second=choice1;
+                                        dummy2_o3dc.push_back(dummy_o3dc);
+                                        dummy_o3dc.clear(); s_3dc[i][j]=true; break;
+                                    }
+                                    mm(36); getch(); break;
+                                }
+                            }
+                        }
+
+                    case 4:    // STRING CLASS
+                        {
+                            cout<<"  "<<(++start)<<". ";
+                            sfc(lg);cout<<_3dc[i][j].second;sfc(lc);cout<<" [CLASS STRING]";sfc(ww);
+                            string type_of_string;
+                            if(s2_3dc[start-1][0]=="~")
+                            {
+                                mm(46);cin>>choice1;
+                                if(choice1=="min") break;
+                                else if(choice1=="exe") break;
+                                if(choice1=="1" || choice1=="2")
+                                {
+                                    type_of_string=choice1;
+                                    short store=string_to_integer_converter(choice1); s2_3dc[start-1][0]=type_of_string;
+                                    dummy_o3dc.push_back(make_pair(4,"str"));
+                                    dummy_o3dc.push_back(make_pair(store,type_of_string));  break;
+                                }
+                                mm(36); getch(); break;
+                            }
+                            type_of_string=s2_3dc[start-1][0];
+                            if(type_of_string=="1")
+                            {
+                                mm(47); string def_string; cin>>def_string; s2_3dc[start-1][1]=def_string;
+                                dummy_o3dc.push_back(make_pair(4,def_string));
+                                dummy2_o3dc.push_back(dummy_o3dc);
+                                dummy_o3dc.clear(); s_3dc[i][j]=true; break;
+                            }
+                            if(type_of_string=="2")
+                            {
+                                string in_string;
+                                if(s2_3dc[start-1][1]=="~")
+                                {
+                                    mm(48); cin>>in_string; s2_3dc[start-1][1]=in_string;
+                                    dummy_o3dc.push_back(make_pair(4,in_string)); break;
+                                }
+                                in_string=s2_3dc[start-1][1]; string input_string_type;
+                                if(s2_3dc[start-1][2]=="~")
+                                {
+                                    string input_string_type; mm(49); cin>>choice1;
+                                    if(choice1=="min") break;
+                                    else if(choice1=="exe") break;
+                                    if(choice1=="1" || choice1=="2" || choice1=="3" || choice1=="4")
+                                    {
+                                        input_string_type=choice1; short store=string_to_integer_converter(choice1);
+                                        s2_3dc[start-1][2]=input_string_type;
+                                        dummy_o3dc.push_back(make_pair(store,input_string_type));  break;
+                                    }
+                                    mm(36); getch(); break;
+                                }
+                                input_string_type=s2_3dc[start-1][2]; string input_string_mode;
+                                if(s2_3dc[start-1][3]=="~")
+                                {
+                                    mm(50); cin>>choice1;
+                                    if(choice1=="min") break;
+                                    else if(choice1=="exe") break;
+                                    if(choice1=="1" || choice1=="2")
+                                    {
+                                        input_string_mode=choice1; short store=string_to_integer_converter(choice1); s2_3dc[start-1][3]=input_string_mode;
+                                        dummy_o3dc.push_back(make_pair(store,input_string_mode));  break;
+                                    }
+                                    mm(36); getch(); break;
+                                }
+                                input_string_mode=s2_3dc[start-1][3];
+                                string input_string_size;
+                                if(s2_3dc[start-1][4]=="~")
+                                {
+                                    if(s2_3dc[start-1][3]=="1")    // Repetition allowed in symbols
+                                    {
+                                        mm(51); cin>>choice1;
+                                        if(choice1=="min") break;
+                                        else if(choice1=="exe") break;
+                                        bool check=valid_pos_neg_integer(choice1);
+                                        if(check==false) { mm(37); getch();break; }
+                                        ll store=string_to_integer_converter(choice1);
+                                        if(store<1 || store>1000000) { mm(37); getch();break; }
+                                        input_string_size=choice1; s2_3dc[start-1][4]=input_string_size;
+                                        dummy_o3dc.push_back(make_pair(store,input_string_size));
+                                        dummy2_o3dc.push_back(dummy_o3dc);
+                                        dummy_o3dc.clear(); s_3dc[i][j]=true; break;
+                                    }
+                                    else        // No repetition allowed in symbols
+                                    {
+                                        if(s2_3dc[start-1][2]=="4")    // palindromic
+                                        {
+                                            mm(70);sfc(lm);cout<<(2*s2_3dc[start-1][1].size());sfc(ww); printf(")\n\n SIZE ->  "); cin>>choice1;
+                                            if(choice1=="min") break;
+                                            else if(choice1=="exe") break;
+                                            bool check=valid_pos_neg_integer(choice1);
+                                            if(check==false) { mm(37); getch();break; }
+                                            ll store=string_to_integer_converter(choice1);
+                                            if(store<1 || store>(2*s2_3dc[start-1][1].size())) { mm(37); getch();break; }
+                                            input_string_size=choice1; s2_3dc[start-1][4]=input_string_size;
+                                            dummy_o3dc.push_back(make_pair(store,input_string_size));
+                                            dummy2_o3dc.push_back(dummy_o3dc);
+                                            dummy_o3dc.clear(); s_3dc[i][j]=true; break;
+                                        }
+                                        else   //  Ordinary
+                                        {
+                                            mm(70);sfc(lm);cout<<s2_3dc[start-1][1].size();sfc(ww); printf(")\n\n SIZE ->  "); cin>>choice1;
+                                            if(choice1=="min") break;
+                                            else if(choice1=="exe") break;
+                                            bool check=valid_pos_neg_integer(choice1);
+                                            if(check==false) { mm(37); getch();break; }
+                                            ll store=string_to_integer_converter(choice1);
+                                            if(store<1 || store>s2_3dc[start-1][1].size()) { mm(37); getch();break; }
+                                            input_string_size=choice1; s2_3dc[start-1][4]=input_string_size;
+                                            dummy_o3dc.push_back(make_pair(store,input_string_size));
+                                            dummy2_o3dc.push_back(dummy_o3dc);
+                                            dummy_o3dc.clear(); s_3dc[i][j]=true; break;
+                                        }
+                                    }
+                                }
+                            }
+                            break;
+                        }
+
+                    case 5:    // MATRIX CLASS
+                        {
+                            cout<<"  "<<(++start)<<". ";
+                            sfc(lg);cout<<_3dc[i][j].second;sfc(lc);cout<<" [CLASS MATRIX]";sfc(ww);
+                            if(s2_3dc[start-1][0]=="order2")   //  set order2 in Matrix
+                            {
+                                mm(63); cin>>choice1;
+                                if(choice1=="min") break;
+                                else if(choice1=="exe") break;
+                                if(choice1=="1" || choice1=="2" || choice1=="3")
+                                {
+                                    short store=string_to_integer_converter(choice1);
+                                    dummy_o3dc.push_back(make_pair(store,choice1));
+                                    dummy2_o3dc.push_back(dummy_o3dc);
+                                    dummy_o3dc.clear(); s_3dc[i][j]=true; break;
+                                }
+                                mm(36); getch(); break;
+                            }
+                            if(s2_3dc[start-1][0]=="order1")   //  set order in Matrix
+                            {
+                                mm(64); cin>>choice1;
+                                if(choice1=="min") break;
+                                else if(choice1=="exe") break;
+                                if(choice1=="1" || choice1=="2" || choice1=="3")
+                                {
+                                    short store=string_to_integer_converter(choice1);
+                                    dummy_o3dc.push_back(make_pair(store,choice1));
+                                    s2_3dc[start-1][0]="order2"; break;
+                                }
+                                mm(36); getch(); break;
+                            }
+                            if(s2_3dc[start-1][0]=="~")       // set type of Matrix
+                            {
+                                mm(60); cin>>choice1;
+                                if(choice1=="min") break;
+                                else if(choice1=="exe") break;
+                                if(choice1=="1" || choice1=="2" || choice1=="3" || choice1=="4" || choice1=="5")
+                                {
+                                    s2_3dc[start-1][0]=choice1;
+                                    short store=string_to_integer_converter(choice1);
+                                    dummy_o3dc.push_back(make_pair(5,"mat"));
+                                    dummy_o3dc.push_back(make_pair(store,choice1)); break;
+                                }
+                                mm(36); getch(); break;
+                            }
+                            if(s2_3dc[start-1][0]=="1")       // matrix of Integer
+                            {
+                                if(s2_3dc[start-1][1]=="~")  // type of integer
+                                {
+                                    mm(35);cin>>choice1;
+                                    if(choice1=="min") break;
+                                    else if(choice1=="exe") break;
+                                    if(choice1=="1" || choice1=="2" || choice1=="3" || choice1=="4" || choice1=="5" || choice1=="6" || choice1=="7")
+                                    {
+                                        s2_3dc[start-1][1]=choice1;
+                                        short store=string_to_integer_converter(choice1);
+                                        dummy_o3dc.push_back(make_pair(store,choice1)); break;
+                                    }
+                                    mm(36); getch(); break;
+                                }
+                                if(s2_3dc[start-1][1]=="1"&&s2_3dc[start-1][2]=="~")  // min value for random number
+                                {
+                                    printf("\n  Enter following details for");sfc(lm);printf(" [RANDOM NUMBERS] ");sfc(ww);
+                                    mm(25); cin>>choice1;
+                                    if(choice1=="min") break;
+                                    else if(choice1=="exe") break;
+                                    bool check=valid_pos_neg_integer(choice1);
+                                    if(check==false) { mm(37); getch();break; }
+                                    ll store=string_to_integer_converter(choice1); s2_3dc[start-1][2]=choice1;
+                                    dummy_o3dc.push_back(make_pair(store,choice1)); break;
+                                }
+                                if(s2_3dc[start-1][1]=="2"&&s2_3dc[start-1][2]=="~")  // min value for odd number
+                                {
+                                    printf("\n  Enter following details for");sfc(lm);printf(" [ODD NUMBERS] ");sfc(ww);
+                                    mm(25); cin>>choice1;
+                                    if(choice1=="min") break;
+                                    else if(choice1=="exe") break;
+                                    bool check=valid_pos_neg_integer(choice1);
+                                    if(check==false) { mm(37); getch();break; }
+                                    ll store=string_to_integer_converter(choice1); s2_3dc[start-1][2]=choice1;
+                                    dummy_o3dc.push_back(make_pair(store,choice1));  break;
+                                }
+                                if(s2_3dc[start-1][1]=="3"&&s2_3dc[start-1][2]=="~")  // min value for even number
+                                {
+                                    printf("\n  Enter following details for");sfc(lm);printf(" [EVEN NUMBERS] ");sfc(ww);
+                                    mm(25); cin>>choice1;
+                                    if(choice1=="min") break;
+                                    else if(choice1=="exe") break;
+                                    bool check=valid_pos_neg_integer(choice1);
+                                    if(check==false) { mm(37); getch();break; }
+                                    ll store=string_to_integer_converter(choice1); s2_3dc[start-1][2]=choice1;
+                                    dummy_o3dc.push_back(make_pair(store,choice1));  break;
+                                }
+                                if(s2_3dc[start-1][1]=="4"&&s2_3dc[start-1][2]=="~")  // min value for prime number
+                                {
+                                    printf("\n  Enter following details for");sfc(lm);printf(" [PRIME NUMBERS] ");sfc(ww);
+                                    mm(27); cin>>choice1;
+                                    if(choice1=="min") break;
+                                    else if(choice1=="exe") break;
+                                    bool check=valid_pos_neg_integer(choice1);
+                                    if(check==false) { mm(37); getch();break; }
+                                    ll store=string_to_integer_converter(choice1);
+                                    if(store<2 || store>10000000) { mm(37); getch();break; }
+                                    s2_3dc[start-1][2]=choice1;
+                                    dummy_o3dc.push_back(make_pair(store,choice1));  break;
+                                }
+                                if(s2_3dc[start-1][1]=="5"&&s2_3dc[start-1][2]=="~")  // min value for non prime number
+                                {
+                                    printf("\n  Enter following details for");sfc(lm);printf(" [Non Prime Numbers] ");sfc(ww);
+                                    mm(29); cin>>choice1;
+                                    if(choice1=="min") break;
+                                    else if(choice1=="exe") break;
+                                    bool check=valid_pos_neg_integer(choice1);
+                                    if(check==false) { mm(37); getch();break; }
+                                    ll store=string_to_integer_converter(choice1);
+                                    if(store<1 || store>1000000000000) { mm(37); getch();break; }
+                                    s2_3dc[start-1][2]=choice1;
+                                    dummy_o3dc.push_back(make_pair(store,choice1));  break;
+                                }
+                                if(s2_3dc[start-1][1]=="6"&&s2_3dc[start-1][2]=="~")  // starting value for incremented number
+                                {
+                                    printf("\n  Enter following details for");sfc(lm);printf(" [Incremented Numbers] ");sfc(ww);
+                                    mm(31); cin>>choice1;
+                                    if(choice1=="min") break;
+                                    else if(choice1=="exe") break;
+                                    bool check=valid_pos_neg_integer(choice1);
+                                    if(check==false) { mm(37); getch();break; }
+                                    ll store=string_to_integer_converter(choice1);
+                                    s2_3dc[start-1][2]=choice1;
+                                    dummy_o3dc.push_back(make_pair(store,choice1)); break;
+                                }
+                                if(s2_3dc[start-1][1]=="7"&&s2_3dc[start-1][2]=="~")  // min value for Nth Fibonacci number
+                                {
+                                    printf("\n  Enter following details for");sfc(lm);printf(" [FIBONACCI NUMBERS] ");sfc(ww);
+                                    mm(33); cin>>choice1;
+                                    if(choice1=="min") break;
+                                    else if(choice1=="exe") break;
+                                    bool check=valid_pos_neg_integer(choice1);
+                                    if(check==false) { mm(37); getch();break; }
+                                    ll store=string_to_integer_converter(choice1);
+                                    if(store<1 || store>93) { mm(37); getch();break; }
+                                    s2_3dc[start-1][2]=choice1;
+                                    dummy_o3dc.push_back(make_pair(store,choice1));  break;
+                                }
+                                if(s2_3dc[start-1][1]=="1"&&s2_3dc[start-1][3]=="~")  // max value for random number
+                                {
+                                    printf("\n  Enter following details for");sfc(lm);printf(" [RANDOM NUMBERS] ");sfc(ww);
+                                    mm(26);  cin>>choice1;
+                                    if(choice1=="min") break;
+                                    else if(choice1=="exe") break;
+                                    bool check=valid_pos_neg_integer(choice1);
+                                    if(check==false) { mm(37); getch();break; }
+                                    ll store1=string_to_integer_converter(choice1); ll store2=dummy_o3dc[3].first;
+                                    if(store1<store2) { mm(38); getch();break; }
+                                    s2_3dc[start-1][3]=choice1;
+                                    dummy_o3dc.push_back(make_pair(store1,choice1)); break;
+                                }
+                                if(s2_3dc[start-1][1]=="2"&&s2_3dc[start-1][3]=="~")  // max value for odd number
+                                {
+                                    printf("\n  Enter following details for");sfc(lm);printf(" [ODD NUMBERS] ");sfc(ww);
+                                    mm(26); cin>>choice1;
+                                    if(choice1=="min") break;
+                                    else if(choice1=="exe") break;
+                                    bool check=valid_pos_neg_integer(choice1);
+                                    if(check==false) { mm(37); getch();break; }
+                                    ll store1=string_to_integer_converter(choice1); ll store2=dummy_o3dc[3].first;
+                                    if(store1<store2) { mm(38); getch();break; }
+                                    check=check_odd_exist(store2,store1);
+                                    if(check==false) { mm(39); getch();break; }
+                                    s2_3dc[start-1][3]=choice1;
+                                    dummy_o3dc.push_back(make_pair(store1,choice1)); break;
+                                }
+                                if(s2_3dc[start-1][1]=="3"&&s2_3dc[start-1][3]=="~")  // max value for even number
+                                {
+                                    printf("\n  Enter following details for");sfc(lm);printf(" [EVEN NUMBERS] ");sfc(ww);
+                                    mm(26); cin>>choice1;
+                                    if(choice1=="min") break;
+                                    else if(choice1=="exe") break;
+                                    bool check=valid_pos_neg_integer(choice1);
+                                    if(check==false) { mm(37); getch();break; }
+                                    ll store1=string_to_integer_converter(choice1); ll store2=dummy_o3dc[3].first;
+                                    if(store1<store2) { mm(38); getch();break; }
+                                    check=check_even_exist(store2,store1);
+                                    if(check==false) { mm(40); getch();break; }
+                                    s2_3dc[start-1][3]=choice1;
+                                    dummy_o3dc.push_back(make_pair(store1,choice1)); break;
+                                }
+                                if(s2_3dc[start-1][1]=="4"&&s2_3dc[start-1][3]=="~")  // max value for prime number
+                                {
+                                    printf("\n  Enter following details for");sfc(lm);printf(" [PRIME NUMBERS] ");sfc(ww);
+                                    mm(28); cin>>choice1;
+                                    if(choice1=="min") break;
+                                    else if(choice1=="exe") break;
+                                    bool check=valid_pos_neg_integer(choice1);
+                                    if(check==false) { mm(37); getch();break; }
+                                    ll store1=string_to_integer_converter(choice1); ll store2=dummy_o3dc[3].first;
+                                    if(store1<2 || store1>10000000) { mm(37); getch();break; }
+                                    if(store1<store2) { mm(38); getch();break; }
+                                    check=check_prime_exist(store2,store1);
+                                    if(check==false) { mm(41); getch();break; }
+                                    s2_3dc[start-1][3]=choice1;
+                                    dummy_o3dc.push_back(make_pair(store1,choice1)); break;
+                                }
+                                if(s2_3dc[start-1][1]=="5"&&s2_3dc[start-1][3]=="~")  // max value for non prime number
+                                {
+                                    printf("\n  Enter following details for");sfc(lm);printf(" [NON PRIME NUMBERS] ");sfc(ww);
+                                    mm(30); cin>>choice1;
+                                    if(choice1=="min") break;
+                                    else if(choice1=="exe") break;
+                                    bool check=valid_pos_neg_integer(choice1);
+                                    if(check==false) { mm(37); getch();break; }
+                                    ll store1=string_to_integer_converter(choice1); ll store2=dummy_o3dc[3].first;
+                                    if(store1<1 || store1>1000000000000) { mm(37); getch();break; }
+                                    if(store1<store2) { mm(38); getch();break; }
+                                    check=check_non_prime_exist(store2,store1);
+                                    if(check==false) { mm(42); getch();break; }
+                                    s2_3dc[start-1][3]=choice1;
+                                    dummy_o3dc.push_back(make_pair(store1,choice1)); break;
+                                }
+                                if(s2_3dc[start-1][1]=="6"&&s2_3dc[start-1][3]=="~")  // increment value for incremented number
+                                {
+                                    printf("\n  Enter following details for");sfc(lm);printf(" [INCREMENTED NUMBERS] ");sfc(ww);
+                                    mm(32); cin>>choice1;
+                                    if(choice1=="min") break;
+                                    else if(choice1=="exe") break;
+                                    bool check=valid_pos_neg_integer(choice1);
+                                    if(check==false) { mm(37); getch();break; }
+                                    ll store=string_to_integer_converter(choice1); s2_3dc[start-1][3]=choice1;
+                                    dummy_o3dc.push_back(make_pair(store,choice1)); break;
+                                }
+                                if(s2_3dc[start-1][1]=="7"&&s2_3dc[start-1][3]=="~")  // max value for Nth Fibonacci number
+                                {
+                                    printf("\n  Enter following details for");sfc(lm);printf(" [Nth FIBONACCI NUMBERS] ");sfc(ww);
+                                    mm(34); cin>>choice1;
+                                    if(choice1=="min") break;
+                                    else if(choice1=="exe") break;
+                                    bool check=valid_pos_neg_integer(choice1);
+                                    if(check==false) { mm(37); getch();break; }
+                                    ll store1=string_to_integer_converter(choice1); ll store2=dummy_o3dc[3].first;
+                                    if(store1<1 || store1>93) { mm(37); getch();break; }
+                                    if(store1<store2) { mm(38); getch();break; }
+                                    s2_3dc[start-1][3]=choice1;
+                                    dummy_o3dc.push_back(make_pair(store1,choice1)); break;
+                                }
+                                if(s2_3dc[start-1][4]=="~~")  // Rows in Matrix through initializer
+                                {
+                                    printf("\n  List of ");sfc(ly);printf("INITIALIZER");sfc(ww);printf(" available\n");
+                                    for(short itrr=0;itrr<si.size();itrr++)
+                                    {
+                                        printf("\n "); cout<<(itrr+1)<<"- "; sfc(ly);cout<<get<3>(si[itrr]);sfc(ww);
+                                        cout<<"   Range ["<<get<1>(si[itrr])<<" - "<<get<2>(si[itrr])<<"]";
+                                    }
+                                    mm(57); cin>>choice1;
+                                    if(choice1=="cl") { s2_3dc[start-1][4]="~";break; }
+                                    else if(choice1=="min") break;
+                                    else if(choice1=="exe") break;
+                                    bool flag=false;
+                                    for(short itrr=0;itrr<si.size();itrr++)
+                                    {
+                                        if(get<3>(si[itrr])==choice1)
+                                        {
+                                            fi=get<2>(si[itrr]); flag=true; s2_3dc[start-1][4]=choice1; dummy_o3dc.push_back(make_pair(get<0>(si[itrr]),choice1)); break;
+                                        }
+                                    }
+                                    if(flag==false) { mm(58); getch();break; }
+                                    break;
+                                }
+                                if(s2_3dc[start-1][4]=="~")  // Rows in Matrix
+                                {
+                                    mm(61); cin>>choice1;
+                                    if(choice1=="int")
+                                    {
+                                        if(si.size()==0) { mm(59); getch();break; }
+                                        else { s2_3dc[start-1][4]="~~"; break; }
+                                    }
+                                    if(choice1=="min") break;
+                                    else if(choice1=="exe") break;
+                                    bool check=valid_pos_neg_integer(choice1);
+                                    if(check==false) { mm(37); getch();break; }
+                                    ll store=string_to_integer_converter(choice1);
+                                    if(store<1 || store>1000000) { mm(37); getch();break; }
+                                    s2_3dc[start-1][4]=choice1; fi=store;
+                                    dummy_o3dc.push_back(make_pair(store,choice1)); break;
+                                }
+                                if(s2_3dc[start-1][5]=="~~")  // Columns in Matrix through initializer
+                                {
+                                    printf("\n  List of ");sfc(ly);printf("INITIALIZER");sfc(ww);printf(" available\n");
+                                    for(short itrr=0;itrr<si.size();itrr++)
+                                    {
+                                        printf("\n "); cout<<(itrr+1)<<"- "; sfc(ly);cout<<get<3>(si[itrr]);sfc(ww);
+                                        cout<<"   Range ["<<get<1>(si[itrr])<<" - "<<get<2>(si[itrr])<<"]";
+                                    }
+                                    mm(57); cin>>choice1;
+                                    if(choice1=="cl") { s2_3dc[start-1][5]="~";break; }
+                                    else if(choice1=="min") break;
+                                    else if(choice1=="exe") break;
+                                    short flag=0;
+                                    for(short itrr=0;itrr<si.size();itrr++)
+                                    {
+                                        if(get<3>(si[itrr])==choice1)
+                                        {
+                                            ll range=fi*get<2>(si[itrr]);
+                                            if(range>1000000) { mm(65);sfc(lr);cout<<range;sfc(ww); mm(66); getch();flag=1;break; }
+                                            flag=2; s2_3dc[start-1][5]=choice1; dummy_o3dc.push_back(make_pair(get<0>(si[itrr]),choice1));s2_3dc[start-1][0]="order1"; break;
+                                        }
+                                    }
+                                    if(flag==false) { mm(58); getch();break; }
+                                    break;
+                                }
+                                if(s2_3dc[start-1][5]=="~")  // Columns in Matrix
+                                {
+                                    mm(62);cin>>choice1;
+                                    if(choice1=="int")
+                                    {
+                                        if(si.size()==0) { mm(59); getch();break; }
+                                        else { s2_3dc[start-1][5]="~~"; break; }
+                                    }
+                                    if(choice1=="min") break;
+                                    else if(choice1=="exe") break;
+                                    bool check=valid_pos_neg_integer(choice1);
+                                    if(check==false) { mm(37); getch();break; }
+                                    ll store=string_to_integer_converter(choice1);
+                                    if(store<1 || store>1000000) { mm(37); getch();break; }
+                                    ll range=fi*store;
+                                    if(range>1000000) { mm(65);sfc(lr);cout<<range;sfc(ww); mm(66); getch(); break; }
+                                    s2_3dc[start-1][5]=choice1;
+                                    dummy_o3dc.push_back(make_pair(store,choice1)); s2_3dc[start-1][0]="order1"; break;
+                                }
+                            }
+                            if(s2_3dc[start-1][0]=="2")  // matrix of Real
+                            {
+                                printf("\n  Enter following details for");sfc(lm);printf(" [REAL NUMBERS] ");sfc(ww);
+                                if(s2_3dc[start-1][1]=="~")   // set precision
+                                {
+                                    mm(43); cin>>choice1;
+                                    if(choice1=="min") break;
+                                    else if(choice1=="exe") break;
+                                    bool check=valid_pos_neg_integer(choice1);
+                                    if(check==false) { mm(37); getch();break; }
+                                    ll store=string_to_integer_converter(choice1);
+                                    if(store<0 || store>100) { mm(37); getch();break; }
+                                    s2_3dc[start-1][1]=choice1;
+                                    dummy_o3dc.push_back(make_pair(store,choice1));  break;
+                                }
+                                if(s2_3dc[start-1][2]=="~")  // set minimum value
+                                {
+                                    mm(25); cin>>choice1;
+                                    if(choice1=="min") break;
+                                    else if(choice1=="exe") break;
+                                    bool check=valid_pos_neg_integer(choice1);
+                                    if(check==false) { mm(37); getch();break; }
+                                    ll store=string_to_integer_converter(choice1);
+                                    s2_3dc[start-1][2]=choice1;
+                                    dummy_o3dc.push_back(make_pair(store,choice1));  break;
+                                }
+                                if(s2_3dc[start-1][3]=="~")  // set maximum value
+                                {
+                                    mm(26); cin>>choice1;
+                                    if(choice1=="min") break;
+                                    else if(choice1=="exe") break;
+                                    bool check=valid_pos_neg_integer(choice1);
+                                    if(check==false) { mm(37); getch();break; }
+                                    ll store1=string_to_integer_converter(choice1); ll store2=dummy_o3dc[3].first;
+                                    if(store1==store2) { mm(44); getch();break; }//  ( Note -> Max_value-Min_value >=1 )
+                                    if(store1<store2) { mm(38); getch();break; }
+                                    s2_3dc[start-1][3]=choice1;
+                                    dummy_o3dc.push_back(make_pair(store1,choice1)); break;
+                                }
+                                if(s2_3dc[start-1][4]=="~~")  // Rows in Matrix through initializer
+                                {
+                                    printf("\n  List of ");sfc(ly);printf("INITIALIZER");sfc(ww);printf(" available\n");
+                                    for(short itrr=0;itrr<si.size();itrr++)
+                                    {
+                                        printf("\n "); cout<<(itrr+1)<<"- "; sfc(ly);cout<<get<3>(si[itrr]);sfc(ww);
+                                        cout<<"   Range ["<<get<1>(si[itrr])<<" - "<<get<2>(si[itrr])<<"]";
+                                    }
+                                    mm(57); cin>>choice1;
+                                    if(choice1=="cl") { s2_3dc[start-1][4]="~";break; }
+                                    else if(choice1=="min") break;
+                                    else if(choice1=="exe") break;
+                                    bool flag=false;
+                                    for(short itrr=0;itrr<si.size();itrr++)
+                                    {
+                                        if(get<3>(si[itrr])==choice1)
+                                        {
+                                            fi=get<2>(si[itrr]); flag=true; s2_3dc[start-1][4]=choice1; dummy_o3dc.push_back(make_pair(get<0>(si[itrr]),choice1)); break;
+                                        }
+                                    }
+                                    if(flag==false) { mm(58); getch();break; }
+                                    break;
+                                }
+                                if(s2_3dc[start-1][4]=="~")  // Rows in Matrix
+                                {
+                                    mm(61); cin>>choice1;
+                                    if(choice1=="int")
+                                    {
+                                        if(si.size()==0) { mm(59); getch();break; }
+                                        else { s2_3dc[start-1][4]="~~"; break; }
+                                    }
+                                    if(choice1=="min") break;
+                                    else if(choice1=="exe") break;
+                                    bool check=valid_pos_neg_integer(choice1);
+                                    if(check==false) { mm(37); getch();break; }
+                                    ll store=string_to_integer_converter(choice1);
+                                    if(store<1 || store>1000000) { mm(37); getch();break; }
+                                    s2_3dc[start-1][4]=choice1; fi=store;
+                                    dummy_o3dc.push_back(make_pair(store,choice1)); break;
+                                }
+                                if(s2_3dc[start-1][5]=="~~")  // Columns in Matrix through initializer
+                                {
+                                    printf("\n  List of ");sfc(ly);printf("INITIALIZER");sfc(ww);printf(" available\n");
+                                    for(short itrr=0;itrr<si.size();itrr++)
+                                    {
+                                        printf("\n "); cout<<(itrr+1)<<"- "; sfc(ly);cout<<get<3>(si[itrr]);sfc(ww);
+                                        cout<<"   Range ["<<get<1>(si[itrr])<<" - "<<get<2>(si[itrr])<<"]";
+                                    }
+                                    mm(57); cin>>choice1;
+                                    if(choice1=="cl") { s2_3dc[start-1][5]="~";break; }
+                                    else if(choice1=="min") break;
+                                    else if(choice1=="exe") break;
+                                    short flag=0;
+                                    for(short itrr=0;itrr<si.size();itrr++)
+                                    {
+                                        if(get<3>(si[itrr])==choice1)
+                                        {
+                                            ll range=fi*get<2>(si[itrr]);
+                                            if(range>1000000) { mm(65);sfc(lr);cout<<range;sfc(ww); mm(66); getch();flag=1;break; }
+                                            flag=2; s2_3dc[start-1][5]=choice1; dummy_o3dc.push_back(make_pair(get<0>(si[itrr]),choice1));s2_3dc[start-1][0]="order1"; break;
+                                        }
+                                    }
+                                    if(flag==false) { mm(58); getch();break; }
+                                    break;
+                                }
+                                if(s2_3dc[start-1][5]=="~")  // Columns in Matrix
+                                {
+                                    mm(62);cin>>choice1;
+                                    if(choice1=="int")
+                                    {
+                                        if(si.size()==0) { mm(59); getch();break; }
+                                        else { s2_3dc[start-1][5]="~~"; break; }
+                                    }
+                                    if(choice1=="min") break;
+                                    else if(choice1=="exe") break;
+                                    bool check=valid_pos_neg_integer(choice1);
+                                    if(check==false) { mm(37); getch();break; }
+                                    ll store=string_to_integer_converter(choice1);
+                                    if(store<1 || store>1000000) { mm(37); getch();break; }
+                                    ll range=fi*store;
+                                    if(range>1000000) { mm(65);sfc(lr);cout<<range;sfc(ww); mm(66); getch();break; }
+                                    s2_3dc[start-1][5]=choice1;
+                                    dummy_o3dc.push_back(make_pair(store,choice1)); s2_3dc[start-1][0]="order1"; break;
+                                }
+                            }
+                            if(s2_3dc[start-1][0]=="3")  // matrix of String
+                            {
+                                if(s2_3dc[start-1][1]=="~")  // type of string
+                                {
+                                    mm(46); cin>>choice1;
+                                    if(choice1=="min") break;
+                                    else if(choice1=="exe") break;
+                                    if(choice1=="1" || choice1=="2")
+                                    {
+                                        short store=string_to_integer_converter(choice1); s2_3dc[start-1][1]=choice1;
+                                        dummy_o3dc.push_back(make_pair(store,choice1));  break;
+                                    }
+                                    mm(36); getch(); break;
+                                }
+                                if(s2_3dc[start-1][1]=="1")    // Default String
+                                {
+                                    if(s2_3dc[start-1][2]=="~") //  store the default String
+                                    {
+                                        mm(47); string def_string; cin>>def_string; s2_3dc[start-1][2]=def_string;
+                                        dummy_o3dc.push_back(make_pair(4,def_string)); break;
+                                    }
+                                    if(s2_3dc[start-1][4]=="~~")  // Rows in Matrix through initializer
+                                    {
+                                        printf("\n  List of ");sfc(ly);printf("INITIALIZER");sfc(ww);printf(" available\n");
+                                        for(short itrr=0;itrr<si.size();itrr++)
+                                        {
+                                            printf("\n "); cout<<(itrr+1)<<"- "; sfc(ly);cout<<get<3>(si[itrr]);sfc(ww);
+                                            cout<<"   Range ["<<get<1>(si[itrr])<<" - "<<get<2>(si[itrr])<<"]";
+                                        }
+                                        mm(57); cin>>choice1;
+                                        if(choice1=="cl") { s2_3dc[start-1][4]="~";break; }
+                                        else if(choice1=="min") break;
+                                        else if(choice1=="exe") break;
+                                        bool flag=false;
+                                        for(short itrr=0;itrr<si.size();itrr++)
+                                        {
+                                            if(get<3>(si[itrr])==choice1)
+                                            {
+                                                fi=get<2>(si[itrr]);  flag=true; s2_3dc[start-1][4]=choice1; dummy_o3dc.push_back(make_pair(get<0>(si[itrr]),choice1)); break;
+                                            }
+                                        }
+                                        if(flag==false) { mm(58); getch();break; }
+                                        break;
+                                    }
+                                    if(s2_3dc[start-1][4]=="~")  // Rows in Matrix
+                                    {
+                                        mm(61); cin>>choice1;
+                                        if(choice1=="int")
+                                        {
+                                            if(si.size()==0) { mm(59); getch();break; }
+                                            else { s2_3dc[start-1][4]="~~"; break; }
+                                        }
+                                        if(choice1=="min") break;
+                                        else if(choice1=="exe") break;
+                                        bool check=valid_pos_neg_integer(choice1);
+                                        if(check==false) { mm(37); getch();break; }
+                                        ll store=string_to_integer_converter(choice1);
+                                        if(store<1 || store>1000000) { mm(37); getch();break; }
+                                        s2_3dc[start-1][4]=choice1; fi=store;
+                                        dummy_o3dc.push_back(make_pair(store,choice1)); break;
+                                    }
+                                    if(s2_3dc[start-1][5]=="~~")  // Columns in Matrix through initializer
+                                    {
+                                        printf("\n  List of ");sfc(ly);printf("INITIALIZER");sfc(ww);printf(" available\n");
+                                        for(short itrr=0;itrr<si.size();itrr++)
+                                        {
+                                            printf("\n "); cout<<(itrr+1)<<"- "; sfc(ly);cout<<get<3>(si[itrr]);sfc(ww);
+                                            cout<<"   Range ["<<get<1>(si[itrr])<<" - "<<get<2>(si[itrr])<<"]";
+                                        }
+                                        mm(57); cin>>choice1;
+                                        if(choice1=="cl") { s2_3dc[start-1][5]="~";break; }
+                                        else if(choice1=="min") break;
+                                        else if(choice1=="exe") break;
+                                        short flag=0;
+                                        for(short itrr=0;itrr<si.size();itrr++)
+                                        {
+                                            if(get<3>(si[itrr])==choice1)
+                                            {
+                                                ll range=fi*get<2>(si[itrr]);
+                                                if(range>1000000) { mm(65);sfc(lr);cout<<range;sfc(ww); mm(66); getch();flag=1;break; }
+                                                flag=2; s2_3dc[start-1][5]=choice1; dummy_o3dc.push_back(make_pair(get<0>(si[itrr]),choice1));
+                                                dummy2_o3dc.push_back(dummy_o3dc); dummy_o3dc.clear(); s_3dc[i][j]=true; break;
+                                            }
+                                        }
+                                        if(flag==false) { mm(58); getch();break; }
+                                        break;
+                                    }
+                                    if(s2_3dc[start-1][5]=="~")  // Columns in Matrix
+                                    {
+                                        mm(62); cin>>choice1;
+                                        if(choice1=="int")
+                                        {
+                                            if(si.size()==0) { mm(59); getch();break; }
+                                            else { s2_3dc[start-1][5]="~~"; break; }
+                                        }
+                                        if(choice1=="min") break;
+                                        else if(choice1=="exe") break;
+                                        bool check=valid_pos_neg_integer(choice1);
+                                        if(check==false) { mm(37); getch();break; }
+                                        ll store=string_to_integer_converter(choice1);
+                                        if(store<1 || store>1000000) { mm(37); getch();break; }
+                                        ll range=fi*store;
+                                        if(range>1000000) { mm(65);sfc(lr);cout<<range;sfc(ww); mm(66); getch();break; }
+                                        s2_3dc[start-1][5]=choice1;
+                                        dummy_o3dc.push_back(make_pair(store,choice1));
+                                        dummy2_o3dc.push_back(dummy_o3dc); dummy_o3dc.clear(); s_3dc[i][j]=true; break;
+                                    }
+                                }
+                                else                           // Input String
+                                {
+                                    if(s2_3dc[start-1][2]=="~")   // store input string
+                                    {
+                                        mm(48); string in_string;cin>>in_string; s2_3dc[start-1][2]=in_string;
+                                        dummy_o3dc.push_back(make_pair(4,in_string)); break;
+                                    }
+                                    if(s2_3dc[start-1][3]=="~")   // type of string
+                                    {
+                                        mm(49); cin>>choice1;
+                                        if(choice1=="min") break;
+                                        else if(choice1=="exe") break;
+                                        if(choice1=="1" || choice1=="2" || choice1=="3" || choice1=="4")
+                                        {
+                                            short store=string_to_integer_converter(choice1);
+                                            s2_3dc[start-1][3]=choice1;
+                                            dummy_o3dc.push_back(make_pair(store,choice1));  break;
+                                        }
+                                        mm(36); getch(); break;
+                                    }
+
+                                    if(s2_3dc[start-1][7]=="~")   // mode of string
+                                    {
+                                        mm(50); cin>>choice1;
+                                        if(choice1=="min") break;
+                                        else if(choice1=="exe") break;
+                                        if(choice1=="1" || choice1=="2")
+                                        {
+                                            short store=string_to_integer_converter(choice1); s2_3dc[start-1][7]=choice1;
+                                            dummy_o3dc.push_back(make_pair(store,choice1));  break;
+                                        }
+                                        mm(36); getch(); break;
+                                    }
+                                    if(s2_3dc[start-1][6]=="~")   // size of string
+                                    {
+                                        if(s2_3dc[start-1][7]=="1")    // Repetition allowed in symbols
+                                        {
+                                            mm(51);cin>>choice1;
+                                            if(choice1=="min") break;
+                                            else if(choice1=="exe") break;
+                                            bool check=valid_pos_neg_integer(choice1);
+                                            if(check==false) { mm(37); getch();break; }
+                                            ll store=string_to_integer_converter(choice1);
+                                            if(store<1 || store>1000000) { mm(37); getch();break; }
+                                            s2_3dc[start-1][6]=choice1;
+                                            dummy_o3dc.push_back(make_pair(store,choice1)); break;
+                                        }
+                                        else        // No repetition allowed in symbols
+                                        {
+                                            if(s2_3dc[start-1][3]=="4")    // palindromic
+                                            {
+                                                mm(70);sfc(lm);cout<<(2*s2_3dc[start-1][2].size()); sfc(ww);printf(")\n\n SIZE ->  "); cin>>choice1;
+                                                if(choice1=="min") break;
+                                                else if(choice1=="exe") break;
+                                                bool check=valid_pos_neg_integer(choice1);
+                                                if(check==false) { mm(37); getch();break; }
+                                                ll store=string_to_integer_converter(choice1);
+                                                if(store<1 || store>(2*s2_3dc[start-1][2].size())) { mm(37); getch();break; }
+                                                s2_3dc[start-1][6]=choice1;
+                                                dummy_o3dc.push_back(make_pair(store,choice1)); break;
+                                            }
+                                            else   //  Ordinary
+                                            {
+                                                mm(70);sfc(lm);cout<<s2_3dc[start-1][2].size();sfc(ww); printf(")\n\n SIZE ->  "); cin>>choice1;
+                                                if(choice1=="min") break;
+                                                else if(choice1=="exe") break;
+                                                bool check=valid_pos_neg_integer(choice1);
+                                                if(check==false) { mm(37); getch();break; }
+                                                ll store=string_to_integer_converter(choice1);
+                                                if(store<1 || store>s2_3dc[start-1][2].size()) { mm(37); getch();break; }
+                                                s2_3dc[start-1][6]=choice1;
+                                                dummy_o3dc.push_back(make_pair(store,choice1)); break;
+                                            }
+                                        }
+                                    }
+                                    if(s2_3dc[start-1][4]=="~~")  // Rows in Matrix through initializer
+                                    {
+                                        printf("\n  List of ");sfc(ly);printf("INITIALIZER");sfc(ww);printf(" available\n");
+                                        for(short itrr=0;itrr<si.size();itrr++)
+                                        {
+                                            printf("\n "); cout<<(itrr+1)<<"- "; sfc(ly);cout<<get<3>(si[itrr]);sfc(ww);
+                                            cout<<"   Range ["<<get<1>(si[itrr])<<" - "<<get<2>(si[itrr])<<"]";
+                                        }
+                                        mm(57); cin>>choice1;
+                                        if(choice1=="cl") { s2_3dc[start-1][4]="~";break; }
+                                        else if(choice1=="min") break;
+                                        else if(choice1=="exe") break;
+                                        bool flag=false;
+                                        for(short itrr=0;itrr<si.size();itrr++)
+                                        {
+                                            if(get<3>(si[itrr])==choice1)
+                                            {
+                                                fi=get<2>(si[itrr]);  flag=true; s2_3dc[start-1][4]=choice1; dummy_o3dc.push_back(make_pair(get<0>(si[itrr]),choice1)); break;
+                                            }
+                                        }
+                                        if(flag==false) { mm(58); getch();break; }
+                                        break;
+                                    }
+                                    if(s2_3dc[start-1][4]=="~")   // Rows in Matrix
+                                    {
+                                        mm(61); cin>>choice1;
+                                        if(choice1=="int")
+                                        {
+                                            if(si.size()==0) { mm(59); getch();break; }
+                                            else { s2_3dc[start-1][4]="~~"; break; }
+                                        }
+                                        if(choice1=="min") break;
+                                        else if(choice1=="exe") break;
+                                        bool check=valid_pos_neg_integer(choice1);
+                                        if(check==false) { mm(37); getch();break; }
+                                        ll store=string_to_integer_converter(choice1);
+                                        if(store<1 || store>1000000) { mm(37); getch();break; }
+                                        s2_3dc[start-1][4]=choice1; fi=store;
+                                        dummy_o3dc.push_back(make_pair(store,choice1)); break;
+                                    }
+                                    if(s2_3dc[start-1][5]=="~~")  // Columns in Matrix through initializer
+                                    {
+                                        printf("\n  List of ");sfc(ly);printf("INITIALIZER");sfc(ww);printf(" available\n");
+                                        for(short itrr=0;itrr<si.size();itrr++)
+                                        {
+                                            printf("\n "); cout<<(itrr+1)<<"- "; sfc(ly);cout<<get<3>(si[itrr]);sfc(ww);
+                                            cout<<"   Range ["<<get<1>(si[itrr])<<" - "<<get<2>(si[itrr])<<"]";
+                                        }
+                                        mm(57); cin>>choice1;
+                                        if(choice1=="cl") { s2_3dc[start-1][5]="~";break; }
+                                        else if(choice1=="min") break;
+                                        else if(choice1=="exe") break;
+                                        short flag=0;
+                                        for(short itrr=0;itrr<si.size();itrr++)
+                                        {
+                                            if(get<3>(si[itrr])==choice1)
+                                            {
+                                                ll range=fi*get<2>(si[itrr]);
+                                                if(range>1000000) { mm(65);sfc(lr);cout<<range;sfc(ww); mm(66); getch();flag=1;break; }
+                                                flag=2; s2_3dc[start-1][5]=choice1; dummy_o3dc.push_back(make_pair(get<0>(si[itrr]),choice1));s2_3dc[start-1][0]="order1"; break;
+                                            }
+                                        }
+                                        if(flag==false) { mm(58); getch();break; }
+                                        break;
+                                    }
+                                    if(s2_3dc[start-1][5]=="~")   // Columns in Matrix
+                                    {
+                                        mm(62); cin>>choice1;
+                                        if(choice1=="int")
+                                        {
+                                            if(si.size()==0) { mm(59); getch();break; }
+                                            else { s2_3dc[start-1][5]="~~"; break; }
+                                        }
+                                        if(choice1=="min") break;
+                                        else if(choice1=="exe") break;
+                                        bool check=valid_pos_neg_integer(choice1);
+                                        if(check==false) { mm(37); getch();break; }
+                                        ll store=string_to_integer_converter(choice1);
+                                        if(store<1 || store>1000000) { mm(37); getch();break; }
+                                        ll range=fi*store;
+                                        if(range>1000000) { mm(65);sfc(lr);cout<<range;sfc(ww); mm(66); getch(); break; }
+                                        s2_3dc[start-1][5]=choice1;
+                                        dummy_o3dc.push_back(make_pair(store,choice1)); s2_3dc[start-1][0]="order1"; break;
+                                    }
+
+                                }
+                            }
+                            if(s2_3dc[start-1][0]=="4")            // prepare for matrix of Permutation
+                            {
+                                dummy_o3dc.push_back(make_pair(1,"~")); // for storing permutation string    (index 2)
+                                dummy_o3dc.push_back(make_pair(1,"~")); // for Storing Row of Matrix         (index 3)
+                                dummy_o3dc.push_back(make_pair(1,"~")); // for storing Column of Matrix      (index 4)
+                                s2_3dc[start-1][0]="ready_for_permutation"; break;
+                            }
+                            if(s2_3dc[start-1][0]=="ready_for_permutation")    // Matrix of Permutation
+                            {
+                                printf("\n  Enter following details for");sfc(lm);printf(" [PERMUTATIONS] ");sfc(ww);
+                                if(s2_3dc[start-1][4]=="~~")  // Rows in Matrix through initializer
+                                {
+                                    printf("\n  List of ");sfc(ly);printf("INITIALIZER");sfc(ww);printf(" available\n");
+                                    for(short itrr=0;itrr<si.size();itrr++)
+                                    {
+                                        printf("\n "); cout<<(itrr+1)<<"- "; sfc(ly);cout<<get<3>(si[itrr]);sfc(ww);
+                                        cout<<"   Range ["<<get<1>(si[itrr])<<" - "<<get<2>(si[itrr])<<"]";
+                                    }
+                                    mm(57); cin>>choice1;
+                                    if(choice1=="cl") { s2_3dc[start-1][4]="~";break; }
+                                    else if(choice1=="min") break;
+                                    else if(choice1=="exe") break;
+                                    bool flag=false;
+                                    for(short itrr=0;itrr<si.size();itrr++)
+                                    {
+                                        if(get<3>(si[itrr])==choice1)
+                                        {
+                                            fi=get<2>(si[itrr]); flag=true; s2_3dc[start-1][4]=choice1; dummy_o3dc[3].first=get<0>(si[itrr]);dummy_o3dc[3].second=choice1; break;
+                                        }
+                                    }
+                                    if(flag==false) { mm(58); getch();break; }
+                                    break;
+                                }
+                                if(s2_3dc[start-1][4]=="~")  // Rows in Matrix
+                                {
+                                    mm(61); cin>>choice1;
+                                    if(choice1=="int")
+                                    {
+                                        if(si.size()==0) { mm(59); getch();break; }
+                                        else { s2_3dc[start-1][4]="~~"; break; }
+                                    }
+                                    if(choice1=="min") break;
+                                    else if(choice1=="exe") break;
+                                    bool check=valid_pos_neg_integer(choice1);
+                                    if(check==false) { mm(37); getch();break; }
+                                    ll store=string_to_integer_converter(choice1);
+                                    if(store<1 || store>1000000) { mm(37); getch();break; }
+                                    s2_3dc[start-1][4]=choice1; fi=store;
+                                    dummy_o3dc[3].first=store;dummy_o3dc[3].second=choice1; break;
+                                }
+                                if(s2_3dc[start-1][5]=="~~")  // Columns in Matrix through initializer
+                                {
+                                    printf("\n  List of ");sfc(ly);printf("INITIALIZER");sfc(ww);printf(" available\n");
+                                    for(short itrr=0;itrr<si.size();itrr++)
+                                    {
+                                        printf("\n "); cout<<(itrr+1)<<"- "; sfc(ly);cout<<get<3>(si[itrr]);sfc(ww);
+                                        cout<<"   Range ["<<get<1>(si[itrr])<<" - "<<get<2>(si[itrr])<<"]";
+                                    }
+                                    mm(57); cin>>choice1;
+                                    if(choice1=="cl") { s2_3dc[start-1][5]="~";break; }
+                                    else if(choice1=="min") break;
+                                    else if(choice1=="exe") break;
+                                    short flag=0;
+                                    for(short itrr=0;itrr<si.size();itrr++)
+                                    {
+                                        if(get<3>(si[itrr])==choice1)
+                                        {
+                                            ll range=fi*get<2>(si[itrr]);
+                                            if(range>1000000) { mm(65);sfc(lr);cout<<range;sfc(ww); mm(66); getch();flag=1;break; }
+                                            flag=2; s2_3dc[start-1][5]=choice1;  fi=range;
+                                            dummy_o3dc[4].first=get<0>(si[itrr]);dummy_o3dc[4].second=choice1; break;
+                                        }
+                                    }
+                                    if(flag==false) { mm(58); getch();break; }
+                                    break;
+                                }
+                                if(s2_3dc[start-1][5]=="~")  // Columns in Matrix
+                                {
+                                    mm(62); cin>>choice1;
+                                    if(choice1=="int")
+                                    {
+                                        if(si.size()==0) { mm(59); getch();break; }
+                                        else { s2_3dc[start-1][5]="~~"; break; }
+                                    }
+                                    if(choice1=="min") break;
+                                    else if(choice1=="exe") break;
+                                    bool check=valid_pos_neg_integer(choice1);
+                                    if(check==false) { mm(37); getch();break; }
+                                    ll store=string_to_integer_converter(choice1);
+                                    if(store<1 || store>1000000) { mm(37); getch();break; }
+                                    ll range=fi*store;
+                                    if(range>1000000) { mm(65);sfc(lr);cout<<range;sfc(ww); mm(66); getch();break; }
+                                    s2_3dc[start-1][5]=choice1;
+                                    fi=range;
+                                    dummy_o3dc[4].first=store;dummy_o3dc[4].second=choice1; break;
+                                }
+                                if(dummy_o3dc[2].second=="~")  // store string for permutation
+                                {
+                                    mm(68); string in_string; cin>>in_string;
+                                    if(in_string.size()>19) { mm(37); getch();break; }
+                                    ll store1=count_no_of_permutations(in_string);
+                                    if(store1<fi)
+                                    {
+                                        cout<<"\n\n    Only "<<store1<<" number of permutations are possible of your string.";
+                                        cout<<"\n    However, you want to create ";sfc(lg);printf("MATRIX[][]");sfc(ww);printf(" of ");cout<<fi;printf(" Number of cells");
+                                        printf("\n\n  So you are advised to change your string, which meets the above criteria.");
+                                        printf("\n\n    Now press ");sbc(dr);sfc(lr);printf(" ENTER ");sbc(bb);sfc(ww);printf(" to continue"); getch(); break;
+                                    }
+                                    dummy_o3dc[2].second=in_string; dummy_o3dc[2].first=5;
+                                    s2_3dc[start-1][0]="order1"; break;
+                                }
+                            }
+                            if(s2_3dc[start-1][0]=="5")                       // prepare for unique number
+                            {
+                                dummy_o3dc.push_back(make_pair(1,"~"));  // for storing minimum value     (index 2)
+                                dummy_o3dc.push_back(make_pair(1,"~"));  // for storing maximum value     (index 3)
+                                dummy_o3dc.push_back(make_pair(1,"~"));  // for storing Rows of Matrix    (index 4)
+                                dummy_o3dc.push_back(make_pair(1,"~"));  // for storing Columns of Matrix (index 5)
+                                s2_3dc[start-1][0]="ready_for_unique"; break;
+                            }
+                            if(s2_3dc[start-1][0]=="ready_for_unique")  // matrix of all unique number
+                            {
+                                printf("\n  Enter following details for");sfc(lm);printf(" [UNIQUE NUMBERS] ");sfc(ww);
+                                if(s2_3dc[start-1][4]=="~~")  // Rows in Matrix through initializer
+                                {
+                                    printf("\n  List of ");sfc(ly);printf("INITIALIZER");sfc(ww);printf(" available\n");
+                                    for(short itrr=0;itrr<si.size();itrr++)
+                                    {
+                                        printf("\n "); cout<<(itrr+1)<<"- "; sfc(ly);cout<<get<3>(si[itrr]);sfc(ww);
+                                        cout<<"   Range ["<<get<1>(si[itrr])<<" - "<<get<2>(si[itrr])<<"]";
+                                    }
+                                    mm(57); cin>>choice1;
+                                    if(choice1=="cl") { s2_3dc[start-1][4]="~";break; }
+                                    else if(choice1=="min") break;
+                                    else if(choice1=="exe") break;
+                                    bool flag=false;
+                                    for(short itrr=0;itrr<si.size();itrr++)
+                                    {
+                                        if(get<3>(si[itrr])==choice1)
+                                        {
+                                            fi=get<2>(si[itrr]); flag=true; s2_3dc[start-1][4]=choice1; dummy_o3dc[4].first=get<0>(si[itrr]);dummy_o3dc[4].second=choice1; break;
+                                        }
+                                    }
+                                    if(flag==false) { mm(58); getch();break; }
+                                    break;
+                                }
+                                if(s2_3dc[start-1][4]=="~")  // Rows in Matrix
+                                {
+                                    mm(61); cin>>choice1;
+                                    if(choice1=="int")
+                                    {
+                                        if(si.size()==0) { mm(59); getch();break; }
+                                        else { s2_3dc[start-1][4]="~~"; break; }
+                                    }
+                                    if(choice1=="min") break;
+                                    else if(choice1=="exe") break;
+                                    bool check=valid_pos_neg_integer(choice1);
+                                    if(check==false) { mm(37); getch();break; }
+                                    ll store=string_to_integer_converter(choice1);
+                                    if(store<1 || store>1000000) { mm(37); getch();break; }
+                                    s2_3dc[start-1][4]=choice1; fi=store;
+                                    dummy_o3dc[4].first=store;dummy_o3dc[4].second=choice1; break;
+                                }
+                                if(s2_3dc[start-1][5]=="~~")  // Columns in Matrix through initializer
+                                {
+                                    printf("\n  List of ");sfc(ly);printf("INITIALIZER");sfc(ww);printf(" available\n");
+                                    for(short itrr=0;itrr<si.size();itrr++)
+                                    {
+                                        printf("\n "); cout<<(itrr+1)<<"- "; sfc(ly);cout<<get<3>(si[itrr]);sfc(ww);
+                                        cout<<"   Range ["<<get<1>(si[itrr])<<" - "<<get<2>(si[itrr])<<"]";
+                                    }
+                                    mm(57); cin>>choice1;
+                                    if(choice1=="cl") { s2_3dc[start-1][5]="~";break; }
+                                    else if(choice1=="min") break;
+                                    else if(choice1=="exe") break;
+                                    short flag=0;
+                                    for(short itrr=0;itrr<si.size();itrr++)
+                                    {
+                                        if(get<3>(si[itrr])==choice1)
+                                        {
+                                            ll range=fi*get<2>(si[itrr]);
+                                            if(range>1000000) { mm(65);sfc(lr);cout<<range;sfc(ww); mm(66); getch();flag=1;break; }
+                                            flag=2; s2_3dc[start-1][5]=choice1;  fi=range;
+                                            dummy_o3dc[5].first=get<0>(si[itrr]);dummy_o3dc[5].second=choice1; break;
+                                        }
+                                    }
+                                    if(flag==false) { mm(58); getch();break; }
+                                    break;
+                                }
+                                if(s2_3dc[start-1][5]=="~")  // Columns in Matrix
+                                {
+                                    mm(62); cin>>choice1;
+                                    if(choice1=="int")
+                                    {
+                                        if(si.size()==0) { mm(59); getch();break; }
+                                        else { s2_3dc[start-1][5]="~~"; break; }
+                                    }
+                                    if(choice1=="min") break;
+                                    else if(choice1=="exe") break;
+                                    bool check=valid_pos_neg_integer(choice1);
+                                    if(check==false) { mm(37); getch();break; }
+                                    ll store=string_to_integer_converter(choice1);
+                                    if(store<1 || store>1000000) { mm(37); getch();break; }
+                                    ll range=fi*store;
+                                    if(range>1000000) { mm(65);sfc(lr);cout<<range;sfc(ww); mm(66); getch(); break; }
+                                    s2_3dc[start-1][5]=choice1; fi=range;
+                                    dummy_o3dc[5].first=store;dummy_o3dc[5].second=choice1; break;
+                                }
+                                if(dummy_o3dc[2].second=="~")  // set minimum value
+                                {
+                                    mm(25); cin>>choice1;
+                                    if(choice1=="min") break;
+                                    else if(choice1=="exe") break;
+                                    bool check=valid_pos_neg_integer(choice1);
+                                    if(check==false) { mm(37); getch();break; }
+                                    ll store=string_to_integer_converter(choice1);
+                                    dummy_o3dc[2].first=store;dummy_o3dc[2].second=choice1; break;
+                                }
+                                if(dummy_o3dc[3].second=="~")  // set maximum value
+                                {
+                                    mm(26); cin>>choice1;
+                                    if(choice1=="min") break;
+                                    else if(choice1=="exe") break;
+                                    bool check=valid_pos_neg_integer(choice1);
+                                    if(check==false) { mm(37); getch();break; }
+                                    ll store1=string_to_integer_converter(choice1);
+                                    ll store2=dummy_o3dc[2].first;
+                                    if(store1<store2) { mm(38); getch();break; }
+                                    if(fi>(store1-store2+1))
+                                    {
+                                        cout<<"\n\n  You wish to create "<<fi<<" Number of cells in your ";sfc(lg);printf("MATRIX[][]");sfc(ww);
+                                        cout<<"\n  However, only "<<(store1-store2+1)<<" Unique No. exists in range provided by you.";
+                                        printf("\n\n  You are advised to enlarge your range");
+                                        printf("\n\n   press ");sbc(dr);sfc(lr);printf(" ENTER ");sbc(bb);sfc(ww);printf(" to change Maximum value"); getch();break;
+                                    }
+                                    dummy_o3dc[3].first=store1;dummy_o3dc[3].second=choice1;
+                                    s2_3dc[start-1][0]="order1"; break;
+                                }
+                            }
+                        }
+
+                    case 6:    // TREE CLASS
+                        {
+                            cout<<"  "<<(++start)<<". ";
+                            sfc(lg);cout<<_3dc[i][j].second;sfc(lc);cout<<" [CLASS TREE]";sfc(ww);
+                            s_3dc[i][j]=true;
+                            break;
+                        }
+
+                    case 7:    // GRAPH CLASS
+                        {
+                            cout<<"  "<<(++start)<<". ";
+                            sfc(lg);cout<<_3dc[i][j].second;sfc(lc);cout<<" [CLASS GRAPH]";sfc(ww);
+                            s_3dc[i][j]=true;
+                            break;
+                        }
+
+                    case 8:    // CUSTOM DATA TYPE CLASS
+                        {
+                            cout<<"  "<<(++start)<<". ";
+                            sfc(lg);cout<<_3dc[i][j].second;sfc(lc);cout<<" [CLASS CUSTOM_DATA_TYPE]";sfc(ww);
+                            if(s2_3dc[start-1][0]=="~")
+                            {
+                                mm(67); cin>>choice1;
+                                if(choice1=="min") break;
+                                else if(choice1=="exe") break;
+                                bool check=valid_pos_neg_integer(choice1);
+                                if(check==false) { mm(37); getch();break; }
+                                ll store=string_to_integer_converter(choice1);
+                                if(store<1 || store>20) { mm(37); getch();break; }
+                                no_of_attribute_for_custom=store; s2_3dc[start-1][0]=choice1;
+                                dummy_o3dc.push_back(make_pair(8,"cus"));
+                                dummy_o3dc.push_back(make_pair(store,choice1)); break;
+                            }
+                            if(s2_3dc[start-1][1]=="~~")
+                            {
+                                printf("\n  List of ");sfc(ly);printf("INITIALIZER");sfc(ww);printf(" available\n");
+                                for(short itrr=0;itrr<si.size();itrr++)
+                                {
+                                    printf("\n "); cout<<(itrr+1)<<"- "; sfc(ly);cout<<get<3>(si[itrr]);sfc(ww);
+                                    cout<<"   Range ["<<get<1>(si[itrr])<<" - "<<get<2>(si[itrr])<<"]";
+                                }
+                                mm(57); cin>>choice1;
+                                if(choice1=="cl") { s2_3dc[start-1][1]="~";break; }
+                                else if(choice1=="min") break;
+                                else if(choice1=="exe") break;
+                                bool flag=false;
+                                for(short itrr=0;itrr<si.size();itrr++)
+                                {
+                                    if(get<3>(si[itrr])==choice1)
+                                    {
+                                        flag=true; s2_3dc[start-1][1]=choice1; dummy_o3dc.push_back(make_pair(get<0>(si[itrr]),choice1)); break;
+                                    }
+                                }
+                                if(flag==false) { mm(58); getch();break; }
+                                break;
+                            }
+                            if(s2_3dc[start-1][1]=="~")
+                            {
+                                mm(69); cin>>choice1;
+                                if(choice1=="int")
+                                {
+                                    if(si.size()==0) { mm(59); getch();break; }
+                                    else { s2_3dc[start-1][1]="~~"; break; }
+                                }
+                                if(choice1=="min") break;
+                                else if(choice1=="exe") break;
+                                bool check=valid_pos_neg_integer(choice1);
+                                if(check==false) { mm(37); getch();break; }
+                                ll store=string_to_integer_converter(choice1);
+                                if(store<1 || store>1000000) { mm(37); getch();break; }
+                                s2_3dc[start-1][1]=choice1;
+                                dummy_o3dc.push_back(make_pair(store,choice1)); break;
+                            }
+                            while(no_of_attribute_for_custom>0)
+                            {
+                                cout<<"\n\n  Your structure -> ";vector <pair <ll,string>> demo_custom; sfc(lm);cout<<custom_structure;sfc(ww);
+                                mm(52); cin>>choice1;
+                                if(choice1=="min") break;
+                                else if(choice1=="exe") break;
+                                if(choice1=="1" || choice1=="2" || choice1=="3" || choice1=="4" || choice1=="5" || choice1=="6")
+                                {
+                                    if(choice1=="1")  // attribute type ->  Integer
+                                    {
+                                        custom_structure+="Integer";
+                                        demo_custom.push_back(make_pair(1,"int"));  // Integer   (index 0)
+                                        demo_custom.push_back(make_pair(1,"~"));    // type      (index 1)
+                                        demo_custom.push_back(make_pair(1,"~"));    // min_value (index 2)
+                                        demo_custom.push_back(make_pair(1,"~"));    // max_value (index 3)
+                                        demo_custom.push_back(make_pair(1,"~"));    // order     (index 4)
+                                        dummy_o3dc.push_back(make_pair(++index_of_custom_data_type,"Integer"));
+                                        cdt.push_back(demo_custom);
+                                    }
+                                    else if(choice1=="2")   // attribute type ->  Real
+                                    {
+                                        custom_structure+="Real";
+                                        demo_custom.push_back(make_pair(2,"rel")); // Real         (index 0)
+                                        demo_custom.push_back(make_pair(2,"~"));   // precision    (index 1)
+                                        demo_custom.push_back(make_pair(2,"~"));   // min_value    (index 2)
+                                        demo_custom.push_back(make_pair(2,"~"));   // max_value    (index 3)
+                                        demo_custom.push_back(make_pair(2,"~"));   // order        (index 4)
+                                        dummy_o3dc.push_back(make_pair(++index_of_custom_data_type,"Real"));
+                                        cdt.push_back(demo_custom);
+                                    }
+                                    else if(choice1=="3")   // attribute type ->  String
+                                    {
+                                        custom_structure+="String";
+                                        demo_custom.push_back(make_pair(3,"str"));  // string   (index 0)
+                                        demo_custom.push_back(make_pair(3,"~"));    // type     (index 1)
+                                        dummy_o3dc.push_back(make_pair(++index_of_custom_data_type,"String"));
+                                        cdt.push_back(demo_custom);
+                                    }
+                                    else if(choice1=="4")   // attribute type ->  Permutation
+                                    {
+                                        custom_structure+="Permutation";
+                                        demo_custom.push_back(make_pair(4,"per"));  // permutation  (index 0)
+                                        demo_custom.push_back(make_pair(4,"~"));    // string       (index 1)
+                                        demo_custom.push_back(make_pair(4,"~"));    // order        (index 2)
+                                        dummy_o3dc.push_back(make_pair(++index_of_custom_data_type,"Permutation"));
+                                        cdt.push_back(demo_custom);
+                                    }
+                                    else if(choice1=="5")  // attribute type ->  Unique Number
+                                    {
+                                        custom_structure+="Unique_No";
+                                        demo_custom.push_back(make_pair(5,"uni"));  // Unique Number  (index 0)
+                                        demo_custom.push_back(make_pair(5,"~"));    // min_value      (index 1)
+                                        demo_custom.push_back(make_pair(5,"~"));    // max_value      (index 2)
+                                        demo_custom.push_back(make_pair(5,"~"));    // order          (index 3)
+                                        dummy_o3dc.push_back(make_pair(++index_of_custom_data_type,"Unique_Number"));
+                                        cdt.push_back(demo_custom);
+                                    }
+                                    else if(choice1=="6")   // attribute type ->  Space
+                                    {
+                                        custom_structure+="_space_";
+                                        demo_custom.push_back(make_pair(6,"spc"));  // space
+                                        dummy_o3dc.push_back(make_pair(++index_of_custom_data_type,"Space"));
+                                        cdt.push_back(demo_custom);
+                                    }
+                                    --no_of_attribute_for_custom;
+                                    break;
+                                }
+                                mm(36); getch(); break;
+                            }
+                            if(no_of_attribute_for_custom==0)
+                            {
+                                no_of_attribute_for_custom=-1; dummy2_o3dc.push_back(dummy_o3dc); break;
+                            }
+                            if(no_of_attribute_for_custom==-1)
+                            {
+                                cout<<"\n\n  Your structure -> "; sfc(lm);cout<<custom_structure;sfc(ww);
+                                printf("\n  Define following sub attributes of your custom data type\n");
+                                for(short itr=3;itr<dummy_o3dc.size();itr++)
+                                {
+                                    if(dummy_o3dc[itr].first<0)
+                                    {
+                                        if(itr==(dummy_o3dc.size()-1))
+                                        {
+                                            no_of_attribute_for_custom=-2; break;
+                                        }
+                                        cout<<"\n"<<(itr-2)<<"- Attribute value saved for ";sfc(lm);cout<<dummy_o3dc[itr].second;sfc(ww); continue;
+                                    }
+                                    if(dummy_o3dc[itr].second=="Integer")
+                                    {
+                                        printf("\n\n  Class [Integer] \n\n");
+                                        for(short itr2=1;itr2<=4;itr2++)
+                                        {
+                                            if(cdt[dummy_o3dc[itr].first][itr2].second=="~" && itr2==1)   // case 1 -> Type of Integer
+                                            {
+                                                mm(35); cin>>choice1;
+                                                if(choice1=="min") break;
+                                                else if(choice1=="exe") break;
+                                                if(choice1=="1" || choice1=="2" || choice1=="3" || choice1=="4" || choice1=="5" || choice1=="6" || choice1=="7")
+                                                    {
+                                                        short store=string_to_integer_converter(choice1);
+                                                        cdt[dummy_o3dc[itr].first][itr2].first=store;
+                                                        cdt[dummy_o3dc[itr].first][itr2].second=choice1;
+                                                        break;
+                                                    }
+                                                mm(36); getch(); break;
+                                            }
+                                            if(cdt[dummy_o3dc[itr].first][itr2].second=="~" && itr2==2)    //  case 2 -> Minimum value
+                                            {
+                                                if(cdt[dummy_o3dc[itr].first][itr2-1].first==1)   // random integer
+                                                {
+                                                    printf("\n  Random Integer");
+                                                    mm(25); cin>>choice1;
+                                                    if(choice1=="min") break;
+                                                    else if(choice1=="exe") break;
+                                                    bool check=valid_pos_neg_integer(choice1);
+                                                    if(check==false) { mm(37); getch();break; }
+                                                    ll store=string_to_integer_converter(choice1);
+                                                    cdt[dummy_o3dc[itr].first][itr2].second=choice1; cdt[dummy_o3dc[itr].first][itr2].first=store; break;
+                                                }
+                                                if(cdt[dummy_o3dc[itr].first][itr2-1].first==2)   // odd number
+                                                {
+                                                    printf("\n  Odd Integer");
+                                                    mm(25); cin>>choice1;
+                                                    if(choice1=="min") break;
+                                                    else if(choice1=="exe") break;
+                                                    bool check=valid_pos_neg_integer(choice1);
+                                                    if(check==false) { mm(37); getch();break; }
+                                                    ll store=string_to_integer_converter(choice1);
+                                                    cdt[dummy_o3dc[itr].first][itr2].second=choice1; cdt[dummy_o3dc[itr].first][itr2].first=store; break;
+                                                }
+                                                if(cdt[dummy_o3dc[itr].first][itr2-1].first==3)   // even number
+                                                {
+                                                    printf("\n  Even Integer");
+                                                    mm(25); cin>>choice1;
+                                                    if(choice1=="min") break;
+                                                    else if(choice1=="exe") break;
+                                                    bool check=valid_pos_neg_integer(choice1);
+                                                    if(check==false) { mm(37); getch();break; }
+                                                    ll store=string_to_integer_converter(choice1);
+                                                    cdt[dummy_o3dc[itr].first][itr2].second=choice1; cdt[dummy_o3dc[itr].first][itr2].first=store; break;
+                                                }
+                                                if(cdt[dummy_o3dc[itr].first][itr2-1].first==4)   // prime number
+                                                {
+                                                    printf("\n  Prime Number");
+                                                    mm(27); cin>>choice1;
+                                                    if(choice1=="min") break;
+                                                    else if(choice1=="exe") break;
+                                                    bool check=valid_pos_neg_integer(choice1);
+                                                    if(check==false) { mm(37); getch();break; }
+                                                    ll store=string_to_integer_converter(choice1);
+                                                    if(store<2 || store>10000000) { mm(37); getch();break; }
+                                                    cdt[dummy_o3dc[itr].first][itr2].second=choice1; cdt[dummy_o3dc[itr].first][itr2].first=store; break;
+                                                }
+                                                if(cdt[dummy_o3dc[itr].first][itr2-1].first==5)   // non prime number
+                                                {
+                                                    printf("\n  Non prime Number");
+                                                    mm(29);  cin>>choice1;
+                                                    if(choice1=="min") break;
+                                                    else if(choice1=="exe") break;
+                                                    bool check=valid_pos_neg_integer(choice1);
+                                                    if(check==false) { mm(37); getch();break; }
+                                                    ll store=string_to_integer_converter(choice1);
+                                                    if(store<1 || store>1000000000000) { mm(37); getch();break; }
+                                                    cdt[dummy_o3dc[itr].first][itr2].second=choice1; cdt[dummy_o3dc[itr].first][itr2].first=store; break;
+                                                }
+                                                if(cdt[dummy_o3dc[itr].first][itr2-1].first==6)   // incremented number
+                                                {
+                                                    printf("\n  Incremented Number");
+                                                    mm(31); cin>>choice1;
+                                                    if(choice1=="min") break;
+                                                    else if(choice1=="exe") break;
+                                                    bool check=valid_pos_neg_integer(choice1);
+                                                    if(check==false) { mm(37); getch();break; }
+                                                    ll store=string_to_integer_converter(choice1);
+                                                    cdt[dummy_o3dc[itr].first][itr2].second=choice1; cdt[dummy_o3dc[itr].first][itr2].first=store; break;
+                                                }
+                                                if(cdt[dummy_o3dc[itr].first][itr2-1].first==7)   // Nth fibonacci number
+                                                {
+                                                    printf("\n  Nth Fibonacci Number");
+                                                    mm(33);  cin>>choice1;
+                                                    if(choice1=="min") break;
+                                                    else if(choice1=="exe") break;
+                                                    bool check=valid_pos_neg_integer(choice1);
+                                                    if(check==false) { mm(37); getch();break; }
+                                                    ll store=string_to_integer_converter(choice1);
+                                                    if(store<1 || store>93) { mm(37); getch();break; }
+                                                    cdt[dummy_o3dc[itr].first][itr2].second=choice1; cdt[dummy_o3dc[itr].first][itr2].first=store; break;
+                                                }
+                                            }
+                                            if(cdt[dummy_o3dc[itr].first][itr2].second=="~" && itr2==3)    //  case 3 ->  maximum value
+                                            {
+                                                if(cdt[dummy_o3dc[itr].first][itr2-2].first==1)   // random integer
+                                                {
+                                                    printf("\n   Random Number");
+                                                    mm(26);  cin>>choice1;
+                                                    if(choice1=="min") break;
+                                                    else if(choice1=="exe") break;
+                                                    bool check=valid_pos_neg_integer(choice1);
+                                                    if(check==false) { mm(37); getch();break; }
+                                                    ll store1=string_to_integer_converter(choice1);
+                                                    ll store2=string_to_integer_converter(cdt[dummy_o3dc[itr].first][itr2-1].second);
+                                                    if(store1<store2) { mm(38); getch();break; }
+                                                    cdt[dummy_o3dc[itr].first][itr2].second=choice1; cdt[dummy_o3dc[itr].first][itr2].first=store1; break;
+                                                }
+                                                if(cdt[dummy_o3dc[itr].first][itr2-2].first==2)   // odd number
+                                                {
+                                                    printf("\n  Odd Number");
+                                                    mm(26);  cin>>choice1;
+                                                    if(choice1=="min") break;
+                                                    else if(choice1=="exe") break;
+                                                    bool check=valid_pos_neg_integer(choice1);
+                                                    if(check==false) { mm(37); getch();break; }
+                                                    ll store1=string_to_integer_converter(choice1);
+                                                    ll store2=string_to_integer_converter(cdt[dummy_o3dc[itr].first][itr2-1].second);
+                                                    if(store1<store2) { mm(38); getch();break; }
+                                                    check=check_odd_exist(store2,store1);
+                                                    if(check==false) { mm(39); getch();break; }
+                                                    cdt[dummy_o3dc[itr].first][itr2].second=choice1; cdt[dummy_o3dc[itr].first][itr2].first=store1; break;
+                                                }
+                                                if(cdt[dummy_o3dc[itr].first][itr2-2].first==3)   // even number
+                                                {
+                                                    printf("\n  Even Number");
+                                                    mm(26); cin>>choice1;
+                                                    if(choice1=="min") break;
+                                                    else if(choice1=="exe") break;
+                                                    bool check=valid_pos_neg_integer(choice1);
+                                                    if(check==false) { mm(37); getch();break; }
+                                                    ll store1=string_to_integer_converter(choice1);
+                                                    ll store2=string_to_integer_converter(cdt[dummy_o3dc[itr].first][itr2-1].second);
+                                                    if(store1<store2) { mm(38); getch();break; }
+                                                    check=check_even_exist(store2,store1);
+                                                    if(check==false) { mm(40); getch();break; }
+                                                    cdt[dummy_o3dc[itr].first][itr2].second=choice1; cdt[dummy_o3dc[itr].first][itr2].first=store1; break;
+                                                }
+                                                if(cdt[dummy_o3dc[itr].first][itr2-2].first==4)   //  prime number
+                                                {
+                                                    printf("\n  Prime Number");
+                                                    mm(28); cin>>choice1;
+                                                    if(choice1=="min") break;
+                                                    else if(choice1=="exe") break;
+                                                    bool check=valid_pos_neg_integer(choice1);
+                                                    if(check==false) { mm(37); getch();break; }
+                                                    ll store1=string_to_integer_converter(choice1);
+                                                    ll store2=string_to_integer_converter(cdt[dummy_o3dc[itr].first][itr2-1].second);
+                                                    if(store1<2 || store1>10000000) { mm(37); getch();break; }
+                                                    if(store1<store2) { mm(38); getch();break; }
+                                                    check=check_prime_exist(store2,store1);
+                                                    if(check==false) { mm(41); getch();break; }
+                                                    cdt[dummy_o3dc[itr].first][itr2].second=choice1; cdt[dummy_o3dc[itr].first][itr2].first=store1; break;
+                                                }
+                                                if(cdt[dummy_o3dc[itr].first][itr2-2].first==5)   //  Non prime number
+                                                {
+                                                    printf("\n  Non Prime Number");
+                                                    mm(30); cin>>choice1;
+                                                    if(choice1=="min") break;
+                                                    else if(choice1=="exe") break;
+                                                    bool check=valid_pos_neg_integer(choice1);
+                                                    if(check==false) { mm(37); getch();break; }
+                                                    ll store1=string_to_integer_converter(choice1);
+                                                    ll store2=string_to_integer_converter(cdt[dummy_o3dc[itr].first][itr2-1].second);
+                                                    if(store1<1 || store1>1000000000000) { mm(37); getch();break; }
+                                                    if(store1<store2) { mm(38); getch();break; }
+                                                    check=check_non_prime_exist(store2,store1);
+                                                    if(check==false) { mm(42); getch();break; }
+                                                    cdt[dummy_o3dc[itr].first][itr2].second=choice1; cdt[dummy_o3dc[itr].first][itr2].first=store1; break;
+                                                }
+                                                if(cdt[dummy_o3dc[itr].first][itr2-2].first==6)   //  incremented number
+                                                {
+                                                    printf("\n  Incremented Number");
+                                                    mm(32);  cin>>choice1;
+                                                    if(choice1=="min") break;
+                                                    else if(choice1=="exe") break;
+                                                    bool check=valid_pos_neg_integer(choice1);
+                                                    if(check==false) { mm(37); getch();break; }
+                                                    ll store=string_to_integer_converter(choice1);
+                                                    cdt[dummy_o3dc[itr].first][itr2].second=choice1; cdt[dummy_o3dc[itr].first][itr2].first=store; break;
+                                                }
+                                                if(cdt[dummy_o3dc[itr].first][itr2-2].first==7)   //  Nth fibonacci number
+                                                {
+                                                    printf("\n  Nth Fibonacci Number");
+                                                    mm(34); cin>>choice1;
+                                                    if(choice1=="min") break;
+                                                    else if(choice1=="exe") break;
+                                                    bool check=valid_pos_neg_integer(choice1);
+                                                    if(check==false) { mm(37); getch();break; }
+                                                    ll store1=string_to_integer_converter(choice1);
+                                                    ll store2=string_to_integer_converter(cdt[dummy_o3dc[itr].first][itr2-1].second);
+                                                    if(store1<1 || store1>93) { mm(37); getch();break; }
+                                                    if(store1<store2) { mm(38); getch();break; }
+                                                    cdt[dummy_o3dc[itr].first][itr2].second=choice1; cdt[dummy_o3dc[itr].first][itr2].first=store1; break;
+                                                }
+                                            }
+                                            if(cdt[dummy_o3dc[itr].first][itr2].second=="~" && itr2==4)    //    case 4 -> order
+                                            {
+                                                mm(53); cin>>choice1;
+                                                if(choice1=="min") break;
+                                                else if(choice1=="exe") break;
+                                                if(choice1=="1" || choice1=="2" || choice1=="3")
+                                                {
+                                                    ll store=string_to_integer_converter(choice1);
+                                                    cdt[dummy_o3dc[itr].first][itr2].first=store;
+                                                    cdt[dummy_o3dc[itr].first][itr2].second=choice1;
+                                                    dummy_o3dc[itr].first=-1; break;
+                                                }
+                                                mm(36); getch(); break;
+                                            }
+                                        }
+                                    }
+                                    if(dummy_o3dc[itr].second=="Real")
+                                    {
+                                        printf("\n\n  Class [REAL] \n\n");
+                                        for(short itr2=1;itr2<=4;itr2++)
+                                        {
+                                            if(cdt[dummy_o3dc[itr].first][itr2].second=="~" && itr2==1)
+                                            {
+                                                mm(43); cin>>choice1;
+                                                if(choice1=="min") break;
+                                                else if(choice1=="exe") break;
+                                                bool check=valid_pos_neg_integer(choice1);
+                                                if(check==false) { mm(37); getch();break; }
+                                                ll store=string_to_integer_converter(choice1);
+                                                if(store<0 || store>100) { mm(37); getch();break; }
+                                                cdt[dummy_o3dc[itr].first][itr2].second=choice1; cdt[dummy_o3dc[itr].first][itr2].first=store; break;
+                                            }
+                                            if(cdt[dummy_o3dc[itr].first][itr2].second=="~" && itr2==2)
+                                            {
+                                                mm(25); cin>>choice1;
+                                                if(choice1=="min") break;
+                                                else if(choice1=="exe") break;
+                                                bool check=valid_pos_neg_integer(choice1);
+                                                if(check==false) { mm(37); getch();break; }
+                                                ll store=string_to_integer_converter(choice1);
+                                                cdt[dummy_o3dc[itr].first][itr2].second=choice1; cdt[dummy_o3dc[itr].first][itr2].first=store; break;
+                                            }
+                                            if(cdt[dummy_o3dc[itr].first][itr2].second=="~" && itr2==3)
+                                            {
+                                                mm(26); cin>>choice1;
+                                                if(choice1=="min") break;
+                                                else if(choice1=="exe") break;
+                                                bool check=valid_pos_neg_integer(choice1);
+                                                if(check==false) { mm(37); getch();break; }
+                                                ll store1=string_to_integer_converter(choice1);
+                                                ll store2=cdt[dummy_o3dc[itr].first][itr2-1].first;
+                                                if(store1==store2) { mm(44); getch();break; }//  ( Note -> Max_value-Min_value >=1 )
+                                                if(store1<store2) { mm(38); getch();break; }
+                                                cdt[dummy_o3dc[itr].first][itr2].second=choice1; cdt[dummy_o3dc[itr].first][itr2].first=store1; break;
+                                            }
+                                            if(cdt[dummy_o3dc[itr].first][itr2].second=="~" && itr2==4)
+                                            {
+                                                mm(53); cin>>choice1;
+                                                if(choice1=="min") break;
+                                                else if(choice1=="exe") break;
+                                                if(choice1=="1" || choice1=="2" || choice1=="3")
+                                                {
+                                                    ll store=string_to_integer_converter(choice1);
+                                                    cdt[dummy_o3dc[itr].first][itr2].first=store;
+                                                    cdt[dummy_o3dc[itr].first][itr2].second=choice1;
+                                                    dummy_o3dc[itr].first=-1;
+                                                    break;
+                                                }
+                                                mm(36); getch(); break;
+                                            }
+                                        }
+                                    }
+                                    if(dummy_o3dc[itr].second=="String")
+                                    {
+                                        printf("\n\n [CLASS STRING]");
+                                        if(cdt[dummy_o3dc[itr].first][1].second=="~")
+                                        {
+                                            mm(46); cin>>choice1;
+                                            if(choice1=="min") break;
+                                            else if(choice1=="exe") break;
+                                            if(choice1=="1")  // default string
+                                            {
+                                                short store=string_to_integer_converter(choice1);
+                                                cdt[dummy_o3dc[itr].first][1].second=choice1; cdt[dummy_o3dc[itr].first][1].first=store;
+                                                cdt[dummy_o3dc[itr].first].push_back(make_pair(1,"~"));  // default_string
+                                                break;
+                                            }
+                                            if(choice1=="2")   // Computer_generated string
+                                            {
+                                                short store=string_to_integer_converter(choice1);
+                                                cdt[dummy_o3dc[itr].first][1].second=choice1; cdt[dummy_o3dc[itr].first][1].first=store;
+                                                cdt[dummy_o3dc[itr].first].push_back(make_pair(2,"~"));  // input_string (index 2)
+                                                cdt[dummy_o3dc[itr].first].push_back(make_pair(2,"~"));  // type         (index 3)
+                                                cdt[dummy_o3dc[itr].first].push_back(make_pair(2,"~"));  // mode         (index 4)
+                                                cdt[dummy_o3dc[itr].first].push_back(make_pair(2,"~"));  // size         (index 5)
+                                                cdt[dummy_o3dc[itr].first].push_back(make_pair(2,"~"));  // order        (index 6)
+                                                break;
+                                            }
+                                            mm(36); getch(); break;
+                                        }
+                                        if(cdt[dummy_o3dc[itr].first][1].first==1)  // default string
+                                        {
+                                            mm(47); string def_string; cin>>def_string;
+                                            cdt[dummy_o3dc[itr].first][2].second=def_string;
+                                            dummy_o3dc[itr].first=-1; break;
+                                        }
+                                        if(cdt[dummy_o3dc[itr].first][1].first==2)  // input string
+                                        {
+                                            if(cdt[dummy_o3dc[itr].first][2].second=="~")  // input_string
+                                            {
+                                                mm(48);string in_string; cin>>in_string;
+                                                cdt[dummy_o3dc[itr].first][2].second=in_string; break;
+                                            }
+                                            if(cdt[dummy_o3dc[itr].first][3].second=="~")  // string type
+                                            {
+                                                mm(49); cin>>choice1;
+                                                if(choice1=="min") break;
+                                                else if(choice1=="exe") break;
+                                                if(choice1=="1" || choice1=="2" || choice1=="3" || choice1=="4")
+                                                {
+                                                    short store=string_to_integer_converter(choice1);
+                                                    cdt[dummy_o3dc[itr].first][3].second=choice1; cdt[dummy_o3dc[itr].first][3].first=store; break;
+                                                }
+                                                mm(36); getch(); break;
+                                            }
+                                            if(cdt[dummy_o3dc[itr].first][4].second=="~")  // string mode
+                                            {
+                                                mm(50); cin>>choice1;
+                                                if(choice1=="min") break;
+                                                else if(choice1=="exe") break;
+                                                if(choice1=="1" || choice1=="2")
+                                                {
+                                                    short store=string_to_integer_converter(choice1);
+                                                    cdt[dummy_o3dc[itr].first][4].second=choice1; cdt[dummy_o3dc[itr].first][4].first=store; break;
+                                                }
+                                                mm(36); getch(); break;
+                                            }
+                                            if(cdt[dummy_o3dc[itr].first][5].second=="~")  //  string size
+                                            {
+                                                if(cdt[dummy_o3dc[itr].first][4].second=="1")    // Repetition allowed in symbols
+                                                {
+                                                    mm(51); cin>>choice1;
+                                                    if(choice1=="min") break;
+                                                    else if(choice1=="exe") break;
+                                                    bool check=valid_pos_neg_integer(choice1);
+                                                    if(check==false) { mm(37); getch();break; }
+                                                    ll store=string_to_integer_converter(choice1);
+                                                    if(store<1 || store>1000000) { mm(37); getch();break; }
+                                                    cdt[dummy_o3dc[itr].first][5].second=choice1; cdt[dummy_o3dc[itr].first][5].first=store; break;
+                                                }
+                                                else        // No repetition allowed in symbols
+                                                {
+                                                    if(cdt[dummy_o3dc[itr].first][3].second=="4")    // palindromic
+                                                    {
+                                                        mm(70);sfc(lm);cout<<(2*cdt[dummy_o3dc[itr].first][2].second.size());sfc(ww); printf(")\n\n SIZE ->  "); cin>>choice1;
+                                                        if(choice1=="min") break;
+                                                        else if(choice1=="exe") break;
+                                                        bool check=valid_pos_neg_integer(choice1);
+                                                        if(check==false) { mm(37); getch();break; }
+                                                        ll store=string_to_integer_converter(choice1);
+                                                        if(store<1 || store>(2*cdt[dummy_o3dc[itr].first][2].second.size())) { mm(37); getch();break; }
+                                                        cdt[dummy_o3dc[itr].first][5].second=choice1; cdt[dummy_o3dc[itr].first][5].first=store; break;
+                                                    }
+                                                    else   //  Ordinary
+                                                    {
+                                                        mm(70);sfc(lm);cout<<cdt[dummy_o3dc[itr].first][2].second.size();sfc(ww); printf(")\n\n SIZE ->  "); cin>>choice1;
+                                                        if(choice1=="min") break;
+                                                        else if(choice1=="exe") break;
+                                                        bool check=valid_pos_neg_integer(choice1);
+                                                        if(check==false) { mm(37); getch();break; }
+                                                        ll store=string_to_integer_converter(choice1);
+                                                        if(store<1 || store>cdt[dummy_o3dc[itr].first][2].second.size()) { mm(37); getch();break; }
+                                                        cdt[dummy_o3dc[itr].first][5].second=choice1; cdt[dummy_o3dc[itr].first][5].first=store; break;
+                                                    }
+                                                }
+                                            }
+                                            if(cdt[dummy_o3dc[itr].first][6].second=="~")  // string order
+                                            {
+                                                mm(53); cin>>choice1;
+                                                if(choice1=="min") break;
+                                                else if(choice1=="exe") break;
+                                                if(choice1=="1" || choice1=="2" || choice1=="3")
+                                                {
+                                                    ll store=string_to_integer_converter(choice1);
+                                                    cdt[dummy_o3dc[itr].first][6].second=choice1; cdt[dummy_o3dc[itr].first][6].first=store;
+                                                    dummy_o3dc[itr].first=-1; break;
+                                                }
+                                                mm(36); getch(); break;
+                                            }
+                                        }
+                                    }
+                                    if(dummy_o3dc[itr].second=="Permutation")
+                                    {
+                                        printf("\n\n  CLASS [PERMUTATION]");
+                                        if(cdt[dummy_o3dc[itr].first][1].second=="~")   // store string to generate permutation
+                                        {
+                                            mm(68); string in_string; cin>>in_string;
+                                            if(in_string.size()>19) { mm(37); getch();break; }
+                                            ll store1=count_no_of_permutations(in_string);
+                                            if(dummy_o3dc[2].first<0)
+                                            {
+                                                short indexx=abs(dummy_o3dc[2].first)-1;
+                                                ll store2=get<2>(si[indexx]);
+                                                if(store1<store2)
+                                                {
+                                                    cout<<"\n\n    Only "<<store1<<" number of permutations are possible of your string.";
+                                                    cout<<"\n    However, you want to create "<<store2<<" number of rows at Maximum as per your ";sfc(ly);printf("INITIALIZER");sfc(ww);printf(" size");
+                                                    sfc(ly);printf("\n  INITIALIZER : ");cout<<get<3>(si[indexx]);sfc(ww);printf(" Range -> [ ");cout<<get<1>(si[indexx])<<" - "<<get<2>(si[indexx])<<" ]";
+                                                    cout<<"\n\n    So you are advised to change your string which have at least "<<store2<<" number of permutations.";
+                                                    printf("\n\n    Now press ");sbc(dr);sfc(lr);printf(" ENTER ");sbc(bb);sfc(ww);printf(" to continue"); getch(); break;
+                                                }
+                                            }
+                                            else
+                                            {
+                                                ll store2=dummy_o3dc[2].first;
+                                                if(store1<store2)
+                                                {
+                                                    cout<<"\n\n    Only "<<store1<<" number of permutations are possible of your string.";
+                                                    cout<<"\n    However, you want to create "<<store2<<" number of rows";
+                                                    cout<<"\n\n    So you are advised to change your string which have at least "<<store2<<" number of permutations.";
+                                                    printf("\n\n    Now press ");sbc(dr);sfc(lr);printf(" ENTER ");sbc(bb);sfc(ww);printf(" to continue"); getch(); break;
+                                                }
+                                            }
+                                            cdt[dummy_o3dc[itr].first][1].second=in_string; break;
+                                        }
+                                        if(cdt[dummy_o3dc[itr].first][2].second=="~")  // permutation order
+                                            {
+                                                mm(53); cin>>choice1;
+                                                if(choice1=="min") break;
+                                                else if(choice1=="exe") break;
+                                                if(choice1=="1" || choice1=="2" || choice1=="3")
+                                                {
+                                                    ll store=string_to_integer_converter(choice1);
+                                                    cdt[dummy_o3dc[itr].first][2].second=choice1; cdt[dummy_o3dc[itr].first][2].first=store;
+                                                    dummy_o3dc[itr].first=-1; break;
+                                                }
+                                                mm(36); getch(); break;
+                                            }
+                                    }
+                                    if(dummy_o3dc[itr].second=="Unique_Number")
+                                    {
+                                        printf("\n\n  CLASS [UNIQUE-RANDOM NUMBER]");
+                                        if(cdt[dummy_o3dc[itr].first][1].second=="~")
+                                        {
+                                            mm(25); cin>>choice1;
+                                            if(choice1=="min") break;
+                                            else if(choice1=="exe") break;
+                                            bool check=valid_pos_neg_integer(choice1);
+                                            if(check==false) { mm(37); getch();break; }
+                                            ll store=string_to_integer_converter(choice1);
+                                            cdt[dummy_o3dc[itr].first][1].second=choice1; cdt[dummy_o3dc[itr].first][1].first=store; break;
+                                        }
+                                        if(cdt[dummy_o3dc[itr].first][2].second=="~")
+                                        {
+                                            mm(26); cin>>choice1;
+                                            if(choice1=="min") break;
+                                            else if(choice1=="exe") break;
+                                            bool check=valid_pos_neg_integer(choice1);
+                                            if(check==false) { mm(37); getch();break; }
+                                            ll store1=string_to_integer_converter(choice1);
+                                            ll store2=cdt[dummy_o3dc[itr].first][1].first;
+                                            if(store1<store2) { mm(38); getch();break; }
+                                            if(dummy_o3dc[2].first<0)
+                                            {
+                                                short indexx=abs(dummy_o3dc[2].first)-1;
+                                                ll maxi=get<2>(si[indexx]);
+                                                if(maxi>(store1-store2+1))
+                                                {
+                                                    cout<<"\n\n  You wish to create "<<maxi<<" No. of Rows at Maximum as per your ";sfc(ly);printf("INITIALIZER");sfc(ww);printf(" size.");
+                                                    sfc(ly);printf("\n  INITIALIZER : ");cout<<get<3>(si[indexx]);sfc(ww);printf(" Range -> [ ");cout<<get<1>(si[indexx])<<" - "<<get<2>(si[indexx])<<" ]";
+                                                    cout<<"\n  However, only "<<(store1-store2+1)<<" Unique No. exists in range provided by you.";
+                                                    printf("\n\n  You are advised to enlarge your range");
+                                                    printf("\n\n   press ");sbc(dr);sfc(lr);printf(" ENTER ");sbc(bb);sfc(ww);printf(" to change Maximum value"); getch();break;
+                                                }
+                                            }
+                                            else
+                                            {
+                                            if(dummy_o3dc[2].first>(store1-store2+1))
+                                            {
+                                                cout<<"\n\n  You wish to create "<<dummy_o3dc[2].first<<" No. of Rows.";
+                                                cout<<"\n  However, only "<<(store1-store2+1)<<" Unique No. exists in range provided by you.";
+                                                printf("\n\n  You are advised to enlarge your range");
+                                                printf("\n\n   press ");sbc(dr);sfc(lr);printf(" ENTER ");sbc(bb);sfc(ww);printf(" to change Maximum value"); getch();break;
+                                            }
+                                            }
+                                            cdt[dummy_o3dc[itr].first][2].second=choice1; cdt[dummy_o3dc[itr].first][2].first=store1; break;
+                                        }
+                                        if(cdt[dummy_o3dc[itr].first][3].second=="~")
+                                        {
+                                                mm(53); cin>>choice1;
+                                                if(choice1=="min") break;
+                                                else if(choice1=="exe") break;
+                                                if(choice1=="1" || choice1=="2" || choice1=="3")
+                                                {
+                                                    ll store=string_to_integer_converter(choice1);
+                                                    cdt[dummy_o3dc[itr].first][3].second=choice1; cdt[dummy_o3dc[itr].first][3].first=store;
+                                                    dummy_o3dc[itr].first=-1; break;
+                                                }
+                                                mm(36); getch(); break;
+                                        }
+                                    }
+                                    if(dummy_o3dc[itr].second=="Space")
+                                    {
+                                        dummy_o3dc[itr].first=-1; break;
+                                    }
+                                    break;
+                                }
+                                if(no_of_attribute_for_custom==-2)
+                                {
+                                    no_of_attribute_for_custom=1; custom_structure.clear(); dummy_o3dc.clear();
+                                    s_3dc[i][j]=true; break;
+                                }
+                            }
+                            break;
+                        }
+
+                    default:   //  INITIALIZER CLASS
+                        {
+                            cout<<"  "<<(++start)<<". ";
+                            sfc(ly);cout<<_3dc[i][j].second;sfc(lc);cout<<" [CLASS INITIALIZER]";sfc(ww);
+                            if(s2_3dc[start-1][0]=="~")
+                                {
+                                    printf("\n\n   Enter the ");sfc(ly);printf("Minimum");sfc(ww);printf(" value and then ");sbc(dr);printf(" ENTER ");sbc(bb);
+                                    printf("\n ");sfc(lr);printf(" Note: ");sfc(ww);printf("Range -> (1) to (10 to the power 6)");
+                                    printf("\n\n  Minimum value ->  "); string min_value; cin>>choice1;
+                                    if(choice1=="min") break;
+                                    else if(choice1=="exe") break;
+                                    bool check=valid_pos_neg_integer(choice1);
+                                    if(check==false) { mm(37); getch();break; }
+                                    ll store=string_to_integer_converter(choice1);
+                                    if(store<1 || store>1000000)
+                                    { mm(37); getch();break; }
+                                    min_value=choice1;
+                                    dummy_o3dc.push_back(make_pair(_3dc[i][j].first,"ini"));
+                                    dummy_o3dc.push_back(make_pair(store,min_value));
+                                    s2_3dc[start-1][0]=min_value; break;
+                                }
+                                if(s2_3dc[start-1][1]=="~")
+                                {
+                                    printf("\n\n   Enter the ");sfc(ly);printf("Maximum");sfc(ww);printf(" value and then ");sbc(dr);printf(" ENTER ");sbc(bb);
+                                    printf("\n ");sfc(lr);printf(" Note: ");sfc(ww);printf("Range -> (1) to (10 to the power 6)");
+                                    printf("\n\n  Maximum value ->  "); string max_value; cin>>choice1;
+                                    if(choice1=="min") break;
+                                    else if(choice1=="exe") break;
+                                    bool check=valid_pos_neg_integer(choice1);
+                                    if(check==false) { mm(37); getch();break; }
+                                    ll store1=string_to_integer_converter(choice1);
+                                    ll store2=string_to_integer_converter(s2_3dc[start-1][0]);
+                                    if(store1<1 || store1>1000000) { mm(37); getch();break; }
+                                    if(store1<store2) { mm(38); getch();break; }
+                                    max_value=choice1; s2_3dc[start-1][1]=max_value;
+                                    dummy_o3dc.push_back(make_pair(store1,max_value));
+                                    dummy2_o3dc.push_back(dummy_o3dc);
+                                    si.push_back(make_tuple(_3dc[i][j].first,dummy_o3dc[1].first,dummy_o3dc[2].first,_3dc[i][j].second));
+                                    dummy_o3dc.clear(); s_3dc[i][j]=true; break;
+                                }
+                        }
+                    }
+                    tr=1; cout<<"\n\n"; break;
+                }
+                if(tr==1) break;
+            }
+            if(choice1=="min") break;
+            else if(choice1=="exe") break;
+        }
+
+
+        if(state=="state9")
+        {
+            system("cls");
+            cout<<"\n\nInitializers details\n";
+            for(short i=0;i<si.size();i++)
             {
-                cout<<sofi[i].first<<"  "<<sofi[i].second<<"\n";
-                sofaa.push_back(make_tuple(false,--incrementer2,++incrementer,sofi[i].second));
+                cout<<get<0>(si[i])<<" "<<get<1>(si[i])<<" "<<get<2>(si[i])<<" "<<get<3>(si[i])<<" \n";
             }
-            cout<<"\n\n\n";
-            for(short i=0;i<containers.size();i++)
+            cout<<"\n\n   Reached successfully\n\n\n";
+            short sttr=-1;
+            for(short i=0;i<_3dc.size();i++)
             {
-                cout<<containers[i].first<<"  "<<containers[i].second<<"\n";
-                sofaa.push_back(make_tuple(false,containers[i].first,++incrementer,print_containers[i].second));
+                for(short j=0;j<_3dc[i].size();j++)
+                {
+                    sttr++;
+                    for(short ii=0;ii<dummy2_o3dc[sttr].size();ii++)
+                    {
+
+                        cout<<"["<<dummy2_o3dc[sttr][ii].first<<" "<<dummy2_o3dc[sttr][ii].second<<"] ";
+                        dummy_o3dc.push_back(dummy2_o3dc[sttr][ii]);
+                    }
+                }
+                o3dc.push_back(dummy_o3dc);
+                dummy_o3dc.clear();
+                cout<<"\n";
             }
-            cout<<"\n\n";
-            for(short i=0;i<sofaa.size();i++)
+            cout<<"-------------------------\n\n";
+            for(short i=0;i<o3dc.size();i++)
             {
-                cout<<get<0>(sofaa[i])<<"  "<<get<1>(sofaa[i])<<"  "<<get<2>(sofaa[i])<<"  "<<get<3>(sofaa[i])<<"  \n";
+                for(short j=0;j<o3dc[i].size();j++)
+                {
+                    cout<<"["<<o3dc[i][j].first<<" "<<o3dc[i][j].second<<"] ";
+                }
+                cout<<"\n";
             }
+            cout<<"\ncustom_data_type-----\n\n";
+            for(short i=0;i<cdt.size();i++)
+            {
+                for(short j=0;j<cdt[i].size();j++)
+                {
+                    cout<<"["<<cdt[i][j].first<<" "<<cdt[i][j].second<<"] ";
+                }
+                cout<<"\n";
+            }
+            cout<<"-------------------------\n\n";
+            cout<<"ENTER YOUR CHOICE -> ";
+            cin>>choice1;
+            if(choice1=="exe") break;
+            /*for(int i=0;i<dummy2_o3dc.size();i++)
+            {
+                for(int j=0;j<dummy2_o3dc[i].size();j++)
+                {
+                    cout<<dummy2_o3dc[i][j].first<<" "<<dummy2_o3dc[i][j].second<<" ";
+                }
+                cout<<"\n";
+            }
+            cout<<"\n";
+            for(int i=0;i<s_3dc.size();i++)
+            {
+                for(int j=0;j<s_3dc[i].size();j++)
+                {
+                    cout<<s_3dc[i][j]<<" ";
+                }
+                cout<<"\n";
+            }
+            cout<<"\n\nand\n\n";
+            for(int i=0;i<s2_3dc.size();i++)
+            {
+                for(int j=0;j<s2_3dc[i].size();j++)
+                {
+                    cout<<s2_3dc[i][j]<<" ";
+                }
+                cout<<"\n";
+            } */
             getch();
         }
 
