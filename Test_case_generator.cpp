@@ -3,7 +3,7 @@
 #include "special_functions.h"
 #include "LAKSHYA_STANDARD_ALGORITHM_OF_TEST_CASES.h"
 
-
+//*********************************************************************************************************************************
 
 #define three_D_cube _3dc
 #define message_box msb
@@ -23,8 +23,7 @@
 #define stored_initializer si
 #define free_integer fi
 
-
-
+//*********************************************************************************************************************************
 
 using namespace std;
 using namespace lakshya_standard_algorithm_of_test_cases;
@@ -33,12 +32,12 @@ using namespace special_functions;
 typedef long long ll;
 typedef long l;
 
-
-
+//*********************************************************************************************************************************
 
 class Three_D_objects
 {
 private:
+    fstream f1;
     vector <vector <vector <pair<ll,string>>>> cube;
     vector <vector <vector <pair<ll,string>>>> custom;
     vector <vector <tuple<short,int,int,string>>> initializer;
@@ -46,31 +45,17 @@ private:
     vector <vector <ll>> integers;
     ll test_size=1;
     ll query_size=1;
+    string file_name;
 public:
     bool test_print_status=false;
     bool query_print_status=false;
     void build(short index);
     void build_integers(short index);
-    void set_data1(vector <vector <pair<ll,string>>> v1)
-    {
-        cube.push_back(v1);
-    }
-    void set_data2(vector <vector <pair<ll,string>>> v2)
-    {
-        custom.push_back(v2);
-    }
-    void set_object_name(string name)
-    {
-        object_names.push_back(name);
-    }
-    void set_initializer(vector <tuple<short,int,int,string>> v3)
-    {
-        initializer.push_back(v3);
-    }
-    void set_test_size(ll k)
-    {
-        test_size=k;
-    }
+    void set_data1(vector <vector <pair<ll,string>>> v1) { cube.push_back(v1); }
+    void set_data2(vector <vector <pair<ll,string>>> v2) { custom.push_back(v2); }
+    void set_object_name(string name) { object_names.push_back(name); }
+    void set_initializer(vector <tuple<short,int,int,string>> v3) { initializer.push_back(v3); }
+    void set_test_size(ll k) { test_size=k; }
     int get_cube_size() { return cube.size(); }
     ll get_test_size() { return test_size; }
     void set_query_size(ll k) { query_size=k; }
@@ -79,20 +64,22 @@ public:
     void header();
     void object_display();
     void mm(short ch);
+    void set_file_name(string str) { file_name=str; }
     void destroy_integers() { integers.clear(); }
+    void set_text_format() { file_name+=".txt"; }
+    void set_docu_format() { file_name+=".doc"; }
+    void build_file() { f1.open(file_name,ios::out); }
+    void close_file() { f1.close(); }
     Three_D_objects()         //  constructor
     {
-        test_size=1;
-        query_size=1;
+        test_size=1; query_size=1;
         test_print_status=false;
         query_print_status=false;
+        file_name="";
     }
 };
 
-
-
-
-
+//*********************************************************************************************************************************
 
 class main_menu
 {
@@ -123,8 +110,7 @@ void main_menu::set_choice()
 void main_menu::set_dafault_choice_exe()
 { choice="exe";}
 
-
-
+//*********************************************************************************************************************************
 
 class object_type_one_menu:public main_menu  //parent of object_one , child of main_menu
 {
@@ -148,8 +134,7 @@ public:
     void otom_phase27_1(vector <tuple<bool,short,short,string>>&,short&);                  // for phase two state seven part one
 };
 
-
-
+//*********************************************************************************************************************************
 
 class object_one:public otom // child class of object_type_one_menu and grand child of main_menu (MULTIPLE INHERITANCE)
 {
@@ -179,33 +164,33 @@ private:
     ll free_integer=0;                                              // short name -> fi
 
 public:
-    vector <vector <pair<ll,string>>> cube_structure() { return o3dc; }  // function to give 3d cube to 3d object
-    vector <vector <pair<ll,string>>> custom_data_structure() { return cdt; }  // function to give custom data to 3d object
-    string give_object_name() { return name_of_object; }                       // function to give object's name
+    vector <vector <pair<ll,string>>> cube_structure() { return o3dc; }                     // function to give 3d cube to 3d object
+    vector <vector <pair<ll,string>>> custom_data_structure() { return cdt; }               // function to give custom data to 3d object
+    string give_object_name() { return name_of_object; }                                    // function to give object's name
     vector <tuple<short,int,int,string>> initializer_data() { return stored_initializer; }  // function to give back initializer details
-    ll give_test_size() { return test_cases; }                                 // function to return test case size
+    ll give_test_size() { return test_cases; }                                              // function to return test case size
     short incrementer=0;
     string choice1="";
     bool type_test_size=true;
-    bool check_the_test_case_range02(string&);  // for phase zero state two
-    bool check_the_initializers_choice_range13(string&);  // for phase one state three
-    bool check_if_identifier_exist();          // for phase one state three (general use)
-    bool valid_length_of_initializers14();      // for phase one state four
-    void delete_all_initializers15();           //for phase one state five
-    string type_of_container16(short);            // for phase one state six
-    short count_nth_container16(string&);          //for phase one state six
-    void get_correct_print_container16(pair<short,string>&);    //for phase one state six
-    void  build_set_of_all_attributes207();              // for phase two state zero_seven (message and build)
-    bool check_the_attribute_choice_range27(string&);        // for phase two state seven
-    bool check_availability_of_attribute27(short&);          // for phase two state seven
-    void object_display_in_phase_two27();                    // for phase two state seven
-    void object_display_in_phase_three308();                 // for phase three state eight
-    void object_display_in_phase_three38();                  // for phase three state eight
-    void reset_three_dimensional_object27();                 // for phase two state seven
-    void delete_all_containers();            // phase and state yet to be decided ..........................................
-    void name_the_object00();                  // for phase zero state zero
+    bool check_the_test_case_range02(string&);                 // for phase zero state two
+    bool check_the_initializers_choice_range13(string&);       // for phase one state three
+    bool check_if_identifier_exist();                          // for phase one state three (general use)
+    bool valid_length_of_initializers14();                     // for phase one state four
+    void delete_all_initializers15();                          //for phase one state five
+    string type_of_container16(short);                         // for phase one state six
+    short count_nth_container16(string&);                      //for phase one state six
+    void get_correct_print_container16(pair<short,string>&);   //for phase one state six
+    void  build_set_of_all_attributes207();                    // for phase two state zero_seven (message and build)
+    bool check_the_attribute_choice_range27(string&);          // for phase two state seven
+    bool check_availability_of_attribute27(short&);            // for phase two state seven
+    void object_display_in_phase_two27();                      // for phase two state seven
+    void object_display_in_phase_three308();                   // for phase three state eight
+    void object_display_in_phase_three38();                    // for phase three state eight
+    void reset_three_dimensional_object27();                   // for phase two state seven
+    void delete_all_containers();                              // phase and state yet to be decided ..........................................
+    void name_the_object00();                                  // for phase zero state zero
     void main_controller();
-    object_one()  // constructor
+    object_one()                                               // constructor
     {
         name_of_object="";
         test_cases=1;
@@ -221,15 +206,12 @@ public:
     }
 };
 
-
-
+//*********************************************************************************************************************************
 
 void function_of_object_one(); // friend function of class main menu
 void function_of_object_two(); // friend function of class main menu
 
-
-
-
+//*********************************************************************************************************************************
 
 int main()
 {
@@ -265,36 +247,26 @@ int main()
   return 0;
 }
 
-
-
-
+//*********************************************************************************************************************************
 
 void main_menu::welcome()
 {
   sfc(ww);gxy(5,5);
-  cout<<"WELCOME TO BUILDING CUBES (version 1.1)\n\n\n";
-  cout<<"     Press ";  sbc(dr);sfc(lr);
-  cout<<" ENTER ";sbc(bb);sfc(ww);
-  cout<<" to continue";
-  getch();
-  system("CLS");
+  cout<<"WELCOME TO ";sfc(lm);printf("BUILDING CUBES");sfc(ww);printf(" (version 1.1)\n\n\n");
+  sfc(lc);cout<<"  You are advised to Maximize your screen to have complete display\n\n\n";sfc(ww);
+  cout<<"     Press ";  sbc(dr);sfc(lr); cout<<" ENTER ";sbc(bb);sfc(ww); cout<<" to continue"; getch(); system("CLS");
 }
 
-
-
+//*********************************************************************************************************************************
 
 void main_menu::header()
 {
     gxy(0,0);sbc(dm);
-    printf(" BUILDING  CUBES    ");sfc(dgg);
-    printf("Version (1.1)                     ");sfc(ww);
-    printf("Type ");sfc(lr);printf("exe");sfc(ww);printf(" and ");sfc(lr);printf("ENTER");sfc(ww);printf(" to");sbc(dr);printf(" Exit");sbc(bb);
-    printf("\n\n  ");
+    printf(" BUILDING  CUBES    ");sfc(dgg); printf("Version (1.1)                     ");sfc(ww);
+    printf("Type ");sfc(lr);printf("exe");sfc(ww);printf(" and ");sfc(lr);printf("ENTER");sfc(ww);printf(" to");sbc(dr);printf(" Exit");sbc(bb); printf("\n\n  ");
 }
 
-
-
-
+//*********************************************************************************************************************************
 
 void main_menu::menu()
 {
@@ -319,7 +291,7 @@ void main_menu::menu()
     }
     else if(choice=="3")
     {
-        cout<<"IN Progress";
+        cout<<"IN Progress, Still working"; getch();
         system("cls");
     }
     else if(choice=="exe")
@@ -337,35 +309,28 @@ void main_menu::menu()
     }
 }
 
-
-
+//*********************************************************************************************************************************
 
 void main_menu::msb()
 {
-    gxy(0,20);sbc(dr);
-    printf("MESSAGE BOX\n\n");sbc(bb);
+    gxy(0,20);sbc(dr); printf("MESSAGE BOX\n\n");sbc(bb);
 }
 
-
-
-
-
+//*********************************************************************************************************************************
 
 void main_menu::msb2()
 {
     gxy(0,25);sbc(dr);printf("MESSAGE BOX");sbc(bb);
 }
 
-
-
+//*********************************************************************************************************************************
 
 void main_menu::undo()
 {
-    gxy(54,1);
-    printf("Type ");sfc(lr);printf("und");sfc(ww);printf(" and ");sbc(dr);printf("ENTER");sbc(bb);printf(" to ");sbc(lgg);printf("UNDO");sbc(bb);
+    gxy(54,1); printf("Type ");sfc(lr);printf("und");sfc(ww);printf(" and ");sbc(dr);printf("ENTER");sbc(bb);printf(" to ");sbc(lgg);printf("UNDO");sbc(bb);
 }
 
-
+//*********************************************************************************************************************************
 
  void main_menu::repos()
  {
@@ -375,20 +340,14 @@ void main_menu::undo()
     printf(" Type ");sfc(lr);printf("nex");sfc(ww);printf(" and ");sbc(dr);printf("ENTER");sbc(bb);printf(" to ");sfc(lc);printf("Move in next Line");sfc(ww);printf("\n");
  }
 
-
-
-
-
+//*********************************************************************************************************************************
 
 void main_menu::jump_to_main()
 {
-    gxy(1,1);
-    printf("Type ");sfc(lr);printf("min");sfc(ww);printf(" and ");sbc(dr);printf("ENTER");sbc(bb);printf(" to go back to MAIN MENU");
+    gxy(1,1); printf("Type ");sfc(lr);printf("min");sfc(ww);printf(" and ");sbc(dr);printf("ENTER");sbc(bb);printf(" to go back to MAIN MENU");
 }
 
-
-
-
+//*********************************************************************************************************************************
 
 void main_menu::mm(short ch)
 {
@@ -853,16 +812,12 @@ void main_menu::mm(short ch)
 }
 
 
-
-
-
-//*******************************************************************************************************
-//*********************************************************************************************************
+//**********************************************************************************************************************************
+//**********************************************************************************************************************************
 
 
 void function_of_object_one()
 {
-    //system("cls");
     string choice;
     main_menu dummy_obj;
     object_one o1;
@@ -879,9 +834,7 @@ void function_of_object_one()
     obj1.mm(1);getch();
     while(1)          //  do you want to include test value in TEST File
     {
-        system("cls");
-        dummy_obj.header();dummy_obj.jump_to_main();obj1.object_display();obj1.mm(2);
-        cin>>choice;
+        system("cls"); dummy_obj.header();dummy_obj.jump_to_main();obj1.object_display();obj1.mm(2); cin>>choice;
         if(choice=="min"||choice=="exe"||choice=="yes"||choice=="no") { break; }
         else { obj1.mm(0);getch(); }
     }
@@ -889,18 +842,26 @@ void function_of_object_one()
     if(choice=="exe") { main_menu::set_dafault_choice_exe(); return;}
     while(1)     //  Build the Test File
     {
-        system("cls");
+        system("cls");obj1.mm(10);string name;cin>>name;
+        obj1.set_file_name(name);
+        while(1)  //  Set File Format
+        {
+            system("cls"); obj1.mm(11); cin>>choice;
+            if(choice=="1") { obj1.set_text_format();break; }
+            if(choice=="2") { obj1.set_docu_format();break; }
+            else { obj1.mm(0);getch(); }
+        }
         obj1.mm(3);getch();obj1.mm(4);
         obj1.build_integers(0);
-        system("cls");   // to be remove later
         if(choice=="yes") { obj1.test_print_status=true; }
+        obj1.build_file();
         ll t=obj1.get_test_size();
         while(t--)
         {
             obj1.build(0);
         }
         obj1.destroy_integers();
-        cout<<"\n\nCompleted";getch();  // to be removed later
+        obj1.close_file();
         string choice2;
         while(1)
         {
@@ -914,9 +875,7 @@ void function_of_object_one()
     }
 }
 
-
-
-
+//*********************************************************************************************************************************
 
 void function_of_object_two()
 {
@@ -985,9 +944,21 @@ void function_of_object_two()
     {
         while(1)
         {
-            int start=-1; system("cls"); obj1.mm(3);getch();obj1.mm(4);
+            system("cls");obj1.mm(10);string name;cin>>name;
+            obj1.set_file_name(name);
+            //*************************************************************************************************************************
+            while(1)  //  Set File Format
+            {
+                system("cls"); obj1.mm(11); cin>>choice;
+                if(choice=="1") { obj1.set_text_format();break; }
+                if(choice=="2") { obj1.set_docu_format();break; }
+                else { obj1.mm(0);getch(); }
+            }
+            //*************************************************************************************************************************
+            obj1.mm(3);getch();obj1.mm(4);
             if(choice=="yes") { obj1.query_print_status=true; }
-            ll t=obj1.get_query_size();
+            obj1.build_file();
+            int t=obj1.get_query_size(); int start=-1;
             while(t--)
             {
                 int index=(++start)%obj1.get_cube_size();
@@ -995,7 +966,7 @@ void function_of_object_two()
                 obj1.build(index);
                 obj1.destroy_integers();
             }
-            cout<<"\n\nCompleted";getch();  // to be removed later
+            obj1.close_file();
             string choice2;
             while(1)
             {
@@ -1013,8 +984,20 @@ void function_of_object_two()
     {
         while(1)
         {
+            system("cls");obj1.mm(10);string name;cin>>name;
+            obj1.set_file_name(name);
+            //*************************************************************************************************************************
+            while(1)  //  Set File Format
+            {
+                system("cls"); obj1.mm(11); cin>>choice;
+                if(choice=="1") { obj1.set_text_format();break; }
+                if(choice=="2") { obj1.set_docu_format();break; }
+                else { obj1.mm(0);getch(); }
+            }
+            //*************************************************************************************************************************
             system("cls"); obj1.mm(3);getch();obj1.mm(4);
             if(choice=="yes") { obj1.query_print_status=true; }
+            obj1.build_file();
             ll t=obj1.get_query_size();
             while(t--)
             {
@@ -1023,7 +1006,7 @@ void function_of_object_two()
                 obj1.build(index);
                 obj1.destroy_integers();
             }
-            cout<<"\n\nCompleted";getch();  // to be removed later
+            obj1.close_file();
             string choice2;
             while(1)
             {
@@ -1039,10 +1022,8 @@ void function_of_object_two()
     //obj1.show_data();
 }
 
-
-
-
-
+//**********************************************************************************************************************************
+//**********************************************************************************************************************************
 
 
 void otom::object_display(short ch)
@@ -1051,17 +1032,12 @@ void otom::object_display(short ch)
     {
     case 0:
         {
-            gxy(60,4);
-            printf("Empty Object");
-            gxy(59,5);printf("[            ]");
-            break;
+            gxy(60,4); printf("Empty Object"); gxy(59,5);printf("[            ]"); break;
         }
     }
 }
 
-
-
-
+//*********************************************************************************************************************************
 
 void otom::object_display(short ch,string &str)
 {
@@ -1069,18 +1045,12 @@ void otom::object_display(short ch,string &str)
     {
     case 1:
         {
-            gxy(60,4);
-            cout<<str<<"\n";
-            gxy(59,5);printf("[          ]");
-            break;
+            gxy(60,4); cout<<str<<"\n"; gxy(59,5);printf("[          ]"); break;
         }
     }
 }
 
-
-
-
-
+//*********************************************************************************************************************************
 
 void otom::object_display(short ch,string &str,ll &t)
 {
@@ -1088,20 +1058,12 @@ void otom::object_display(short ch,string &str,ll &t)
     {
     case 3:
         {
-            gxy(60,4);
-            cout<<str<<"\n";
-            gxy(59,5);printf("[ T = ");cout<<t;printf(" ]");
-            break;
+            gxy(60,4); cout<<str<<"\n"; gxy(59,5);printf("[ T = ");cout<<t;printf(" ]"); break;
         }
     }
 }
 
-
-
-
-
-
-
+//*********************************************************************************************************************************
 
 void otom::object_display(short ch,string &name_of_object,ll &test_case_size,vector <string> &v1)    // overloaded function
 {
@@ -1109,24 +1071,17 @@ void otom::object_display(short ch,string &name_of_object,ll &test_case_size,vec
     {
     case 4:
         {
-            gxy(60,4);
-            cout<<name_of_object<<"\n";
+            gxy(60,4); cout<<name_of_object<<"\n";
             gxy(59,5);printf("[ T = ");cout<<test_case_size;printf(" ]");
             gxy(60,7);sfc(ly);printf("INITIALIZERS");sfc(ww);
             if(v1.size()==1) { gxy(58,8);printf("(no initializers)");return;}
             short set_y_axis=7;
-            for(short i=1;i<v1.size();i++)
-            {
-                gxy(61,++set_y_axis);cout<<v1[i];
-            }
+            for(short i=1;i<v1.size();i++) { gxy(61,++set_y_axis);cout<<v1[i]; }
         }
     }
 }
 
-
-
-
-
+//*********************************************************************************************************************************
 
 void otom::object_display(short ch,string &str,ll &t,vector <string> &v1,short &n,vector <pair<short,string>> &v2)
 {
@@ -1134,15 +1089,13 @@ void otom::object_display(short ch,string &str,ll &t,vector <string> &v1,short &
     {
     case 5:
         {
-            gxy(60,4);
-            cout<<str<<"\n";
+            gxy(60,4); cout<<str<<"\n";
             gxy(59,5);printf("[ T = ");cout<<t;printf(" ]");
             gxy(60,7);sfc(ly);printf("INITIALIZERS");sfc(ww);
             short set_y_axis=7;
             if(n==0)
             {
-                gxy(58,8);printf("(no initializers)");
-                set_y_axis+=2;
+                gxy(58,8);printf("(no initializers)"); set_y_axis+=2;
             }
             else
             {
@@ -1161,10 +1114,7 @@ void otom::object_display(short ch,string &str,ll &t,vector <string> &v1,short &
     }
 }
 
-
-
-
-
+//*********************************************************************************************************************************
 
 void otom::object_display(vector <tuple<bool,short,short,string>> &v1,short& n)
 {
@@ -1186,23 +1136,15 @@ void otom::object_display(vector <tuple<bool,short,short,string>> &v1,short& n)
     }
 }
 
-
-
-
-
-
+//*********************************************************************************************************************************
 
 void otom::otom_phase00()
 {
     header();msb();mm(3);undo();jump_to_main();object_display(0);
-    gxy(2,3);sbc(dy);printf("PHASE ZERO");sbc(bb);printf("-> Creating an Empty Object");mm(4);
-    mm(1);
+    gxy(2,3);sbc(dy);printf("PHASE ZERO");sbc(bb);printf("-> Creating an Empty Object");mm(4); mm(1);
 }
 
-
-
-
-
+//*********************************************************************************************************************************
 
 void otom::otom_phase01(string &str)
 {
@@ -1210,9 +1152,7 @@ void otom::otom_phase01(string &str)
     gxy(2,3);sbc(dy);printf("PHASE ZERO");sbc(bb);printf("-> Creating an Empty Object");mm(7);mm(1);
 }
 
-
-
-
+//*********************************************************************************************************************************
 
 void otom::otom_phase02(string &str)
 {
@@ -1220,8 +1160,7 @@ void otom::otom_phase02(string &str)
     gxy(2,3);sbc(dy);printf("PHASE ZERO");sbc(bb);printf("-> Creating an Empty Object");mm(8);mm(1);
 }
 
-
-
+//*********************************************************************************************************************************
 
 void otom::otom_phase13(string &str,ll &t)
 {
@@ -1229,9 +1168,7 @@ void otom::otom_phase13(string &str,ll &t)
     gxy(2,3);sbc(dy);printf("PHASE ONE");sbc(bb);printf("-> Adding ATTRIBUTES in Object");mm(10);mm(1);
 }
 
-
-
-
+//*********************************************************************************************************************************
 
 void otom::otom_phase14_1(string &str,ll &t)
 {
@@ -1239,9 +1176,7 @@ void otom::otom_phase14_1(string &str,ll &t)
     gxy(2,3);sbc(dy);printf("PHASE ONE");sbc(bb);printf("-> Adding ATTRIBUTES in Object");mm(12);
 }
 
-
-
-
+//*********************************************************************************************************************************
 
 void otom::otom_phase14_2(short copy_of_no_of_initilizers)
 {
@@ -1249,28 +1184,20 @@ void otom::otom_phase14_2(short copy_of_no_of_initilizers)
     int sn=0; // sn stands for starting_number
     while(copy_of_no_of_initilizers--)
     {
-        sn++;
-        gxy(1,++si);if(sn==10) {gxy(0,si);}cout<<sn;printf(" ->");
+        sn++; gxy(1,++si);if(sn==10) {gxy(0,si);}cout<<sn;printf(" ->");
     }
 }
 
-
-
-
+//*********************************************************************************************************************************
 
 void otom::otom_phase14_3(vector <string> &str)
 {
     if(str.size()==1) return;
     short si=8;  //  si stands for starting_index
-    for(short i=1;i<str.size();i++)
-    {
-        gxy(6,++si);cout<<str[i];
-    }
+    for(short i=1;i<str.size();i++) { gxy(6,++si);cout<<str[i]; }
 }
 
-
-
-
+//*********************************************************************************************************************************
 
 void otom::otom_phase15_1(string &str,ll &t,vector <string> &v1)
 {
@@ -1278,10 +1205,7 @@ void otom::otom_phase15_1(string &str,ll &t,vector <string> &v1)
     gxy(2,3);sbc(dy);printf("PHASE ONE");sbc(bb);printf("-> Adding ATTRIBUTES in Object");mm(15);mm(1);
 }
 
-
-
-
-
+//*********************************************************************************************************************************
 
 void otom::otom_phase16_1(string &str,ll &t,vector <string> &v1,short &n,vector <pair<short,string>> &v2)
 {
@@ -1289,10 +1213,7 @@ void otom::otom_phase16_1(string &str,ll &t,vector <string> &v1,short &n,vector 
     gxy(2,3);sbc(dy);printf("PHASE ONE");sbc(bb);printf("-> Adding ATTRIBUTES in Object");mm(17);mm(18);
 }
 
-
-
-
-
+//*********************************************************************************************************************************
 
 void otom::otom_phase27_1(vector<tuple<bool,short,short,string>> &v1,short &n)
 {
@@ -1300,12 +1221,7 @@ void otom::otom_phase27_1(vector<tuple<bool,short,short,string>> &v1,short &n)
     gxy(2,3);sbc(dy);printf("PHASE THREE");sbc(bb);printf("-> Positioning of ATTRIBUTES in Object");msb2();
 }
 
-
-
-
-
-
-
+//*********************************************************************************************************************************
 
 bool object_one::check_the_test_case_range02(string &temp)
 {
@@ -1315,9 +1231,7 @@ bool object_one::check_the_test_case_range02(string &temp)
     return check;
 }
 
-
-
-
+//*********************************************************************************************************************************
 
 bool object_one::check_the_initializers_choice_range13(string &temp)
 {
@@ -1327,34 +1241,24 @@ bool object_one::check_the_initializers_choice_range13(string &temp)
     return check;
 }
 
-
-
+//*********************************************************************************************************************************
 
 void object_one::name_the_object00()
 {
-    name_of_object=choice1;
-    unoi.push_back(choice1);
+    name_of_object=choice1; unoi.push_back(choice1);
     if(type_test_size==false) { state="state03_message";return; }
     state="state1";
 }
 
-
-
-
+//*********************************************************************************************************************************
 
 bool object_one::check_if_identifier_exist()  //general use
 {
-    for(short i=0;i<unoi.size();i++)
-    {
-        if(choice1==unoi[i]) return false;
-    }
+    for(short i=0;i<unoi.size();i++) { if(choice1==unoi[i]) return false; }
     return true;
 }
 
-
-
-
-
+//*********************************************************************************************************************************
 
 bool object_one::valid_length_of_initializers14()
 {
@@ -1362,24 +1266,16 @@ bool object_one::valid_length_of_initializers14()
     return true;
 }
 
-
-
-
+//*********************************************************************************************************************************
 
 void object_one::delete_all_initializers15()
 {
     sofi.clear();
-    while(unoi.size()!=1)
-    {
-        unoi.pop_back();
-    }
+    while(unoi.size()!=1) { unoi.pop_back(); }
     no_of_initializers=0;
 }
 
-
-
-
-
+//*********************************************************************************************************************************
 
 string object_one::type_of_container16(short ch)
 {
@@ -1397,102 +1293,41 @@ string object_one::type_of_container16(short ch)
     return "";// for exception handling
 }
 
-
-
-
-
+//*********************************************************************************************************************************
 
 short object_one::count_nth_container16(string &str)
 {
     short countt=0;
-    for(short i=0;i<sofc.size();i++)
-    {
-        if(str==sofc[i]) countt++;
-    }
+    for(short i=0;i<sofc.size();i++) { if(str==sofc[i]) countt++; }
     return countt;
 }
 
-
-
-
-
+//*********************************************************************************************************************************
 
 void object_one::get_correct_print_container16(pair<short,string> &p1)
 {
     string str="",&temp=p1.second,number=positive_number_to_string(p1.first);
-    if(temp=="i")
-    {
-        str+="INTEGER_";
-        str+=number;
-    }
-    if(temp=="r")
-    {
-        str+="REAL_";
-        str+=number;
-        str+=".()";
-    }
-    if(temp=="a")
-    {
-        str+="ARRAY_";
-        str+=number;
-        str+="[]";
-    }
-    if(temp=="s")
-    {
-        str+="STRING_";
-        str+=number;
-        str+="()";
-    }
-    if(temp=="m")
-    {
-        str+="MATRIX_";
-        str+=number;
-        str+="[][]";
-    }
-    if(temp=="t")
-    {
-        str+="TREE_";
-        str+=number;
-        str+="()()";
-    }
-    if(temp=="g")
-    {
-        str+="GRAPH_";
-        str+=number;
-        str+="()()";
-    }
-    if(temp=="c")
-    {
-        str+="CUSTOM_";
-        str+=number;
-        str+="{}";
-    }
+    if(temp=="i") { str+="INTEGER_"; str+=number; }
+    if(temp=="r") { str+="REAL_"; str+=number; str+=".()"; }
+    if(temp=="a") { str+="ARRAY_"; str+=number; str+="[]"; }
+    if(temp=="s") { str+="STRING_"; str+=number; str+="()"; }
+    if(temp=="m") { str+="MATRIX_"; str+=number; str+="[][]"; }
+    if(temp=="t") { str+="TREE_"; str+=number; str+="()()"; }
+    if(temp=="g") { str+="GRAPH_"; str+=number; str+="()()";}
+    if(temp=="c") { str+="CUSTOM_"; str+=number; str+="{}"; }
     temp=str;
 }
 
-
-
-
-
+//*********************************************************************************************************************************
 
 void object_one::build_set_of_all_attributes207()
 {
-    incrementer=0;
-    short incrementer2=0;
-    for(short i=0;i<sofi.size();i++)
-    {
-        sofaa.push_back(make_tuple(false,--incrementer2,++incrementer,sofi[i].second));
-    }
-    for(short i=0;i<containers.size();i++)
-    {
-        sofaa.push_back(make_tuple(false,containers[i].first,++incrementer,print_containers[i].second));
-    }
+    incrementer=0; short incrementer2=0;
+    for(short i=0;i<sofi.size();i++) { sofaa.push_back(make_tuple(false,--incrementer2,++incrementer,sofi[i].second)); }
+    for(short i=0;i<containers.size();i++) { sofaa.push_back(make_tuple(false,containers[i].first,++incrementer,print_containers[i].second)); }
 }
 
-
-
-
-
+//*********************************************************************************************************************************
 
 bool object_one::check_the_attribute_choice_range27(string &temp)
 {
@@ -1502,10 +1337,7 @@ bool object_one::check_the_attribute_choice_range27(string &temp)
     return check;
 }
 
-
-
-
-
+//*********************************************************************************************************************************
 
 bool object_one::check_availability_of_attribute27(short& temp)
 {
@@ -1513,28 +1345,19 @@ bool object_one::check_availability_of_attribute27(short& temp)
     return true;
 }
 
-
-
-
-
+//*********************************************************************************************************************************
 
 void object_one::reset_three_dimensional_object27()
 {
     _3dc.clear();
-    for(short i=0;i<sofaa.size();i++)
-    {
-        get<0>(sofaa[i])=false;
-    }
+    for(short i=0;i<sofaa.size();i++) { get<0>(sofaa[i])=false; }
 }
 
-
-
-
+//*********************************************************************************************************************************
 
 void object_one::object_display_in_phase_two27()
 {
-    gxy(0,28);
-    sfc(lc);cout<<name_of_object;sfc(ww);
+    gxy(0,28); sfc(lc);cout<<name_of_object;sfc(ww);
     if(test_cases==0){ cout<<" (no copies) \n"; }
     else { printf(" (T=");cout<<test_cases<<")\n"; }
     if(test_cases!=0) {printf("T\n");}
@@ -1553,15 +1376,11 @@ void object_one::object_display_in_phase_two27()
     sfc(lr);cout<<s1;sfc(ww);
 }
 
-
-
-
-
+//*********************************************************************************************************************************
 
 void object_one::object_display_in_phase_three308()
 {
-    gxy(0,5);
-    printf("This is the structure of your object\n");
+    gxy(0,5); printf("This is the structure of your object\n");
     sfc(lc);cout<<name_of_object;sfc(ww);
     if(test_cases==0){ cout<<" (no copies) \n"; }
     else { printf(" (T=");cout<<test_cases<<" copies)\n"; }
@@ -1586,10 +1405,7 @@ void object_one::object_display_in_phase_three308()
     printf("\n\nEnter your choice ->  ");
 }
 
-
-
-
-
+//*********************************************************************************************************************************
 
 void object_one::object_display_in_phase_three38()
 {
@@ -1611,11 +1427,7 @@ void object_one::object_display_in_phase_three38()
     }
 }
 
-
-
-
-
-
+//*********************************************************************************************************************************
 
 void object_one::delete_all_containers()     ////phase and state yet to be decided.................................................................................
 {
@@ -1626,9 +1438,8 @@ void object_one::delete_all_containers()     ////phase and state yet to be decid
     no_of_containers=1;
 }
 
-
-
-
+//*********************************************************************************************************************************
+//*********************************************************************************************************************************
 
 
 void object_one::main_controller()    // main controller function
@@ -1674,7 +1485,6 @@ void object_one::main_controller()    // main controller function
                 else { test_cases=string_to_integer_converter(choice1); state="state03_message"; }
             }
         }
-
 
         // state 03_message
         if(state=="state03_message")
@@ -1729,20 +1539,14 @@ void object_one::main_controller()    // main controller function
                     sofi.push_back(make_pair(--incrementer,choice1));
                 }
             }
-
-
-
-
             if(choice1=="min") break;
             else if(choice1=="und")
             {
-                state="state3";
-                continue;
+                state="state3"; continue;
             }
             else if(choice1=="exe") { break; }
             state="state5";
         }
-
 
         // state 5                how many containers dose it have
         if(state=="state5")
@@ -1766,7 +1570,6 @@ void object_one::main_controller()    // main controller function
                 }
             }
         }
-
 
         // state 6                   type of containers
         if(state=="state6")
@@ -1816,14 +1619,11 @@ void object_one::main_controller()    // main controller function
             state="state07";
         }
 
-
         // state 07 message and build
         if(state=="state07")
         {
             system("cls"); mm(19); getch(); build_set_of_all_attributes207(); state="state7";
         }
-
-
 
         // phase 2 state 7                positioning of attributes
         if(state=="state7")
@@ -1874,9 +1674,6 @@ void object_one::main_controller()    // main controller function
             if(choice1=="min") break;
             else if(choice1=="exe") break;
         }
-
-
-
 
         // phase 3 state 08                 giving values to object
         if(state=="state08")
@@ -1943,8 +1740,6 @@ void object_one::main_controller()    // main controller function
             if(choice1=="rep") { state="state7"; reset_three_dimensional_object27(); }
             else  {  printf("\nEnter a valid choice, now press ");sbc(dr);printf("ENTER");sbc(bb);printf(" to continue");getch();  }
         }
-
-
 
         // state 8
         if(state=="state8")             //  DEFINE FOLLOWING VALUES OF ATTRIBUTES
@@ -4917,60 +4712,29 @@ void object_one::main_controller()    // main controller function
             else if(choice1=="exe") break;
         }
 
+        //  State 9  finishing state
 
         if(state=="state9")
         {
-            system("cls");
-            short sttr=-1;
+            system("cls"); short sttr=-1;
             for(short i=0;i<_3dc.size();i++)
             {
                 for(short j=0;j<_3dc[i].size();j++)
                 {
-                    sttr++;
-                    for(short ii=0;ii<dummy2_o3dc[sttr].size();ii++) { dummy_o3dc.push_back(dummy2_o3dc[sttr][ii]); }
+                    sttr++; for(short ii=0;ii<dummy2_o3dc[sttr].size();ii++) { dummy_o3dc.push_back(dummy2_o3dc[sttr][ii]); }
                 }
                 o3dc.push_back(dummy_o3dc);
                 dummy_o3dc.clear();
             }
             break;
-            /*cout<<"\n\nInitializers details\n";
-            for(short i=0;i<si.size();i++)
-            {
-                cout<<get<0>(si[i])<<" "<<get<1>(si[i])<<" "<<get<2>(si[i])<<" "<<get<3>(si[i])<<" \n";
-            }
-            cout<<"\n\n   Reached successfully\n\n\n";*/
-            /*cout<<"-------------------------\n\n";
-            for(short i=0;i<o3dc.size();i++)
-            {
-                for(short j=0;j<o3dc[i].size();j++)
-                {
-                    cout<<"["<<o3dc[i][j].first<<" "<<o3dc[i][j].second<<"] ";
-                }
-                cout<<"\n";
-            }
-            cout<<"\ncustom_data_type-----\n\n";
-            for(short i=0;i<cdt.size();i++)
-            {
-                for(short j=0;j<cdt[i].size();j++)
-                {
-                    cout<<"["<<cdt[i][j].first<<" "<<cdt[i][j].second<<"] ";
-                }
-                cout<<"\n";
-            }
-            cout<<"-------------------------\n\n";
-            //cout<<"ENTER YOUR CHOICE -> ";
-            //cin>>choice1;
-            if(choice1=="exe") break;
-            */
-            //cout<<"\n\n  ATTRIBUTE VALUES SUCCESSFULLY SAVED\n";
-            //getch();break;
         }
 
     }
 }
 
 
-
+//*********************************************************************************************************************************
+//*********************************************************************************************************************************
 
 
 void Three_D_objects::build_integers(short index)
@@ -5103,20 +4867,20 @@ void Three_D_objects::build_integers(short index)
     }
 }
 
-
-
-
+//*********************************************************************************************************************************
 
 void Three_D_objects::build(short index)
 {
     if(test_print_status==true)
     {
-        cout<<get_test_size()<<"\n";
+        f1<<get_test_size()<<"\n";
+        //cout<<get_test_size()<<"\n";
         test_print_status=false;
     }
     if(query_print_status==true)
     {
-        cout<<get_query_size()<<"\n";
+        f1<<get_query_size()<<"\n";
+        //cout<<get_query_size()<<"\n";
         query_print_status=false;
     }
     Child_of_all_test_case_datatype c1;
@@ -5140,43 +4904,44 @@ void Three_D_objects::build(short index)
                 {
                 case 1:   // Random Number
                     {
-                        cout<<c1.get_random(cube[index][i1][i2+2].first,cube[index][i1][i2+3].first)<<" ";
-                        break;
+                        //cout<<c1.get_random(cube[index][i1][i2+2].first,cube[index][i1][i2+3].first)<<" ";
+                        f1<<c1.get_random(cube[index][i1][i2+2].first,cube[index][i1][i2+3].first)<<" "; break;
                     }
                 case 2:    // Odd Number
                     {
-                        cout<<c1.get_odd(cube[index][i1][i2+2].first,cube[index][i1][i2+3].first)<<" ";
-                        break;
+                        //cout<<c1.get_odd(cube[index][i1][i2+2].first,cube[index][i1][i2+3].first)<<" ";
+                        f1<<c1.get_odd(cube[index][i1][i2+2].first,cube[index][i1][i2+3].first)<<" "; break;
                     }
                 case 3:   // Even Number
                     {
-                        cout<<c1.get_even(cube[index][i1][i2+2].first,cube[index][i1][i2+3].first)<<" ";
-                        break;
+                        //cout<<c1.get_even(cube[index][i1][i2+2].first,cube[index][i1][i2+3].first)<<" ";
+                        f1<<c1.get_even(cube[index][i1][i2+2].first,cube[index][i1][i2+3].first)<<" "; break;
                     }
                 case 4:   // Prime Number
                     {
-                        cout<<integers[cube[index][i1][i2+6].first][++cube[index][i1][i2+5].first]<<" ";
-                        i2+=3;break;
+                        //cout<<integers[cube[index][i1][i2+6].first][++cube[index][i1][i2+5].first]<<" ";
+                        f1<<integers[cube[index][i1][i2+6].first][++cube[index][i1][i2+5].first]<<" "; i2+=3;break;
                     }
                 case 5:   // Non Prime Number
                     {
-                        cout<<c1.get_non_prime(cube[index][i1][i2+2].first,cube[index][i1][i2+3].first)<<" ";
-                        break;
+                        //cout<<c1.get_non_prime(cube[index][i1][i2+2].first,cube[index][i1][i2+3].first)<<" ";
+                        f1<<c1.get_non_prime(cube[index][i1][i2+2].first,cube[index][i1][i2+3].first)<<" "; break;
                     }
                 case 6:   // Incremented Number
                     {
-                        cout<<cube[index][i1][i2+4].first<<" ";
+                        //cout<<cube[index][i1][i2+4].first<<" ";
+                        f1<<cube[index][i1][i2+4].first<<" ";
                         cube[index][i1][i2+4].first+=cube[index][i1][i2+3].first; i2+=1;break;
                     }
                 case 7:   // Nth Fibonacci Number
                     {
-                        cout<<integers[cube[index][i1][i2+6].first][++cube[index][i1][i2+5].first]<<" ";
-                        i2+=3;break;
+                        //cout<<integers[cube[index][i1][i2+6].first][++cube[index][i1][i2+5].first]<<" ";
+                        f1<<integers[cube[index][i1][i2+6].first][++cube[index][i1][i2+5].first]<<" "; i2+=3;break;
                     }
                 case 8:   // Get_Random_Unique_Number
                     {
-                        cout<<integers[cube[index][i1][i2+6].first][++cube[index][i1][i2+5].first]<<" ";
-                        i2+=3;break;
+                        //cout<<integers[cube[index][i1][i2+6].first][++cube[index][i1][i2+5].first]<<" ";
+                        f1<<integers[cube[index][i1][i2+6].first][++cube[index][i1][i2+5].first]<<" "; i2+=3;break;
                     }
                 }
                 i2+=3; break;
@@ -5184,8 +4949,8 @@ void Three_D_objects::build(short index)
 
             case 2:  //  Real
             {
-                cout<<c1.get_random_real(cube[index][i1][i2+2].first,cube[index][i1][i2+3].first,cube[index][i1][i2+1].first)<<" ";
-                i2+=3;break;
+                //cout<<c1.get_random_real(cube[index][i1][i2+2].first,cube[index][i1][i2+3].first,cube[index][i1][i2+1].first)<<" ";
+                f1<<c1.get_random_real(cube[index][i1][i2+2].first,cube[index][i1][i2+3].first,cube[index][i1][i2+1].first)<<" "; i2+=3;break;
             }
 
             case 3:  //  Array
@@ -5201,15 +4966,21 @@ void Three_D_objects::build(short index)
                         {
                             for(int ktr=0;ktr<store.size();ktr++)
                             {
-                                 cout<<store[ktr]<<" ";
+                                 //cout<<store[ktr]<<" ";
+                                 f1<<store[ktr]<<" ";
                             }
                         }
                         else                                 //Line separated
                         {
                             for(int ktr=0;ktr<store.size();ktr++)
                             {
-                                if(ktr!=0) cout<<"\n";
-                                 cout<<store[ktr]<<" ";
+                                if(ktr!=0)
+                                {
+                                    //cout<<"\n";
+                                    f1<<"\n";
+                                }
+                                 //cout<<store[ktr]<<" ";
+                                 f1<<store[ktr]<<" ";
                             }
                         }
                         i2+=7;break;
@@ -5222,15 +4993,21 @@ void Three_D_objects::build(short index)
                         {
                             for(int ktr=0;ktr<store.size();ktr++)
                             {
-                                 cout<<store[ktr]<<" ";
+                                 //cout<<store[ktr]<<" ";
+                                 f1<<store[ktr]<<" ";
                             }
                         }
                         else                                  //Line separated
                         {
                             for(int ktr=0;ktr<store.size();ktr++)
                             {
-                                if(ktr!=0) cout<<"\n";
-                                 cout<<store[ktr]<<" ";
+                                if(ktr!=0)
+                                {
+                                    //cout<<"\n";
+                                    f1<<"\n";
+                                }
+                                 //cout<<store[ktr]<<" ";
+                                 f1<<store[ktr]<<" ";
                             }
                         }
                         i2+=7;break;
@@ -5248,15 +5025,21 @@ void Three_D_objects::build(short index)
                                 {
                                     for(int ktr=0;ktr<sizee;ktr++)
                                     {
-                                         cout<<cube[index][i1][i2+3].second<<" ";
+                                         //cout<<cube[index][i1][i2+3].second<<" ";
+                                         f1<<cube[index][i1][i2+3].second<<" ";
                                     }
                                 }
                                 else                                  //Line separated
                                 {
                                     for(int ktr=0;ktr<sizee;ktr++)
                                     {
-                                        if(ktr!=0) cout<<"\n";
-                                         cout<<cube[index][i1][i2+3].second<<" ";
+                                        if(ktr!=0)
+                                        {
+                                            //cout<<"\n";
+                                            f1<<"\n";
+                                        }
+                                        //cout<<cube[index][i1][i2+3].second<<" ";
+                                        f1<<cube[index][i1][i2+3].second<<" ";
                                     }
                                 }
                                 i2+=5;break;
@@ -5269,15 +5052,21 @@ void Three_D_objects::build(short index)
                                 {
                                     for(int ktr=0;ktr<st.size();ktr++)
                                     {
-                                         cout<<st[ktr]<<" ";
+                                        //cout<<st[ktr]<<" ";
+                                        f1<<st[ktr]<<" ";
                                     }
                                 }
                                 else                                  //Line separated
                                 {
                                     for(int ktr=0;ktr<st.size();ktr++)
                                     {
-                                        if(ktr!=0) cout<<"\n";
-                                         cout<<st[ktr]<<" ";
+                                        if(ktr!=0)
+                                        {
+                                            //cout<<"\n";
+                                            f1<<"\n";
+                                        }
+                                        //cout<<st[ktr]<<" ";
+                                        f1<<st[ktr]<<" ";
                                     }
                                 }
                                 i2+=9;break;
@@ -5293,36 +5082,47 @@ void Three_D_objects::build(short index)
                                 {
                                     for(int ktr=0;ktr<st.size();ktr++)
                                     {
-                                         cout<<st[ktr]<<" ";
+                                         //cout<<st[ktr]<<" ";
+                                         f1<<st[ktr]<<" ";
                                     }
                                 }
                                 else                                  //Line separated
                                 {
                                     for(int ktr=0;ktr<st.size();ktr++)
                                     {
-                                        if(ktr!=0) cout<<"\n";
-                                         cout<<st[ktr]<<" ";
+                                        if(ktr!=0)
+                                        {
+                                            //cout<<"\n";
+                                            f1<<"\n";
+                                        }
+                                         //cout<<st[ktr]<<" ";
+                                         f1<<st[ktr]<<" ";
                                     }
                                 }
                         i2+=5;break;
                     }
                 case 5:  // Array of Unique Numbers
                     {
-                        //vector <ll> v1=obj1.get_all_random_numbers_for_array(low,up,sizee,order);
                         vector <ll> store=c1.get_all_random_numbers_for_array(cube[index][i1][i2+2].first,cube[index][i1][i2+3].first,cube[index][i1][i2+4].first,cube[index][i1][i2+6].first);
                         if(cube[index][i1][i2+5].first==1)    //space separated
                         {
                             for(int ktr=0;ktr<store.size();ktr++)
                             {
-                                 cout<<store[ktr]<<" ";
+                                 //cout<<store[ktr]<<" ";
+                                 f1<<store[ktr]<<" ";
                             }
                         }
                         else                                  //Line separated
                         {
                             for(int ktr=0;ktr<store.size();ktr++)
                             {
-                                if(ktr!=0) cout<<"\n";
-                                 cout<<store[ktr]<<" ";
+                                if(ktr!=0)
+                                {
+                                    //cout<<"\n";
+                                    f1<<"\n";
+                                }
+                                //cout<<store[ktr]<<" ";
+                                f1<<store[ktr]<<" ";
                             }
                         }
                         i2+=6;break;
@@ -5338,14 +5138,14 @@ void Three_D_objects::build(short index)
                 {
                 case 1:  // Default String
                     {
-                        cout<<cube[index][i1][i2+2].second<<" ";
-                        i2+=2;break;
+                        //cout<<cube[index][i1][i2+2].second<<" ";
+                        f1<<cube[index][i1][i2+2].second<<" "; i2+=2;break;
                     }
                 case 2:  // Input String
                     {
                         short index3=c1.store_input_string(cube[index][i1][i2+2].second,cube[index][i1][i2+3].first,cube[index][i1][i2+4].first,cube[index][i1][i2+5].first);
-                        cout<<c1.get_input_string(index3)<<" ";
-                        i2+=5;break;
+                        //cout<<c1.get_input_string(index3)<<" ";
+                        f1<<c1.get_input_string(index3)<<" "; i2+=5;break;
                     }
                 }
                 break;
@@ -5364,10 +5164,12 @@ void Three_D_objects::build(short index)
                             int ktr2;
                             for(ktr2=0;ktr2<matrix[ktr1].size();ktr2++)
                             {
-                                cout<<matrix[ktr1][ktr2]<<" ";
+                                //cout<<matrix[ktr1][ktr2]<<" ";
+                                f1<<matrix[ktr1][ktr2]<<" ";
                             }
                             if(ktr1==(matrix.size()-1)&&ktr2==(matrix[ktr1].size())) continue;
-                            cout<<"\n";
+                            //cout<<"\n";
+                            f1<<"\n";
                         }
                         i2+=8;break;
                     }
@@ -5379,10 +5181,12 @@ void Three_D_objects::build(short index)
                             int ktr2;
                             for(ktr2=0;ktr2<matrix[ktr1].size();ktr2++)
                             {
-                                cout<<matrix[ktr1][ktr2]<<" ";
+                                //cout<<matrix[ktr1][ktr2]<<" ";
+                                f1<<matrix[ktr1][ktr2]<<" ";
                             }
                             if(ktr1==(matrix.size()-1)&&ktr2==(matrix[ktr1].size())) continue;
-                            cout<<"\n";
+                            //cout<<"\n";
+                            f1<<"\n";
                         }
                         i2+=8;break;
                     }
@@ -5402,10 +5206,12 @@ void Three_D_objects::build(short index)
                                     int ktr2;
                                     for(ktr2=0;ktr2<col;ktr2++)
                                     {
-                                        cout<<cube[index][i1][i2+3].second<<" ";
+                                        //cout<<cube[index][i1][i2+3].second<<" ";
+                                        f1<<cube[index][i1][i2+3].second<<" ";
                                     }
                                     if(ktr1==(row-1)&&ktr2==(col)) continue;
-                                    cout<<"\n";
+                                    //cout<<"\n";
+                                    f1<<"\n";
                                 }
                                 i2+=5;break;
                             }
@@ -5418,10 +5224,12 @@ void Three_D_objects::build(short index)
                                     int ktr2;
                                     for(ktr2=0;ktr2<matrix[ktr1].size();ktr2++)
                                     {
-                                        cout<<matrix[ktr1][ktr2]<<" ";
+                                        //cout<<matrix[ktr1][ktr2]<<" ";
+                                        f1<<matrix[ktr1][ktr2]<<" ";
                                     }
                                     if(ktr1==(matrix.size()-1)&&ktr2==(matrix[ktr1].size())) continue;
-                                    cout<<"\n";
+                                    //cout<<"\n";
+                                    f1<<"\n";
                                 }
                                 i2+=10;break;
                             }
@@ -5437,10 +5245,12 @@ void Three_D_objects::build(short index)
                             int ktr2;
                             for(ktr2=0;ktr2<matrix[ktr1].size();ktr2++)
                             {
-                                cout<<matrix[ktr1][ktr2]<<" ";
+                                //cout<<matrix[ktr1][ktr2]<<" ";
+                                f1<<matrix[ktr1][ktr2]<<" ";
                             }
                             if(ktr1==(matrix.size()-1)&&ktr2==(matrix[ktr1].size())) continue;
-                            cout<<"\n";
+                            //cout<<"\n";
+                            f1<<"\n";
                         }
                         i2+=6;break;
                     }
@@ -5452,9 +5262,11 @@ void Three_D_objects::build(short index)
                             int ktr2;
                             for(ktr2=0;ktr2<matrix[ktr1].size();ktr2++)
                             {
-                                cout<<matrix[ktr1][ktr2]<<" ";
+                                //cout<<matrix[ktr1][ktr2]<<" ";
+                                f1<<matrix[ktr1][ktr2]<<" ";
                             }
                             if(ktr1==(matrix.size()-1)&&ktr2==(matrix[ktr1].size())) continue;
+                            //cout<<"\n";
                             cout<<"\n";
                         }
                         i2+=7;break;
@@ -5487,20 +5299,13 @@ void Three_D_objects::build(short index)
                     {
                     case 1:  // custom of integers
                         {
-                            //short index=obj1.store_details_of_numbers_custom(type,min_val,max_val,order);
                             short index3=c1.store_details_of_numbers_custom(custom[index][index2][1].first,custom[index][index2][2].first,custom[index][index2][3].first,custom[index][index2][4].first);
-                            //o3d[i]=index;
-                            copy_cube.push_back(index3);
-                            break;
+                            copy_cube.push_back(index3); break;
                         }
                     case 2:  // custom of reals
                         {
-                            //short index=obj1.store_details_of_real_custom(precision,min_val,max_val,order);
                             short index3=c1.store_details_of_real_custom(custom[index][index2][1].first,custom[index][index2][2].first,custom[index][index2][3].first,custom[index][index2][4].first);
-                            //o3d[i]=index;
-                            copy_cube.push_back(index3);
-                            //copy_cube[ktr]=index3;
-                            break;
+                            copy_cube.push_back(index3); break;
                         }
                     case 3:  // custom of Strings
                         {
@@ -5509,56 +5314,34 @@ void Three_D_objects::build(short index)
                             {
                             case 1:  // custom of default string
                                 {
-                                    //short index=obj1.store_default_string(def);
                                     short index3=c1.store_default_string(custom[index][index2][2].second);
-                                    //index=obj1.store_details_of_default_string_custom(index);
                                     short index4=c1.store_details_of_default_string_custom(index3);
-                                    //o3d[i]=index;
-                                    //copy_cube[ktr]=index4;
-                                    copy_cube.push_back(index4);
-                                    break;
+                                    copy_cube.push_back(index4); break;
                                 }
                             case 2:  // custom of input string
                                 {
-                                    //short index=obj1.store_input_string(str,type,mode,size_of_string);
                                     short index3=c1.store_input_string(custom[index][index2][2].second,custom[index][index2][3].first,custom[index][index2][4].first,custom[index][index2][5].first);
-                                    //index=obj1.store_details_of_input_string_custom(index,order);
                                     short index4=c1.store_details_of_input_string_custom(index3,custom[index][index2][6].first);
-                                    //o3d[i]=index;
-                                    //copy_cube[ktr]=index4;
-                                    copy_cube.push_back(index4);
-                                    break;
+                                    copy_cube.push_back(index4); break;
                                 }
                             }
                             break;
                         }
                     case 4:  // custom of Permutations
                         {
-                            //short index=obj1.store_string_for_permutation(str);
                             short index3=c1.store_string_for_permutation(custom[index][index2][1].second);
-                            //index=obj1.store_details_of_permutation_string_custom(index,order);
                             short index4=c1.store_details_of_permutation_string_custom(index3,custom[index][index2][2].first);
-                            //o3d[i]=index;
-                            //copy_cube[ktr]=index4;
-                            copy_cube.push_back(index4);
-                            break;
+                            copy_cube.push_back(index4); break;
                         }
                     case 5:  // custom of Unique Numbers
                         {
-                            //short index=obj1.store_details_of_unique_numbers_custom(min_val,max_val,order);
                             short index3=c1.store_details_of_unique_numbers_custom(custom[index][index2][1].first,custom[index][index2][2].first,custom[index][index2][3].first);
-                            //o3d[i]=index;
-                            //copy_cube[ktr]=index3;
-                            copy_cube.push_back(index3);
-                            break;
+                            copy_cube.push_back(index3); break;
                         }
                     case 6:  // custom of Spaces
                         {
                             short index3=c1.store_space_in_custom();
-                            //o3d[i]=index;
-                            //copy_cube[ktr]=index3;
-                            copy_cube.push_back(index3);
-                            break;
+                            copy_cube.push_back(index3); break;
                         }
                     }
                 }
@@ -5575,23 +5358,24 @@ void Three_D_objects::build(short index)
                         {
                             case 1:
                             {
-                                cout<<c1.get_integer_data_of_custom(store[j].second,i);
-                                break;
+                                //cout<<c1.get_integer_data_of_custom(store[j].second,i);
+                                f1<<c1.get_integer_data_of_custom(store[j].second,i); break;
                             }
                             case 2:
                             {
-                                cout<<c1.get_string_data_of_custom(store[j].second,i);
-                                break;
+                                //cout<<c1.get_string_data_of_custom(store[j].second,i);
+                                f1<<c1.get_string_data_of_custom(store[j].second,i); break;
                             }
                             case 3:
                             {
-                                cout<<" ";
-                                break;
+                                //cout<<" ";
+                                f1<<" "; break;
                             }
                         }
                     }
                     if(i==(size_of_custom-1)) break;
-                    cout<<"\n";
+                    //cout<<"\n";
+                    f1<<"\n";
                 }
                 c1.reset_custom_data();
                 i2+=(cube[index][i1][i2+1].first+2);break;
@@ -5599,17 +5383,17 @@ void Three_D_objects::build(short index)
 
             default:  //  Initializer
                 {
-                    cout<<c1.get_initializer(type)<<" ";
-                    i2+=2;break;
+                    //cout<<c1.get_initializer(type)<<" ";
+                    f1<<c1.get_initializer(type)<<" "; i2+=2;break;
                 }
             }
         }
-        cout<<"\n";
+        //cout<<"\n";
+        f1<<"\n";
     }
 }
 
-
-
+//*********************************************************************************************************************************
 
 void Three_D_objects::show_data()
     {
@@ -5649,21 +5433,15 @@ void Three_D_objects::show_data()
         getch();
     }
 
-
-
-
+//*********************************************************************************************************************************
 
 void Three_D_objects::object_display()
 {
-    cout<<"\n\n\  List of Objects            Status\n";
-    for(short ktr=0;ktr<object_names.size();ktr++)
-    {
-        gxy(3,5+ktr);sfc(ly);cout<<"  ["<<object_names[ktr]<<"]";sfc(lg);gxy(26,5+ktr);printf("Ready to build");
-    } sfc(ww);
+    cout<<"\n\n\n  List of Objects            Status\n";
+    for(short ktr=0;ktr<object_names.size();ktr++) { gxy(3,5+ktr);sfc(ly);cout<<"  ["<<object_names[ktr]<<"]";sfc(lg);gxy(26,5+ktr);printf("Ready to build"); } sfc(ww);
 }
 
-
-
+//*********************************************************************************************************************************
 
 void Three_D_objects::mm(short ch)
 {
@@ -5689,7 +5467,7 @@ void Three_D_objects::mm(short ch)
         }
     case 3:
         {
-            printf("\n\n\n\n  Press ");sbc(dr);printf("ENTER");sbc(bb);printf("  to start the process of  building your TEST CASE");break;
+            printf("\n\n\n\n  Press ");sbc(dr);printf("ENTER");sbc(bb);printf("  to start the process of  building your ");sfc(lc);printf("TEST FILE...");sfc(ww);break;
         }
     case 4:
         {
@@ -5718,7 +5496,7 @@ void Three_D_objects::mm(short ch)
         }
     case 8:
         {
-            printf("\n\n\n\n\n  Do you want to display Query value at top of your data file ?");
+            printf("\n\n\n\n\n  Do you want to display Query value at top of your ");sfc(ly);printf("TESE FILE");sfc(ww);
             printf("\n\n  Type ");sfc(ly);printf("yes");sfc(ww);printf("  and  ");sbc(dr);printf("ENTER");sbc(bb);printf("    to include it");
             printf("\n\n  Type ");sfc(ly);printf("no");sfc(ww);printf("   and  ");sbc(dr);printf("ENTER");sbc(bb);printf("    to disable it");
             cout<<"\n\n  Enter your choice  -> "; break;
@@ -5730,5 +5508,18 @@ void Three_D_objects::mm(short ch)
             printf("\n  ");sfc(lr);printf("press 2");sfc(ww);printf(" and ");sbc(dr);sfc(lr);printf(" ENTER ");sbc(bb);sfc(ww);printf(" for RANDOMIZED ARRANGEMENT ");
             cout<<"\n\n  Enter your choice  -> "; break;
         }
+    case 10:
+        {
+            printf("\n\n\n   Name your ");sfc(lc);printf("TEST FILE\n\n   ->  ");sfc(ww);break;
+        }
+    case 11:
+        {
+            printf("\n\n   Select a valid ");sfc(lc);printf("FILE FORMAT");sfc(ww);printf(" of your ");sfc(lc);printf("TEST FILE\n\n");sfc(ww);
+            printf("\n  ");sfc(lr);printf("press 1");sfc(ww);printf(" and ");sbc(dr);sfc(lr);printf(" ENTER ");sbc(bb);sfc(ww);printf(" for TEXT DOCUMENT ");
+            printf("\n  ");sfc(lr);printf("press 2");sfc(ww);printf(" and ");sbc(dr);sfc(lr);printf(" ENTER ");sbc(bb);sfc(ww);printf(" for WORD DOCUMENT ");
+            cout<<"\n\n  Enter your choice  -> "; break;
+        }
     }
 }
+
+//  The END
